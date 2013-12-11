@@ -1,0 +1,8 @@
+/system
+/user_guide
+/application/config/database.php
+/application/config/email.php
+.project
+.settings
+.settings/*
+
