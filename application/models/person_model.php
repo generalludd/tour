@@ -37,7 +37,7 @@ class Person_model extends CI_Model
         $this->db->join("phone_person", "phone_person.person_id=person.id");
         $this->db->join("phone", "phone_person.phone_id=phone.id");
         $this->db->join("address", "person.address_id=address.id");
-        $result = $this->db->get()->result();
+        $result = $this->db->get()->row();
         return $result;
     }
 

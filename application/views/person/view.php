@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // view.php Chris Dart Dec 11, 2013 7:47:55 PM chrisdart@cerebratorium.com
@@ -12,7 +11,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * Portland Ave [unit_type] => [unit] => [city] => Saint Paul [state] => MN
  * [zip] => 55104 ) )
  */
+
 ?>
 <div class='field-set'>
 	<?=create_edit_field("first_name", $person->first_name, "First Name",array("envelope"=>"div"));?>
+</div>
+<div class='field-set'>
+	<?=create_edit_field("last_name", $person->last_name, "Last Name",array("envelope"=>"div"));?>
 </div>

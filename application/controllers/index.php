@@ -11,9 +11,12 @@ class Index extends MY_Controller
 		$this->load->model ( "person_model" );
 	}
 
-	function Index(){
-	    $person = $this->person_model->get(1);
-	    print_r($person);
+	function index(){
+	    $data = array();
+	    $data["title"] = "Person Record";
+	    $data["person"] = $this->person_model->get(1);
+	    $data["target"] = "person/view";
+	    $this->load->view("page/index",$data);
 
 	}
 }
