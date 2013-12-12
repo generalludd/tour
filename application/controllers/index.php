@@ -10,4 +10,10 @@ class Index extends MY_Controller
 		parent::__construct();
 		$this->load->model ( "person_model" );
 	}
+
+	function Index(){
+	    $person = $this->person_model->get(1);
+	    print_r($person);
+
+	}
 }
