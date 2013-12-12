@@ -815,6 +815,7 @@ textarea.save-field {
 	clear: both;
 
 }
+
 fieldset.field-group {
 	margin: 5px 0;
 	border: 1px solid #ddd;
@@ -831,6 +832,11 @@ fieldset.field-group {
 .field-group .field-set input {
 	width: 3em;
 }
+
+.field-set input[type="text"] {
+    width: 30ex;
+}
+
 
 #color-editor textarea {
 	width: 100%;

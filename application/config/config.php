@@ -26,7 +26,14 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$my_server = $_SERVER['SERVER_NAME'];
+
+if($my_server == "localhost" || $my_server == "cerebratorium.local"){
+	$config['index_page'] = 'index.php';
+}else{
+	$config['index_page'] = '';
+
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -248,7 +255,7 @@ $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
-$config['sess_use_database']	= TRUE;
+$config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'user_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;

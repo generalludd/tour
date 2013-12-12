@@ -52,4 +52,20 @@ class Person_model extends CI_Model
         $this->load->model("phone_model");
         $this->phone_model->insert_for_user($id);
     }
+
+    function update ($id, $values = array())
+    {
+
+        $this->db->where("id", $id);
+        if (empty($values)) {
+            $this->prepare_variables();
+            $this->db->update("person", $this);
+        } else {
+            $this->db->update("person", $values);
+            if ($values == 1) {
+                $keys = array_keys($values);
+                return $this->get_value($id, $keys[0]);
+            }
+        }
+    }
 }
