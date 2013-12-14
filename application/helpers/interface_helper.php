@@ -113,7 +113,6 @@ function create_button($data)
  * @param array $options
  * @return string
  */
-
 function create_button_bar($buttons, $options = NULL ){
 	$id = "";
 	$selection = "";

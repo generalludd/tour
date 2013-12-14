@@ -20,6 +20,44 @@ function create_input($object, $name, $label, $id=NULL)
 
 }
 
+/*
+ * @function format_date
+* @params $date date string
+* @params $format string
+*description:  this shouldn't be in this file, but I didn't want to create a new file with general formatting tools yet.
+*/
+function format_date($date,$format = "standard"){
+    //$format=mysql//yyyy-mm-dd
+    //$format=standard//mm/dd/yyyy
+    $date = str_replace("/","-",$date);
+    switch($format){
+    	case "mysql":
+    	    $parts = explode("-",$date);
+    	    $month = $parts[0];
+    	    $day = $parts[1];
+    	    $year = $parts[2];
+    	    $date = "$year-$month-$day";
+    	    break;
+    	case "standard":
+    	    $parts = explode("-",$date);
+    	    $year = $parts[0];
+    	    $month = $parts[1];
+    	    $day = $parts[2];
+    	    $date = "$month/$day/$year";
+    	    break;
+    	case "no-year":
+    	    $parts = explode("-",$date);
+    	    $year = $parts[0];
+    	    $month = $parts[1];
+    	    $day = $parts[2];
+    	    $date = "$month/$day";
+    	    break;
+    	default:
+    	    $date=$date;
+    }
+    return $date;
+}
+
 
 function prepare_variables($object, $variables){
     for($i = 0; $i < count($variables); $i++){
@@ -84,7 +122,7 @@ function get_value($object, $item, $default = null){
     return $output;
 }
 
-function get_as_price($int){
+function format_money($int){
     $parts = explode(".",$int);
     if(count($parts) == 2){
         $output = sprintf("$%s", $int);
