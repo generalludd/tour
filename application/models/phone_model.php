@@ -42,4 +42,31 @@ class Phone_model extends CI_Model
 
         $this->db->insert("phone_person", $relation_array);
     }
+
+    function get_for_person ($person_id)
+    {
+
+        $this->db->from("phone_person");
+        $this->db->join("phone", "phone_person.phone_id = phone.id");
+        $this->db->select("phone.id,phone.phone,phone.phone_type");
+        $this->db->where("phone_person.person_id", $person_id);
+        $result = $this->db->get()->result();
+        return $result;
+    }
+
+    function update ($id, $values = array())
+    {
+
+        $this->db->where("id", $id);
+        if (empty($values)) {
+            $this->prepare_variables();
+            $this->db->update("phone", $this);
+        } else {
+            $this->db->update("phone", $values);
+            if ($values == 1) {
+                $keys = array_keys($values);
+                return $this->get_value($id, $keys[0]);
+            }
+        }
+    }
 }

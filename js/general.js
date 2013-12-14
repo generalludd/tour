@@ -148,6 +148,9 @@ function save_field(me)
 	if(table == "order"){
 		my_id = $("#order_id").val();
 	}
+	if(table == "phone"){
+		my_id = me.parents(".field").attr("id").split("_")[1];
+	}
 	my_format = $(me).parents("span").attr("format");
 	if(my_format == "multiselect"){
 		my_field = $(me).parent().children("select").attr("name");

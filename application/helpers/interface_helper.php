@@ -50,21 +50,21 @@ function create_button($data)
 				$href = "href='#'";
 			}
 		}
-		
+
 		if(array_key_exists("target",$data)){
 			$target = "target='" . $data["target"] . "'";
 		}
-		
+
 		if(array_key_exists("title", $data)){
 			$title = "title ='" . $data["title"] . "'";
 		}
 		if($type != "pass-through"){
-			
-				
+
+
 			if(array_key_exists("class", $data)){
 				if(!is_array($data["class"])){
-					$data["class"] = array($data["class"]); 
-					
+					$data["class"] = array($data["class"]);
+
 				}
 			}else{
 				$data["class"] = array("button");
@@ -73,7 +73,7 @@ function create_button($data)
 				$data["class"][] = "active";
 			}
 			$class = sprintf("class='%s'", implode(" ",$data["class"]));
-			
+
 
 			$id = "";
 			if(array_key_exists("id", $data)){
@@ -126,13 +126,13 @@ function create_button_bar($buttons, $options = NULL ){
 		if(array_key_exists("selection", $options)){
 			$selection = $options["selection"];
 		}
-		
+
 		if(array_key_exists("class", $options)){
 			$class = $options["class"];
 		}
 	}
 	$button_list = array();
-	
+
 	//the "selection" option indicates the page in the interface. Currently as indicated by the uri->segment(1)
 	foreach($buttons as $button){
 		/*if($button["selection"] == $selection){
@@ -152,7 +152,7 @@ function create_button_bar($buttons, $options = NULL ){
 }
 
 /**
- * create a field set that can be edited with AJAX on the fly. 
+ * create a field set that can be edited with AJAX on the fly.
  * @param string $field_name
  * @param string $value
  * @param string $label
@@ -164,13 +164,19 @@ function create_edit_field($field_name, $value, $label, $options = array())
 	if(array_key_exists("envelope",$options)){
 		$envelope = $options["envelope"];
 	}
+
+	$id = sprintf("id='%s'",$field_name);
+	if(array_key_exists("id",$options)){
+	    $id = sprintf("id='%s_%s'",$field_name, $options["id"]);
+	}
+
 	/* The id is split with the "-" delimiter in javascript when the field is clicked */
 	$output[] = sprintf("<%s class='field-envelope' id='field-%s'>", $envelope, $field_name);
 	$output[] = sprintf("<label>%s:&nbsp;</label>", $label);
 	if($value == ""){
 		$value = "&nbsp;";
 	}
-	
+
 	/* add additional classes to the actual field */
 	$classes[] = "edit-field field";
 	if(array_key_exists("class",$options)){
@@ -187,7 +193,7 @@ function create_edit_field($field_name, $value, $label, $options = array())
 	if(array_key_exists("attributes", $options)){
 		$attributes = $options["attributes"];
 	}
-	$output[] = sprintf("<span class='%s' %s %s>%s</span></%s>",$field_class, $attributes,$format, $value, $envelope);
+	$output[] = sprintf("<span class='%s' %s %s %s>%s</span></%s>",$field_class, $attributes,$format, $id, $value, $envelope);
 	return implode("\r", $output);
 }
 

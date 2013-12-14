@@ -42,4 +42,20 @@ class Address_model extends CI_Model
         $id = $this->db->insert_id();
         return $id;
     }
+
+    function update ($id, $values = array())
+    {
+
+        $this->db->where("id", $id);
+        if (empty($values)) {
+            $this->prepare_variables();
+            $this->db->update("address", $this);
+        } else {
+            $this->db->update("address", $values);
+            if ($values == 1) {
+                $keys = array_keys($values);
+                return $this->get_value($id, $keys[0]);
+            }
+        }
+    }
 }
