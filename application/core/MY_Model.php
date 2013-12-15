@@ -29,19 +29,11 @@ class MY_Model extends CI_Model
         return $value->$field;
     }
 
-    function update ($db, $id, $values = array())
+    function get_all($db)
     {
-
-        $this->db->where("id", $id);
-        if (empty($values)) {
-            $this->prepare_variables();
-            $this->db->update($db, $this);
-        } else {
-            $this->db->update($db, $values);
-            if ($values == 1) {
-                $keys = array_keys($values);
-                return $this->get_value($id, $keys[0]);
-            }
-        }
+        $this->db->from($db);
+        $this->db->order_by("start_date");
+        return $this->db->get()->result();
     }
+
 }
