@@ -10,24 +10,43 @@ class Person extends MY_Controller
 
         parent::__construct();
         $this->load->model("person_model", "person");
-        $this->load->model("phone_model","phone");
+        $this->load->model("phone_model", "phone");
     }
 
     function index ()
     {
 
-        $this->view();
+        $this->view_all();
     }
 
     function view ()
     {
-
+        $id = $this->uri->segment(3);
         $data = array();
-        $data["person"] = $this->person->get(1);
+        $data["person"] = $this->person->get($id);
         $data["title"] = sprintf("Person Record: %s %s",
                 $data["person"]->first_name, $data["person"]->last_name);
         $data["phones"] = $this->phone->get_for_person(1);
         $data["target"] = "person/view";
+        $this->load->view("page/index", $data);
+    }
+
+    function view_all()
+    {
+
+
+    }
+
+    function edit ()
+    {
+
+        $id = $this->uri->segment(3);
+        $data = array();
+        $data["person"] = $this->person->get($id);
+        $data["title"] = sprintf("Person Record: %s %s",
+                $data["person"]->first_name, $data["person"]->last_name);
+        $data["phones"] = $this->phone->get_for_person(1);
+        $data["target"] = "person/edit";
         $this->load->view("page/index", $data);
     }
 
