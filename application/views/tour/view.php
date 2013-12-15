@@ -4,13 +4,23 @@
 
 ?>
 <input type="hidden" value="<?=get_value($tour, "id");?>" name="id" id="id" />
-<fieldset>
-<legend><?=get_value($tour, "tour_name");?></legend>
+<div class="grouping block person-info" id="person">
+<h2><?=get_value($tour, "tour_name");?></h2>
+<? $buttons[] = array( "text" => "Edit Tour",  "type" => "span",  "class" => "button edit-tour", "id" => "et_$tour->id" );
+ $buttons[] = array( "text" => "Create Tour", "type" => "span", "class" => "button new create-tour", "id" => "tour");
+print create_button_bar($buttons);
+?>
 <div class="grouping block tour-info" id="tour">
-<?=create_edit_field("start_date", format_date(get_value($tour, "start_date")),"Start Date", array("envelope", "div") );?>
-<?=create_edit_field("end_date", format_date(get_value($tour, "end_date")),"End Date", array("envelope", "div") );?>
-<?=create_edit_field("due_date", format_date(get_value($tour, "due_date")),"Due Date", array("envelope", "div") );?>
-<?=create_edit_field("full_price", format_money(get_value($tour, "full_price")),"Full Price", array("envelope", "div") );?>
-<? print_r($fields);?>
+<?=create_edit_field("start_date", format_date(get_value($tour, "start_date")),"Start Date", array("envelope" => "div") );?>
+<?=create_edit_field("end_date", format_date(get_value($tour, "end_date")),"End Date", array("envelope" => "div") );?>
+<?=create_edit_field("due_date", format_date(get_value($tour, "due_date")),"Due Date", array("envelope" => "div") );?>
+<?=create_edit_field("full_price", format_money(get_value($tour, "full_price")),"Full Price", array("envelope" => "div") );?>
+<?=create_edit_field("banquet_price", format_money(get_value($tour, "banquet_price")),"Banquet Price", array("envelope" => "div") );?>
+<?=create_edit_field("early_price", format_money(get_value($tour, "early_price")),"Early Price", array("envelope" => "div") );?>
+<?=create_edit_field("regular_price", format_money(get_value($tour, "regular_price")),"Regular Price", array("envelope" => "div") );?>
+<?=create_edit_field("single_rate", format_money(get_value($tour, "single_rate")),"Single Room Adjustment", array("envelope" => "div") );?>
+<?=create_edit_field("triple_rate", format_money(get_value($tour, "triple_rate")),"Triple Room Adjustment", array("envelope" => "div") );?>
+<?=create_edit_field("quad_rate", format_money(get_value($tour, "quad_rate")),"Quad Room Adjustment", array("envelope" => "div") );?>
 </div>
-</fieldset>
+
+</div>
