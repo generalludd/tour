@@ -1,15 +1,15 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // payer.php Chris Dart Dec 13, 2013 7:53:31 PM chrisdart@cerebratorium.com
-
 class Payer extends MY_Controller
 {
 
     function __construct ()
     {
-
         parent::__construct();
         $this->load->model("payer_model", "payer");
+        $this->load->model("tourist_model", "tourist");
     }
 
     function view ()
@@ -20,21 +20,78 @@ class Payer extends MY_Controller
     {
     }
 
+    function edit ()
+    {
+        $this->load->model("variable_model", "variable");
+        $payer_id = $this->input->get("payer_id");
+        $data["payer_id"] = $payer_id;
+        $tour_id = $this->input->get("tour_id");
+        $data["tour_id"] = $tour_id;
+        $data["room_sizes"] = get_keyed_pairs($this->variable->get_pairs("room_size"), array(
+                "value",
+                "name"
+        ));
+        $data["payment_types"] = get_keyed_pairs($this->variable->get_pairs("payment_type"), array(
+                "value",
+                "name"
+        ));
+        $payer = $this->payer->get_for_tour($payer_id, $tour_id);
+        $data["payer"] = $payer;
+        $data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
+
+        switch ($payer->payment_type) {
+            case "full_price":
+                $tour_price = $payer->full_price;
+                break;
+            case "banquet_price":
+                $tour_price = $payer->banquet_price;
+                break;
+            case "early_price":
+                $tour_price = $payer->early_price;
+                break;
+            case "regular_price":
+                $tour_price = $payer->regular_price;
+                break;
+            default:
+                $tour_price = 0;
+                break;
+        }
+
+        switch ($payer->room_size) {
+            case "single_room":
+                $room_rate = $payer->single_room;
+                break;
+            case "triple_room":
+                $room_rate = $payer->triple_room;
+                break;
+            case "quad_room":
+                $room_rate = $payer->quad_room;
+                break;
+            default:
+                $room_rate = 0;
+                break;
+        }
+        $data["room_rate"] = $room_rate;
+        $data["tour_price"] = $tour_price;
+        $data["target"] = "payer/edit";
+        $data["title"] = "Editing Payer";
+        $data["action"] = "update";
+        $this->load->view("payer/edit", $data);
+    }
+
     function insert ()
     {
     }
 
-    function update(){
-
+    function update ()
+    {
     }
 
     function update_value ()
     {
-
         $id = $this->input->post("id");
         $values = array(
-                $this->input->post("field") => $value = trim(
-                        $this->input->post("value"))
+                $this->input->post("field") => $value = trim($this->input->post("value"))
         );
         $this->payer->update($id, $values);
         echo $this->input->post("value");
