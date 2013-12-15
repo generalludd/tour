@@ -26,6 +26,8 @@ var base_url = '<?=base_url("index.php") . "/";?>';
 
 <!-- General Script  -->
 <script type="text/javascript" src="<?=base_url();?>js/general.js"></script>
+<script type="text/javascript" src="<?=base_url();?>js/tour.js"></script>
+<script type="text/javascript" src="<?=base_url();?>js/payer.js"></script>
 
 <!-- admin scripts -->
 <script type="text/javascript" src="<?=base_url();?>js/password.js"></script>

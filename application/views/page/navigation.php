@@ -1,17 +1,17 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-/* $buttons[] = array("selection" => "index",
+ $buttons[] = array("selection" => "index",
 "text" => "Home",
 "class" => array("button"),
 "href"=> site_url(""),
 "title" => "Home");
 
-$buttons[] = array("selection" => "common",
-"text" => "Common Names",
-"class" => array("button","show-common-names"),
-"href"=> site_url("common"),
-"title" => "View the list of common names");
-
+$buttons[] = array("selection" => "tour",
+"text" => "Tours",
+"class" => array("button","show-tours"),
+"href"=> site_url("tour"),
+"title" => "View the list of all tours");
+/*
 $buttons[] = array("selection" => "all",
 		"text" => "Search Common Names",
 		"class" => array("button","search-common-names"),
@@ -24,5 +24,5 @@ $buttons[] = array("selection" => "color",
 "href" => site_url("color"),
 "title" => "view the color listings",
 );
-
-print create_button_bar($buttons, array("id" =>"navigation-buttons")); */
+*/
+print create_button_bar($buttons, array("id" =>"navigation-buttons"));

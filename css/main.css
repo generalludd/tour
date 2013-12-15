@@ -798,6 +798,8 @@ textarea.save-field {
 	padding-left: 5px;
 }
 
+
+
 #search_list td {
 	border: 1px solid #ddd;
 	border-right: 1px solid #ccc;
@@ -844,4 +846,12 @@ fieldset.field-group {
 
 #flags {
 	width: 150px;
+}
+
+input.money {
+	width: 10ex;
+}
+
+input.date {
+	width: 15ex;
 }

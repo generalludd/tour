@@ -14,6 +14,6 @@ class Data_model extends CI_Model
     function get_fields ($table)
     {
 
-        return $this->db->list_fields($table);
+        return $this->db->field_data($table);
     }
 }
