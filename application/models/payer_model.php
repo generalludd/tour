@@ -56,8 +56,8 @@ class Payer_model extends CI_Model
         $this->db->where("tourist.payer_id", $payer_id);
         $this->db->where("tourist.tour_id", $tour_id);
         $this->db->from("tourist");
-        $result = $this->db->get()->result();
-        return count($result);
+        $result = $this->db->count_all_results();
+        return $result;
     }
 
     function update ($payer_id, $tour_id)
