@@ -1,6 +1,4 @@
-/**
- * 
- */
+$(document).ready(function(){
 
 $(".edit-tour").live("click", function(){
 	my_id = this.id.split("_")[1];
@@ -29,3 +27,4 @@ $(".create-tour").live("click", function(){
 		});
 	});
 
+});

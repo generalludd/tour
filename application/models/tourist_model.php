@@ -38,12 +38,35 @@ class Tourist_model extends CI_Model
         $this->db->join("person", "tourist.person_id = person.id");
         $this->db->where("tourist.payer_id", $payer_id);
         $this->db->where("tourist.tour_id", $tour_id);
-        $this->db->select("person.first_name, person.last_name");
+        $this->db->select("tourist.person_id, person.first_name, person.last_name, tourist.payer_id, tourist.tour_id");
         $result = $this->db->get()->result();
         return $result;
     }
 
     function get_by_tourist ($person_id)
     {
+    }
+
+    function insert ($data = FALSE)
+    {
+        if (is_array($data)) {
+            if (array_key_exists("payer_id", $data) && array_key_exists("tour_id",$data) && array_key_exists("person_id",$data)) {
+                $payer_id = $data["payer_id"];
+                $person_id = $data["person_id"];
+                $tour_id = $data["tour_id"];
+            }
+
+            $query = "INSERT IGNORE INTO `tourist` (`payer_id`, `tour_id`, `person_id`) VALUES('$payer_id', '$tour_id', $person_id);";
+            $this->db->query($query);
+        }
+    }
+
+    /**
+     * insert the payer as a person for the initial insert for a person/tour key
+     */
+    function insert_payer ($payer_id, $tour_id)
+    {
+        $query = "INSERT IGNORE INTO `tourist` (`payer_id`, `tour_id`, `person_id`) VALUES('$payer_id', '$tour_id', $payer_id);";
+        $this->db->query($query);
     }
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-
+$(document).ready(function(){
 $(".edit_payer").live("click",function(){
 	my_id = this.id.split("_");
 	form_data ={
@@ -106,3 +106,71 @@ function calculate_cost(include_amt){
 	}
 
 }
+
+$('#tourist-dropdown').live('keyup', function(event) {
+	var person_search = this.value;
+	if (person_search.length > 2 && person_search != "find person") {
+		search_words = person_search.split(' ');
+		my_name = search_words.join('%') + "%";
+		 my_payer = "";
+		  my_tour = "";
+		if($("#tour_id") && $("#payer_id")){
+			my_tour = $("#tour_id").val();
+		my_payer = $("#payer_id").val();
+		}
+		var form_data = {
+			ajax: 1,
+			name: my_name,
+			tour_id : my_tour,
+			payer_id: my_payer
+		};
+		$.ajax({
+			url: base_url + "person/find_by_name",
+			type: 'GET',
+			data: form_data,
+			success: function(data){
+				//remove the search_list because we don't want to have a ton of them. 
+
+				$("#search_list").css({"z-index": 10000}).html(data).position({
+					my: "left top",
+					at: "left bottom",
+					of: $("#tourist-dropdown"), 
+					collision: "fit"
+				}).show();
+		}
+		});
+	}else{
+		$("#search_list").hide();
+    	$("#search_list").css({"left": 0, "top": 0});
+
+
+	}
+});// end person_search.keyup
+
+
+
+$(".select_for_tour").live("click", function(){
+	my_id = this.id.split("_");
+	my_person = my_id[1];
+	my_payer = my_id[2];
+	my_tour = my_id[3];
+	$("#search_list").hide();
+
+	form_data = {
+			person_id: my_person,
+			payer_id: my_payer,
+			tour_id: my_tour,
+			ajax: 1
+	};
+	$.ajax({
+		type:"post",
+		url: base_url + "tourist/insert",
+		data: form_data,
+		success: function(data){
+			$("#payer-tourist-list").html(data);
+		}
+	
+	});
+});
+
+});

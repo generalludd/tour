@@ -18,6 +18,33 @@ class Payer extends MY_Controller
 
     function create ()
     {
+        $this->load->model("variable_model", "variable");
+        $payer_id = $this->input->get("payer_id");
+        $data["payer_id"] = $payer_id;
+        $tour_id = $this->input->get("tour_id");
+        $data["tour_id"] = $tour_id;
+        // create a new records in payer and tourist that will be loaded here.
+        // This allows the creation
+        // of at least one tourist record as well.
+        $this->payer->insert($payer_id, $tour_id);
+        // create the intial payer record for this payer-as-tourist
+        $this->tourist->insert_payer($payer_id, $tour_id);
+        $data["room_sizes"] = get_keyed_pairs($this->variable->get_pairs("room_size"), array(
+                "value",
+                "name"
+        ));
+        $data["payment_types"] = get_keyed_pairs($this->variable->get_pairs("payment_type"), array(
+                "value",
+                "name"
+        ));
+        $data["payer"] = $this->payer->get_for_tour($payer_id, $tour_id);
+        $data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
+        $data["room_rate"] = 0;
+        $data["tour_price"] = 0;
+        $data["target"] = "payer/edit";
+        $data["title"] = "Creating Payer";
+        $data["action"] = "update";
+        $this->load->view("payer/edit", $data);
     }
 
     function edit ()
@@ -36,6 +63,7 @@ class Payer extends MY_Controller
                 "name"
         ));
         $payer = $this->payer->get_for_tour($payer_id, $tour_id);
+
         $data["payer"] = $payer;
         $data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
 
@@ -81,10 +109,15 @@ class Payer extends MY_Controller
 
     function insert ()
     {
+
     }
 
     function update ()
     {
+        $payer_id = $this->input->post("payer_id");
+        $tour_id = $this->input->post("tour_id");
+        $this->payer->update($payer_id, $tour_id);
+        redirect("/tourist/show_all/$tour_id");
     }
 
     function update_value ()
@@ -95,5 +128,13 @@ class Payer extends MY_Controller
         );
         $this->payer->update($id, $values);
         echo $this->input->post("value");
+    }
+
+    function select_tourists ()
+    {
+        $data["action"] = "select_tourist";
+        $data["tour_id"] = $this->input->get("tour_id");
+        $data["payer_id"] = $this->input->get("payer_id");
+        $this->load->view("tourist/mini_selector", $data);
     }
 }

@@ -9,8 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<tr>
 			<th>Name</th>
 			<th>Shirt Size</th>
-			<th>Email</th>
-			<th>Phones</th>
+			<th>Contact Info</th>
 			<th>Payment Type</th>
 			<th>Price</th>
 			<th>Paid</th>
@@ -27,25 +26,22 @@ foreach ($tourists as $tourist) :
     ?>
     <?
     $class = "";
-    if ($tourist->is_payer):
-    $class = "row-break";
+    if ($tourist->is_payer) :
+        $class = "row-break";
+
     endif;
     ?>
 <tr class="row <?=$class;?>">
 			<td><?=sprintf("%s %s", $tourist->first_name,$tourist->last_name);?></td>
 			<td><?=$tourist->shirt_size;?></td>
-			<td><?=format_email($tourist->email);?></td>
 		<? if($tourist->is_payer): ?>
 		<? if($tourist->phones): ?>
 		<td>
-				<table>
+						<?=format_email($tourist->email);?>
 				<? foreach($tourist->phones as $phone):?>
-                    <tr>
-						<td><?=$phone->phone_type;?></td>
-						<td><?=$phone->phone;?> </td>
-					</tr>
+
+						<br/><?=sprintf("%s: %s",$phone->phone_type, $phone->phone);?>
 				<? endforeach;?>
-				</table>
 			</td>
 		<? endif; ?>
 
@@ -55,8 +51,10 @@ foreach ($tourists as $tourist) :
 			<td><?=format_money($tourist->discount);?></td>
 			<td><?=sprintf("%s (%s)", format_field_name($tourist->room_size),format_money($tourist->room_rate));?></td>
 			<td><?=format_money($tourist->amt_due);?></td>
-<td><span class="button edit edit_payer" id="edit-payer_<?=$tourist->payer_id;?>_<?=$tourist->tour_id;?>">
-Edit</span></td>
+			<td><span
+				class="button edit edit_payer"
+				id="edit-payer_<?=$tourist->payer_id;?>_<?=$tourist->tour_id;?>">
+					Edit</span></td>
 		<? endif; ?>
 		</tr>
 		<? endforeach; ?>

@@ -1,7 +1,33 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // mini_list.php Chris Dart Dec 14, 2013 9:29:34 PM chrisdart@cerebratorium.com
 
-foreach($tourists as $tourist){
-    print_r($tourist);
-}
+?>
+<table class="list" id="payer-tourist-list">
+	<tbody>
+ <?
+
+foreach ($tourists as $tourist) :
+    $button = "";
+    if ($tourist->payer_id != $tourist->person_id) :
+        $button = create_button(
+                array(
+                        "text" => "Delete",
+                        "type" => "span",
+                        "class" => "button delete",
+                        "id" => sprintf("delete-tourist_%s_%s", $tourist->person_id, $tourist->tour_id)
+                ));
+
+ endif;
+    ?>
+<tr>
+			<td><?=sprintf("%s %s", $tourist->first_name, $tourist->last_name);?>
+</td>
+			<td><?=$button;?></td>
+		</tr>
+
+
+<? endforeach; ?>
+</tbody>
+</table>

@@ -19,7 +19,7 @@ class Tourist extends MY_Controller
     {
         $this->load->model("payer_model", "payer");
         $this->load->model("phone_model", "phone");
-        $tourists = $this->tourist->get_by_tour(1);
+        $tourists = $this->tourist->get_by_tour($this->uri->segment(3));
         $data["tourists"] = array();
         $data["tour_name"] = $tourists[0]->tour_name;
 
@@ -95,6 +95,15 @@ class Tourist extends MY_Controller
 
     function insert ()
     {
+        $data["payer_id"] = $this->input->post("payer_id");
+        $data["tour_id"] = $this->input->post("tour_id");
+        $data["person_id"] = $this->input->post("person_id");
+        if ($this->input->post("ajax") == 1) {
+            $target = "tourist/payer_list";
+            $this->tourist->insert($data);
+            $data["tourists"] = $this->tourist->get_by_payer($data["payer_id"], $data["tour_id"]);
+            $this->load->view($target, $data);
+        }
     }
 
     function update ()

@@ -41,4 +41,23 @@ Amount Due:
 <span class="field" id="amt_due"><?=format_money($amt_due);?></span>
 </p>
 
+<div>
+
+
+<div id="payer-tourist-block block">
+<h4>Tourists</h4>
+<? $this->load->view("tourist/payer_list", $tourists);?>
+<div id="mini-selector">
+<form name="tourist-mini-selector" id="tourist-mini-selector" method="get" action="">
+<input type="hidden" id="tour_id" name="tour_id" value="<?=$tour_id;?>"/>
+<input type="hidden" id="payer_id" name="payer_id" value="<?=$payer_id;?>"/>
+<p><label for="tourist-dropdown">Type the Name of the Tourist You Want to Add</label><br/>
+<input type="text" id="tourist-dropdown" name="tourist-dropdown" value=""/></p>
+</form>
+</div>
+
+</div>
+<p>
+<input type="submit" name="save" id="save" value="<?=ucfirst($action);?>"/>
+</p>
 </form>

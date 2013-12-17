@@ -12,13 +12,11 @@ class Person_model extends CI_Model
 
     function __construct ()
     {
-
         parent::__construct();
     }
 
     function prepare_variables ()
     {
-
         $variables = array(
                 "first_name",
                 "last_name",
@@ -31,7 +29,6 @@ class Person_model extends CI_Model
 
     function get ($id)
     {
-
         $this->db->where("person.id", $id);
         $this->db->from("person");
         $this->db->join("phone_person", "phone_person.person_id=person.id");
@@ -43,7 +40,6 @@ class Person_model extends CI_Model
 
     function insert ()
     {
-
         $this->prepare_variables();
         $this->db->insert("person", $this);
         $id = $this->db->insert_id();
@@ -55,7 +51,6 @@ class Person_model extends CI_Model
 
     function update ($id, $values = array())
     {
-
         $this->db->where("id", $id);
         if (empty($values)) {
             $this->prepare_variables();
@@ -67,5 +62,22 @@ class Person_model extends CI_Model
                 return $this->get_value($id, $keys[0]);
             }
         }
+    }
+
+    function find_people ($name, $payer_id = NULL, $tour_id = NULL)
+    {
+        $this->db->where("`first_name` LIKE '%$name%'");
+        $this->db->order_by("first_name", "ASC");
+        $this->db->order_by("last_name", "ASC");
+        $this->db->from("person");
+        if ($payer_id) {
+            $this->db->where("person.id != '$payer_id'", NULL, FALSE);
+        }
+        if ($tour_id) {
+            $this->db->join("tourist", "tourist.person_id = person.id");
+            $this->db->where_not_in("tourist.tour_id", $tour_id);
+        }
+        $result = $this->db->get()->result();
+        return $result;
     }
 }
