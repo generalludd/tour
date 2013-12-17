@@ -7,7 +7,6 @@
 <div class="grouping block person-info" id="person">
 <h2><?=get_value($tour, "tour_name");?></h2>
 <? $buttons[] = array( "text" => "Edit Tour",  "type" => "span",  "class" => "button edit-tour", "id" => "et_$tour->id" );
- $buttons[] = array( "text" => "Create Tour", "type" => "span", "class" => "button new create-tour", "id" => "tour");
 print create_button_bar($buttons);
 ?>
 <div class="grouping block tour-info" id="tour">
@@ -18,9 +17,9 @@ print create_button_bar($buttons);
 <?=create_edit_field("banquet_price", format_money(get_value($tour, "banquet_price")),"Banquet Price", array("envelope" => "div") );?>
 <?=create_edit_field("early_price", format_money(get_value($tour, "early_price")),"Early Price", array("envelope" => "div") );?>
 <?=create_edit_field("regular_price", format_money(get_value($tour, "regular_price")),"Regular Price", array("envelope" => "div") );?>
-<?=create_edit_field("single_rate", format_money(get_value($tour, "single_rate")),"Single Room Adjustment", array("envelope" => "div") );?>
-<?=create_edit_field("triple_rate", format_money(get_value($tour, "triple_rate")),"Triple Room Adjustment", array("envelope" => "div") );?>
-<?=create_edit_field("quad_rate", format_money(get_value($tour, "quad_rate")),"Quad Room Adjustment", array("envelope" => "div") );?>
+<?=create_edit_field("single_room", format_money(get_value($tour, "single_room")),"Single Room Adjustment", array("envelope" => "div") );?>
+<?=create_edit_field("triple_room", format_money(get_value($tour, "triple_room")),"Triple Room Adjustment", array("envelope" => "div") );?>
+<?=create_edit_field("quad_room", format_money(get_value($tour, "quad_room")),"Quad Room Adjustment", array("envelope" => "div") );?>
 </div>
 
 </div>

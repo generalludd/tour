@@ -24,11 +24,11 @@
 <br/>
 <?=create_input($tour, "regular_price","Regular Price", array("format" => "money", "class"=>"money") );?>
 <br/>
-<?=create_input($tour, "single_rate", "Single Room Adjustment", array("format" => "money", "class"=>"money") );?>
+<?=create_input($tour, "single_room", "Single Room Adjustment", array("format" => "money", "class"=>"money") );?>
 <br/>
-<?=create_input($tour, "triple_rate","Triple Room Adjustment", array("format" => "money", "class"=>"money") );?>
+<?=create_input($tour, "triple_room","Triple Room Adjustment", array("format" => "money", "class"=>"money") );?>
 <br/>
-<?=create_input($tour, "quad_rate","Quad Room Adjustment", array("format" => "money", "class"=>"money") );?>
+<?=create_input($tour, "quad_room","Quad Room Adjustment", array("format" => "money", "class"=>"money") );?>
 </div>
 <div class='button-box'>
 <ul class='button-list'>

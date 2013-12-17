@@ -72,40 +72,13 @@ $(".change_room_size").live("change",function(){
 	
 });
 
+
+
 $("input.edit_payer_amounts").live("blur",function(){
 calculate_cost(1);	
 });
 
-function calculate_cost(include_amt){
-	tourist_count = $("#tourist_count").val().valueOf();
-	amt_paid = 0;
-	if(include_amt){
-		amt_paid = $("#amt_paid").val().valueOf();
 
-	}
-	if( amt_paid.length == 0 ){
-		amt_paid = 0;
-	}
-	discount = $("#discount").val().valueOf();
-	if(discount.length == 0){
-		discount = 0;
-	}
-	room_rate = $("#room_rate").val().valueOf();
-	if(room_rate.length == 0){
-		room_rate = 0;
-	}
-	
-	tour_price = $("#tour_price").val().valueOf();
-	$("#total_cost").html( parseInt(tourist_count) * (parseInt(tour_price) + parseInt(room_rate) - parseInt(discount)));
-	if(include_amt){
-		$("#amt_due").html(
-				(
-						parseInt(tourist_count) * (parseInt(tour_price) + parseInt(room_rate) - parseInt(discount)
-						)-amt_paid
-						));
-	}
-
-}
 
 $('#tourist-dropdown').live('keyup', function(event) {
 	var person_search = this.value;
@@ -168,9 +141,68 @@ $(".select_for_tour").live("click", function(){
 		data: form_data,
 		success: function(data){
 			$("#payer-tourist-list").html(data);
+			tourist_count = $("#payer-tourist-list tr").length;
+			$("#tourist_count").val(tourist_count);
+			calculate_cost(1);
 		}
 	
 	});
 });
 
+$(".delete-tourist").live("click",function(){
+	question = confirm("Are you sure you want to remove this person from this list? This cannot be undone");
+	if(question){
+		my_id = this.id.split("_");
+		my_person = my_id[1];
+		my_tour = my_id[2];
+		my_payer = $("#payer_id").val();
+		form_data = {
+				person_id: my_person,
+				tour_id: my_tour,
+				payer_id: my_payer,
+				ajax: 1
+		};
+		$.ajax({
+			type: "post",
+			url: base_url + "tourist/delete",
+			data: form_data,
+			success: function(data){
+				$("#payer-tourist-list").html(data);
+				tourist_count = $("#payer-tourist-list tr").length;
+				$("#tourist_count").val(tourist_count);
+				calculate_cost(1);
+			}
+		});
+		}
 });
+
+});
+
+function calculate_cost(include_amt){
+	tourist_count = $("#tourist_count").val().valueOf();
+	amt_paid = 0;
+	if(include_amt){
+		amt_paid = $("#amt_paid").val().valueOf();
+
+	}
+	if( amt_paid.length == 0 ){
+		amt_paid = 0;
+	}
+	discount = $("#discount").val().valueOf();
+	if(discount.length == 0){
+		discount = 0;
+	}
+	room_rate = $("#room_rate").val().valueOf();
+	if(room_rate.length == 0){
+		room_rate = 0;
+	}
+	
+	tour_price = $("#tour_price").val().valueOf();
+	$("#total_cost").html( parseInt(tourist_count) * (parseInt(tour_price) + parseInt(room_rate) - parseInt(discount)));
+	if(include_amt){
+		$("#amt_due").html(
+				(parseInt(tourist_count) * (parseInt(tour_price) + parseInt(room_rate) - parseInt(discount))-amt_paid)
+		);
+	}
+
+}

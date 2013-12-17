@@ -50,7 +50,7 @@ class Tourist_model extends CI_Model
     function insert ($data = FALSE)
     {
         if (is_array($data)) {
-            if (array_key_exists("payer_id", $data) && array_key_exists("tour_id",$data) && array_key_exists("person_id",$data)) {
+            if (array_key_exists("payer_id", $data) && array_key_exists("tour_id", $data) && array_key_exists("person_id", $data)) {
                 $payer_id = $data["payer_id"];
                 $person_id = $data["person_id"];
                 $tour_id = $data["tour_id"];
@@ -68,5 +68,16 @@ class Tourist_model extends CI_Model
     {
         $query = "INSERT IGNORE INTO `tourist` (`payer_id`, `tour_id`, `person_id`) VALUES('$payer_id', '$tour_id', $payer_id);";
         $this->db->query($query);
+    }
+
+    function delete ($person_id, $tour_id)
+    {
+        // don't delete the payer here!
+        $this->db->where_not_in("payer_id", $person_id);
+
+        $this->db->delete("tourist", array(
+                "tour_id" => $tour_id,
+                "person_id" => $person_id
+        ));
     }
 }

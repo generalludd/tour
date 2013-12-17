@@ -119,4 +119,18 @@ class Tourist extends MY_Controller
         $this->tourist->update($id, $values);
         echo $this->input->post("value");
     }
-}
+
+    function delete ()
+    {
+        $tour_id = $this->input->post("tour_id");
+        $person_id = $this->input->post("person_id");
+        $payer_id = $this->input->post("payer_id");
+        if ($this->input->post("ajax") == 1) {
+            $this->tourist->delete($person_id, $tour_id);
+            $target = "tourist/payer_list";
+            $data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
+             $this->load->view($target, $data);
+
+        }
+    }
+} //end class

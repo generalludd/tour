@@ -15,7 +15,7 @@ foreach ($tourists as $tourist) :
                 array(
                         "text" => "Delete",
                         "type" => "span",
-                        "class" => "button delete",
+                        "class" => "button delete delete-tourist",
                         "id" => sprintf("delete-tourist_%s_%s", $tourist->person_id, $tourist->tour_id)
                 ));
 
