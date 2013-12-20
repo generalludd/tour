@@ -120,6 +120,25 @@ class Tourist extends MY_Controller
         echo $this->input->post("value");
     }
 
+    function find_by_name()
+    {
+        $this->load->model("person_model","person");
+        $name = $this->input->get("name");
+        $tour_id = "NULL";
+        if($this->input->get("tour_id")){
+            $tour_id = $this->input->get("tour_id");
+        }
+        $payer_id = NULL;
+        if($this->input->get("payer_id")){
+            $payer_id = $this->input->get("payer_id");
+        }
+        $data["payer_id"] = $payer_id;
+        $data["tour_id"] = $tour_id;
+        $target = "person/mini_list";
+        $data["people"] = $this->person->find_people($name, $payer_id, $tour_id);
+        $this->load->view($target, $data);
+    }
+
     function delete ()
     {
         $tour_id = $this->input->post("tour_id");

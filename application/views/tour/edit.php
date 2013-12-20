@@ -2,7 +2,7 @@
 // view.php Chris Dart Dec 13, 2013 8:55:00 PM chrisdart@cerebratorium.com
 
 ?>
-<form name="tour-editor" action="<?=base_url("index.php/tour/$action");?>" method="post">
+<form name="tour-editor" action="<?=site_url("tour/$action");?>" method="post">
 <input type="hidden" value="<?=get_value($tour, "id");?>" name="id" id="id" />
 <div class="grouping block person-info" id="person">
 <h2><?=get_value($tour, "tour_name");?></h2>

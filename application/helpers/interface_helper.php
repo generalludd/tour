@@ -50,7 +50,6 @@ if (! defined('BASEPATH')) exit('No direct script access allowed');
  */
 function create_button ($data)
 {
-
     if (array_key_exists("text", $data)) {
         $type = "a";
         $href = "";
@@ -90,9 +89,7 @@ function create_button ($data)
                 );
             }
             if (array_key_exists("selection", $data)) {
-                if (preg_match(
-                        "/" . str_replace("/", "\/", $data["selection"]) . "/",
-                        $_SERVER['REQUEST_URI'])) {
+                if (preg_match("/" . str_replace("/", "\/", $data["selection"]) . "/", $_SERVER['REQUEST_URI'])) {
                     $data["class"][] = "active";
                 }
             }
@@ -111,8 +108,7 @@ function create_button ($data)
                     $enc_class = "";
                     $enc_id = "";
                     if (array_key_exists("class", $data["enclosure"])) {
-                        $enc_class = "class='" . $data["enclosure"]["class"] .
-                                 "'";
+                        $enc_class = "class='" . $data["enclosure"]["class"] . "'";
                     }
                     if (array_key_exists("id", $data["enclosure"])) {
                         $enc_id = "id='" . $data["enclosure"]["id"] . "'";
@@ -142,7 +138,6 @@ function create_button ($data)
  */
 function create_button_bar ($buttons, $options = NULL)
 {
-
     $id = "";
     $selection = "";
     $class = "mini";
@@ -194,7 +189,6 @@ function create_button_bar ($buttons, $options = NULL)
  */
 function create_edit_field ($field_name, $value, $label, $options = array())
 {
-
     $envelope = "p";
     if (array_key_exists("envelope", $options)) {
         $envelope = $options["envelope"];
@@ -209,8 +203,7 @@ function create_edit_field ($field_name, $value, $label, $options = array())
      * The id is split with the "-" delimiter in javascript when the field is
      * clicked
      */
-    $output[] = sprintf("<%s class='field-envelope' id='field-%s'>", $envelope,
-            $field_name);
+    $output[] = sprintf("<%s class='field-envelope' id='field-%s'>", $envelope, $field_name);
     $output[] = sprintf("<label>%s:&nbsp;</label>", $label);
     if ($value == "") {
         $value = "&nbsp;";
@@ -234,24 +227,22 @@ function create_edit_field ($field_name, $value, $label, $options = array())
     if (array_key_exists("attributes", $options)) {
         $attributes = $options["attributes"];
     }
-    $output[] = sprintf("<span class='%s' %s %s %s>%s</span></%s>",
-            $field_class, $attributes, $format, $id, $value, $envelope);
+    $output[] = sprintf("<span class='%s' %s %s %s>%s</span></%s>", $field_class, $attributes, $format, $id, $value, $envelope);
     return implode("\r", $output);
 }
 
 function create_input ($object, $name, $label, $options = array())
 {
-
     $id = $name;
     if (array_key_exists("id", $options)) {
         $id = $options["id"];
     }
-$class = "";
-    if(array_key_exists("class", $options)){
-$class = $options["class"];
+    $class = "";
+    if (array_key_exists("class", $options)) {
+        $class = $options["class"];
     }
 
-    $value = get_value($object, $name);
+    $value = get_value($object, $name,"");
 
     $format = FALSE;
     if (array_key_exists("format", $options)) {
@@ -263,12 +254,14 @@ $class = $options["class"];
         }
 
         if ($format == "money") {
-           $value = format_money($value);
+            $value = format_money($value);
         }
     }
-    return sprintf(
-            "<label for='%s'>%s: </label><input type='text' name='%s' id='%s' value='%s' class='%s'/>",
-            $name, $label, $name, $id, $value, $class);
+    $type = "text";
+    if (array_key_exists("type", $options)) {
+        $type = $options["type"];
+    }
+    return sprintf("<label for='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='%s'/>", $name, $label,$type, $name, $id, $value, $class);
 }
 
 /**
@@ -281,16 +274,13 @@ $class = $options["class"];
  */
 function create_checkbox ($name, $values, $selections = array())
 {
-
     $output = array();
     foreach ($values as $value) {
         $checked = "";
         if (in_array($value->value, $selections)) {
             $checked = "checked";
         }
-        $output[] = sprintf(
-                "<label>%s</label><input type='checkbox' name='%s' value='%s' %s/>",
-                $value->value, $name, $value->value, $checked);
+        $output[] = sprintf("<label>%s</label><input type='checkbox' name='%s' value='%s' %s/>", $value->value, $name, $value->value, $checked);
     }
     return implode("\r", $output);
 }

@@ -98,7 +98,7 @@ $('#tourist-dropdown').live('keyup', function(event) {
 			payer_id: my_payer
 		};
 		$.ajax({
-			url: base_url + "person/find_by_name",
+			url: base_url + "tourist/find_by_name",
 			type: 'GET',
 			data: form_data,
 			success: function(data){

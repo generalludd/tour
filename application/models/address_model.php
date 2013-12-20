@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // chrisdart@cerebratorium.com
 class Address_model extends CI_Model
 {
-    var $number;
+    var $num;
     var $street;
     var $unit_type;
     var $unit;
@@ -15,15 +15,13 @@ class Address_model extends CI_Model
 
     function __construct ()
     {
-
         parent::__construct();
     }
 
     function prepare_variables ()
     {
-
         $variables = array(
-                "number",
+                "num",
                 "street",
                 "unit_type",
                 "unit",
@@ -34,9 +32,16 @@ class Address_model extends CI_Model
         prepare_variables($this, $variables);
     }
 
-    function insert_for_person ($person_id)
+    function get ($address_id)
     {
+        $this->db->where("id", $address_id);
+        $this->db->from("address");
+        $result = $this->db->get()->row();
+        return $result;
+    }
 
+    function insert ()
+    {
         $this->prepare_variables();
         $this->db->insert("address", $this);
         $id = $this->db->insert_id();
@@ -45,7 +50,6 @@ class Address_model extends CI_Model
 
     function update ($id, $values = array())
     {
-
         $this->db->where("id", $id);
         if (empty($values)) {
             $this->prepare_variables();

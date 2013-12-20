@@ -31,10 +31,22 @@ class Person_model extends CI_Model
     {
         $this->db->where("person.id", $id);
         $this->db->from("person");
-        $this->db->join("phone_person", "phone_person.person_id=person.id");
-        $this->db->join("phone", "phone_person.phone_id=phone.id");
-        $this->db->join("address", "person.address_id=address.id");
+       // $this->db->join("phone_person", "phone_person.person_id=person.id");
+       // $this->db->join("phone", "phone_person.phone_id=phone.id");
+      //  $this->db->join("address", "person.address_id=address.id");
         $result = $this->db->get()->row();
+        return $result;
+    }
+
+    function get_all ()
+    {
+        $this->db->from("address");
+        $this->db->from("person");
+        $this->db->order_by("person.last_name", "ASC");
+        $this->db->order_by("person.first_name", "ASC");
+        $this->db->order_by("person.address_id", "ASC");
+        $this->db->where("person.address_id = address.id", NULL, FALSE);
+        $result = $this->db->get()->result();
         return $result;
     }
 
@@ -64,9 +76,10 @@ class Person_model extends CI_Model
         }
     }
 
-    function find_people ($name, $payer_id = NULL, $tour_id = NULL)
+    function find_people ($name, $payer_id = FALSE, $tour_id = FALSE)
     {
-        $this->db->where("`first_name` LIKE '%$name%'");
+        $this->db->where("CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%'", NULL, FALSE);
+
         $this->db->order_by("first_name", "ASC");
         $this->db->order_by("last_name", "ASC");
         $this->db->from("person");

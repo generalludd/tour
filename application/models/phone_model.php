@@ -22,7 +22,15 @@ class Phone_model extends CI_Model
                 "phone_type"
         );
 
-        prepare_variables($this, $variables);
+        if($this->input->post("phone")){
+            $this->phone = $this->input->post("phone");
+        }
+
+        if($this->input->post("phone_type")){
+            $this->phone_type = $this->input->post("phone_type");
+        }
+
+        //prepare_variables($this, $variables);
     }
 
     function insert_for_person ($person_id)
