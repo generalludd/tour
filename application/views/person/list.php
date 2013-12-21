@@ -14,6 +14,10 @@
 <td>
 <a href="<?=site_url("person/view/$person->id");?>" class="button mini">View</a>
 </td>
+<td>
+<? $button = array("text"=>"Join Tour", "type"=>"span","class"=>"button new mini select-tour", "id"=>sprintf("join-tour_%s",$person->id));
+ print create_button($button);?>
+</td>
 </tr>
 <? endforeach; ?>
 </table>

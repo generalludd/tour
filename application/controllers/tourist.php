@@ -89,15 +89,30 @@ class Tourist extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
+    /**
+     * This presents a fork where the user can select the type of tourist: payer
+     * or tourist.
+     */
+    function select_tourist_type ()
+    {
+        $data["id"] = $this->input->get("id");
+        $this->load->view("tourist/select_type", $data);
+    }
+
     function create ()
     {
     }
 
-    function insert ()
+    function insert ($payer_id = FALSE, $tour_id = FALSE, $person_id = FALSE)
     {
-        $data["payer_id"] = $this->input->post("payer_id");
-        $data["tour_id"] = $this->input->post("tour_id");
-        $data["person_id"] = $this->input->post("person_id");
+        if (! $payer_id) {
+            $payer_id = $this->input->post("payer_id");
+            $tour_id = $this->input->post("tour_id");
+            $person_id = $this->input->post("person_id");
+        }
+        $data["payer_id"] = $payer_id;
+        $data["tour_id"] = $tour_id;
+        $data["person_id"] = $person_id;
         if ($this->input->post("ajax") == 1) {
             $target = "tourist/payer_list";
             $this->tourist->insert($data);
@@ -120,16 +135,16 @@ class Tourist extends MY_Controller
         echo $this->input->post("value");
     }
 
-    function find_by_name()
+    function find_by_name ()
     {
-        $this->load->model("person_model","person");
+        $this->load->model("person_model", "person");
         $name = $this->input->get("name");
         $tour_id = "NULL";
-        if($this->input->get("tour_id")){
+        if ($this->input->get("tour_id")) {
             $tour_id = $this->input->get("tour_id");
         }
         $payer_id = NULL;
-        if($this->input->get("payer_id")){
+        if ($this->input->get("payer_id")) {
             $payer_id = $this->input->get("payer_id");
         }
         $data["payer_id"] = $payer_id;
@@ -148,8 +163,7 @@ class Tourist extends MY_Controller
             $this->tourist->delete($person_id, $tour_id);
             $target = "tourist/payer_list";
             $data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
-             $this->load->view($target, $data);
-
+            $this->load->view($target, $data);
         }
     }
 } //end class

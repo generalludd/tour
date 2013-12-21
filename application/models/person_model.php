@@ -27,13 +27,13 @@ class Person_model extends CI_Model
         prepare_variables($this, $variables);
     }
 
-    function get ($id)
+    function get ($id, $fields = false)
     {
         $this->db->where("person.id", $id);
         $this->db->from("person");
-       // $this->db->join("phone_person", "phone_person.person_id=person.id");
-       // $this->db->join("phone", "phone_person.phone_id=phone.id");
-      //  $this->db->join("address", "person.address_id=address.id");
+        if($fields){
+            $this->db->select($fields);
+        }
         $result = $this->db->get()->row();
         return $result;
     }

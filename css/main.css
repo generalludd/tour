@@ -278,6 +278,10 @@ td .button,.row .button,.button.small {
 	padding: .25em .5em;
 }
 
+tr.row-break td {
+	border-top: solid 1px black !important;
+}
+
 .button:hover {
 	
 }

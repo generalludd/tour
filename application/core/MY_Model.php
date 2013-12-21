@@ -7,33 +7,29 @@ class MY_Model extends CI_Model
 
     function __construct ()
     {
-
         parent::__construct();
     }
 
-    function get ($db, $id)
+    function get ($db, $id, $fields = FALSE)
     {
-
         $this->db->from($db);
         $this->db->where("id", $id);
+        if ($fields) {
+            $this->db->select($fields);
+        }
         return $this->db->get()->row();
     }
 
     function get_value ($db, $id, $field)
     {
-
-        $this->db->from($db);
-        $this->db->select($field);
-        $this->db->where("id", $id);
-        $value = $this->db->get()->row();
-        return $value->$field;
+        $row = $this->get($db, $id, $field);
+        return $row->$field;
     }
 
-    function get_all($db)
+    function get_all ($db)
     {
         $this->db->from($db);
         $this->db->order_by("start_date");
         return $this->db->get()->result();
     }
-
 }

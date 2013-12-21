@@ -69,9 +69,50 @@ class Tour_model extends MY_Model
         }
     }
 
-    function get ($id)
+    function get ($id, $fields = FALSE)
     {
-        return parent::get("tour", $id, $values = array());
+        return parent::get("tour", $id, $fields);
+    }
+
+    function get_all ()
+    {
+        return parent::get_all("tour");
+    }
+
+    function get_value ($id, $field)
+    {
+        // return parent::get_value("tour", $id, $field);
+        $this->db->from("tour");
+        $this->db->where("id", $id);
+        $this->db->select($field);
+        $result = $this->db->get()->row();
+        return $result->$field;
+    }
+
+    function get_current ($id = FALSE, $type = FALSE)
+    {
+        if ($id) {
+            $this->db->where("tourist.person_id !=", $id);
+            $this->db->where("tourist.payer_id !=", $id);
+            $this->db->join("tourist", "tour.id = tourist.tour_id");
+            if ($type == "payer") {
+                $this->db->where("payer.payer_id !=", $id);
+                $this->db->join("payer", "tour.id = payer.tour_id");
+            }
+        }
+        $this->db->where("tour.is_complete", 0);
+        $this->db->from("tour");
+        $this->db->order_by("tour.start_date", "ASC");
+        $this->db->group_by("tour.id");
+        $result = $this->db->get()->result();
+        return $result;
+    }
+
+    function insert ()
+    {
+        $this->prepare_variables();
+        $this->db->insert("tour", $this);
+        return $this->db->insert_id();
     }
 
     function update ($id, $values = array())
@@ -84,25 +125,5 @@ class Tour_model extends MY_Model
         } else {
             $this->db->update("tour", $values);
         }
-    }
-
-    function get_all ()
-    {
-        return parent::get_all("tour");
-    }
-
-    function get_value ($id, $field)
-    {
-        $this->db->from("tour");
-        $this->db->select($field);
-        $result = $this->db->get()->row();
-        return $result;
-    }
-
-    function insert ()
-    {
-        $this->prepare_variables();
-        $this->db->insert("tour", $this);
-        return $this->db->insert_id();
     }
 }

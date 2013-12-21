@@ -120,7 +120,10 @@ $('#tourist-dropdown').live('keyup', function(event) {
 	}
 });// end person_search.keyup
 
-
+/*
+ * "target" in this scriptlet identifies the format of the output from tourist/insert
+ * in this case payer returns a list of tourists for a given payer. 
+ */
 
 $(".select_for_tour").live("click", function(){
 	my_id = this.id.split("_");
@@ -133,6 +136,7 @@ $(".select_for_tour").live("click", function(){
 			person_id: my_person,
 			payer_id: my_payer,
 			tour_id: my_tour,
+			target: "payer",
 			ajax: 1
 	};
 	$.ajax({
@@ -148,6 +152,35 @@ $(".select_for_tour").live("click", function(){
 	
 	});
 });
+
+/*
+ * target in this scriptlet identifies the format of the output from tourist/insert
+ * in this case "tour" will return a confirmation with an option to 
+ */
+
+$(".select-payer").live("click", function(){
+	my_id = this.id.split("_");
+	my_person = my_id[1];
+	my_payer = my_id[2];
+	my_tour = my_id[3];
+	form_data = {
+			person_id: my_person,
+			payer_id: my_payer,
+			tour_id: my_tour,
+			target: "tour",
+			ajax: 1
+	};
+	$.ajax({
+		type: "post",
+		url: base_url + "tourist/insert",
+		data: form_data,
+		success: function(data){
+			$("#tourist-selector").html("<p><a href='tourist/show_all/" + my_tour + "' class='button'>Success: View Tourist List</a></p>");
+		}
+	});
+});
+
+
 
 $(".delete-tourist").live("click",function(){
 	question = confirm("Are you sure you want to remove this person from this list? This cannot be undone");
@@ -176,7 +209,77 @@ $(".delete-tourist").live("click",function(){
 		}
 });
 
+$(".select-tourist-type").live("click",function(){
+	my_id = this.id.split("_")[1];
+	form_data = {
+			id: my_id,
+			ajax: 1
+	};
+	$.ajax({
+		type: "get",
+		url: base_url + "tourist/select_tourist_type",
+		data: form_data,
+		success: function(data){
+			show_popup("Select Tourist Type", data, "auto");
+		}
+	});
 });
+
+$(".select-tour").live("click",function(){
+	my_id = this.id.split("_")[1];
+	form_data = {
+			id: my_id,
+			ajax: "1"
+	};
+	$.ajax({
+		type: "get",
+		url: base_url + "tour/show_current",
+		data: form_data,
+		success: function(data){
+			show_popup("Select a Tour",data,"auto");
+		}
+	});
+});
+
+
+
+$(".select-as-tourist").live("click",function(){
+	my_tour = this.id.split("_")[1];
+	my_person = $("#person_id").val();
+	form_data = {
+			tour_id: my_tour,
+			person_id: my_person,
+			ajax: "1"
+	};
+	$.ajax({
+		type: "get",
+		url: base_url + "payer/select_payer",
+		data: form_data,
+		success: function(data){
+			$("#tourist-selector").html(data);
+		}
+	});
+});
+
+$(".select-as-payer").live("click",function(){
+	my_tour = this.id.split("_")[1];
+	my_person = $("#person_id").val();
+	form_data = {
+			ajax:"1",
+			tour_id: my_tour,
+			payer_id: my_person
+	};
+	$.ajax({
+		type: "post",
+		url: base_url + "payer/insert",
+		data: form_data,
+		success: function(data){
+			$("#tourist-selector").html(data);
+		}
+	});
+});
+
+});//end document load
 
 function calculate_cost(include_amt){
 	tourist_count = $("#tourist_count").val().valueOf();

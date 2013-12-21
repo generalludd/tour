@@ -47,13 +47,26 @@ class Payer extends MY_Controller
         $this->load->view("payer/edit", $data);
     }
 
-    function edit ()
+    /**
+     * This script can be run via url or called internally such as when it is
+     * called in $this->insert() function
+     *
+     * @param string $payer_id
+     * @param string $tour_id
+     */
+    function edit ($payer_id = FALSE, $tour_id = FALSE)
     {
         $this->load->model("variable_model", "variable");
-        $payer_id = $this->input->get("payer_id");
+        if (! $payer_id) {
+            $payer_id = $this->input->get("payer_id");
+        }
         $data["payer_id"] = $payer_id;
-        $tour_id = $this->input->get("tour_id");
+
+        if (! $tour_id) {
+            $tour_id = $this->input->get("tour_id");
+        }
         $data["tour_id"] = $tour_id;
+
         $data["room_sizes"] = get_keyed_pairs($this->variable->get_pairs("room_size"), array(
                 "value",
                 "name"
@@ -107,9 +120,20 @@ class Payer extends MY_Controller
         $this->load->view("payer/edit", $data);
     }
 
+    /**
+     * there is no alternative if this is called without the ajax=1 post query
+     * variable.
+     */
     function insert ()
     {
-
+        $payer_id = $this->input->post("payer_id");
+        $tour_id = $this->input->post("tour_id");
+        $this->payer->insert($payer_id, $tour_id);
+        $this->tourist->insert(array("payer_id"=>$payer_id,"tour_id"=> $tour_id,"person_id"=> $payer_id));
+        print $this->db->last_query();
+        if ($this->input->post("ajax") == 1) {
+            $this->edit($payer_id, $tour_id);
+        }
     }
 
     function update ()
@@ -136,5 +160,21 @@ class Payer extends MY_Controller
         $data["tour_id"] = $this->input->get("tour_id");
         $data["payer_id"] = $this->input->get("payer_id");
         $this->load->view("tourist/mini_selector", $data);
+    }
+
+    function select_payer ()
+    {
+        $this->load->model("person_model", "person");
+        $this->load->model("tour_model", "tour");
+        $tour_id = $this->input->get("tour_id");
+        $data["tour_name"] = $this->tour->get_value($tour_id, "tour_name");
+        $data["tour_id"] = $tour_id;
+        $person_id = $this->input->get("person_id");
+        $tourist = $this->person->get($person_id, "first_name,last_name");
+        $data["tourist_name"] = sprintf("%s %s", $tourist->first_name, $tourist->last_name);
+        $data["tourist_id"] = $person_id;
+        $data["payers"] = $this->payer->get_payers($tour_id);
+
+        $this->load->view("payer/select_list", $data);
     }
 }

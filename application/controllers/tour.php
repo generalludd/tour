@@ -77,7 +77,7 @@ class Tour extends MY_Controller
         $tour_id = $this->input->get("tour_id");
         $field = $this->input->get("field");
         $format = FALSE;
-        if ($this->input->get("format") ) {
+        if ($this->input->get("format")) {
             $format = $this->input->get("format");
         }
         $output = $this->tour->get_value($tour_id, $field);
@@ -92,12 +92,19 @@ class Tour extends MY_Controller
                     break;
             }
         }
-        if($this->input->get("ajax")==1){
-        echo $output->$field;
-        }else{
+        if ($this->input->get("ajax") == 1) {
+            echo $output->$field;
+        } else {
             return $output->$field;
         }
-
     }
 
+    function show_current ()
+    {
+        $id = $this->input->get("id");
+        $data["id"] = $id;
+        $data["tours"] = $this->tour->get_current($id);
+        $data["query"] = $this->db->last_query();
+        $this->load->view("tour/select", $data);
+    }
 }

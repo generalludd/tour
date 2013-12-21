@@ -60,6 +60,17 @@ class Payer_model extends CI_Model
         return $result;
     }
 
+    function get_payers ($tour_id)
+    {
+        $this->db->where("payer.tour_id", $tour_id);
+        $this->db->where("`tour`.`id` = `payer`.`tour_id`", NULL, FALSE);
+        $this->db->join("person","person.id = payer.payer_id");
+        $this->db->from("payer,tour");
+        $this->db->select("tour.id, tour.tour_name, payer.payer_id, person.first_name, person.last_name");
+        $result = $this->db->get()->result();
+        return $result;
+    }
+
     function update ($payer_id, $tour_id)
     {
         $this->db->where("tour_id", $tour_id);
