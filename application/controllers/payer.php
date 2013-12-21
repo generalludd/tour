@@ -130,7 +130,6 @@ class Payer extends MY_Controller
         $tour_id = $this->input->post("tour_id");
         $this->payer->insert($payer_id, $tour_id);
         $this->tourist->insert(array("payer_id"=>$payer_id,"tour_id"=> $tour_id,"person_id"=> $payer_id));
-        print $this->db->last_query();
         if ($this->input->post("ajax") == 1) {
             $this->edit($payer_id, $tour_id);
         }

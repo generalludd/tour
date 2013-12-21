@@ -32,7 +32,7 @@ foreach ($tourists as $tourist) :
     endif;
     ?>
 <tr class="row <?=$class;?>">
-			<td><?=sprintf("%s %s", $tourist->first_name,$tourist->last_name);?></td>
+			<td><a href="<?=site_url("person/view/$tourist->person_id");?>"><?=sprintf("%s %s", $tourist->first_name,$tourist->last_name);?></a></td>
 			<td><?=$tourist->shirt_size;?></td>
 		<? if($tourist->is_payer): ?>
 		<? if($tourist->phones): ?>

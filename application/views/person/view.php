@@ -3,8 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // view.php Chris Dart Dec 11, 2013 7:47:55 PM chrisdart@cerebratorium.com
 ?>
+<?=create_button_bar(array(array("text"=>"Join Tour", "type"=>"span","class"=>"button new mini select-tour", "id"=>sprintf("join-tour_%s",$person->id))));?>
 
-<div class="grouping block person-info" id="person">
+<fieldset class="grouping block person-info" id="person">
+<legend>General Info</legend>
 <input type="hidden" id="id" name="id" value="<?=$person->id;?>"/>
 <input type="hidden" id="address_id" name="address_id" value="<?=$person->address_id;?>"/>
 <div class='field-set'>
@@ -19,16 +21,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <div class='field-set'>
 	<?=create_edit_field("shirt_size", $person->shirt_size, "Shirt Size",array("envelope"=>"div"));?>
 </div>
-</div>
-<div class="grouping block phone-info" id="phone">
-<h4>Phones</h4>
+</fieldset>
+<fieldset class="grouping block phone-info" id="phone">
+<legend>Phones</legend>
 <? $this->load->view("phone/view",$person->phones); ?>
 <?
-$buttons[] = array("text" => "Add Phone", "type"=>"span", "class"=>"button mini new add_phone","id"=>sprintf("add-phone_%s",$person->id));
-print create_button_bar($buttons);?>
-</div>
-<div class="grouping block address-info" id="address">
-<h4>Address</h4>
+print create_button_bar(array(array("text" => "Add Phone", "type"=>"span", "class"=>"button mini new add_phone","id"=>sprintf("add-phone_%s",$person->id))));?>
+</fieldset>
+<fieldset class="grouping block address-info" id="address">
+<legend>Address</legend>
 <? if(count($person->address) == 1):?>
 <div class="field-set">
 	<?=create_edit_field("num", $person->address->num, "House Number",array("envelope"=>"div"));?>
@@ -41,8 +42,13 @@ print create_button_bar($buttons);?>
 	<?=create_edit_field("State", $person->address->state, "State", array("envelope"=>"div"));?>
 	<?=create_edit_field("Zip", $person->address->zip, "Zip", array("envelope"=>"div"));?>
 </div>
-</div>
+</fieldset>
 <?else: ?>
-<?=create_button(array("text" => "Add Address", "type"=>"span", "class"=>"button mini new add_address","id"=>sprintf("add-address_%s",$person->id)));?>
+<?=create_button_bar(array("text" => "Add Address", "type"=>"span", "class"=>"button mini new add_address","id"=>sprintf("add-address_%s",$person->id)));?>
 
-<?endif;
+<?endif;?>
+<fieldset class="grouping block housemates" id="housemates">
+<legend>Housemates</legend>
+<?=create_button_bar(array(array("text" => "Add Housemate", "type"=>"span", "class"=>"button mini new add-housemate","id"=>sprintf("add-housemate_%s%s",$person->id, $person->address->id))));?>
+
+</fieldset>
