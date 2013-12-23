@@ -89,18 +89,19 @@ class Tour_model extends MY_Model
         return $result->$field;
     }
 
-    function get_current ($id = FALSE, $type = FALSE)
+    function get_current ($fields = "*")
     {
-        if ($id) {
+       /* if ($id) {
             $this->db->where("tourist.person_id !=", $id);
-            $this->db->where("tourist.payer_id !=", $id);
             $this->db->join("tourist", "tour.id = tourist.tour_id");
             if ($type == "payer") {
                 $this->db->where("payer.payer_id !=", $id);
                 $this->db->join("payer", "tour.id = payer.tour_id");
             }
         }
-        $this->db->where("tour.is_complete", 0);
+        */
+        $this->db->select($fields);
+        $this->db->where("tour.start_date > CURDATE()",NULL,FALSE);
         $this->db->from("tour");
         $this->db->order_by("tour.start_date", "ASC");
         $this->db->group_by("tour.id");

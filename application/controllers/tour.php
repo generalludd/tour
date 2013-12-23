@@ -101,9 +101,18 @@ class Tour extends MY_Controller
 
     function show_current ()
     {
+        $this->load->model("tourist_model", "tourist");
         $id = $this->input->get("id");
         $data["id"] = $id;
-        $data["tours"] = $this->tour->get_current($id);
+        $tours = $this->tour->get_current();
+        $data["tours"] = $tours;
+        foreach ($tours as $tour) {
+            $tour_list[] = $tour->id;
+        }
+        $tourist_tours = $this->tourist->get($id, $tour_list);
+        foreach ($tours as $tour) {
+
+        }
         $data["query"] = $this->db->last_query();
         $this->load->view("tour/select", $data);
     }

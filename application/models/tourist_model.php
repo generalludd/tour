@@ -14,6 +14,22 @@ class Tourist_model extends CI_Model
         parent::__construct();
     }
 
+    /**
+     * get all the tours for a given person.
+     * $tours is a simple array of tour ids This is used to limit the results
+     * to selected tour(s).
+     *
+     * @param int $person_id
+     */
+    function get ($person_id, $tours = array())
+    {
+        $this->db->from("tourist");
+        $this->db->where("person_id", $person_id);
+        $this->db->where_not_in("tour_id", sprintf("(%s)", implode($tours, ",")));
+        $result = $this->db->get()->result();
+        return $result;
+    }
+
     function get_by_tour ($tour_id)
     {
         $this->db->select("tourist.tour_id, tourist.person_id");

@@ -1,6 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // list.php Chris Dart Dec 16, 2013 10:32:15 PM chrisdart@cerebratorium.com
+
+$buttons[] = array("text"=>"Add a New Person", "type"=>"span", "class" => "button new create-person");
+print create_button_bar($buttons);
 ?>
 <table class="list" id="person-list">
 <? foreach($people as $person): ?>

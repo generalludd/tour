@@ -22,13 +22,14 @@ class Person extends MY_Controller
     {
         $id = $this->uri->segment(3);
         $data = array();
-      //  $data["person"] = array();
+        // $data["person"] = array();
 
         $person = $this->person->get($id);
 
         $phones = $this->phone->get_for_person($id);
         $person->phones = $phones;
         $person->address = $this->address->get($person->address_id);
+        $data["id"] = $id;
         $data["person"] = $person;
         $data["title"] = sprintf("Person Record: %s %s", $data["person"]->first_name, $data["person"]->last_name);
         $data["target"] = "person/view";
@@ -70,6 +71,22 @@ class Person extends MY_Controller
         $data["phones"] = $this->phone->get_for_person(1);
         $data["target"] = "person/edit";
         $this->load->view("page/index", $data);
+    }
+
+    function create ()
+    {
+        // create a record in the db and get the insertion id. Then go to the
+        // edit user page with
+        $data["person"] = FALSE;
+        $data["action"] = "insert";
+        $this->load->view("person/edit", $data);
+    }
+
+    function insert ()
+    {
+        $person_id = $this->person->insert(FALSE);
+
+        redirect("person/view/$person_id");
     }
 
     function update ()

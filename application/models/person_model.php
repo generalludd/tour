@@ -31,7 +31,7 @@ class Person_model extends CI_Model
     {
         $this->db->where("person.id", $id);
         $this->db->from("person");
-        if($fields){
+        if ($fields) {
             $this->db->select($fields);
         }
         $result = $this->db->get()->row();
@@ -50,15 +50,19 @@ class Person_model extends CI_Model
         return $result;
     }
 
-    function insert ()
+    function insert ($include_address = TRUE)
     {
         $this->prepare_variables();
         $this->db->insert("person", $this);
         $id = $this->db->insert_id();
-        $this->load->model("address_model");
-        $this->address_model->insert_for_user($id);
-        $this->load->model("phone_model");
-        $this->phone_model->insert_for_user($id);
+        if ($include_address) {
+            $this->load->model("address_model");
+            $this->address_model->insert_for_user($id);
+
+            $this->load->model("phone_model");
+            $this->phone_model->insert_for_user($id);
+        }
+        return $id;
     }
 
     function update ($id, $values = array())

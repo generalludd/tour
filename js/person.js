@@ -47,6 +47,20 @@ $(document).ready(function(){
 		
 		
 	});
+	
+	$(".create-person").live("click",function(){
+		form_data = {
+				ajax: '1'
+		};
+		$.ajax({
+			type:"get",
+			url: base_url + "person/create",
+			data: form_data,
+			success: function(data){
+				show_popup("Creating a New Person", data, "auto");
+			}
+		});
+	});
 
 
 });
