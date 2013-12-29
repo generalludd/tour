@@ -17,7 +17,7 @@ class Menu extends MY_Controller
 		$value = $this->input->get("value");
 		$field = $this->input->get("field");
 		$categories = $this->variable->get_pairs($category, array("field"=>"value","direction"=>"ASC"));
-		$pairs = get_keyed_pairs($categories, array("name","value"));
+		$pairs = get_keyed_pairs($categories, array("name","value"),TRUE);
 		echo form_dropdown($field, $pairs, $value, "class='save-field'");
 	}
 
