@@ -2,14 +2,15 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // list.php Chris Dart Dec 14, 2013 3:18:33 PM chrisdart@cerebratorium.com
-
-$buttons[] = array(
-        "text" => "Create Tour",
-        "type" => "span",
-        "class" => "button new create-tour",
-        "id" => "tour"
-);
-print create_button_bar($buttons);
+if (! $for_tourist) {
+    $buttons[] = array(
+            "text" => "Create Tour",
+            "type" => "span",
+            "class" => "button new create-tour",
+            "id" => "tour"
+    );
+    print create_button_bar($buttons);
+}
 ?>
 <table class="list">
 	<thead>
@@ -18,6 +19,9 @@ print create_button_bar($buttons);
 			<th>Start</th>
 			<th>End</th>
 			<th>Payment Due</th>
+			<? if($for_tourist):?>
+			<th>Amt Paid</th>
+			<? endif;?>
 			<!-- <th>Full Price</th>
 			<th>Banquet Price</th>
 			<th>Early Bird</th>
@@ -69,15 +73,26 @@ foreach ($tours as $tour) {
 			<td>
 <?=format_money($tour->quad_rate);?>
 </td> -->
-			<td>
-			<a class="button show-tour mini"
-				href="<?=base_url("/index.php/tour/view/$tour->id");?>">Details</a></td>
+<? if($for_tourist): ?>
+<td>
+<?=format_money($tour->amt_paid);?>
+</td>
+<td>
+<?=create_button(array("text"=>"Payment Details", "type"=>"span","class"=>"button edit edit-payer", "id"=>sprintf("edit-payer_%s_%s",$tour->payer_id, $tour->tour_id)));?>
+
+</td>
+<td><a class="button show-tour mini"
+				href="<?=site_url("/tour/view/$tour->id");?>">Details</a></td>
+<? else: ?>
+			<td><a
+				class="button show-tour mini"
+				href="<?=site_url("/tour/view/$tour->id");?>">Details</a></td>
 			<td><a
 				class="button shour-toursits mini"
-				href="<?=base_url("/index.php/tourist/show_all/$tour->id");?>">Tourists</a>
-			</td>
+				href="<?=site_url("/tourist/show_all/$tour->id");?>">Tourists</a></td>
 		</tr>
 <?
+endif;
     if ($row_class == "odd") {
         $row_class = "even";
     } else {
