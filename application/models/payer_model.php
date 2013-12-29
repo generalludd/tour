@@ -9,6 +9,8 @@ class Payer_model extends CI_Model
     var $room_size;
     var $discount;
     var $amt_paid;
+    var $is_comp;
+    var $is_cancelled;
     var $notes;
 
     function __construct ()
@@ -23,7 +25,9 @@ class Payer_model extends CI_Model
                 "room_size",
                 "discount",
                 "amt_paid",
-                "notes"
+                "is_comp",
+                "is_cancelled",
+                "notes",
         );
         for ($i = 0; $i < count($variables); $i ++) {
             $my_variable = $variables[$i];
@@ -66,7 +70,9 @@ class Payer_model extends CI_Model
         $this->db->where("`tour`.`id` = `payer`.`tour_id`", NULL, FALSE);
         $this->db->join("person","person.id = payer.payer_id");
         $this->db->from("payer,tour");
-        $this->db->select("tour.id, tour.tour_name, payer.payer_id, person.first_name, person.last_name");
+        $this->db->select("tour.id, tour.tour_name, payer.*, person.first_name, person.last_name, person.email");
+        $this->db->order_by("person.last_name","ASC");
+        $this->db->order_by("person.first_name","ASC");
         $result = $this->db->get()->result();
         return $result;
     }
