@@ -291,6 +291,49 @@ $(".select-as-payer").live("click",function(){
 
 });//end document load
 
+$(".create-new-tourist").live("click", function(){
+	form_data = {
+			ajax: '1'
+	};
+	$.ajax({
+		type: "get",
+		url: base_url + "tourist/create",
+		data: form_data,
+		success: function(data){
+			$("#add-new-tourist").html(data);
+			$(".create-new-tourist").fadeOut();
+		}
+	});
+});
+
+$(".insert-new-tourist").live("click",function(){
+	my_tour = $("#tour_id").val();
+	my_payer = $("#payer_id").val();
+	form_data = {
+			tour_id: my_tour,
+			payer_id: my_payer,
+			first_name: $("#first_name").val(),
+			last_name: $("#last_name").val(),
+			shirt_size: $("#shirt_size").val(),
+			ajax: '1'
+	};
+	$.ajax({
+		type: "post",
+		data: form_data,
+		url: base_url + "tourist/insert_new",
+		success: function(data){
+			$(".create-new-tourist").fadeOut();
+			$("#add-new-tourist table").remove();
+			$("#payer-tourist-list").html(data);
+			tourist_count = $("#payer-tourist-list tr").length;
+			$("#tourist_count").val(tourist_count);
+			calculate_cost(1);
+		}
+		
+	});
+	
+});
+
 function calculate_cost(include_amt){
 	tourist_count = $("#tourist_count").val().valueOf();
 	amt_paid = 0;

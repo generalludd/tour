@@ -31,41 +31,41 @@ class Tourist extends MY_Controller
 
             $price = 0;
             switch ($payer->payment_type) {
-            	case "full_price":
-            	    $price = $tour->full_price;
-            	    break;
-            	case "banquet_price":
-            	    $price = $tour->banquet_price;
-            	    break;
-            	case "early_price":
-            	    $price = $tour->early_price;
-            	    break;
-            	case "regular_price":
-            	    $price = $tour->regular_price;
-            	    break;
-            	default:
-            	    $price = 0;
-            	    break;
+                case "full_price":
+                    $price = $tour->full_price;
+                    break;
+                case "banquet_price":
+                    $price = $tour->banquet_price;
+                    break;
+                case "early_price":
+                    $price = $tour->early_price;
+                    break;
+                case "regular_price":
+                    $price = $tour->regular_price;
+                    break;
+                default:
+                    $price = 0;
+                    break;
             }
             if ($price == 0) {
                 $rate = 0;
             } else {
                 switch ($payer->room_size) {
-                	case "single_room":
-                	    $rate = $tour->single_room;
-                	    break;
-                	case "triple_room":
-                	    $rate = $tour->triple_room;
-                	    break;
-                	case "quad_room":
-                	    $rate = $tour->quad_room;
-                	    break;
-                	default:
-                	    $rate = 0;
-                	    break;
+                    case "single_room":
+                        $rate = $tour->single_room;
+                        break;
+                    case "triple_room":
+                        $rate = $tour->triple_room;
+                        break;
+                    case "quad_room":
+                        $rate = $tour->quad_room;
+                        break;
+                    default:
+                        $rate = 0;
+                        break;
                 }
             }
-            if($payer->is_comp == 1 || $payer->is_cancelled){
+            if ($payer->is_comp == 1 || $payer->is_cancelled) {
                 $price = 0;
                 $rate = 0;
             }
@@ -107,6 +107,9 @@ class Tourist extends MY_Controller
 
     function create ()
     {
+        $data["action"] = "insert";
+        $data["tourist"] = NULL;
+        $this->load->view("tourist/edit",$data);
     }
 
     function insert ($payer_id = FALSE, $tour_id = FALSE, $person_id = FALSE)
@@ -125,6 +128,18 @@ class Tourist extends MY_Controller
             $data["tourists"] = $this->tourist->get_by_payer($data["payer_id"], $data["tour_id"]);
             $this->load->view($target, $data);
         }
+    }
+
+    /**
+     * Insert a new person and add directly to tour
+     */
+    function insert_new ()
+    {
+        $this->load->model("person_model", "person");
+        $person_id = $this->person->insert();
+        $payer_id = $this->input->post("payer_id");
+        $tour_id = $this->input->post("tour_id");
+       $this->insert($payer_id, $tour_id, $person_id);
     }
 
     function update ()

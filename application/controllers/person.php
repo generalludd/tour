@@ -85,7 +85,9 @@ class Person extends MY_Controller
 
     function add_housemate ()
     {
-        $data["person"] = (object) array("");
+        $data["person"] = (object) array(
+                ""
+        );
         $data["person"]->address_id = $this->input->post("address_id");
         $data["action"] = "insert";
         $this->load->view("person/edit", $data);
@@ -93,7 +95,6 @@ class Person extends MY_Controller
 
     function insert ()
     {
-
         $person_id = $this->person->insert(FALSE);
         redirect("person/view/$person_id");
     }

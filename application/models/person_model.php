@@ -52,7 +52,7 @@ class Person_model extends CI_Model
         return $result;
     }
 
-    function insert ($include_address = TRUE)
+    function insert ($include_address = FALSE)
     {
         $this->prepare_variables();
         $this->db->insert("person", $this);
