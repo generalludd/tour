@@ -19,7 +19,7 @@ print create_button_bar($buttons);?>
 	<?=create_edit_field("email", get_value($person,"email"), "Email",array("envelope"=>"div"));?>
 </div>
 <div class='field-set'>
-	<?=create_edit_field("shirt_size", get_value($person,"shirt_size"), "Shirt Size",array("envelope"=>"div"));?>
+	<?=create_edit_field("shirt_size", get_value($person,"shirt_size"), "Shirt Size",array("envelope"=>"div","class"=>"dropdown","attributes"=>"menu='shirt_size'"));?>
 </div>
 </fieldset>
 <fieldset class="grouping block phone-info" id="phone">

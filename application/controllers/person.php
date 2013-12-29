@@ -65,6 +65,7 @@ class Person extends MY_Controller
 
     function edit ()
     {
+
         $id = $this->uri->segment(3);
         $data = array();
         $data["person"] = $this->person->get($id);
@@ -79,6 +80,9 @@ class Person extends MY_Controller
         // create a record in the db and get the insertion id. Then go to the
         // edit user page with
         $data["person"] = FALSE;
+        $this->load->model("variable_model","variable");
+        $shirt_sizes = $this->variable->get_pairs("shirt_size");
+        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array("value","name",TRUE));
         $data["action"] = "insert";
         $this->load->view("person/edit", $data);
     }

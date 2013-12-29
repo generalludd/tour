@@ -25,7 +25,8 @@ $full_name = "Adding a New Person";
 <br/>
 <?=create_input($person, "email", "Email", array("type","email"));?>
 <br/>
-<?=create_input($person, "shirt_size","Shirt Size");?>
+<label for="shirt_size">Shirt Size:</label>
+<?=form_dropdown("shirt_size",$shirt_sizes,get_value($person, "shirt_size", array("id"=>"shirt_size")));?>
 </p>
 </fieldset>
 <input type="submit" name="submit-person-editor" id="submit-person-editor" class="button" value="<?=ucfirst($action);?>"/>

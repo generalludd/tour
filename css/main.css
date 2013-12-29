@@ -673,6 +673,10 @@ table.list tbody tr {
 	
 }
 
+#popup {
+	font-size: .9em;
+}
+
 table.list.compressed {
 	font-size: .9em;
 	padding:0;
