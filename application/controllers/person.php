@@ -70,7 +70,7 @@ class Person extends MY_Controller
         $data = array();
         $data["person"] = $this->person->get($id);
         $data["title"] = sprintf("Person Record: %s %s", $data["person"]->first_name, $data["person"]->last_name);
-        $data["phones"] = $this->phone->get_for_person(1);
+//         $data["phones"] = $this->phone->get_for_person($id);
         $data["target"] = "person/edit";
         $this->load->view("page/index", $data);
     }
@@ -82,17 +82,18 @@ class Person extends MY_Controller
         $data["person"] = FALSE;
         $this->load->model("variable_model","variable");
         $shirt_sizes = $this->variable->get_pairs("shirt_size");
-        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array("value","name",TRUE));
+        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array("value","name"), TRUE);
         $data["action"] = "insert";
         $this->load->view("person/edit", $data);
     }
 
     function add_housemate ()
     {
-        $data["person"] = (object) array(
-                ""
-        );
+        $data["person"] = (object) array();
         $data["person"]->address_id = $this->input->post("address_id");
+        $this->load->model("variable_model","variable");
+        $shirt_sizes = $this->variable->get_pairs("shirt_size");
+        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array("value","name"), TRUE);
         $data["action"] = "insert";
         $this->load->view("person/edit", $data);
     }
