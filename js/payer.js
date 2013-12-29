@@ -2,7 +2,7 @@
  * 
  */
 $(document).ready(function(){
-$(".edit_payer").live("click",function(){
+$(".edit-payer").live("click",function(){
 	my_id = this.id.split("_");
 	form_data ={
 	payer_id: my_id[1],
@@ -74,7 +74,7 @@ $(".change_room_size").live("change",function(){
 
 
 
-$("input.edit_payer_amounts").live("blur",function(){
+$("input.edit-payer-amounts").live("blur",function(){
 calculate_cost(1);	
 });
 
@@ -103,13 +103,14 @@ $('#tourist-dropdown').live('keyup', function(event) {
 			data: form_data,
 			success: function(data){
 				//remove the search_list because we don't want to have a ton of them. 
-
+if(data.length > 0){
 				$("#search_list").css({"z-index": 10000}).html(data).position({
 					my: "left top",
 					at: "left bottom",
 					of: $("#tourist-dropdown"), 
 					collision: "fit"
 				}).show();
+			}
 		}
 		});
 	}else{
@@ -119,6 +120,15 @@ $('#tourist-dropdown').live('keyup', function(event) {
 
 	}
 });// end person_search.keyup
+
+
+
+
+$('#tourist-dropdown').live('blur', function(event) {
+	$("#search_list").fadeOut();
+});
+
+
 
 /*
  * "target" in this scriptlet identifies the format of the output from tourist/insert
