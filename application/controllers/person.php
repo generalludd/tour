@@ -29,6 +29,7 @@ class Person extends MY_Controller
         $phones = $this->phone->get_for_person($id);
         $person->phones = $phones;
         $person->address = $this->address->get($person->address_id);
+        $person->housemates = $this->person->get_housemates($person->address_id, $person->id);
         $data["id"] = $id;
         $data["person"] = $person;
         $data["title"] = sprintf("Person Record: %s %s", $data["person"]->first_name, $data["person"]->last_name);
@@ -82,10 +83,18 @@ class Person extends MY_Controller
         $this->load->view("person/edit", $data);
     }
 
+    function add_housemate ()
+    {
+        $data["person"] = (object) array("");
+        $data["person"]->address_id = $this->input->post("address_id");
+        $data["action"] = "insert";
+        $this->load->view("person/edit", $data);
+    }
+
     function insert ()
     {
-        $person_id = $this->person->insert(FALSE);
 
+        $person_id = $this->person->insert(FALSE);
         redirect("person/view/$person_id");
     }
 
