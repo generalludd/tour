@@ -123,12 +123,7 @@ function format_money ($int, $format = "standard")
         if ($format == "int") {
             $output = str_replace("\$", "", $int);
         } else {
-            $parts = explode(".", $int);
-            if (count($parts) == 2) {
-                $output = sprintf("$%s", $int);
-            } else {
-                $output = sprintf("$%s.00", $int);
-            }
+            $output = sprintf("$%s", number_format($int,2));
         }
     }
     return $output;
