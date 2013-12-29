@@ -11,80 +11,74 @@ class Tourist extends MY_Controller
         $this->load->model("tourist_model", "tourist");
     }
 
-    function view ()
+    function show ()
     {
     }
 
     function show_all ()
     {
+        $tour_id = $this->uri->segment(3);
+        $this->load->model("tour_model", "tour");
         $this->load->model("payer_model", "payer");
         $this->load->model("phone_model", "phone");
-        $tourists = $this->tourist->get_by_tour($this->uri->segment(3));
-        $data["tourists"] = array();
-        $data["tour_name"] = $tourists[0]->tour_name;
+        $tour = $this->tour->get($tour_id);
+        $payers = $this->payer->get_payers($tour_id);
+        foreach ($payers as $payer) {
+            $phones = $this->phone->get_for_person($payer->payer_id);
+            $payer->phones = $phones;
+            $tourists = $this->tourist->get_by_payer($payer->payer_id, $tour_id);
+            $payer->tourists = $tourists;
 
-        $data["title"] = sprintf("%s: Tourists", $data["tour_name"]);
-        foreach ($tourists as $tourist) {
-            $my_list = array();
-            $my_list["is_payer"] = false;
-            $current_payer = $tourist->payer_id;
-            $my_list["person_id"] = $tourist->person_id;
-            $my_list["tour_id"] = $tourist->tour_id;
-            $my_list["payer_id"] = $tourist->payer_id;
-            $my_list["first_name"] = $tourist->first_name;
-            $my_list["last_name"] = $tourist->last_name;
-            $my_list["shirt_size"] = $tourist->shirt_size;
-            $my_list["email"] = $tourist->email;
-            if ($current_payer == $tourist->person_id) {
-                $my_list["is_payer"] = TRUE;
-
-                $price = 0;
-                switch ($tourist->payment_type) {
-                    case "full_price":
-                        $price = $tourist->full_price;
-                        break;
-                    case "banquet_price":
-                        $price = $tourist->banquet_price;
-                        break;
-                    case "early_price":
-                        $price = $tourist->early_price;
-                        break;
-                    case "regular_price":
-                        $price = $tourist->regular_price;
-                        break;
-                }
-
-                switch ($tourist->room_size) {
-                    case "single_room":
-                        $rate = $tourist->single_room;
-                        break;
-                    case "triple_room":
-                        $rate = $tourist->triple_room;
-                        break;
-                    case "quad_room":
-                        $rate = $tourist->quad_room;
-                        break;
-                    default:
-                        $rate = 0;
-                        break;
-                }
-                $tourist_count = $this->payer->get_tourist_count($tourist->payer_id, $tourist->tour_id);
-                $my_list["phones"] = $this->phone->get_for_person($tourist->payer_id);
-                $price = $price * $tourist_count;
-                $my_list["discount"] = $tourist->discount;
-                $my_list["amt_paid"] = $tourist->amt_paid;
-                if (! $tourist->room_size) {
-                    $my_list["room_size"] = "Double";
-                } else {
-                    $my_list["room_size"] = $tourist->room_size;
-                }
-                $my_list["room_rate"] = $rate;
-                $my_list["price"] = $price;
-                $my_list["payment_type"] = $tourist->payment_type;
-                $my_list["amt_due"] = $price - $tourist->amt_paid + $tourist->discount + $rate;
+            $price = 0;
+            switch ($payer->payment_type) {
+            	case "full_price":
+            	    $price = $tour->full_price;
+            	    break;
+            	case "banquet_price":
+            	    $price = $tour->banquet_price;
+            	    break;
+            	case "early_price":
+            	    $price = $tour->early_price;
+            	    break;
+            	case "regular_price":
+            	    $price = $tour->regular_price;
+            	    break;
+            	default:
+            	    $price = 0;
+            	    break;
             }
-            $data["tourists"][] = (object) $my_list;
+            if ($price == 0) {
+                $rate = 0;
+            } else {
+                switch ($payer->room_size) {
+                	case "single_room":
+                	    $rate = $tour->single_room;
+                	    break;
+                	case "triple_room":
+                	    $rate = $tour->triple_room;
+                	    break;
+                	case "quad_room":
+                	    $rate = $tour->quad_room;
+                	    break;
+                	default:
+                	    $rate = 0;
+                	    break;
+                }
+            }
+            if($payer->is_comp == 1 || $payer->is_cancelled){
+                $price = 0;
+                $rate = 0;
+            }
+            $payer->price = $price;
+            $payer->room_rate = $rate;
+            $payer->amt_due = $price - $payer->amt_paid + $payer->discount + $rate;
+
+            $tourist_count = $this->payer->get_tourist_count($payer->payer_id, $payer->tour_id);
+            $payer->tourist_count = $tourist_count;
         }
+        $data["tour"] = $tour;
+        $data["payers"] = $payers;
+        $data["title"] = "Tourist List: $tour->tour_name";
         $data["target"] = "tourist/list";
         $this->load->view("page/index", $data);
     }
@@ -97,6 +91,18 @@ class Tourist extends MY_Controller
     {
         $data["id"] = $this->input->get("id");
         $this->load->view("tourist/select_type", $data);
+    }
+
+    function show_for_tourist ()
+    {
+        $this->load->model("person_model", "person");
+        $person_id = $this->uri->segment(3);
+        $tourist = $this->person->get($person_id);
+        $data["tourist"] = $tourist;
+        $data["tours"] = $this->tourist->get_by_tourist($person_id);
+        $data["title"] = sprintf("Showing Tours for %s", $tourist->first_name, $tourist->last_name);
+        $data["target"] = "tourist/tour_list";
+        $this->load->view("page/index", $data);
     }
 
     function create ()
@@ -149,7 +155,7 @@ class Tourist extends MY_Controller
         }
         $data["payer_id"] = $payer_id;
         $data["tour_id"] = $tour_id;
-        $target = "person/mini_list";
+        $target = "tourist/mini_list";
         $data["people"] = $this->person->find_people($name, $payer_id, $tour_id);
         $this->load->view($target, $data);
     }
