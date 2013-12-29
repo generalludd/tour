@@ -2,9 +2,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // view.php Chris Dart Dec 11, 2013 7:47:55 PM chrisdart@cerebratorium.com
-?>
-<?=create_button_bar(array(array("text"=>"Join Tour", "type"=>"span","class"=>"button new mini select-tour", "id"=>sprintf("join-tour_%s",$person->id))));?>
-
+$buttons[] = array("text"=>"Join Tour", "type"=>"span","class"=>"button new mini select-tour", "id"=>sprintf("join-tour_%s",$person->id));
+$buttons[] = array("text" => sprintf("View %s's Tours", $person->first_name), "href"=> site_url("/tourist/show_for_tourist/$person->id"), "class"=>"button show-tours-for-tourist");
+print create_button_bar($buttons);?>
 <fieldset class="grouping block person-info" id="person">
 <legend>General Info</legend>
 <input type="hidden" id="id" name="id" value="<?=get_value($person, "id", $id);?>"/>
@@ -44,9 +44,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<?=create_edit_field("Zip", $person->address->zip, "Zip", array("envelope"=>"div"));?>
 </div>
 </fieldset>
-<fieldset class="grouping block housemates" id="housemates">
+<fieldset class="grouping block housemate-info" id="housemate">
 <legend>Housemates</legend>
-<?=create_button_bar(array(array("text" => "Add Housemate", "type"=>"span", "class"=>"button mini new add-housemate","id"=>sprintf("add-housemate_%s%s",$person->id, $person->address->id))));?>
+<? if(count($person->housemates) > 0):?>
+<table>
+<? foreach($person->housemates as $housemate):?>
+<tr>
+<td>
+<a href="<?=site_url("person/view/$housemate->id");?>"><?=sprintf("%s %s", $housemate->first_name,$housemate->last_name);?></a></td>
+</tr>
+<? endforeach; ?>
+</table>
+<? endif;?>
+<?=create_button_bar(array(array("text" => "Add Housemate", "type"=>"span", "class"=>"button mini new add-housemate","id"=>sprintf("add-housemate_%s_%s",$person->id, $person->address->id))));?>
 
 </fieldset>
 <? else: ?>
