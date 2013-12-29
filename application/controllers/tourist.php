@@ -111,7 +111,7 @@ class Tourist extends MY_Controller
         $data["tourist"] = NULL;
         $this->load->model("variable_model","variable");
         $shirt_sizes = $this->variable->get_pairs("shirt_size");
-        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array("value","name",TRUE));
+        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array("value","name"), TRUE);
         $this->load->view("tourist/edit",$data);
     }
 
