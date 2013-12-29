@@ -57,7 +57,7 @@ loggedout indicates the opposite.
 */
 .loggedout {
 	font-size: 1.5em;
-	stext-align: center;
+	text-align: center;
 	margin-top: -45px;
 	padding: 10px;
 	position: fixed;
@@ -196,7 +196,7 @@ div.login-title {
 
 #new_popup {
 	display: none;
-	visibility: block;
+	visibility: hidden;
 }
 
 /*general display elements */
@@ -336,7 +336,7 @@ ul.button-list li .button.delete {
 	/*font-size: .8em;*/
 }
 
-}
+
 textarea {
 	font-size: 1em;
 }
@@ -879,8 +879,10 @@ body.person #content {
 }
 
 body.person fieldset.grouping {
-	/*float: left;
-	width: 25%;*/
+	float: left;
+	width: 20%;
+	clear: none;
+	min-width: 35ex;
 }
 
 fieldset.person-info {
