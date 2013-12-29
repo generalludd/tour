@@ -1,62 +1,99 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
-// list.php Chris Dart Dec 14, 2013 4:30:04 PM chrisdart@cerebratorium.com
+// list.php Chris Dart Dec 28, 2013 4:47:05 PM chrisdart@cerebratorium.com
+$total_due = 0;
+$total_paid = 0;
+$total_payers = 0;
+$total_tourists = 0;
 ?>
-<h2><?=$tour_name;?></h2>
+<h2><?=$tour->tour_name;?></h2>
+<? $buttons[] = array("text"=> "Tour Details", "href" => site_url("tour/view/$tour->id"), "class"=>"button mini show-tour");?>
+<?=create_button_bar($buttons);?>
 <table class="list">
 	<thead>
 		<tr>
-			<th>Name</th>
-			<th>Shirt Size</th>
+			<th style="width:15ex;">Payer</th>
+			<th style="width:20ex">Tourists</th>
 			<th>Contact Info</th>
-			<th>Payment Type</th>
-			<th>Price</th>
+			<th>Payment Type<br/>Price</th>
 			<th>Paid</th>
 			<th>Discount</th>
-			<th>Room Size (Rate)</th>
+			<th>Room Size<br/>Rate</th>
 			<th>Due</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 
-<?
-foreach ($tourists as $tourist) :
-    ?>
-    <?
-    $class = "";
-    if ($tourist->is_payer) :
-        $class = "row-break";
-
-    endif;
-    ?>
-<tr class="row <?=$class;?>">
-			<td><a href="<?=site_url("person/view/$tourist->person_id");?>"><?=sprintf("%s %s", $tourist->first_name,$tourist->last_name);?></a></td>
-			<td><?=$tourist->shirt_size;?></td>
-		<? if($tourist->is_payer): ?>
-		<? if($tourist->phones): ?>
-		<td>
-						<?=format_email($tourist->email);?>
-				<? foreach($tourist->phones as $phone):?>
-
-						<br/><?=sprintf("%s: %s",$phone->phone_type, $phone->phone);?>
-				<? endforeach;?>
-			</td>
-		<? endif; ?>
-
-		<td><?=format_field_name($tourist->payment_type);?></td>
-			<td><?=format_money($tourist->price); ?></td>
-			<td><?=format_money($tourist->amt_paid);?></td>
-			<td><?=format_money($tourist->discount);?></td>
-			<td><?=sprintf("%s (%s)", format_field_name($tourist->room_size),format_money($tourist->room_rate));?></td>
-			<td><?=format_money($tourist->amt_due);?></td>
+<? foreach ($payers as $payer) : ?>
+<? $total_payers++;?>
+<tr class="row row-break">
+			<td><a href="<?=site_url("person/view/$payer->payer_id");?>"><?=sprintf("%s %s", $payer->first_name,$payer->last_name);?></a></td>
+			<td>
+<? foreach($payer->tourists as $tourist) :?>
+    <? $total_tourists++;?>
+    <? $tourist_name = sprintf("%s %s", $tourist->first_name,$tourist->last_name);?>
+    <? if($tourist->person_id != $payer->payer_id) : ?>
+    <? $tourist_name = sprintf("<a href='%s'>%s</a>",site_url("person/view/$tourist->person_id"),$tourist_name);?>
+    <? endif; ?>
+    <?=$tourist_name;?>
+    <? if(get_value($tourist, "shirt_size", FALSE)): ?>
+        &nbsp;(<?=$tourist->shirt_size;?>)
+    <? endif;?>
+    <br />
+<? endforeach; ?>
+</td>
+			<td>
+            <? if($payer->phones || $payer->email): ?>
+                <? if(get_value($payer, "email", FALSE)): ?>
+                    <?=format_email($payer->email);?><br />
+                <? endif; ?>
+                <? foreach($payer->phones as $phone):?>
+                    <?=sprintf("%s: %s",$phone->phone_type, $phone->phone);?><br />
+                <? endforeach;?>
+            <? endif; ?>
+            </td>
+			<?
+    if ($payer->is_comp == 1) :
+        ?>
+            <td>Complementary</td>
+        <? elseif ($payer->is_cancelled == 1): ?>
+            <td class='cancelled'>Cancelled</td>
+        <? else: ?>
+            <td><?=sprintf("%s<br/>%s",format_field_name($payer->payment_type), format_money($payer->price));?>
+           </td>
+        <? endif; ?>
+			<td><?=format_money($payer->amt_paid);?></td>
+			<td><?=format_money($payer->discount);?></td>
+			<td><?=sprintf("%s<br/>%s", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
+			<td><?=format_money($payer->amt_due);?></td>
 			<td><span
-				class="button edit edit_payer"
-				id="edit-payer_<?=$tourist->payer_id;?>_<?=$tourist->tour_id;?>">
-					Edit</span></td>
-		<? endif; ?>
+				class="button edit edit-payer"
+				id="edit-payer_<?=$payer->payer_id;?>_<?=$payer->tour_id;?>"> Edit</span></td>
 		</tr>
+		<?
+
+$total_due += $payer->amt_due;
+    $total_paid += $payer->amt_paid;
+    ?>
 		<? endforeach; ?>
 	</tbody>
+	<tfoot>
+		<tr>
+			<td>Total Payers: <?=$total_payers;?>
+	</td>
+			<td>Total Tourists: <?=$total_tourists;?>
+	</td>
+			<td colspan='2'></td>
+			<td>
+	<?=format_money($total_paid);?>
+	</td>
+			<td colspan='2'></td>
+			<td>
+	<?=format_money($total_due);?>
+	</td>
+		</tr>
+	</tfoot>
 </table>
