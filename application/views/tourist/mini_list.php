@@ -7,7 +7,7 @@
 <? foreach($people as $person): ?>
 <tr>
 <td><?=sprintf("%s %s", $person->first_name, $person->last_name);?></td>
-<td><span class="button mini select_for_tour" id="<?=sprintf("select-for-tour_%s_%s_%s",$person->person_id, $payer_id, $tour_id);?>">Select</span>
+<td><span class="button mini select_for_tour" id="<?=sprintf("select-for-tour_%s_%s_%s",$person->id, $payer_id, $tour_id);?>">Select</span>
 </td>
 </tr>
 <? endforeach;?>
