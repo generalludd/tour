@@ -10,32 +10,29 @@ class Phone_model extends CI_Model
 
     function __construct ()
     {
-
         parent::__construct();
     }
 
     function prepare_variables ()
     {
-
         $variables = array(
                 "phone",
                 "phone_type"
         );
 
-        if($this->input->post("phone")){
+        if ($this->input->post("phone")) {
             $this->phone = $this->input->post("phone");
         }
 
-        if($this->input->post("phone_type")){
+        if ($this->input->post("phone_type")) {
             $this->phone_type = $this->input->post("phone_type");
         }
 
-        //prepare_variables($this, $variables);
+        // prepare_variables($this, $variables);
     }
 
     function insert_for_person ($person_id)
     {
-
         $this->prepare_variables();
         $this->db->insert("phone", $this);
         $id = $this->db->insert_id();
@@ -44,8 +41,7 @@ class Phone_model extends CI_Model
                 "phone_id" => $id
         );
         if ($this->input->post("phone_is_primary")) {
-            $relation_array["is_primary"] = $this->input->post(
-                    "phone_is_primary");
+            $relation_array["is_primary"] = $this->input->post("phone_is_primary");
         }
 
         $this->db->insert("phone_person", $relation_array);
@@ -53,7 +49,6 @@ class Phone_model extends CI_Model
 
     function get_for_person ($person_id)
     {
-
         $this->db->from("phone_person");
         $this->db->join("phone", "phone_person.phone_id = phone.id");
         $this->db->select("phone.id,phone.phone,phone.phone_type");
@@ -64,7 +59,6 @@ class Phone_model extends CI_Model
 
     function update ($id, $values = array())
     {
-
         $this->db->where("id", $id);
         if (empty($values)) {
             $this->prepare_variables();
@@ -76,5 +70,12 @@ class Phone_model extends CI_Model
                 return $this->get_value($id, $keys[0]);
             }
         }
+    }
+
+    function delete ($id)
+    {
+        $this->db->delete("phone", array(
+                "id" => $id
+        ));
     }
 }
