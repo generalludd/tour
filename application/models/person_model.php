@@ -9,6 +9,7 @@ class Person_model extends CI_Model
     var $email;
     var $shirt_size;
     var $salutation;
+    var $address_id;
 
     function __construct ()
     {
@@ -22,7 +23,8 @@ class Person_model extends CI_Model
                 "last_name",
                 "email",
                 "shirt_size",
-                "salutation"
+                "salutation",
+                "address_id"
         );
         prepare_variables($this, $variables);
     }
@@ -87,13 +89,23 @@ class Person_model extends CI_Model
         $this->db->order_by("first_name", "ASC");
         $this->db->order_by("last_name", "ASC");
         $this->db->from("person");
-        if ($payer_id) {
+        //The following are deprectated steps a vain attempt at selecting tourists not already added to a tour.
+        /*if ($payer_id) {
             $this->db->where("person.id != '$payer_id'", NULL, FALSE);
         }
         if ($tour_id) {
             $this->db->join("tourist", "tourist.person_id = person.id");
             $this->db->where_not_in("tourist.tour_id", $tour_id);
-        }
+        }*/
+        $result = $this->db->get()->result();
+        return $result;
+    }
+
+    function get_housemates($address_id, $person_id){
+        $this->db->where("person.address_id", $address_id);
+        $this->db->where("person.id !=", $person_id);
+        $this->db->order_by("person.last_name, person.first_name");
+        $this->db->from("person");
         $result = $this->db->get()->result();
         return $result;
     }

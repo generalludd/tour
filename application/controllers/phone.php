@@ -42,4 +42,11 @@ class Phone extends MY_Controller
         $this->phone->update($id, $values);
         print $this->input->post("value");
     }
+
+    function delete ()
+    {
+        $id = $this->input->post("id");
+        $this->phone->delete($id);
+        print TRUE;
+    }
 }
