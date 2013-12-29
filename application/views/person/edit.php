@@ -12,7 +12,7 @@ $full_name = "Adding a New Person";
 ?>
 
 <div class="grouping block person-info">
-<form name="person-editor" id="person-editor" action="<?=site_url("person/$action");?>" method="post"/>
+<form name="person-editor" id="person-editor" action="<?=site_url("person/$action");?>" method="post">
 <fieldset>
 <legend><?="$full_name"; ?></legend>
 <input type="hidden" id="id" name="id" value="<?=get_value($person,"id");?>"/>
@@ -28,6 +28,6 @@ $full_name = "Adding a New Person";
 <?=create_input($person, "shirt_size","Shirt Size");?>
 </p>
 </fieldset>
-<input type="submit" name="submit" value="<?=ucfirst($action);?>"/>
+<input type="submit" name="submit-person-editor" id="submit-person-editor" class="button" value="<?=ucfirst($action);?>"/>
 </form>
 </div>
