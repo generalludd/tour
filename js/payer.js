@@ -323,7 +323,7 @@ $(".insert-new-tourist").live("click",function(){
 		url: base_url + "tourist/insert_new",
 		success: function(data){
 			$(".create-new-tourist").fadeOut();
-			$("#add-new-tourist table").remove();
+			$("#add-new-tourist").children().remove();
 			$("#payer-tourist-list").html(data);
 			tourist_count = $("#payer-tourist-list tr").length;
 			$("#tourist_count").val(tourist_count);
