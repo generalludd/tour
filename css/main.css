@@ -283,7 +283,7 @@ tr.row-break td {
 }
 
 .button:hover {
-	
+	cursor: pointer;
 }
 
 #navigation input[type="text"] {
@@ -333,7 +333,7 @@ ul.button-list li .button.delete {
 }
 
 #utility .button-box {
-	*font-size: .8em;
+	/*font-size: .8em;*/
 }
 
 }
@@ -458,7 +458,7 @@ h2 {
 	border-style: solid;
 	border-width: 1px;
 	margin-top: 10px;
-	margin-bottom: 10px;;
+	margin-bottom: 10px;
 	padding: 10px;
 }
 
@@ -628,7 +628,7 @@ a.button {
 }
 
 .button-box .delete {
-	*margin-top: -5px;
+	/*margin-top: -5px;*/
 }
 
 .button-bar {
@@ -643,7 +643,7 @@ a.button {
 	display: none;
 	z-index: 1000;
 	padding: 10px;
-	*padding-top: 0px;
+	/*padding-top: 0px;*/
 	-moz-box-shadow: 3px 3px 4px #666;
 	-webkit-box-shadow: 3px 3px 4px #666;
 	box-shadow: 3px 3px 4px #666;
@@ -677,6 +677,16 @@ table.list.compressed {
 	font-size: .9em;
 	padding:0;
 	border-spacing:0;
+}
+
+table.list tfoot tr {
+	font-weight: bold;
+}
+
+table.list tfoot tr td {
+	   border-top-style: double;
+    border-top-width: 3px;
+    border-top-color: #000;
 }
 
 table.files {
@@ -751,7 +761,7 @@ fieldset.advanced div.advanced {
 
 .button-box {
 	margin-top: .5em;
-	*padding-bottom: .5em;
+	/*padding-bottom: .5em;*/
 }
 
 ul.buttons {
@@ -858,4 +868,29 @@ input.money {
 
 input.date {
 	width: 15ex;
+}
+
+body.person #content {
+	position: relative;
+}
+
+body.person fieldset.grouping {
+	/*float: left;
+	width: 25%;*/
+}
+
+fieldset.person-info {
+	
+}
+
+fieldset.phone-info{
+	width: 35ex;
+}
+
+fieldset.address-info {
+	
+}
+
+fieldset.housemate-info {
+	
 }
