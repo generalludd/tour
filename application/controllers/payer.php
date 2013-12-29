@@ -98,6 +98,7 @@ class Payer extends MY_Controller
                 break;
         }
 
+
         switch ($payer->room_size) {
             case "single_room":
                 $room_rate = $payer->single_room;
@@ -111,6 +112,10 @@ class Payer extends MY_Controller
             default:
                 $room_rate = 0;
                 break;
+        }
+        if($payer->is_comp == 1){
+            $tour_price = 0;
+            $room_rate = 0;
         }
         $data["room_rate"] = $room_rate;
         $data["tour_price"] = $tour_price;
