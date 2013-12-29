@@ -61,6 +61,24 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	
+	$(".add-housemate").live("click", function(){
+		my_person = this.id.split("_")[1];
+		my_address = this.id.split("_")[2];
+		form_data = {
+				address_id: my_address,
+				ajax: "1"
+		};
+		$.ajax({
+			type:"post",
+			url: base_url + "person/add_housemate",
+			data: form_data,
+			success: function(data){
+				show_popup("Adding a Housemate", data, "auto");
+			}
+		});
+	});
 
 
 });
