@@ -8,27 +8,39 @@
 <h2><?=get_value($tour, "tour_name");?></h2>
 
 <div class="grouping block tour-info" id="tour">
+<p>
 <?=create_input($tour, "tour_name", "Tour Name");?>
-<br/>
+</p>
+<p>
 <?=create_input($tour, "start_date","Start Date", array("format"=>"date", "class"=>"date" ));?>
-<br/>
+</p>
+<p>
 <?=create_input($tour, "end_date", "End Date", array("format"=> "date", "class"=>"date") );?>
-<br/>
+</p>
+<p>
 <?=create_input($tour, "due_date","Due Date", array("format" => "date", "class"=>"date") );?>
-<br/>
-<?=create_input($tour, "full_price","Full Price", array("format" => "money", "class"=>"money") );?>
-<br/>
-<?=create_input($tour, "banquet_price","Banquet Price", array("format" => "money", "class"=>"money") );?>
-<br/>
-<?=create_input($tour, "early_price","Early Price", array("format" => "money", "class"=>"money") );?>
-<br/>
-<?=create_input($tour, "regular_price","Regular Price", array("format" => "money", "class"=>"money") );?>
-<br/>
-<?=create_input($tour, "single_room", "Single Room Adjustment", array("format" => "money", "class"=>"money") );?>
-<br/>
-<?=create_input($tour, "triple_room","Triple Room Adjustment", array("format" => "money", "class"=>"money") );?>
-<br/>
-<?=create_input($tour, "quad_room","Quad Room Adjustment", array("format" => "money", "class"=>"money") );?>
+</p>
+<p>
+<?=create_input($tour, "full_price","Full Price $", array("format" => "", "class"=>"money") );?>
+</p>
+<p>
+<?=create_input($tour, "banquet_price","Banquet Price $", array("format" => "", "class"=>"money") );?>
+</p>
+<p>
+<?=create_input($tour, "early_price","Early Price $", array("format" => "", "class"=>"money") );?>
+</p>
+<p>
+<?=create_input($tour, "regular_price","Regular Price $", array("format" => "", "class"=>"money") );?>
+</p>
+<p>
+<?=create_input($tour, "single_room", "Single Room Adjustment $", array("format" => "", "class"=>"money") );?>
+</p>
+<p>
+<?=create_input($tour, "triple_room","Triple Room Adjustment $", array("format" => "", "class"=>"money") );?>
+</p>
+<p>
+<?=create_input($tour, "quad_room","Quad Room Adjustment $", array("format" => "", "class"=>"money") );?>
+</p>
 </div>
 <div class='button-box'>
 <ul class='button-list'>
