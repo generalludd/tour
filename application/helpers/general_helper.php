@@ -60,13 +60,34 @@ function format_date ($date, $format = "standard")
     }
     return $date;
 }
+/**
+ * ideally this will produce a cleaned up version of a time entry.
+ * for now it just trims a time entry--which could be any string.
+ * @param string $time
+ * @param string $format
+ */
+function format_time ($time, $format = "standard")
+{
+    return trim($time);
+}
 
 function prepare_variables ($object, $variables)
 {
     for ($i = 0; $i < count($variables); $i ++) {
-        $myVariable = $variables[$i];
-        if ($object->input->post($myVariable)) {
-            $object->$myVariable = $object->input->post($myVariable);
+        $my_variable = $variables[$i];
+        if ($object->input->post($my_variable)) {
+            $my_value = $object->input->post($my_variable);
+            if(strpos($my_variable,"date")){
+                $my_value = format_date($my_value,"mysql");
+
+            }
+            if(strpos($my_variable,"price") || strpos($my_variable,"room") || strpos($my_variable,"rate")){
+                $my_value = format_money($my_value,"int");
+            }
+            if(strpos("time",$my_variable)){
+                $my_value = format_time($my_value);
+            }
+            $object->$my_variable = trim($my_value);
         }
     }
 }
@@ -76,10 +97,10 @@ function prepare_variables ($object, $variables)
  * string or array, and "select" comma-delimited string @returns an array of
  * key-value pairs reflecting a Database primary key and human-meaningful string
  */
-function get_keyed_pairs ($list, $pairs, $initialBlank = NULL, $other = NULL, $alternate = array())
+function get_keyed_pairs ($list, $pairs, $initial_blank = NULL, $other = NULL, $alternate = array())
 {
     $output = false;
-    if ($initialBlank) {
+    if ($initial_blank) {
         $output[] = "";
     }
     if (! empty($alternate)) {
@@ -123,7 +144,7 @@ function format_money ($int, $format = "standard")
         if ($format == "int") {
             $output = str_replace("\$", "", $int);
         } else {
-            $output = sprintf("$%s", number_format($int,2));
+            $output = sprintf("$%s", number_format($int, 2));
         }
     }
     return $output;
@@ -138,9 +159,9 @@ function format_email ($email)
     return $output;
 }
 
-function format_field_name($field)
+function format_field_name ($field)
 {
     $field = str_replace("_", " ", $field);
     $field = ucwords($field);
-return $field;
+    return $field;
 }

@@ -30,6 +30,7 @@ var base_url = '<?=base_url("index.php") . "/";?>';
 <script type="text/javascript" src="<?=base_url();?>js/payer.js"></script>
 <script type="text/javascript" src="<?=base_url();?>js/person.js"></script>
 <script type="text/javascript" src="<?=base_url();?>js/address.js"></script>
+<script type="text/javascript" src="<?=base_url();?>js/hotel.js"></script>
 
 <script type="text/javascript" src="<?=base_url();?>js/phone.js"></script>
 

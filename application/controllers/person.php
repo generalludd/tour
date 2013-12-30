@@ -115,7 +115,7 @@ class Person extends MY_Controller
     {
         $id = $this->input->post("id");
         $values = array(
-                $this->input->post("field") => $value = trim($this->input->post("value"))
+                $this->input->post("field") => trim($this->input->post("value"))
         );
         $this->person->update($id, $values);
         echo $this->input->post("value");

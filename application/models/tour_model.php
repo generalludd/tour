@@ -109,6 +109,7 @@ class Tour_model extends MY_Model
         return $result;
     }
 
+
     function insert ()
     {
         $this->prepare_variables();
