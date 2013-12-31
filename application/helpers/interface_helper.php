@@ -242,8 +242,11 @@ function create_input ($object, $name, $label, $options = array())
         $class = $options["class"];
     }
 
-    $value = get_value($object, $name,"");
-
+    $value = get_value($object, $name, "");
+    $envelope = "p";
+    if (array_key_exists("envelope", $options)) {
+        $envelope = $options["envelope"];
+    }
     $format = FALSE;
     if (array_key_exists("format", $options)) {
         $format = $options["format"];
@@ -261,7 +264,8 @@ function create_input ($object, $name, $label, $options = array())
     if (array_key_exists("type", $options)) {
         $type = $options["type"];
     }
-    return sprintf("<label for='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='%s'/>", $name, $label,$type, $name, $id, $value, $class);
+    return sprintf("<%s><label for='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='input %s'/></%s>", $envelope, $name, $label, $type, $name,
+            $id, $value, $class, $envelope);
 }
 
 /**
@@ -283,4 +287,11 @@ function create_checkbox ($name, $values, $selections = array())
         $output[] = sprintf("<label>%s</label><input type='checkbox' name='%s' value='%s' %s/>", $value->value, $name, $value->value, $checked);
     }
     return implode("\r", $output);
+}
+
+
+function create_dropdown($name,$values, $options = array()){
+    if(array_key_exists("envelope",$options)){
+
+    }
 }

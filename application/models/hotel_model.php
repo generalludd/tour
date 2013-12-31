@@ -7,6 +7,7 @@ class Hotel_Model extends CI_Model
 {
     var $hotel_name;
     var $tour_id;
+    var $stay;
     var $arrival_date;
     var $arrival_time;
     var $departure_date;
@@ -28,6 +29,7 @@ class Hotel_Model extends CI_Model
         $variables = array(
                 "hotel_name",
                 "tour_id",
+                "stay",
                 "arrival_date",
                 "arrival_time",
                 "departure_date",

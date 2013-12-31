@@ -21,6 +21,10 @@ $(document).ready(function(){
 		save_field($(this));
 	});
 	
+	$(".datefield").live("focus", function(){
+		$(".datefield").datepicker();
+	});
+	
 });
 
 function show_popup(my_title,data,popup_width,x,y){
@@ -70,8 +74,11 @@ function create_dropdown(my_field, my_category, my_value)
  */
 function edit_field(me)
 {
+	
 	my_field = me.parents(".field-envelope").attr("id").split("-")[1];
 	my_value = me.html();
+	my_class = "save-field";
+	my_type = "text";
 	if(me.hasClass("dropdown")){
 		my_category = me.attr("menu");
 		form_data = {
@@ -106,7 +113,7 @@ function edit_field(me)
 			});
 		
 	}else if(me.hasClass("textarea")){
-		me.html("<br/><textarea name='" + my_field + "'class='save-field'>" + my_value + "</textarea>").removeClass("edit-field");
+		me.html("<br/><textarea name='" + my_field + "'class='" + my_class + "'>" + my_value + "</textarea>").removeClass("edit-field");
 		
 	}else if(me.hasClass("checkbox")){
 		my_category = me.attr("menu");
@@ -127,14 +134,42 @@ function edit_field(me)
 	}else{
 		if(me.attr("format")){
 			my_format = me.attr("format");
-			if(my_format == "currency"){
+			
+			switch(my_format){
+			case "currency":
 				my_value = my_value.split("$")[1];
+				my_type = "number";
+				break;
+			case "number":
+				my_type = "number";
+				break;
+			case "date":
+				my_type = "date";
+				my_class += " datefield";
+					break;
+			case "tel":
+				my_type = "tel";
+				break;
+			case "time":
+				my_type = "time";
+				break;
+			case "url":
+				my_type = "url";
+				break;
+			case "email":
+				my_type = "email";
+				break;
 			}
 		}
 	me.html(
-			"<input type='text' name='" + my_field
-					+ "' class='save-field' value='"
-					+ my_value + "'/>").removeClass("edit-field");
+			"<input type='"
+			+ my_type +
+			"' name='" + 
+			my_field + 
+			"' class='"
+			+ my_class 
+			+ "' value='"
+			+ my_value + "'/>").removeClass("edit-field");
 	$(".save-field").focus();
 	}
 }
@@ -154,7 +189,6 @@ function save_field(me)
 	my_format = $(me).parents("span").attr("format");
 	if(my_format == "multiselect"){
 		my_field = $(me).parent().children("select").attr("name");
-		my_value =  $("#sunlight").val() || [];
 		my_value = my_value.join(",",my_value);
 	}else{
 		my_field = $(me).attr("name");

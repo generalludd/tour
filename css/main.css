@@ -291,6 +291,22 @@ tr.row-break td {
 	border: 1px solid transparent;
 }
 
+input[type="number"] {
+	width: 7ex;
+}
+
+input[type="date"] {
+	width: 14ex;
+}
+
+input[type="tel"] {
+    width: 16ex;
+}
+
+input[type="time"] {
+	width: 7ex;
+}
+
 .unread {
 	margin-left: 5px;
 	border-radius: 5px;
@@ -899,4 +915,8 @@ fieldset.address-info {
 
 fieldset.housemate-info {
 	
+}
+
+.grouping div.field-envelope {
+	padding: 5px 0;
 }
