@@ -19,16 +19,20 @@ class Roommate extends MY_Controller
     {
         $tour_id = $this->input->get("tour_id");
         $stay = $this->input->get("stay");
+
         if ($tour_id && $stay) {
             $room_list = $this->roommate->get_for_tour($tour_id);
             foreach ($room_list as $room) {
                 $rooms[$room->room] = $this->roommate->get_for_room($tour_id, $stay, $room->room);
             }
+            $this->load->model("hotel_model","hotel");
+            $hotel = $this->hotel->get_by_stay($tour_id, $stay);
+            $data["hotel"] = $hotel;
             $data["tour_id"] = $tour_id;
             $data["rooms"] = $rooms;
             $data["stay"] = $stay;
             $data["target"] = "roommate/list";
-            $data["title"] = "Roommate List";
+            $data["title"] = sprintf("Roommate List for Tour: %s, Stay: %s",$hotel->tour_name,$stay);
             // $data["room_count"] = $this->roommate->get_room_count($tour_id);
             $this->load->view("page/index", $data);
         }

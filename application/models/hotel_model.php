@@ -49,9 +49,21 @@ class Hotel_Model extends CI_Model
         $this->db->from("hotel");
         $this->db->where("hotel.id", $hotel_id);
         $this->db->select($fields);
-        $this->db->join("tour","hotel.tour_id=tour.id");
+        $this->db->join("tour", "hotel.tour_id=tour.id");
         $this->db->select("tour.tour_name");
         return $this->db->get()->row();
+    }
+
+    function get_by_stay ($tour_id, $stay, $fields = "hotel.*")
+    {
+        $this->db->from("hotel");
+        $this->db->where("tour_id", $tour_id);
+        $this->db->where("stay", $stay);
+        $this->db->join("tour", "tour.id=hotel.tour_id");
+        $this->db->select("tour.tour_name");
+        $this->db->select($fields);
+        $result = $this->db->get()->row();
+        return $result;
     }
 
     function get_for_tour ($tour_id)
@@ -81,5 +93,4 @@ class Hotel_Model extends CI_Model
             $this->db->update("hotel", $values);
         }
     }
-
 }
