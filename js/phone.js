@@ -18,20 +18,23 @@ $(document).ready(function(){
 	});
 	
 	$(".delete-phone").live("click", function(){
-		my_id = this.id.split("_")[1];
-		form_data= {
-				id: my_id,
-				ajax: "1"
-		};
-		$.ajax({
-			type: "post",
-			url: base_url + "phone/delete",
-			data: form_data,
-			success: function(data){
-				if(data){
-				$("#delete-phone_" + my_id).parents("div.phone-row").remove();
+		question = confirm("Are you sure you want to delete this phone number? It cannot be undone!");
+		if(question){
+			my_id = this.id.split("_")[1];
+			form_data= {
+					id: my_id,
+					ajax: "1"
+			};
+			$.ajax({
+				type: "post",
+				url: base_url + "phone/delete",
+				data: form_data,
+				success: function(data){
+					if(data){
+					$("#delete-phone_" + my_id).parents("div.phone-row").remove();
+					}
 				}
-			}
-		});
+			});
+		}
 	});
 });

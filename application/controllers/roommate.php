@@ -18,6 +18,20 @@ class Roommate extends MY_Controller
     function view_for_tour ()
     {
         $tour_id = $this->input->get("tour_id");
+        $stay = $this->input->get("stay");
+        if ($tour_id && $stay) {
+            $room_list = $this->roommate->get_for_tour($tour_id);
+            foreach ($room_list as $room) {
+                $rooms[$room->room] = $this->roommate->get_for_room($tour_id, $stay, $room->room);
+            }
+            $data["tour_id"] = $tour_id;
+            $data["rooms"] = $rooms;
+            $data["stay"] = $stay;
+            $data["target"] = "roommate/list";
+            $data["title"] = "Roommate List";
+            // $data["room_count"] = $this->roommate->get_room_count($tour_id);
+            $this->load->view("page/index", $data);
+        }
     }
 
     function view_for_stay ()
@@ -26,7 +40,44 @@ class Roommate extends MY_Controller
         $stay = $this->input->get("stay");
     }
 
+    function insert_row ()
+    {
+        $this->roommate->insert();
+        $tour_id = $this->input->post("tour_id");
+        $stay = $this->input->post("stay");
+        $room = $this->input->post("room");
+        $data["room"] = $room;
+        $data["roommates"] = $this->roommate->get_for_room($tour_id, $stay, $room);
+        $this->load->view("roommate/room", $data);
+    }
 
+    function update_value ()
+    {
+        $tour_id = $this->input->post("tour_id");
+        $stay = $this->input->post("stay");
+        $values = array(
+                $this->input->post("field") => $value = trim($this->input->post("value"))
+        );
+        $this->phone->update($id, $values);
+        print $this->input->post("value");
+    }
+
+    function delete()
+    {
+        $deletion = array(
+                "person_id" => $this->input->post("person_id"),
+                "room" => $this->input->post("room"),
+                "stay" => $this->input->post("stay"),
+                "tour_id" => $this->input->post("tour_id")
+        );
+        $this->roommate->delete($deletion);
+        $tour_id = $this->input->post("tour_id");
+        $stay = $this->input->post("stay");
+        $room = $this->input->post("room");
+        $data["room"] = $room;
+        $data["roommates"] = $this->roommate->get_for_room($tour_id, $stay, $room);
+        $this->load->view("roommate/room", $data);
+    }
 
     /**
      * generate a dropdown form menu of all those without rooms for the given
@@ -44,7 +95,7 @@ class Roommate extends MY_Controller
         $roomless_pairs = get_keyed_pairs($roomless, array(
                 "id",
                 "person_name"
-        ));
+        ),TRUE);
         print form_dropdown("person_id", $roomless_pairs, FALSE, sprintf("id='person_id' %s", $class ? "class='$class'" : ""));
     }
 }

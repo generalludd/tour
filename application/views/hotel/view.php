@@ -21,7 +21,7 @@ print create_button_bar($buttons);
 <label>Tour Name:&nbsp;</label>
 <span class="field" id="tour_name"><?=$hotel->tour_name;?></span>
 </div>
-<?=create_edit_field("stay",get_value($hotel,"stay"), "Stay", array("envelope","div","format"=>"number","type","number"));?>
+<?=create_edit_field("stay",get_value($hotel,"stay"), "Stay", array("envelope"=>"div","format"=>"number","type","number"));?>
 <?=create_edit_field ("arrival_date", format_date( get_value($hotel,"arrival_date")), "Hotel Name",array("envelope"=>"div","format"=>"date","type"=>"date"));?>
 <?=create_edit_field ("arrival_time", get_value($hotel,"arrival_time"), "Arrival Time",array("envelope"=>"div","format"=>"time","type"=>"time"));?>
 <?=create_edit_field ("departure_date",format_date( get_value($hotel,"departure_date")), "Departure Date",array("envelope"=>"div","format"=>"date","type"=>"date"));?>
