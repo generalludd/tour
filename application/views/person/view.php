@@ -3,7 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // view.php Chris Dart Dec 11, 2013 7:47:55 PM chrisdart@cerebratorium.com
 $buttons[] = array("text"=>"Join Tour", "type"=>"span","class"=>"button new mini select-tour", "id"=>sprintf("join-tour_%s",$person->id));
-$buttons[] = array("text" => sprintf("View %s's Tours", $person->first_name), "href"=> site_url("/tourist/show_for_tourist/$person->id"), "class"=>"button show-tours-for-tourist");
+$buttons[] = array("text" => sprintf("Tours History", $person->first_name), "href"=> site_url("/tourist/show_for_tourist/$person->id"), "class"=>"button show-tours-for-tourist");
+$buttons[] = array("text" => "<- Previous Record", "class"=>"button navigation previous-person-record", "href"=>site_url("person/view_previous/$person->id"));
+$buttons[] = array("text" => "Next Record ->", "class"=>"button navigation next-person-record","href"=>site_url("person/view_next/$person->id"));
+
 print create_button_bar($buttons);?>
 <fieldset class="grouping block person-info" id="person">
 <legend>General Info</legend>

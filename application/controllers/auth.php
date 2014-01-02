@@ -7,6 +7,7 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model("auth_model");
+		$this->load->library('email');
 	}
 
 	/**
@@ -40,17 +41,19 @@ class Auth extends CI_Controller
 				$this->auth_model->log($result->id, "login");
 				//required session items for authenticated session
 				$data["username"] = $username;
-				$data["db_role"] = $result->db_role;
+				$data["role"] = $result->role;
 				$data["user_id"] = $result->id;
 				$this->session->set_userdata($data);
 				$redirect = true;
 			}
 		}
+
 		if($redirect){
-			//The uri cookie is baked in the MY_Controller.php when the users is not logged in.
+
+			//The uri cookie is baked in the MY_Controller.php when the user is not logged in.
 			//Thus it is baked in all controller classes that extend this master controller which is all controllers except auth.php
 			if($uri = $this->input->cookie("uri")){
-				redirect($uri);
+				redirect("");
 			}else{
 				redirect("");
 			}
@@ -133,7 +136,7 @@ class Auth extends CI_Controller
 		if($id){
 			$hash = $this->auth_model->set_reset_hash($id);
 			$link = site_url("auth/show_reset/$id/$hash");
-			$this->email->from("technology@fsmn.org");
+			$this->email->from("technology@cerebratorium.com");
 			$this->email->to($email);
 			$this->email->subject("Password Reset");
 			$this->email->message("Click on the following link to reset your password: $link");

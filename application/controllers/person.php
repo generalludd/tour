@@ -18,9 +18,13 @@ class Person extends MY_Controller
         $this->view_all();
     }
 
+
+
+
     function view ()
     {
         $id = $this->uri->segment(3);
+
         $data = array();
         // $data["person"] = array();
 
@@ -37,9 +41,29 @@ class Person extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
+    function view_next()
+    {
+        $id= $this->uri->segment(3);
+        $next_id = $this->person->get_next_person($id);
+        redirect("person/view/$next_id");
+    }
+
+    function view_previous()
+    {
+        $id= $this->uri->segment(3);
+        $next_id = $this->person->get_previous_person($id);
+        redirect("person/view/$next_id");
+    }
+
     function view_all ()
     {
-        $data["people"] = $this->person->get_all();
+        $letter = FALSE;
+        if($this->input->get("letter")){
+            $letter = $this->input->get("letter");
+        }
+        $data["initials"] = $this->person->get_initials();
+
+        $data["people"] = $this->person->get_all($letter);
         $data["title"] = "Address Book";
         $data["target"] = "person/list";
         $this->load->view("page/index", $data);

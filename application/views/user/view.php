@@ -7,7 +7,7 @@
 	<input type="hidden" id="id" name="id" value='<?=$id;?>'>
 	<h3>
 		Info for
-		<?="$user->first $user->last"; ?>
+		<?="$user->first_name $user->last_name"; ?>
 	</h3>
 	<div class='content'>
 		<fieldset id="user">
@@ -26,7 +26,7 @@
 					"text" => "Masquerade" );
 			?>
 			<? endif;?>
-			<? if($this->session->userdata("db_role") == "admin"):?>
+			<? if($this->session->userdata("role") == "admin"):?>
 			<? $edit_buttons[] = array("selection"=>"auth",
 					"class"=>"button new user-create",
 					"href"=>site_url("user/create"),
@@ -34,13 +34,13 @@
 			?>
 			<? endif;?>
 			<?=create_button_bar($edit_buttons);?>
-			<?=create_edit_field("first",$user->first,"First Name");?>
-			<?=create_edit_field("last",$user->last,"Last Name");?>
+			<?=create_edit_field("first",$user->first_name,"First Name");?>
+			<?=create_edit_field("last",$user->last_name,"Last Name");?>
 			<?=create_edit_field("email",$user->email,"Email Address");?>
-			<? if($this->session->userdata("db_role") == "admin" && $this->session->userdata("user_id") != 1):?>
+			<? if($this->session->userdata("role") == "admin" && $this->session->userdata("user_id") != 1):?>
 			<?=create_edit_field("is_active",$user->is_active,"Status", array("class"=>"dropdown","attributes"=>"menu='user_status'"));?>
-			<?=create_edit_field("db_role",$user->db_role, "Database Role",
-			array("class"=>"dropdown","attributes"=>"menu='db_role'"));?>
+			<?=create_edit_field("role",$user->role, "Database Role",
+			array("class"=>"dropdown","attributes"=>"menu='role'"));?>
 			<?endif; ?>
 		</fieldset>
 	</div>

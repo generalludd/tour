@@ -6,7 +6,7 @@ class admin extends MY_Controller{
 	function __construct()
 	{
 		parent::__construct();
-		if($this->session->userdata("user_id") == 1000){
+		if($this->session->userdata("user_id") == 1){
 			$this->load->model("auth_model");
 		}else{
 			redirect("/");
@@ -30,7 +30,7 @@ class admin extends MY_Controller{
 			$user = $this->user_model->get($user_id);
 			if($user){
 				$data['username'] = $user->username;
-				$data['db_role'] = $user->db_role;
+				$data['role'] = $user->role;
 				$data['user_id'] = $user->id;
 				$this->session->set_userdata($data);
 				redirect("/");

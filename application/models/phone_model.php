@@ -78,4 +78,15 @@ class Phone_model extends CI_Model
                 "id" => $id
         ));
     }
+
+    function fix ()
+    {
+//         $this->db->where("phone.person_link = person.address_id", NULL, FALSE);
+//         $this->db->where("phone.person_link != 0", NULL,FALSE);
+//         $this->db->from("person,phone");
+//         $this->db->select("person.id as person_id,phone.id as phone_id");
+//         $result = $this->db->get()->result();
+//         print $this->db->last_query();
+//         return $result;
+    }
 }

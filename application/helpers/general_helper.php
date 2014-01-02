@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // general_helper.php Chris Dart Dec 10, 2013 9:54:14 PM
 // chrisdart@cerebratorium.com
+
+function mysql_timestamp()
+{
+    return date('Y-m-d H:i:s');
+
+}
+
 function bake_cookie ($name, $value)
 {
     set_cookie(array(

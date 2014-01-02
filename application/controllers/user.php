@@ -7,7 +7,7 @@ class user extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->model("user_model", "user");
-		$this->load->model("menu_model");
+		$this->load->model("variable_model","variable");
 	}
 
 	function view()
@@ -17,7 +17,7 @@ class user extends MY_Controller
 		$data["id"] = $id;
 		$data["user"] = $user;
 		$data["target"] = "user/view";
-		$data["title"] = "Viewing Information for $user->first $user->last";
+		$data["title"] = "Viewing Information for $user->first_name $user->last_name";
 
 		$this->load->view("page/index", $data);
 
@@ -63,15 +63,15 @@ class user extends MY_Controller
 
 	function create()
 	{
-		if($this->session->userdata("db_role") == "admin"){
-			$data["db_role"] = "user";
+		if($this->session->userdata("role") == "admin"){
+			$data["role"] = "user";
 			$data["action"] = "insert";
 			$data["target"] = "user/edit";
 			$data["title"] = "Add a new user";
-			$db_roles = $this->menu_model->get_pairs("db_role");
-			$data["db_roles"] = get_keyed_pairs($db_roles, array("key","value"));
-			$user_status = $this->menu_model->get_pairs("user_status");
-			$data["user_status"] = get_keyed_pairs($user_status, array("key", "value"));
+			$roles = $this->variable->get_pairs("user_role");
+			$data["roles"] = get_keyed_pairs($roles, array("value","name"));
+			$user_status = $this->variable->get_pairs("user_status");
+			$data["user_status"] = get_keyed_pairs($user_status, array("value", "name"));
 			$data["user"] = NULL;
 			if($this->input->get_post("ajax")){
 				$this->load->view($data["target"], $data);
@@ -85,7 +85,7 @@ class user extends MY_Controller
 
 	function insert()
 	{
-		if($this->session->userdata("db_role") == "admin"){
+		if($this->session->userdata("role") == "admin"){
 			$id = $this->user->insert();
 			redirect("user/view/$id");
 		}

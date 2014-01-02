@@ -286,6 +286,8 @@ tr.row-break td {
 	cursor: pointer;
 }
 
+
+
 #navigation input[type="text"] {
 	height: 18px;
 	border: 1px solid transparent;
@@ -343,6 +345,14 @@ ul.button-list li .button.delete {
 .mini-buttons ul.button-list li .button {
 	margin: 0 1px;
 }
+
+.button.letter {
+    padding-left: .5em;
+    padding-right: .5em;
+    margin-left: .2em !important;
+    margin-right: .2em !important;
+}
+
 
 .help {
 	
@@ -919,4 +929,10 @@ fieldset.housemate-info {
 
 .grouping div.field-envelope {
 	padding: 5px 0;
+}
+
+#footer {
+	clear: both;
+	float: right;
+	padding-top: 15px;
 }

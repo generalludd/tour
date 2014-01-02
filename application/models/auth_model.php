@@ -29,7 +29,7 @@ class Auth_model extends CI_Model
 	{
 		$this->db->where("username", $username);
 		$this->db->where("password", $this->encrypt($password));
-		$this->db->select("user.id as id, db_role");
+		$this->db->select("user.id as id, role");
 		$this->db->from("user");
 		$query = $this->db->get();
 		$count = $query->num_rows();
@@ -45,17 +45,17 @@ class Auth_model extends CI_Model
 	function get_role($id)
 	{
 		$this->db->where("id", $id);
-		$this->db->select("db_role");
+		$this->db->select("role");
 		$this->db->from("user");
 		$result = $this->db->get()->row();
-		return $result->db_role;
+		return $result->role;
 	}
 
 
 	function set_role($id,$role)
 	{
 		$this->db->where("id", $id);
-		$data["db_role"] = $role;
+		$data["role"] = $role;
 		$this->db->update("user", $data);
 	}
 
@@ -156,7 +156,7 @@ class Auth_model extends CI_Model
 				if($myKey != "date_range"){
 					$this->db->where($myKey, $myValue);
 				}else{
-					$this->db->where("(time >= '" . $myValue["time_start"] . "' AND time <= '" . $myValue["time_end"] . "')");	
+					$this->db->where("(time >= '" . $myValue["time_start"] . "' AND time <= '" . $myValue["time_end"] . "')");
 				}
 			}
 		}

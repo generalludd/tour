@@ -49,4 +49,15 @@ class Phone extends MY_Controller
         $this->phone->delete($id);
         print TRUE;
     }
+
+    function fix()
+    {
+//         $phones = $this->phone->fix();
+//         foreach($phones as $phone){
+// $data = array("person_id"=>$phone->person_id, "phone_id"=>$phone->phone_id);
+// $this->db->insert("phone_person",$data);
+// print $this->db->last_query();
+//         }
+
+    }
 }
