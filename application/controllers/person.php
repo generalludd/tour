@@ -18,9 +18,6 @@ class Person extends MY_Controller
         $this->view_all();
     }
 
-
-
-
     function view ()
     {
         $id = $this->uri->segment(3);
