@@ -130,7 +130,7 @@ class Auth_model extends CI_Model
 		$data["user_id"] = $user_id;
 		$data["action"] = $action;
 		$data["time"] = mysql_timestamp();
-		$data["username"] = $this->get_username($id);
+		$data["username"] = $this->get_username($user_id);
 		$this->db->insert("user_log",$data);
 		return $this->db->insert_id();
 	}
