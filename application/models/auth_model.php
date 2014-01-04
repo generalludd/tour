@@ -125,13 +125,14 @@ class Auth_model extends CI_Model
 		return $this->validate($username, $password);
 	}
 
-	function log($id, $action)
+	function log($user_id, $action)
 	{
-		$data["id"] = $id;
+		$data["user_id"] = $user_id;
 		$data["action"] = $action;
 		$data["time"] = mysql_timestamp();
 		$data["username"] = $this->get_username($id);
 		$this->db->insert("user_log",$data);
+		return $this->db->insert_id();
 	}
 
 	function get_usernames()
