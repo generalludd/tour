@@ -71,9 +71,10 @@ class Tourist extends MY_Controller
             }
             $payer->price = $price;
             $payer->room_rate = $rate;
-            $payer->amt_due = $price - $payer->amt_paid + $payer->discount + $rate;
-
             $tourist_count = $this->payer->get_tourist_count($payer->payer_id, $payer->tour_id);
+
+            $payer->amt_due = $price * $tourist_count - ($payer->amt_paid + $payer->discount + $rate);
+
             $payer->tourist_count = $tourist_count;
         }
         $data["tour"] = $tour;

@@ -119,11 +119,11 @@ $amt_due = $total_cost - $payer->amt_paid;
 					name="tourist-dropdown"
 					value="" />
 			</p>
-			<p>
-			<span class="button new create-new-tourist">Add a New Tourist</span>
+			<div>
+			<span class="button new mini create-new-tourist">Add a New Tourist</span>
 			<div id="add-new-tourist">
 			</div>
-			</p>
+			</div>
 		</form>
 	</div>
 </div>

@@ -41,7 +41,10 @@ foreach ($tours as $tour) {
     ?>
 <tr class="<?=$row_class;?>">
 			<td>
+
+		<a href="<?=site_url("tour/view/$tour->id");?>">
 <?=$tour->tour_name;?>
+</a>
 </td>
 			<td>
 <?=format_date($tour->start_date);?>
@@ -81,14 +84,14 @@ foreach ($tours as $tour) {
 <?=create_button(array("text"=>"Payment Details", "type"=>"span","class"=>"button edit edit-payer", "id"=>sprintf("edit-payer_%s_%s",$tour->payer_id, $tour->tour_id)));?>
 
 </td>
-<td><a class="button show-tour mini"
-				href="<?=site_url("/tour/view/$tour->id");?>">Details</a></td>
+<td><a class="button show-toursits mini"
+				href="<?=site_url("/tourist/show_all/$tour->id");?>">Tourists</a></td>
 <? else: ?>
 			<td><a
 				class="button show-tour mini"
 				href="<?=site_url("/tour/view/$tour->id");?>">Details</a></td>
 			<td><a
-				class="button shour-toursits mini"
+				class="button show-toursits mini"
 				href="<?=site_url("/tourist/show_all/$tour->id");?>">Tourists</a></td>
 		</tr>
 <?

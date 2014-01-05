@@ -25,11 +25,12 @@ class Roommate_Model extends CI_Model
         prepare_variables($this, $variables);
     }
 
-    function get_for_tour ($tour_id)
+    function get_for_tour ($tour_id, $stay)
     {
         $this->db->from("roommate");
         $this->db->join("person", "roommate.person_id = person.id");
         $this->db->where("roommate.tour_id", $tour_id);
+        $this->db->where("roommate.stay", $stay);
         $this->db->select("room");
         $this->db->order_by("roommate.room");
         $result = $this->db->get()->result();
@@ -70,9 +71,7 @@ class Roommate_Model extends CI_Model
         $this->db->join("roommate", "roommate.person_id = tourist.person_id", "LEFT OUTER");
         $this->db->where("tourist.tour_id", $tour_id);
         $this->db->where("roommate.person_id IS NULL OR roommate.stay != $stay", NULL, FALSE);
-        // $this->db->where("(roommate.stay !=$stay)",NULL,FALSE);
         $this->db->order_by("person.last_name", "DESC");
-        // $this->db->order_by("person.id");
         $result = $this->db->get()->result();
         return $result;
     }
@@ -88,7 +87,7 @@ class Roommate_Model extends CI_Model
         $this->db->delete("roommate", $deletion);
     }
 
-    function get_next_room ($tour_id, $stay)
+    function get_last_room ($tour_id, $stay)
     {
         $this->db->where("tour_id", $tour_id);
         $this->db->where("stay", $stay);
@@ -98,6 +97,10 @@ class Roommate_Model extends CI_Model
         $this->db->limit(1);
         $this->db->from("roommate");
         $result = $this->db->get()->row();
-        return $result->room;
+        $output = 0;
+        if ($result) {
+            $output = $result->room;
+        }
+        return $output;
     }
 }

@@ -21,8 +21,8 @@ class Roommate extends MY_Controller
         $stay = $this->input->get("stay");
 
         if ($tour_id && $stay) {
-            $room_list = $this->roommate->get_for_tour($tour_id);
-
+            $room_list = $this->roommate->get_for_tour($tour_id, $stay);
+            $rooms = array();
             foreach ($room_list as $room) {
                 $rooms[$room->room] = $this->roommate->get_for_room($tour_id, $stay, $room->room);
             }
@@ -50,17 +50,18 @@ class Roommate extends MY_Controller
         $tour_id = $this->input->get("tour_id");
         $stay = $this->input->get("stay");
         if ($tour_id && $stay) {
-           // $this->load->model("hotel_model", "hotel");
-          //  $hotel = $this->hotel->get_by_stay($tour_id, $stay);
-            $last_room = $this->roommate->get_next_room($tour_id, $stay);
+            // $this->load->model("hotel_model", "hotel");
+            // $hotel = $this->hotel->get_by_stay($tour_id, $stay);
+            $last_room = $this->roommate->get_last_room($tour_id, $stay);
+
             $data["room"] = $last_room + 1;
             $data["roommate_list"] = $this->get_roomless_menu($tour_id, $stay);
-//             $data["hotel"] = $hotel;
-//             $data["tour_id"] = $tour_id;
-//             $data["stay"] = $stay;
+            // $data["hotel"] = $hotel;
+            // $data["tour_id"] = $tour_id;
+            // $data["stay"] = $stay;
             $data["roommates"] = FALSE;
-           // $data["action"] = "insert";
-            $this->load->view("roommate/room",$data);
+            // $data["action"] = "insert";
+            $this->load->view("roommate/room", $data);
         }
     }
 

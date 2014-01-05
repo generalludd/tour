@@ -101,7 +101,7 @@ class Tour_model extends MY_Model
         }
         */
         $this->db->select($fields);
-        $this->db->where("tour.start_date > CURDATE()",NULL,FALSE);
+       // $this->db->where("tour.start_date > CURDATE()",NULL,FALSE);
         $this->db->from("tour");
         $this->db->order_by("tour.start_date", "ASC");
         $this->db->group_by("tour.id");
