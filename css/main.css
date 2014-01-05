@@ -936,3 +936,7 @@ fieldset.housemate-info {
 	float: right;
 	padding-top: 15px;
 }
+
+.info-block {
+	padding: 15px 0;
+}

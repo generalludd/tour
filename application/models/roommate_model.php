@@ -85,7 +85,19 @@ class Roommate_Model extends CI_Model
 
     function delete ($deletion)
     {
-
         $this->db->delete("roommate", $deletion);
+    }
+
+    function get_next_room ($tour_id, $stay)
+    {
+        $this->db->where("tour_id", $tour_id);
+        $this->db->where("stay", $stay);
+        $this->db->select("room");
+        $this->db->group_by("room");
+        $this->db->order_by("room", "DESC");
+        $this->db->limit(1);
+        $this->db->from("roommate");
+        $result = $this->db->get()->row();
+        return $result->room;
     }
 }

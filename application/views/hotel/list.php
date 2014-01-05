@@ -36,9 +36,14 @@ $buttons[] = array(
 </td>
 			<td><?=$hotel->phone;?></td>
 			<td><?=$hotel->fax;?></td>
-			<td><span
+			<td><a
+				class="button view-hotel"
+				href="<?=site_url("hotel/view/$hotel->id");?>">Details</a></td>
+				<td>
+			<span
 				class="button edit edit-hotel"
 				id="<?=sprintf("edit-hotel_%s",$hotel->id);?>">Edit</span></td>
+
 		</tr>
 <? endforeach; ?>
 </tbody>

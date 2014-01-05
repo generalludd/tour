@@ -1,6 +1,9 @@
 $(document).ready(function(){
 	$(".add-roommate").live("click",function(){
+		my_room = $("#room").val();
+		if(!my_room){
 		my_room = this.id.split("_")[1];
+		}
 		my_tour = $("#tour_id").val();
 		my_stay = $("#stay").val();
 		form_data = {
@@ -21,7 +24,25 @@ $(document).ready(function(){
 			
 		});
 		
-		
+	});
+	
+	$(".add-room").live("click",function(){
+		my_id = this.id.split("_");
+		my_tour = my_id[1];
+		my_stay = my_id[2];
+		form_data = {
+				stay: my_stay,
+				tour_id: my_tour,
+				ajax: 1
+		};
+		$.ajax({
+			type: "get",
+			url: base_url + "roommate/create_room",
+			data: form_data,
+			success: function(data){
+				$("#roommate-list-block").append(data);
+			}
+		});
 	});
 	
 	$(".roommates #person_id").live("change",function(){

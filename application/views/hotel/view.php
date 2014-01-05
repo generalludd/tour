@@ -2,6 +2,7 @@
 
 // view.php Chris Dart Dec 29, 2013 10:17:41 PM chrisdart@cerebratorium.com
 $buttons[] = array("text"=>"Edit Hotel","type"=>"span","class"=>"button edit edit-hotel","id"=>sprintf("edit-hotel_%s",$hotel->id));
+$buttons[] = array("text"=>"Show Roommates", "href"=>site_url(sprintf("roommate/view_for_tour/?tour_id=%s&stay=%s",get_value($hotel,"tour_id"),get_value($hotel,"stay"))));
 print create_button_bar($buttons);
  ?>
 <input type="hidden" id="id" name="id" value="<?=get_value($hotel, "id");?>"/>
@@ -19,7 +20,7 @@ print create_button_bar($buttons);
 <div class="column">
 <div class="field-envelope" id="field-tour_id">
 <label>Tour Name:&nbsp;</label>
-<span class="field" id="tour_name"><?=$hotel->tour_name;?></span>
+<a class="field" id="tour_name" href="<?=site_url("tour/view/$hotel->tour_id");?>"><?=$hotel->tour_name;?></a>
 </div>
 <?=create_edit_field("stay",get_value($hotel,"stay"), "Stay", array("envelope"=>"div","format"=>"number","type","number"));?>
 <?=create_edit_field ("arrival_date", format_date( get_value($hotel,"arrival_date")), "Hotel Name",array("envelope"=>"div","format"=>"date","type"=>"date"));?>
