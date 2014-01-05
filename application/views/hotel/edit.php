@@ -26,7 +26,7 @@
 <?=create_input($hotel, "fax", "Fax", $options = array("envelope"=>"div","format"=>"tel","type"=>"tel"));?>
 
 <?=create_input($hotel, "contact_name", "Contact Name",array("envelope"=>"div"));?>
-</p>
+
 <p>
 <label for="address">Address</label><br/>
 <textarea name="address" id="address">

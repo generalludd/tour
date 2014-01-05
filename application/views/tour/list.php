@@ -88,8 +88,8 @@ foreach ($tours as $tour) {
 				href="<?=site_url("/tourist/show_all/$tour->id");?>">Tourists</a></td>
 <? else: ?>
 			<td><a
-				class="button show-tour mini"
-				href="<?=site_url("/tour/view/$tour->id");?>">Details</a></td>
+				class="button show-hotels mini"
+				href="<?=site_url("/hotel/view_all/$tour->id");?>">Hotels</a></td>
 			<td><a
 				class="button show-toursits mini"
 				href="<?=site_url("/tourist/show_all/$tour->id");?>">Tourists</a></td>

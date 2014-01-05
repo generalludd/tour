@@ -9,6 +9,11 @@ $buttons[] = array(
         "class" => "button new add-hotel",
         "id" => sprintf("add-hotel_%s", $tour->id)
 );
+$buttons[] = array(
+        "text" => "Tour Details",
+        "href" => site_url("tour/view/$tour->id"),
+        "class" => "button tour-details"
+);
 
 ?>
 <h4>Hotels for Tour: <?=$tour->tour_name;?></h4>
@@ -39,11 +44,9 @@ $buttons[] = array(
 			<td><a
 				class="button view-hotel"
 				href="<?=site_url("hotel/view/$hotel->id");?>">Details</a></td>
-				<td>
-			<span
+			<td><span
 				class="button edit edit-hotel"
 				id="<?=sprintf("edit-hotel_%s",$hotel->id);?>">Edit</span></td>
-
 		</tr>
 <? endforeach; ?>
 </tbody>
