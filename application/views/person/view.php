@@ -24,7 +24,6 @@ print create_button_bar($buttons);?>
 <div class='field-set'>
 	<?=create_edit_field("shirt_size", get_value($person,"shirt_size"), "Shirt Size",array("envelope"=>"div","class"=>"dropdown","attributes"=>"menu='shirt_size'"));?>
 </div>
-</fieldset>
 <fieldset class="grouping block phone-info" id="phone">
 <legend>Phones</legend>
 <? if(get_value($person, "phones", FALSE)) : ?>
@@ -32,6 +31,8 @@ print create_button_bar($buttons);?>
 <? endif; ?>
 <?=create_button_bar(array(array("text" => "Add Phone", "type"=>"span", "class"=>"button mini new add_phone","id"=>sprintf("add-phone_%s",$person->id))));?>
 </fieldset>
+</fieldset>
+
 <fieldset class="grouping block address-info" id="address">
 <legend>Address</legend>
 <? if(count($person->address)>0): ?>
