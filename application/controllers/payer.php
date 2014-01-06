@@ -145,7 +145,7 @@ class Payer extends MY_Controller
         $payer_id = $this->input->post("payer_id");
         $tour_id = $this->input->post("tour_id");
         $this->payer->update($payer_id, $tour_id);
-        redirect("/tourist/show_all/$tour_id");
+        redirect("/tourist/view_all/$tour_id");
     }
 
     function update_value ()
