@@ -236,7 +236,7 @@ div.entry,div.list {
 	width: 70%;
 }
 
-.button,#navigation,#advancedSearch,#browser_warning,.notice,.warning,#searchForm fieldset,h2,h3,h4,h5,.support-view legend,input[type="submit"],#navigation input[type="text"]
+.button,#navigation,#advancedSearch,#browser_warning,.notice,.warning,#searchForm fieldset,.support-view legend,input[type="submit"],#navigation input[type="text"]
 	{
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -462,8 +462,8 @@ h2 {
 	text-transform: uppercase;
 	text-align: left;
 	position: relative;
-	border-style: solid;
-	border-width: 1px;
+	/*border-style: solid;
+	border-width: 1px;*/
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 10px;
@@ -473,8 +473,8 @@ h3,.support-view legend {
 	font-size: 1.5em;
 	font-weight: bold;
 	margin: 1em 0;
-	border-style: solid;
-	border-width: 1px;
+	/*border-style: solid;
+	border-width: 1px;*/
 }
 
 h4 {
@@ -482,8 +482,8 @@ h4 {
 	text-transform: uppercase;
 	text-align: left;
 	position: relative;
-	border-style: solid;
-	border-width: 1px;
+	/*border-style: solid;
+	border-width: 1px;*/
 	margin: 0;
 }
 
@@ -491,8 +491,8 @@ h5 {
 	font-size: 1em;
 	font-weight: bold;
 	text-align: left;
-	border-top-style: solid;
-	border-top-width: 1px;
+	/*border-top-style: solid;
+	border-top-width: 1px;*/
 	margin: 0;
 }
 
@@ -874,11 +874,11 @@ fieldset.field-group {
 }
 
 input.money {
-	width: 10ex;
+	
 }
 
 input.date {
-	width: 15ex;
+	width: 12ex;
 }
 
 body.person #content {
