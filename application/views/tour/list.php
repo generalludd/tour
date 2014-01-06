@@ -81,7 +81,7 @@ foreach ($tours as $tour) {
 <?=format_money($tour->amt_paid);?>
 </td>
 <td>
-<?=create_button(array("text"=>"Payment Details", "type"=>"span","class"=>"button edit edit-payer", "id"=>sprintf("edit-payer_%s_%s",$tour->payer_id, $tour->tour_id)));?>
+<?=create_button(array("text"=>"Edit Payment", "type"=>"span","class"=>"button edit edit-payer", "id"=>sprintf("edit-payer_%s_%s",$tour->payer_id, $tour->tour_id)));?>
 
 </td>
 <td><a class="button show-toursits mini"
