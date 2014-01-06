@@ -9,6 +9,4 @@ $buttons[] = array("text"=>"Join Tour", "type"=>"span","class"=>"button new sele
 ?>
 <h3>Tour List for <?=sprintf("%s %s", $tourist->first_name, $tourist->last_name);?></h3>
 <?=create_button_bar($buttons);?>
-<? $this->load->view("tour/list", $tours);
-
-
+<? $this->load->view("tour/list", $tours);?>

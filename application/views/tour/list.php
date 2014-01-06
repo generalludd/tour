@@ -12,6 +12,7 @@ if (! $for_tourist) {
     print create_button_bar($buttons);
 }
 ?>
+<? if(count($tours)>0): ?>
 <table class="list">
 	<thead>
 		<tr>
@@ -106,3 +107,6 @@ endif;
 ?>
 </tbody>
 </table>
+<? elseif($for_tourist):?>
+<p>There are no tours on record for this person. Click on "Join Tour" to add this person to a current tour.</p>
+<? endif;
