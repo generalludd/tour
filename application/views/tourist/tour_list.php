@@ -7,6 +7,7 @@ $tours["for_tourist"] = TRUE;
 
 ?>
 <h3>Tour List for <?=sprintf("%s %s", $tourist->first_name, $tourist->last_name);?></h3>
+<?=create_button_bar(array(array("text"=>"Person Details","href"=>site_url("person/view/$tourist->person_id"))));?>
 <? $this->load->view("tour/list", $tours);
 
 

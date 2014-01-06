@@ -99,6 +99,7 @@ class Tourist extends MY_Controller
         $this->load->model("person_model", "person");
         $person_id = $this->uri->segment(3);
         $tourist = $this->person->get($person_id);
+        $tourist->person_id = $person_id;
         $data["tourist"] = $tourist;
         $data["tours"] = $this->tourist->get_by_tourist($person_id);
         $data["title"] = sprintf("Showing Tours for %s", $tourist->first_name, $tourist->last_name);
