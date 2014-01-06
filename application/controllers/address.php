@@ -13,23 +13,23 @@ class Address extends My_Controller
 
     /**
      * expects a person id.
-     * //@TODO got to create a messaging system if an error occurs
+     * @TODO got to create a messaging system if an error occurs
      * that works well regardless of the way a script completes
      */
     function create ()
     {
-        if($this->input->get("id")){
-        $data["person_id"] = $this->input->get("id");
-        $data["address"] = FALSE;
-        $data["target"] = "address/edit";
-        $data["title"] = "Adding an Address";
-        $data["action"] = "insert";
-        if ($this->input->get("ajax") == 1) {
-            $this->load->view("address/edit", $data);
-        } else {
-            $this->load->view("page/index", $data);
+        if ($this->input->get("id")) {
+            $data["person_id"] = $this->input->get("id");
+            $data["address"] = FALSE;
+            $data["target"] = "address/edit";
+            $data["title"] = "Adding an Address";
+            $data["action"] = "insert";
+            if ($this->input->get("ajax") == 1) {
+                $this->load->view("address/edit", $data);
+            } else {
+                $this->load->view("page/index", $data);
+            }
         }
-
     }
 
     /**
@@ -37,7 +37,7 @@ class Address extends My_Controller
      */
     function insert ()
     {
-        if($this->input->post("person_id")){
+        if ($this->input->post("person_id")) {
             $person_id = $this->input->post("person_id");
             $address_id = $this->address->insert();
             $this->load->model("person_model", "person");
@@ -54,7 +54,7 @@ class Address extends My_Controller
      */
     function edit ()
     {
-        if($this->input->get("address_id") && $this->input->get("person_id")){
+        if ($this->input->get("address_id") && $this->input->get("person_id")) {
             $address_id = $this->input->get("address_id");
             $person_id = $this->input->get("person_id");
             $data["person_id"] = $person_id;
@@ -62,28 +62,28 @@ class Address extends My_Controller
             $data["action"] = "update";
             if ($this->input->get("ajax") == 1) {
                 $this->load->view("address/edit", $data);
-            }else{
+            } else {
                 $data["target"] = "address/edit";
                 $data["title"] = "Editing an Address";
-                $this->load->view("page/index",$data);
+                $this->load->view("page/index", $data);
             }
         }
     }
 
     /**
-     * expects an input id (address id). redirects to the person
+     * expects an input id (address id).
+     * redirects to the person
      * whose address is being edited.
      */
     function update ()
     {
-if($this->input->post("id")){
-        $id = $this->input->post("id");
-        $person_id = $this->input->post("person_id");
-        $this->address->update("id");
-        redirect("person/view/$person_id");
-}
+        if ($this->input->post("id")) {
+            $id = $this->input->post("id");
+            $person_id = $this->input->post("person_id");
+            $this->address->update("id");
+            redirect("person/view/$person_id");
+        }
     }
-
 
     /**
      * requres an id from the post variable (address_id)
@@ -92,7 +92,7 @@ if($this->input->post("id")){
      */
     function update_value ()
     {
-        if($this->input->post("id")){
+        if ($this->input->post("id")) {
             $id = $this->input->post("id");
             $values = array(
                     $this->input->post("field") => $value = trim($this->input->post("value"))
