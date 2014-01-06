@@ -11,8 +11,14 @@ class Address extends My_Controller
         $this->load->model("address_model", "address");
     }
 
+    /**
+     * expects a person id.
+     * //@TODO got to create a messaging system if an error occurs
+     * that works well regardless of the way a script completes
+     */
     function create ()
     {
+        if($this->input->get("id")){
         $data["person_id"] = $this->input->get("id");
         $data["address"] = FALSE;
         $data["target"] = "address/edit";
@@ -23,51 +29,76 @@ class Address extends My_Controller
         } else {
             $this->load->view("page/index", $data);
         }
+
     }
 
+    /**
+     * expects a person_id in the get.
+     */
     function insert ()
     {
-        $person_id = $this->input->post("person_id");
-        $address_id = $this->address->insert();
-        $this->load->model("person_model", "person");
-        $values = array(
-                "address_id" => $address_id
-        );
-        $this->person->update($person_id, $values);
-        redirect("person/view/$person_id");
-    }
-
-    function edit ()
-    {
-        $address_id = $this->input->get("address_id");
-        $person_id = $this->input->get("person_id");
-        $data["person_id"] = $person_id;
-        $data["address"] = $this->address->get($address_id);
-        $data["action"] = "update";
-        if ($this->input->get("ajax") == 1) {
-            $this->load->view("address/edit", $data);
-        }else{
-            $data["target"] = "address/edit";
-            $data["title"] = "Editing an Address";
-            $this->load->view("page/index",$data);
+        if($this->input->post("person_id")){
+            $person_id = $this->input->post("person_id");
+            $address_id = $this->address->insert();
+            $this->load->model("person_model", "person");
+            $values = array(
+                    "address_id" => $address_id
+            );
+            $this->person->update($person_id, $values);
+            redirect("person/view/$person_id");
         }
     }
 
+    /**
+     * requires address_id and person_id to function;
+     */
+    function edit ()
+    {
+        if($this->input->get("address_id") && $this->input->get("person_id")){
+            $address_id = $this->input->get("address_id");
+            $person_id = $this->input->get("person_id");
+            $data["person_id"] = $person_id;
+            $data["address"] = $this->address->get($address_id);
+            $data["action"] = "update";
+            if ($this->input->get("ajax") == 1) {
+                $this->load->view("address/edit", $data);
+            }else{
+                $data["target"] = "address/edit";
+                $data["title"] = "Editing an Address";
+                $this->load->view("page/index",$data);
+            }
+        }
+    }
+
+    /**
+     * expects an input id (address id). redirects to the person
+     * whose address is being edited.
+     */
     function update ()
     {
+if($this->input->post("id")){
         $id = $this->input->post("id");
         $person_id = $this->input->post("person_id");
         $this->address->update("id");
         redirect("person/view/$person_id");
+}
     }
 
+
+    /**
+     * requres an id from the post variable (address_id)
+     * used mostly by ajax scripts, this allows updating individual values.
+     * not currently in use.
+     */
     function update_value ()
     {
-        $id = $this->input->post("id");
-        $values = array(
-                $this->input->post("field") => $value = trim($this->input->post("value"))
-        );
-        $this->address->update($id, $values);
-        echo $this->input->post("value");
+        if($this->input->post("id")){
+            $id = $this->input->post("id");
+            $values = array(
+                    $this->input->post("field") => $value = trim($this->input->post("value"))
+            );
+            $this->address->update($id, $values);
+            echo $this->input->post("value");
+        }
     }
 }
