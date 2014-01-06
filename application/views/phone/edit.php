@@ -6,11 +6,12 @@
 <form name="phone-editor" id="phone-editor" action="<?=site_url("phone/$action");?>" method="post">
 <input type="hidden" id="person_id" name="person_id" value="<?=$person_id;?>"/>
 <input type="hidden" id="phone_id" name="phone_id" value="<?=get_value($phone,"id");?>"/>
+<label for="phone_type">Type: </label>
 <?=form_dropdown("phone_type",array("Home"=>"Home","Mobile"=>"Mobile","Work"=>"Work"), get_value($phone,"phone_type"));?>
 
 <?=create_input($phone,"phone","Phone", array("type"=>"tel"));?>
 <label for="is_primary">Is Primary Phone: </label>
-<?=form_checkbox("is_primary",get_value($phone, "is_primary"),"Is Primary");?>
+<?=form_checkbox("is_primary",1, get_value($phone, "is_primary",FALSE) ? TRUE:FALSE);?>
 
 <input type="submit" name="submit" class="button mini" value="<?=ucfirst($action);?>"/>
 

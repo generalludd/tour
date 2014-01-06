@@ -3,14 +3,19 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // view.php Chris Dart Dec 13, 2013 6:21:25 PM chrisdart@cerebratorium.com
+?>
+<table>
+<tbody>
+<? foreach ($person->phones as $phone): ?>
+    <tr class="phone-row field-set">
+    <td class="label"><?=$phone->phone_type;?></td>
+    <td><?=$phone->phone;?></td>
+    <td><span class="button edit small edit-phone" id="<?=sprintf("edit-phone_%s",$phone->id);?>">Edit</span></td>
+   <td><span class="button delete small delete-phone" id="<?=sprintf("delete-phone_%s", $phone->id);?>">Delete</span></td>
 
-$output = array(); ?>
-<div id="phone" class="grouping phone-grouping">
+    </tr>
+<? endforeach; ?>
+</tbody>
+</table>
 
-<? foreach ($person->phones as $phone) {
-    $output[] = sprintf(
-            "<div class='phone-row field-set row' >%s<span class='button delete small delete-phone' id='delete-phone_%s'>Delete</span></div>",
-            create_edit_field("phone",$phone->phone,ucfirst($phone->phone_type),array("envelope"=>"span","id"=>$phone->id)), $phone->id );
-}
-print implode("\r", $output); ?>
-</div>
+

@@ -18,16 +18,12 @@ $full_name = "Adding a New Person";
 <input type="hidden" id="id" name="id" value="<?=get_value($person,"id");?>"/>
 <input type="hidden" id="address_id" name="address_id" value="<?=get_value($person,"address_id");?>"/>
 
-<p>
 <?=create_input($person, "first_name","First Name");?>
-<br/>
+
 <?=create_input($person, "last_name","Last Name");?>
-<br/>
 <?=create_input($person, "email", "Email", array("type","email"));?>
-<br/>
 <label for="shirt_size">Shirt Size:</label>
 <?=form_dropdown("shirt_size",$shirt_sizes,get_value($person, "shirt_size", array("id"=>"shirt_size")));?>
-</p>
 </fieldset>
 <input type="submit" name="submit-person-editor" id="submit-person-editor" class="button" value="<?=ucfirst($action);?>"/>
 </form>

@@ -156,8 +156,7 @@ a.button {
 	background: -o-linear-gradient(top, #63ACE4 0, #0077bd 100%);
 	background: -ms-linear-gradient(top, #63ACE4 0, #0077bd 100%);
 	background: linear-gradient(top, #63ACE4 0, #0077bd 100%);
-	*background-image: url(images/edit_button.png);
-	box-shadow: -1px -1px 1px #63ace4 inset;
+	/*box-shadow: -1px -1px 1px #63ace4 inset;*/
 	color: #fff;
 }
 

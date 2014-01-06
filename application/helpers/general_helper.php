@@ -3,11 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // general_helper.php Chris Dart Dec 10, 2013 9:54:14 PM
 // chrisdart@cerebratorium.com
-
-function mysql_timestamp()
+function mysql_timestamp ()
 {
     return date('Y-m-d H:i:s');
-
 }
 
 function bake_cookie ($name, $value)
@@ -67,9 +65,11 @@ function format_date ($date, $format = "standard")
     }
     return $date;
 }
+
 /**
  * ideally this will produce a cleaned up version of a time entry.
  * for now it just trims a time entry--which could be any string.
+ *
  * @param string $time
  * @param string $format
  */
@@ -84,14 +84,13 @@ function prepare_variables ($object, $variables)
         $my_variable = $variables[$i];
         if ($object->input->post($my_variable)) {
             $my_value = $object->input->post($my_variable);
-            if(strpos($my_variable,"date")){
-                $my_value = format_date($my_value,"mysql");
-
+            if (strpos($my_variable, "date")) {
+                $my_value = format_date($my_value, "mysql");
             }
-            if(strpos($my_variable,"price") || strpos($my_variable,"room") || strpos($my_variable,"rate")){
-                $my_value = format_money($my_value,"int");
+            if (strpos($my_variable, "price") || strpos($my_variable, "room") || strpos($my_variable, "rate")) {
+                $my_value = format_money($my_value, "int");
             }
-            if(strpos("time",$my_variable)){
+            if (strpos("time", $my_variable)) {
                 $my_value = format_time($my_value);
             }
             $object->$my_variable = trim($my_value);
@@ -171,4 +170,29 @@ function format_field_name ($field)
     $field = str_replace("_", " ", $field);
     $field = ucwords($field);
     return $field;
+}
+
+/**
+ *
+ * @param object $address
+ * @param string $format
+ *            $format should be "postal" which is the address on two lines, or
+ *            inline
+ */
+function format_address ($address, $format = "postal")
+{
+    $street = array(
+            $address->num,
+            $address->street,
+            $address->unit_type,
+            $address->unit
+    );
+    $locality = sprintf("%s, %s %s", $address->city, $address->state, $address->zip);
+    $street_line = implode(" ", $street);
+    if ($format == "postal") {
+        $output = sprintf("%s<br/>%s", $street_line, $locality);
+    } elseif ($format == "inline") {
+        $output = sprintf("%s, %s", $street_line, $locality);
+    }
+    return $output;
 }

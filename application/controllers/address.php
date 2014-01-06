@@ -37,11 +37,28 @@ class Address extends My_Controller
         redirect("person/view/$person_id");
     }
 
+    function edit ()
+    {
+        $address_id = $this->input->get("address_id");
+        $person_id = $this->input->get("person_id");
+        $data["person_id"] = $person_id;
+        $data["address"] = $this->address->get($address_id);
+        $data["action"] = "update";
+        if ($this->input->get("ajax") == 1) {
+            $this->load->view("address/edit", $data);
+        }else{
+            $data["target"] = "address/edit";
+            $data["title"] = "Editing an Address";
+            $this->load->view("page/index",$data);
+        }
+    }
+
     function update ()
     {
         $id = $this->input->post("id");
+        $person_id = $this->input->post("person_id");
         $this->address->update("id");
-        redirect("person/view/$id");
+        redirect("person/view/$person_id");
     }
 
     function update_value ()

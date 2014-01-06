@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".add_phone").live("click",function(){
+	$(".add-phone").live("click",function(){
 		my_id = this.id.split("_")[1];
 		form_data = {
 				person_id: my_id,
@@ -15,6 +15,25 @@ $(document).ready(function(){
 			
 		});
 		
+	});
+	
+	$(".edit-phone").live("click",function(){
+		my_id = this.id.split("_")[1];
+		my_person = $("#id").val();
+
+		form_data = {
+				id: my_id,
+				person_id: my_person,
+				ajax: "1"
+		};
+		$.ajax({
+			type: "get",
+			url: base_url + "phone/edit",
+			data: form_data,
+			success: function(data){
+				show_popup("Edit Phone", data, "auto");
+			}
+		});
 	});
 	
 	$(".delete-phone").live("click", function(){

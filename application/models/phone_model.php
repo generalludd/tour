@@ -31,6 +31,24 @@ class Phone_model extends CI_Model
         // prepare_variables($this, $variables);
     }
 
+    function get ($id)
+    {
+        $this->db->from("phone");
+        $this->db->where("id", $id);
+        $result = $this->db->get()->row();
+        return $result;
+    }
+
+    function get_phone_person ($phone_id, $fields = array("person_id"))
+    {
+        $this->db->from("phone_person");
+        $this->db->where("phone_id", $phone_id);
+        $fields = implode(",", $fields);
+        $this->db->select($fields);
+        $result = $this->db->get()->row();
+        return $result;
+    }
+
     function insert_for_person ($person_id)
     {
         $this->prepare_variables();
@@ -40,11 +58,9 @@ class Phone_model extends CI_Model
                 "person_id" => $person_id,
                 "phone_id" => $id
         );
-        if ($this->input->post("phone_is_primary")) {
-            $relation_array["is_primary"] = $this->input->post("phone_is_primary");
-        }
 
         $this->db->insert("phone_person", $relation_array);
+        return $id;
     }
 
     function get_for_person ($person_id)
@@ -72,21 +88,33 @@ class Phone_model extends CI_Model
         }
     }
 
+    function set_primary ($id, $is_primary)
+    {
+        $this->db->where("phone_id", $id);
+        $this->db->update("phone_person", array(
+                "is_primary" => $is_primary
+        ));
+    }
+
     function delete ($id)
     {
         $this->db->delete("phone", array(
                 "id" => $id
         ));
+        $this->db->delete("phone_person", array(
+                "phone_id" => $id
+        ));
     }
 
     function fix ()
     {
-//         $this->db->where("phone.person_link = person.address_id", NULL, FALSE);
-//         $this->db->where("phone.person_link != 0", NULL,FALSE);
-//         $this->db->from("person,phone");
-//         $this->db->select("person.id as person_id,phone.id as phone_id");
-//         $result = $this->db->get()->result();
-//         print $this->db->last_query();
-//         return $result;
+        // $this->db->where("phone.person_link = person.address_id", NULL,
+        // FALSE);
+        // $this->db->where("phone.person_link != 0", NULL,FALSE);
+        // $this->db->from("person,phone");
+        // $this->db->select("person.id as person_id,phone.id as phone_id");
+        // $result = $this->db->get()->result();
+        // print $this->db->last_query();
+        // return $result;
     }
 }

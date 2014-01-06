@@ -904,27 +904,37 @@ body.person #content {
 	position: relative;
 }
 
-body.person fieldset.grouping {
+body.person fieldset.grouping, div.grouping {
 	float: left;
-	width: 20%;
+	width: 45%;
 	clear: none;
 	min-width: 35ex;
 }
 
-fieldset.person-info {
-	
+div.grouping{
 }
 
-fieldset.phone-info{
+div.person-info {
+	padding: 5px 5px;
+}
+
+div.phone-info{
 	width: 35ex;
 }
 
-fieldset.address-info {
+div.address-info {
+	padding: 5px 5px;
+}
+
+div.housemate-info {
 	
 }
 
-fieldset.housemate-info {
-	
+.person .content {
+	padding-top: 15px;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .grouping div.field-envelope {
