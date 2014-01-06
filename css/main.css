@@ -800,7 +800,7 @@ ul.buttons li {
 fieldset.block label {
 	float: left;
 }
-.field {
+.edit-field.field {
 	padding: 0px 15px;
 	
 }

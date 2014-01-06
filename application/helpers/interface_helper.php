@@ -179,7 +179,7 @@ function create_button_bar ($buttons, $options = NULL)
 }
 
 /**
- * create a field set that can be edited with AJAX on the fly.
+ * create a field set that can be optionally edited with AJAX on the fly.
  *
  * @param string $field_name
  * @param string $value
@@ -187,7 +187,7 @@ function create_button_bar ($buttons, $options = NULL)
  * @param array $options
  *            (envelope, class, attributes)
  */
-function create_edit_field ($field_name, $value, $label, $options = array())
+function create_field ($field_name, $value, $label, $options = array())
 {
     $envelope = "p";
     if (array_key_exists("envelope", $options)) {
@@ -209,8 +209,13 @@ function create_edit_field ($field_name, $value, $label, $options = array())
         $value = "&nbsp;";
     }
 
+    $classes[] = "field";
+
     /* add additional classes to the actual field */
-    $classes[] = "edit-field field";
+    if (array_key_exists("editable", $options)) {
+        $classes[] = "edit-field";
+    }
+
     if (array_key_exists("class", $options)) {
         $classes[] = $options["class"];
     }
@@ -229,6 +234,20 @@ function create_edit_field ($field_name, $value, $label, $options = array())
     }
     $output[] = sprintf("<span class='%s' %s %s %s>%s</span></%s>", $field_class, $attributes, $format, $id, $value, $envelope);
     return implode("\r", $output);
+}
+
+/**
+ * deprecated for create_field
+ *
+ * @param unknown $field_name
+ * @param unknown $value
+ * @param unknown $label
+ * @param unknown $options
+ */
+function create_edit_field ($field_name, $value, $label, $options = array())
+{
+    $options["editable"] = TRUE;
+  return  create_field($field_name, $value, $label, $options);
 }
 
 function create_input ($object, $name, $label, $options = array())
@@ -264,8 +283,8 @@ function create_input ($object, $name, $label, $options = array())
     if (array_key_exists("type", $options)) {
         $type = $options["type"];
     }
-    return sprintf("<%s><label for='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='input %s'/></%s>", $envelope, $name, $label, $type, $name,
-            $id, $value, $class, $envelope);
+    return sprintf("<%s><label for='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='input %s'/></%s>", $envelope, $name, $label, $type,
+            $name, $id, $value, $class, $envelope);
 }
 
 /**
@@ -289,9 +308,8 @@ function create_checkbox ($name, $values, $selections = array())
     return implode("\r", $output);
 }
 
-
-function create_dropdown($name,$values, $options = array()){
-    if(array_key_exists("envelope",$options)){
-
+function create_dropdown ($name, $values, $options = array())
+{
+    if (array_key_exists("envelope", $options)) {
     }
 }
