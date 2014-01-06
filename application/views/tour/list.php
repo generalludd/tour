@@ -85,14 +85,14 @@ foreach ($tours as $tour) {
 
 </td>
 <td><a class="button show-toursits mini"
-				href="<?=site_url("/tourist/show_all/$tour->id");?>">Tourists</a></td>
+				href="<?=site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
 <? else: ?>
 			<td><a
 				class="button show-hotels mini"
 				href="<?=site_url("/hotel/view_all/$tour->id");?>">Hotels</a></td>
 			<td><a
 				class="button show-toursits mini"
-				href="<?=site_url("/tourist/show_all/$tour->id");?>">Tourists</a></td>
+				href="<?=site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
 		</tr>
 <?
 endif;
