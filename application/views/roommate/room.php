@@ -19,7 +19,7 @@ if(empty($roommates)){
 				<td
 					class="roommate-row"
 					id="<?=sprintf("roommate_%s_%s", $roommate->room,  $roommate->person_id);?>">
-<?=$roommate->person_name;?>
+<a href="<?=site_url("person/view/$roommate->person_id");?>"><?=$roommate->person_name;?></a>
 </td>
 				<td><span
 					id="<?=sprintf("delete-roommate_%s_%s", $roommate->room,  $roommate->person_id);?>"
