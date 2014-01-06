@@ -16,7 +16,7 @@ class Tour extends MY_Controller
         $this->view_all();
     }
 
-    function show ()
+    function view ()
     {
         $id = $this->uri->segment(3);
         $data["tour"] = $this->tour->get($id);
@@ -25,7 +25,7 @@ class Tour extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
-    function show_all ()
+    function view_all ()
     {
         $data["tours"] = $this->tour->get_all();
         $data["for_tourist"] = FALSE;
@@ -34,15 +34,6 @@ class Tour extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
-    function view ()
-    {
-        $this->show();
-    }
-
-    function view_all ()
-    {
-        $this->show_all();
-    }
 
     function create ()
     {
