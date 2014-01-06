@@ -6,10 +6,10 @@
 <input type="hidden" value="<?=get_value($tour, "id");?>" name="id" id="id" />
 <div class="grouping block person-info" id="person">
 <h2><?=get_value($tour, "tour_name");?></h2>
-<? $buttons["edit_tour"] = array( "text" => "Edit Tour",  "type" => "span",  "class" => "button edit edit-tour", "id" => "et_$tour->id" );
+<? $buttons["edit_tour"] = array( "text" => "Edit",  "type" => "span",  "class" => "button edit edit-tour", "id" => "et_$tour->id" );
 
-$buttons["tourists"] = array("text" => "Show Tourists", "class" => "button show-tourists mini", "href" => site_url("tourist/show_all/$tour->id"));
-$buttons["hotels"] = array("text"=> "Show Hotels","href"=>site_url("hotel/view_all/$tour->id"), "class"=>"button view-hotels");
+$buttons["tourists"] = array("text" => "Tourists", "class" => "button view-tourists mini", "href" => site_url("tourist/view_all/$tour->id"));
+$buttons["hotels"] = array("text"=> "Hotels","href"=>site_url("hotel/view_all/$tour->id"), "class"=>"button view-hotels");
 
 ?>
 <? print create_button_bar($buttons);
