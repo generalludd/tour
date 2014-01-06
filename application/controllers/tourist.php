@@ -11,11 +11,11 @@ class Tourist extends MY_Controller
         $this->load->model("tourist_model", "tourist");
     }
 
-    function show ()
+    function view ()
     {
     }
 
-    function show_all ()
+    function view_all ()
     {
         $tour_id = $this->uri->segment(3);
         $this->load->model("tour_model", "tour");
@@ -94,7 +94,7 @@ class Tourist extends MY_Controller
         $this->load->view("tourist/select_type", $data);
     }
 
-    function show_for_tourist ()
+    function view_for_tourist ()
     {
         $this->load->model("person_model", "person");
         $person_id = $this->uri->segment(3);
