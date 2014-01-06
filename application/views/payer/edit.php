@@ -88,6 +88,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 	<p>
 		<input
 			type="submit"
+			class="button"
 			name="save"
 			id="save"
 			value="<?=ucfirst($action);?>" />
@@ -119,11 +120,11 @@ $amt_due = $total_cost - $payer->amt_paid;
 					name="tourist-dropdown"
 					value="" />
 			</p>
-			<div>
-			<span class="button new mini create-new-tourist">Add a New Tourist</span>
+			<fieldset>
+			<span class="button new small create-new-tourist">Add a New Tourist</span>
 			<div id="add-new-tourist">
 			</div>
-			</div>
+			</fieldset>
 		</form>
 	</div>
 </div>
