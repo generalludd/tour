@@ -26,7 +26,7 @@ $(".edit-payer").live("click",function(){
  * change the hidden value of the payment type based on changes to a dropdown
  * in the payer editor. 
  */
-$(".change_payment_type").live("change",function(){
+$(".change_payment_type").live("blur",function(){
 	my_id = $("#tour_id").val();
 	my_type = $(this).val();
 	
