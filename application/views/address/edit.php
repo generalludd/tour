@@ -22,8 +22,6 @@
 </p>
 	<p><?=create_input($address, "street","Street",  array("format"=>"text"));?>
 </p>
-	<p><?=create_input($address, "unit_type","Unit Type", array("format"=>"text"));?>
-</p>
 	<p><?=create_input($address, "unit","Unit", array("format"=>"text"));?>
 </p>
 	<p><?=create_input($address, "city","City", array("format"=>"text"));?>

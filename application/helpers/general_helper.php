@@ -184,7 +184,6 @@ function format_address ($address, $format = "postal")
     $street = array(
             $address->num,
             $address->street,
-            $address->unit_type,
             $address->unit
     );
     $locality = sprintf("%s, %s %s", $address->city, $address->state, $address->zip);

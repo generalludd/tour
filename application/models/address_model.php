@@ -7,7 +7,6 @@ class Address_model extends CI_Model
 {
     var $num;
     var $street;
-    var $unit_type;
     var $unit;
     var $city;
     var $state;
@@ -23,7 +22,6 @@ class Address_model extends CI_Model
         $variables = array(
                 "num",
                 "street",
-                "unit_type",
                 "unit",
                 "city",
                 "state",
@@ -47,8 +45,6 @@ class Address_model extends CI_Model
         $id = $this->db->insert_id();
         return $id;
     }
-
-
 
     function update ($id, $values = array())
     {
