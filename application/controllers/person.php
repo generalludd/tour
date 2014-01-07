@@ -38,16 +38,16 @@ class Person extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
-    function view_next()
+    function view_next ()
     {
-        $id= $this->uri->segment(3);
+        $id = $this->uri->segment(3);
         $next_id = $this->person->get_next_person($id);
         redirect("person/view/$next_id");
     }
 
-    function view_previous()
+    function view_previous ()
     {
-        $id= $this->uri->segment(3);
+        $id = $this->uri->segment(3);
         $next_id = $this->person->get_previous_person($id);
         redirect("person/view/$next_id");
     }
@@ -55,7 +55,7 @@ class Person extends MY_Controller
     function view_all ()
     {
         $letter = FALSE;
-        if($this->input->get("letter")){
+        if ($this->input->get("letter")) {
             $letter = $this->input->get("letter");
         }
         $data["initials"] = $this->person->get_initials();
@@ -80,18 +80,30 @@ class Person extends MY_Controller
         $data["payer_id"] = $payer_id;
         $data["tour_id"] = $tour_id;
         $target = "person/mini_list";
-        $data["people"] = $this->person->find_people($name, $payer_id, $tour_id);
+        $data["people"] = $this->person->find_people($name, array(
+                "payer_id" => $payer_id,
+                "tour_id" => $tour_id
+        ));
+        $this->load->view($target, $data);
+    }
+
+    function find_for_address ()
+    {
+        $name = $this->input->get("name");
+        $data["people"] = $this->person->find_people($name, array(
+                "has_address" => TRUE
+        ));
+        $target = "address/mini_list";
         $this->load->view($target, $data);
     }
 
     function edit ()
     {
-
         $id = $this->uri->segment(3);
         $data = array();
         $data["person"] = $this->person->get($id);
         $data["title"] = sprintf("Person Record: %s %s", $data["person"]->first_name, $data["person"]->last_name);
-//         $data["phones"] = $this->phone->get_for_person($id);
+        // $data["phones"] = $this->phone->get_for_person($id);
         $data["target"] = "person/edit";
         $this->load->view("page/index", $data);
     }
@@ -101,9 +113,12 @@ class Person extends MY_Controller
         // create a record in the db and get the insertion id. Then go to the
         // edit user page with
         $data["person"] = FALSE;
-        $this->load->model("variable_model","variable");
+        $this->load->model("variable_model", "variable");
         $shirt_sizes = $this->variable->get_pairs("shirt_size");
-        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array("value","name"), TRUE);
+        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array(
+                "value",
+                "name"
+        ), TRUE);
         $data["action"] = "insert";
         $this->load->view("person/edit", $data);
     }
@@ -112,9 +127,12 @@ class Person extends MY_Controller
     {
         $data["person"] = (object) array();
         $data["person"]->address_id = $this->input->post("address_id");
-        $this->load->model("variable_model","variable");
+        $this->load->model("variable_model", "variable");
         $shirt_sizes = $this->variable->get_pairs("shirt_size");
-        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array("value","name"), TRUE);
+        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array(
+                "value",
+                "name"
+        ), TRUE);
         $data["action"] = "insert";
         $this->load->view("person/edit", $data);
     }

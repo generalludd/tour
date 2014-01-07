@@ -111,10 +111,13 @@ class Tourist extends MY_Controller
     {
         $data["action"] = "insert";
         $data["tourist"] = NULL;
-        $this->load->model("variable_model","variable");
+        $this->load->model("variable_model", "variable");
         $shirt_sizes = $this->variable->get_pairs("shirt_size");
-        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array("value","name"), TRUE);
-        $this->load->view("tourist/edit",$data);
+        $data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, array(
+                "value",
+                "name"
+        ), TRUE);
+        $this->load->view("tourist/edit", $data);
     }
 
     function insert ($payer_id = FALSE, $tour_id = FALSE, $person_id = FALSE)
@@ -144,7 +147,7 @@ class Tourist extends MY_Controller
         $person_id = $this->person->insert();
         $payer_id = $this->input->post("payer_id");
         $tour_id = $this->input->post("tour_id");
-       $this->insert($payer_id, $tour_id, $person_id);
+        $this->insert($payer_id, $tour_id, $person_id);
     }
 
     function update ()
@@ -176,7 +179,10 @@ class Tourist extends MY_Controller
         $data["payer_id"] = $payer_id;
         $data["tour_id"] = $tour_id;
         $target = "tourist/mini_list";
-        $data["people"] = $this->person->find_people($name, $payer_id, $tour_id);
+        $data["people"] = $this->person->find_people($name, array(
+                "payer_id" => $payer_id,
+                "tour_id" => $tour_id
+        ));
         $this->load->view($target, $data);
     }
 

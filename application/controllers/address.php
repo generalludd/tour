@@ -83,7 +83,15 @@ class Address extends My_Controller
             $this->address->update($id);
             redirect("person/view/$person_id");
         }
+    }
 
+    function find_housemate ()
+    {
+        $data["person_id"] = $this->input->get("person_id");
+
+        if ($this->input->get("ajax") == 1) {
+            $this->load->view("address/find_housemate", $data);
+        }
     }
 
     /**
@@ -95,6 +103,8 @@ class Address extends My_Controller
     {
         if ($this->input->post("id")) {
             $id = $this->input->post("id");
+            print $id;
+            die();
             $values = array(
                     $this->input->post("field") => $value = trim($this->input->post("value"))
             );
@@ -102,4 +112,5 @@ class Address extends My_Controller
             echo $this->input->post("value");
         }
     }
+
 }

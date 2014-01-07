@@ -49,8 +49,8 @@ class Person_model extends CI_Model
         $this->db->order_by("person.first_name", "ASC");
         $this->db->order_by("person.address_id", "ASC");
         $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
-        if($letter){
-            $this->db->where("`person`.`last_name` LIKE '$letter%'",NULL, FALSE);
+        if ($letter) {
+            $this->db->where("`person`.`last_name` LIKE '$letter%'", NULL, FALSE);
         }
         $result = $this->db->get()->result();
         return $result;
@@ -86,13 +86,23 @@ class Person_model extends CI_Model
         }
     }
 
-    function find_people ($name, $payer_id = FALSE, $tour_id = FALSE)
+    function find_people ($name, $options = array())
     {
         $this->db->where("CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%'", NULL, FALSE);
 
         $this->db->order_by("first_name", "ASC");
         $this->db->order_by("last_name", "ASC");
         $this->db->from("person");
+        if (array_key_exists("tour_id", $options)) {
+        }
+        if (array_key_exists("payer_id", $options)) {
+        }
+        if (array_key_exists("select", $options)) {
+            $this->db->select($options["select"]);
+        }
+        if (array_key_exists("has_address", $options)) {
+            $this->db->where("`address_id` IS NOT NULL",NULL, FALSE);
+        }
         // The following are deprectated steps a vain attempt at selecting
         // tourists not already added to a tour.
         /*
@@ -167,9 +177,10 @@ class Person_model extends CI_Model
         $this->db->from("person");
         return $this->db->get()->result();
     }
-    function get_by_letter($letter)
+
+    function get_by_letter ($letter)
     {
-        $this->db->where("last_name LIKE '$letter%'",NULL,FALSE);
+        $this->db->where("last_name LIKE '$letter%'", NULL, FALSE);
         $this->db->from("person");
         $this->db->order_by("last_name");
         $this->db->order_by("first_name");
