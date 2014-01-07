@@ -36,7 +36,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".move-address").live("click",function(){
+	$(".change-housemate").live("click",function(){
 		my_id = this.id.split("_")[1];
 		form_data = {
 				person_id: my_id,
