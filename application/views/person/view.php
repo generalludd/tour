@@ -14,13 +14,13 @@ $buttons[] = array("text" => "Next Record ->", "class"=>"button navigation next-
 <input type="hidden" id="id" name="id" value="<?=get_value($person, "id", $id);?>"/>
 <input type="hidden" id="address_id" name="address_id" value="<?=get_value($person, "address_id");?>"/>
 <div class='field-set'>
-	<?=create_edit_field("first_name", get_value($person, "first_name"), "First Name",array("envelope"=>"span"));?>
+	<?=create_edit_field("first_name", get_value($person, "first_name"), "First Name",array("envelope"=>"div"));?>
 </div>
 <div class='field-set'>
-	<?=create_edit_field("last_name", get_value($person,"last_name"), "Last Name",array("envelope"=>"span"));?>
+	<?=create_edit_field("last_name", get_value($person,"last_name"), "Last Name",array("envelope"=>"div"));?>
 </div>
 <div class='field-set'>
-	<?=create_edit_field("email", get_value($person,"email"), "Email",array("envelope"=>"span"));?>
+	<?=create_edit_field("email", get_value($person,"email"), "Email",array("envelope"=>"div"));?>
 </div>
 <span class='field-set'>
 	<?=create_edit_field("shirt_size", get_value($person,"shirt_size"), "Shirt Size",array("envelope"=>"div","class"=>"dropdown","attributes"=>"menu='shirt_size'"));?>
