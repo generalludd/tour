@@ -74,9 +74,15 @@ class Tour_model extends MY_Model
         return parent::get("tour", $id, $fields);
     }
 
-    function get_all ()
+    function get_all ($current_only = FALSE, $fields = "*")
     {
-        return parent::get_all("tour");
+        $this->db->from("tour");
+        $this->db->select($fields);
+        $this->db->order_by("tour.start_date", "ASC");
+        if ($current_only) {
+            $this->db->where("tour.start_date > CURDATE()", NULL, FALSE);
+        }
+        return $this->db->get()->result();
     }
 
     function get_value ($id, $field)
@@ -88,27 +94,6 @@ class Tour_model extends MY_Model
         $result = $this->db->get()->row();
         return $result->$field;
     }
-
-    function get_current ($fields = "*")
-    {
-       /* if ($id) {
-            $this->db->where("tourist.person_id !=", $id);
-            $this->db->join("tourist", "tour.id = tourist.tour_id");
-            if ($type == "payer") {
-                $this->db->where("payer.payer_id !=", $id);
-                $this->db->join("payer", "tour.id = payer.tour_id");
-            }
-        }
-        */
-        $this->db->select($fields);
-        $this->db->where("tour.start_date > CURDATE()",NULL,FALSE);
-        $this->db->from("tour");
-        $this->db->order_by("tour.start_date", "ASC");
-        $this->db->group_by("tour.id");
-        $result = $this->db->get()->result();
-        return $result;
-    }
-
 
     function insert ()
     {

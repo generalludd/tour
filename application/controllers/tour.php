@@ -34,7 +34,6 @@ class Tour extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
-
     function create ()
     {
         $data["action"] = "insert";
@@ -113,7 +112,7 @@ class Tour extends MY_Controller
         $this->load->model("tourist_model", "tourist");
         $id = $this->input->get("id");
         $data["id"] = $id;
-        $tours = $this->tour->get_current();
+        $tours = $this->tour->get_all(TRUE);
         $data["tours"] = $tours;
         foreach ($tours as $tour) {
             $tour_list[] = $tour->id;

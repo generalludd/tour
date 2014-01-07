@@ -37,7 +37,7 @@ class Hotel extends MY_Controller
     {
         $tour_id = $this->input->get("tour_id");
         $this->load->model("tour_model", "tour");
-        $tour_list = $this->tour->get_current("tour_name,id");
+        $tour_list = $this->tour->get_all(TRUE, "tour_name,id");
         $tour = $this->tour->get($tour_id, "id, tour_name");
         $data["tour"] = $tour;
 
@@ -63,7 +63,7 @@ class Hotel extends MY_Controller
         $hotel_id = $this->input->get("id");
         $hotel = $this->hotel->get($hotel_id);
         $this->load->model("tour_model", "tour");
-        $tour_list = $this->tour->get_current("tour_name,id");
+        $tour_list = $this->tour->get_all(FALSE, "tour_name,id");
         $tour = $this->tour->get($hotel->tour_id, "id, tour_name");
         $data["tour"] = $tour;
 

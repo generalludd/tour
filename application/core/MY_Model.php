@@ -29,7 +29,6 @@ class MY_Model extends CI_Model
     function get_all ($db)
     {
         $this->db->from($db);
-        $this->db->order_by("start_date");
         return $this->db->get()->result();
     }
 }
