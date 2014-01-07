@@ -80,9 +80,10 @@ class Address extends My_Controller
         if ($this->input->post("id")) {
             $id = $this->input->post("id");
             $person_id = $this->input->post("person_id");
-            $this->address->update("id");
+            $this->address->update($id);
             redirect("person/view/$person_id");
         }
+
     }
 
     /**
