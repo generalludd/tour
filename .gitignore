@@ -5,3 +5,4 @@
 .settings/*
 .buildpath
 .DS_Store
+/js.old
