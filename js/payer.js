@@ -80,7 +80,7 @@ calculate_cost(1);
 
 
 
-$('#tourist-dropdown').live('keyup', function(event) {
+$('#tourist-dropdown').live('mouseup', function(event) {
 	var person_search = this.value;
 	if (person_search.length > 2 && person_search != "find person") {
 		search_words = person_search.split(' ');
