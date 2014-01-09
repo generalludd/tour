@@ -306,10 +306,11 @@ $(".delete-payer").live("click",function(){
 			type: "post",
 			url: base_url + "payer/delete",
 			data: form_data,
-			success: function(data){
-				window.location.href = base_url + "tourist/view_all/" + my_tour;
+			success: function(){
 			}
 		});
+		window.location.href = base_url + "tourist/view_all/" + my_tour;
+
 	}
 	
 	}
