@@ -111,5 +111,13 @@ class Roommate_Model extends CI_Model
         $query = sprintf(
                 "delete r.* from roommate r join tourist t on r.person_id = t.person_id and t.tour_id = r.tour_id WHERE t.payer_id = %s and r.tour_id = %s",
                 $payer_id, $tour_id);
+        $this->db->query($query);
+    }
+
+    function delete_tourist ($person_id, $tour_id)
+    {
+        $this->db->where("person_id", $person_id);
+        $this->db->where("tour_id", $tour_id);
+        $this->db->delete("roommate");
     }
 }

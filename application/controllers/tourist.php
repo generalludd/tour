@@ -193,6 +193,8 @@ class Tourist extends MY_Controller
         $payer_id = $this->input->post("payer_id");
         if ($this->input->post("ajax") == 1) {
             $this->tourist->delete($person_id, $tour_id);
+            $this->load->model("roommate_model", "roommate");
+            $this->roommate->delete_tourist($person_id, $tour_id);
             $target = "tourist/payer_list";
             $data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
             $this->load->view($target, $data);
