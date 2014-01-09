@@ -27,7 +27,7 @@ class Payer_model extends CI_Model
                 "amt_paid",
                 "is_comp",
                 "is_cancelled",
-                "notes",
+                "notes"
         );
         for ($i = 0; $i < count($variables); $i ++) {
             $my_variable = $variables[$i];
@@ -68,11 +68,11 @@ class Payer_model extends CI_Model
     {
         $this->db->where("payer.tour_id", $tour_id);
         $this->db->where("`tour`.`id` = `payer`.`tour_id`", NULL, FALSE);
-        $this->db->join("person","person.id = payer.payer_id");
+        $this->db->join("person", "person.id = payer.payer_id");
         $this->db->from("payer,tour");
         $this->db->select("tour.id, tour.tour_name, payer.*, person.first_name, person.last_name, person.email");
-        $this->db->order_by("person.last_name","ASC");
-        $this->db->order_by("person.first_name","ASC");
+        $this->db->order_by("person.last_name", "ASC");
+        $this->db->order_by("person.first_name", "ASC");
         $result = $this->db->get()->result();
         return $result;
     }
@@ -93,5 +93,12 @@ class Payer_model extends CI_Model
         );
         $query = "INSERT IGNORE INTO `payer` (`payer_id`, `tour_id`) VALUES('$payer_id', '$tour_id');";
         $this->db->query($query);
+    }
+
+    function delete ($payer_id, $tour_id)
+    {
+        $this->db->where("payer_id", $payer_id);
+        $this->db->where("tour_id", $tour_id);
+        $this->db->delete("payer");
     }
 }

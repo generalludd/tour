@@ -289,7 +289,31 @@ $(".select-as-payer").live("click",function(){
 	});
 });
 
-});//end document load
+$(".delete-payer").live("click",function(){
+	request = confirm("Only delete a payer if they have been added to the tour by mistake. Check 'Cancel' if they have dropped out.");
+	if(request){
+		plea = confirm ("Are you really sure? This will remove this payer, all their accompanying tourists, and any roommmate records for the tour they may have. Continue?");
+	if(plea){
+		my_id = this.id.split("_");
+		my_payer = my_id[1];
+		my_tour = my_id[2];
+		form_data = {
+				tour_id: my_tour,
+				payer_id: my_payer,
+				ajax: 1
+		};
+		$.ajax({
+			type: "post",
+			url: base_url + "payer/delete",
+			data: form_data,
+			success: function(data){
+				window.location.href = base_url + "tourist/view_all/" + my_tour;
+			}
+		});
+	}
+	
+	}
+});
 
 $(".create-new-tourist").live("click", function(){
 	form_data = {
@@ -332,7 +356,13 @@ $(".insert-new-tourist").live("click",function(){
 		
 	});
 	
+
+	
 });
+
+});//end document load
+
+
 
 function calculate_cost(include_amt){
 	tourist_count = $("#tourist_count").val().valueOf();

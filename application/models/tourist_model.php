@@ -104,4 +104,11 @@ class Tourist_model extends CI_Model
                 "person_id" => $person_id
         ));
     }
+
+    function delete_payer ($payer_id, $tour_id)
+    {
+        $this->db->where("payer_id", $payer_id);
+        $this->db->where("tour_id", $tour_id);
+        $this->db->delete("tourist");
+    }
 }

@@ -92,6 +92,9 @@ $amt_due = $total_cost - $payer->amt_paid;
 			name="save"
 			id="save"
 			value="<?=ucfirst($action);?>" />
+			<? if($action == "update"): ?>
+			<span class="button delete delete-payer" id=<?=sprintf("delete-payer_%s_%s", $payer->payer_id, $tour_id);?>">Delete</span>
+			        <? endif; ?>
 	</p>
 </form>
 <div id="payer-tourist-block block">

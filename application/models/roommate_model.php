@@ -64,15 +64,15 @@ class Roommate_Model extends CI_Model
 
     function get_roomless ($tour_id, $stay)
     {
-        $this->db->select("person.id, concat(person.first_name,' ', person.last_name) as person_name",FALSE);
+        $this->db->select("person.id, concat(person.first_name,' ', person.last_name) as person_name", FALSE);
         $this->db->from("tourist");
-        $this->db->join("hotel","tourist.tour_id= hotel.tour_id","left");
-        $this->db->join("roommate","tourist.person_id = roommate.person_id AND tourist.tour_id = roommate.tour_id AND hotel.stay = roommate.stay", "left");
-        $this->db->join("person","tourist.person_id=person.id");
-        $this->db->where("tourist.tour_id",$tour_id);
-        $this->db->where("hotel.stay",$stay);
-        $this->db->where("`roommate`.`person_id` IS NULL",NULL, FALSE);
-        $this->db->order_by("person.address_id","ASC");
+        $this->db->join("hotel", "tourist.tour_id= hotel.tour_id", "left");
+        $this->db->join("roommate", "tourist.person_id = roommate.person_id AND tourist.tour_id = roommate.tour_id AND hotel.stay = roommate.stay", "left");
+        $this->db->join("person", "tourist.person_id=person.id");
+        $this->db->where("tourist.tour_id", $tour_id);
+        $this->db->where("hotel.stay", $stay);
+        $this->db->where("`roommate`.`person_id` IS NULL", NULL, FALSE);
+        $this->db->order_by("person.address_id", "ASC");
         $this->db->order_by("person.last_name", "DESC");
         $result = $this->db->get()->result();
         return $result;
@@ -104,5 +104,12 @@ class Roommate_Model extends CI_Model
             $output = $result->room;
         }
         return $output;
+    }
+
+    function delete ($payer_id, $tour_id)
+    {
+        $query = sprintf(
+                "delete r.* from roommate r join tourist t on r.person_id = t.person_id and t.tour_id = r.tour_id WHERE t.payer_id = %s and r.tour_id = %s",
+                $payer_id, $tour_id);
     }
 }

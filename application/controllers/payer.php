@@ -98,7 +98,6 @@ class Payer extends MY_Controller
                 break;
         }
 
-
         switch ($payer->room_size) {
             case "single_room":
                 $room_rate = $payer->single_room;
@@ -113,7 +112,7 @@ class Payer extends MY_Controller
                 $room_rate = 0;
                 break;
         }
-        if($payer->is_comp == 1){
+        if ($payer->is_comp == 1) {
             $tour_price = 0;
             $room_rate = 0;
         }
@@ -134,7 +133,11 @@ class Payer extends MY_Controller
         $payer_id = $this->input->post("payer_id");
         $tour_id = $this->input->post("tour_id");
         $this->payer->insert($payer_id, $tour_id);
-        $this->tourist->insert(array("payer_id"=>$payer_id,"tour_id"=> $tour_id,"person_id"=> $payer_id));
+        $this->tourist->insert(array(
+                "payer_id" => $payer_id,
+                "tour_id" => $tour_id,
+                "person_id" => $payer_id
+        ));
         if ($this->input->post("ajax") == 1) {
             $this->edit($payer_id, $tour_id);
         }
@@ -180,5 +183,15 @@ class Payer extends MY_Controller
         $data["payers"] = $this->payer->get_payers($tour_id);
 
         $this->load->view("payer/select_list", $data);
+    }
+
+    function delete ()
+    {
+        $payer_id = $this->input->post("payer_id");
+        $tour_id = $this->input->post("tour_id");
+        $this->payer->delete($payer_id, $tour_id);
+        $this->tourist->delete_payer($payer_id, $tour_id);
+        $this->load->model("roommate_model", "roommate");
+        $this->roommate->delete($payer_id, $tour_id);
     }
 }
