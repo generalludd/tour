@@ -106,7 +106,7 @@ class Roommate_Model extends CI_Model
         return $output;
     }
 
-    function delete ($payer_id, $tour_id)
+    function delete_payer ($payer_id, $tour_id)
     {
         $query = sprintf(
                 "delete r.* from roommate r join tourist t on r.person_id = t.person_id and t.tour_id = r.tour_id WHERE t.payer_id = %s and r.tour_id = %s",
