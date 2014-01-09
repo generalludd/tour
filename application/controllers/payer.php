@@ -192,6 +192,6 @@ class Payer extends MY_Controller
         $this->payer->delete($payer_id, $tour_id);
         $this->tourist->delete_payer($payer_id, $tour_id);
         $this->load->model("roommate_model", "roommate");
-        $this->roommate->delete($payer_id, $tour_id);
+        $this->roommate->delete_payer($payer_id, $tour_id);
     }
 }
