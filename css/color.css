@@ -144,7 +144,7 @@ div.list {
 .button.active {
 	color: #fff;
 	background: #67b021;
-	box-shadow: -1px -1px 1px #489310 inset;
+	/*box-shadow: -1px -1px 1px #489310 inset;*/
 }
 
 /* .button.active:hover { */

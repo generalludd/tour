@@ -3,7 +3,7 @@
 @import "ui.datepicker.css";
 
 body {
-	font-size: 13px;
+	font-size: 15px;
 	font-family: tahoma, sans-serif;
 	margin: 10px;
 	padding: 10px;
@@ -244,6 +244,7 @@ div.entry,div.list {
 
 #navigation .button {
 	padding: .7em;
+	font-size: 1.1em;
 }
 
 .button {
@@ -252,7 +253,7 @@ div.entry,div.list {
 	padding: .2em .4em;
 	border: 1px solid black;
 	cursor: pointer;
-	font-size: 1.1em;
+	/*font-size: 1.1em;*/
 	font-weight: normal;
 }
 
@@ -273,6 +274,8 @@ tr.row-break td {
 	height: 18px;
 	border: 1px solid transparent;
 	padding: 7px 3px;
+	font-size: 1.1em;
+	color: #999;
 }
 
 input[type="number"] {
@@ -318,7 +321,7 @@ ul.button-list li {
 
 ul.button-list li .button {
 	margin: 0 5px;
-	font-size: 1.2em;
+	/*font-size: 1.2em;*/
 }
 
 ul.button-list li .button.delete {
@@ -365,7 +368,7 @@ legend {
 #header {
 	padding: 0;
 	position: relative;
-	height: 60px;
+	height: 70px;
 }
 
 #page-title {
@@ -421,6 +424,7 @@ legend {
 #utility {
 	float: right;
 	clear: right;
+	margin-top: 5px;
 }
 
 #utility p {
