@@ -15,8 +15,14 @@ $buttons[] = array(
         "class" => "button tour-details"
 );
 
+$buttons[] = array(
+        "text" => "Tourists",
+        "href" => site_url("tourist/view_all/$tour->id"),
+        "class" => "button tourist-list"
+);
+
 ?>
-<h4>Hotels for Tour: <?=$tour->tour_name;?></h4>
+<h3>Hotels for Tour: <a href="<?=site_url("tour/view/$tour->id");?>" title="View tour details"><?=$tour->tour_name;?></a></h3>
 <?=create_button_bar($buttons);?>
 <table class="list">
 	<thead>

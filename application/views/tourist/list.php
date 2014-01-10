@@ -9,7 +9,8 @@ $total_payers = 0;
 $total_tourists = 0;
 ?>
 <h2><?=$tour->tour_name;?></h2>
-<? $buttons[] = array("text"=> "Tour Details", "href" => site_url("tour/view/$tour->id"), "class"=>"button mini show-tour");?>
+<? $buttons[] = array("text"=> "Tour Details", "href" => site_url("tour/view/$tour->id"), "class"=>"button show-tour");?>
+<? $buttons[] = array("text" => "Hotels and Roommates", "href"=> site_url("hotel/view_all/$tour->id"), "class"=>"button show-hotels");?>
 <?=create_button_bar($buttons);?>
 <table class="list">
 	<thead>

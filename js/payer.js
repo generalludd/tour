@@ -26,7 +26,7 @@ $(".edit-payer").live("click",function(){
  * change the hidden value of the payment type based on changes to a dropdown
  * in the payer editor. 
  */
-$(".change_payment_type").live("blur",function(){
+$(".change_payment_type").live("mouseup",function(){
 	my_id = $("#tour_id").val();
 	my_type = $(this).val();
 	
@@ -80,7 +80,7 @@ calculate_cost(1);
 
 
 
-$('#tourist-dropdown').live('mouseup', function(event) {
+$('#tourist-dropdown').live('keyup', function(event) {
 	var person_search = this.value;
 	if (person_search.length > 6 && person_search != "find person") {
 		search_words = person_search.split(' ');

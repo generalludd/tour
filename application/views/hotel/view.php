@@ -3,8 +3,10 @@
 // view.php Chris Dart Dec 29, 2013 10:17:41 PM chrisdart@cerebratorium.com
 $buttons[] = array("text"=>"Edit","type"=>"span","class"=>"button edit edit-hotel","id"=>sprintf("edit-hotel_%s",$hotel->id));
 $buttons[] = array("text"=>"Roommates", "href"=>site_url(sprintf("roommate/view_for_tour/?tour_id=%s&stay=%s",get_value($hotel,"tour_id"),get_value($hotel,"stay"))));
-print create_button_bar($buttons);
+
  ?>
+ <h3>Information for Hotel <?=$hotel->hotel_name; ?></h3>
+ <?=create_button_bar($buttons);?>
 <input type="hidden" id="id" name="id" value="<?=get_value($hotel, "id");?>"/>
 
 <div class="grouping block hotel-info" id="hotel">

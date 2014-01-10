@@ -247,10 +247,10 @@ div.entry,div.list {
 .button {
 	text-align: center;
 	position: static;
-	padding: .35em;
+	padding: .7em;
 	border: 1px solid black;
 	cursor: pointer;
-	font-size: 1em;
+	font-size: 1.1em;
 	font-weight: normal;
 }
 
@@ -312,11 +312,12 @@ ul.button-list {
 
 ul.button-list li {
 	display: inline;
-	padding: .35em 0 .35em .25em
+	padding: .35em 0 .35em .25em;
 }
 
 ul.button-list li .button {
 	margin: 0 5px;
+	font-size: 1.2em;
 }
 
 ul.button-list li .button.delete {
@@ -371,6 +372,7 @@ legend {
 	float: left;
 	font-size: 1.3em;
 	font-weight: bold;
+	padding-bottom: .7em;
 }
 
 #navigation {
@@ -382,7 +384,7 @@ legend {
 	float: left;
 	width: 100%;
 	padding: .75em 0 0 1em;
-	height: 2.5em;
+	height: 3em;
 	min-width: 700px;
 	margin-bottom: .5em;
 }
@@ -414,9 +416,6 @@ legend {
 
 #navigation .button-box {
 	float: left;
-	top: 2px;
-	position: absolute;
-	width: 100%;
 }
 
 #utility {
@@ -632,6 +631,11 @@ a.button {
 
 .button-box {
 	height: 25px;
+}
+
+#content .button-box {
+	padding: .5em 0;
+	height: 3.7em;
 }
 
 .button-box .delete {
@@ -887,7 +891,7 @@ body.person #content {
 
 body.person fieldset.grouping, div.grouping {
 	float: left;
-	width: 45%;
+	width: 100%;
 	clear: none;
 	min-width: 35ex;
 }

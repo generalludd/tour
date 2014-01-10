@@ -31,7 +31,7 @@ if(empty($roommates)){
 <? endif;?>
 </tbody>
 	</table>
-<? $buttons[] = array("text"=>"Add Roommate","type"=>"span","class"=>"button new add-roommate","id"=>sprintf("add-roommate_%s", $room));?>
+<? $buttons[] = array("text"=>"Add Roommate","type"=>"span","class"=>"button new small add-roommate","id"=>sprintf("add-roommate_%s", $room));?>
 <?=create_button_bar($buttons);?>
 </div>
 <?=$close_div;
