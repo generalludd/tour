@@ -2,7 +2,6 @@
 
 @import "ui.datepicker.css";
 
-
 body {
 	font-size: 13px;
 	font-family: tahoma, sans-serif;
@@ -68,7 +67,6 @@ loggedout indicates the opposite.
 	border-style: solid;
 	border-width: 1px;
 }
-
 
 /*Login Form elements*/
 div.login {
@@ -244,10 +242,14 @@ div.entry,div.list {
 	box-shadow: 1px 1px 2px #333;
 }
 
+#navigation .button {
+	padding: .7em;
+}
+
 .button {
 	text-align: center;
-	position: static;
-	padding: .7em;
+	/*position: static;*/
+	padding: .2em .4em;
 	border: 1px solid black;
 	cursor: pointer;
 	font-size: 1.1em;
@@ -267,11 +269,10 @@ tr.row-break td {
 	cursor: pointer;
 }
 
-
-
 #navigation input[type="text"] {
 	height: 18px;
 	border: 1px solid transparent;
+	padding: 7px 3px;
 }
 
 input[type="number"] {
@@ -283,7 +284,7 @@ input[type="date"] {
 }
 
 input[type="tel"] {
-    width: 16ex;
+	width: 16ex;
 }
 
 input[type="time"] {
@@ -329,12 +330,11 @@ ul.button-list li .button.delete {
 }
 
 .button.letter {
-    padding-left: .5em;
-    padding-right: .5em;
-    margin-left: .2em !important;
-    margin-right: .2em !important;
+	padding-left: .5em;
+	padding-right: .5em;
+	margin-left: .2em !important;
+	margin-right: .2em !important;
 }
-
 
 .help {
 	
@@ -342,8 +342,8 @@ ul.button-list li .button.delete {
 
 #utility .button-box {
 	/*font-size: .8em;*/
+	
 }
-
 
 textarea {
 	font-size: 1em;
@@ -640,6 +640,7 @@ a.button {
 
 .button-box .delete {
 	/*margin-top: -5px;*/
+	
 }
 
 .button-bar {
@@ -690,8 +691,8 @@ table.list tbody tr {
 
 table.list.compressed {
 	font-size: .9em;
-	padding:0;
-	border-spacing:0;
+	padding: 0;
+	border-spacing: 0;
 }
 
 table.list tfoot tr {
@@ -699,9 +700,9 @@ table.list tfoot tr {
 }
 
 table.list tfoot tr td {
-	   border-top-style: double;
-    border-top-width: 3px;
-    border-top-color: #000;
+	border-top-style: double;
+	border-top-width: 3px;
+	border-top-color: #000;
 }
 
 table.files {
@@ -735,8 +736,6 @@ a.link,input.link {
 a.link:hover,input.link:hover {
 	cursor: pointer;
 }
-
-
 
 .icon {
 	vertical-align: middle;
@@ -775,8 +774,9 @@ fieldset.advanced div.advanced {
 }
 
 .button-box {
-	margin-top: .5em;
-	/*padding-bottom: .5em;*/
+	/*margin-top: .5em;
+	padding-bottom: .5em;*/
+	
 }
 
 ul.buttons {
@@ -804,9 +804,9 @@ ul.buttons li {
 fieldset.block label {
 	float: left;
 }
+
 .edit-field.field {
 	padding: 0px 15px;
-	
 }
 
 textarea.save-field {
@@ -827,15 +827,14 @@ textarea.save-field {
 	padding-left: 5px;
 }
 
-
-
 #search_list td {
 	border: 1px solid #ddd;
 	border-right: 1px solid #ccc;
 	padding: 5px;
 }
+
 .block {
-	clear:both;
+	clear: both;
 }
 
 .field-set {
@@ -844,7 +843,6 @@ textarea.save-field {
 
 .field-group {
 	clear: both;
-
 }
 
 fieldset.field-group {
@@ -856,6 +854,7 @@ fieldset.field-group {
 	float: left;
 	padding: 0;
 }
+
 .field-group .field-set label {
 	display: block;
 }
@@ -865,9 +864,8 @@ fieldset.field-group {
 }
 
 .field-set input[type="text"] {
-    width: 30ex;
+	width: 30ex;
 }
-
 
 #color-editor textarea {
 	width: 100%;
@@ -889,21 +887,22 @@ body.person #content {
 	position: relative;
 }
 
-body.person fieldset.grouping, div.grouping {
+body.person fieldset.grouping,div.grouping {
 	float: left;
 	width: 100%;
 	clear: none;
 	min-width: 35ex;
 }
 
-div.grouping{
+div.grouping {
+	
 }
 
 div.person-info {
 	padding: 5px 5px;
 }
 
-div.phone-info{
+div.phone-info {
 	width: 35ex;
 }
 
@@ -914,7 +913,6 @@ div.address-info {
 div.housemate-info {
 	
 }
-
 
 .grouping div.field-envelope {
 	padding: 5px 0;
