@@ -75,6 +75,17 @@ class Hotel_Model extends CI_Model
         return $result;
     }
 
+    function get_last_stay ($tour_id)
+    {
+        $this->db->from("hotel");
+        $this->db->where("tour_id", $tour_id);
+        $this->db->order_by("stay","DESC");
+        $this->db->limit(1);
+        $this->db->select("stay");
+        $result = $this->db->get()->row();
+        return $result->stay;
+    }
+
     function insert ()
     {
         $this->prepare_variables();

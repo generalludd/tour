@@ -191,7 +191,7 @@ function format_address ($address, $format = "postal")
     }
     if ($address->unit && $street) {
         $street = sprintf("%s, %s", $street, $address->unit);
-    } elseif($address->unit && !$street){
+    } elseif ($address->unit && ! $street) {
         $street = $address->unit;
     }
     $locality = sprintf("%s, %s %s", $address->city, $address->state, $address->zip);
@@ -201,4 +201,21 @@ function format_address ($address, $format = "postal")
         $output = sprintf("%s, %s", $street, $locality);
     }
     return $output;
+}
+
+/**
+ * given any list of numbers, find the first opening in the list.
+ * @param array of objects $list
+ * @param object value $field
+ * @return number
+ */
+function get_first_missing_number ($list, $field)
+{
+    $current = 0;
+    $item = 0;
+    while ($current == $item && $current < count($list)) {
+        $item = $list[$current]->$field;
+        $current++;
+    }
+    return $current + 1;
 }
