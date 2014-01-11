@@ -217,5 +217,5 @@ function get_first_missing_number ($list, $field)
         $item = $list[$current]->$field;
         $current++;
     }
-    return $current + 1;
+    return $current;
 }

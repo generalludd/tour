@@ -13,6 +13,7 @@ class Auth_model extends CI_Model
 	{
 
 		$this->db->where("username", $username);
+		$this->db->or_where("email", $username);
 		$this->db->from("user");
 		$count = $this->db->get()->num_rows();
 		$result = false;
@@ -27,7 +28,7 @@ class Auth_model extends CI_Model
 
 	function validate($username, $password)
 	{
-		$this->db->where("username", $username);
+		$this->db->where("(`username` = '$username' OR `email` = '$username')",NULL,FALSE);
 		$this->db->where("password", $this->encrypt($password));
 		$this->db->select("user.id as id, role");
 		$this->db->from("user");
