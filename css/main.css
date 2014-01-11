@@ -831,6 +831,10 @@ textarea.save-field {
 	padding-left: 5px;
 }
 
+.room-row {
+	min-height: 190px;
+}
+
 #search_list td {
 	border: 1px solid #ddd;
 	border-right: 1px solid #ccc;

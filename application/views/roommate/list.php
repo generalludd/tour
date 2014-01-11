@@ -65,17 +65,12 @@ if ($stay < $last_stay) {
 <div
 	class="block"
 	id="roommate-list-block">
-<? for($i=1;$i<=count($rooms);$i++): ?>
-<div
-		class="room-row column"
-		id="room_<?=$i;?>">
-		<h4>Room# <?=$i;?></h4>
-<?
+	<?
 
-$data["roommates"] = $rooms[$i];
-    $data["room"] = $i;
+foreach ($rooms as $room) {
+    $data["roommates"] = $room;
+    $data["room_number"] = $room[0]->room;
     $this->load->view("roommate/room", $data);
-    ?>
-</div>
-<? endfor;?>
+}
+?>
 </div>

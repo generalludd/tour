@@ -2,14 +2,12 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // room.php Chris Dart Dec 31, 2013 7:17:23 PM chrisdart@cerebratorium.com
-$open_div = "";
-$close_div = "";
-if(empty($roommates)){
-    $open_div = sprintf("<div class='room-row column' id='room_%s'>\r<h4>Room# %s</h4>",$room, $room);
-    $close_div = "</div>";
-}
+
 ?>
-<?=$open_div;?>
+<div
+		class="room-row column"
+		id="room_<?=$room_number;?>">
+		<h4>Room# <?=$room_number;?></h4>
 <div class="roommates-box">
 	<table class="list roommates">
 		<tbody>
@@ -31,7 +29,7 @@ if(empty($roommates)){
 <? endif;?>
 </tbody>
 	</table>
-<? $buttons[] = array("text"=>"Add Roommate","type"=>"span","class"=>"button new small add-roommate","id"=>sprintf("add-roommate_%s", $room));?>
+<? $buttons[] = array("text"=>"Add Roommate","type"=>"span","class"=>"button new small add-roommate","id"=>sprintf("add-roommate_%s", $room_number));?>
 <?=create_button_bar($buttons);?>
 </div>
-<?=$close_div;
+</div>

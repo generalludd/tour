@@ -22,7 +22,11 @@ $buttons[] = array(
 );
 
 ?>
-<h3>Hotels for Tour: <a href="<?=site_url("tour/view/$tour->id");?>" title="View tour details"><?=$tour->tour_name;?></a></h3>
+<h3>
+	Hotels for Tour: <a
+		href="<?=site_url("tour/view/$tour->id");?>"
+		title="View tour details"><?=$tour->tour_name;?></a>
+</h3>
 <?=create_button_bar($buttons);?>
 <table class="list">
 	<thead>
@@ -32,6 +36,7 @@ $buttons[] = array(
 			<th>Departure</th>
 			<th>Phone</th>
 			<th>Fax</th>
+			<th></th>
 			<th></th>
 		</tr>
 	</thead>
@@ -52,6 +57,10 @@ $buttons[] = array(
 			<td><span
 				class="button edit edit-hotel"
 				id="<?=sprintf("edit-hotel_%s",$hotel->id);?>">Edit</span></td>
+			<td><a
+				href="<?=site_url("roommate/view_for_tour/?tour_id=$tour->id&stay=$hotel->stay");?>"
+				class="button view-roommates"
+				title="Show all roommates for this hotel">Roommates</a></td>
 		</tr>
 <? endforeach; ?>
 </tbody>
