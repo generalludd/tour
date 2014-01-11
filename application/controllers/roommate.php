@@ -65,7 +65,7 @@ class Roommate extends MY_Controller
         $tour_id = $this->input->post("tour_id");
         $stay = $this->input->post("stay");
         $room = $this->input->post("room");
-        $data["room"] = $room;
+        $data["room_number"] = $room;
         $data["roommates"] = $this->roommate->get_for_room($tour_id, $stay, $room);
         $this->load->view("roommate/room", $data);
     }
