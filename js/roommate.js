@@ -97,3 +97,12 @@ $(document).ready(function(){
 	
 	
 });//end document.ready
+
+function sort_ids(elements)
+{
+	    elements.sort(function(a,b){
+	        return parseInt(a.id) > parseInt(b.id);
+	    });
+	   
+
+}

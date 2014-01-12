@@ -205,27 +205,29 @@ function format_address ($address, $format = "postal")
 
 /**
  * given any list of numbers, find the first opening in the list.
- *
- * @param
- *            array of objects $list
- * @param
- *            object value $field
+ * BUG: only works if only one number is missing from the list;
+ * @param array of objects $list
+ * @param  object value $field
  * @return number
+ * while statement and algorithm from
+ * http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
 function get_first_missing_number ($list, $field)
 {
-
-    $n = array();
+    $item_array = array();
     foreach ($list as $item) {
-        $n[] = $item->$field;
+        $item_array[] = $item->$field;
     }
-    $f =range(1, max($n));
+    $full_array = range(1, max($item_array));
+    //go through each item in item_array as a key-value pair
+    while (list($key, $value) = each($item_array)){
+        if ($key != ($value - 1)) {
+            $output = $full_array[$key];
+        } else {
+            $output = max($item_array) + 1;
+        }
+    }
 
-    while (list($k, $v) = each($n))
-    if ($k != ($v - 1)) $output = $f[$k];
-    $output = max($n) + 1;
-
-
-return $output;
+    return $output;
 }
 
