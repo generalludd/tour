@@ -62,7 +62,7 @@ $(document).ready(function(){
 			url: base_url + "roommate/insert_row",
 			data: form_data,
 			success: function(data){
-				$(".room-row#room_" + my_room + " .roommates-box").html(data);
+				$(".room-row#room_" + my_room).html(data);
 			}
 		});
 	});
@@ -87,7 +87,7 @@ $(document).ready(function(){
 			url: base_url + "roommate/delete",
 			data: form_data,
 			success: function(data){
-				$(".room-row#room_" + my_room + " .roommates-box").html(data);
+				$(".room-row#room_" + my_room).html(data);
 			}
 		});
 		
