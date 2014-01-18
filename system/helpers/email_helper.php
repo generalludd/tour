@@ -51,9 +51,9 @@ if ( ! function_exists('valid_email'))
  */
 if ( ! function_exists('send_email'))
 {
-	function send_email($recipient, $subject = 'Test email', $message = 'Hello World')
+	function send_email($receipt, $subject = 'Test email', $message = 'Hello World')
 	{
-		return mail($recipient, $subject, $message);
+		return mail($receipt, $subject, $message);
 	}
 }
 
