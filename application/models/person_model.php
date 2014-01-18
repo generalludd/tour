@@ -92,7 +92,7 @@ class Person_model extends CI_Model
             $this->db->from("address");
             $this->db->order_by("person.address_id", "ASC");
             $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
-            $this->db->select("address.num, address.street, address.unit, address.unit_type, address.city, address.state,address.zip");
+            $this->db->select("address.num, address.street, address.unit, address.city, address.state,address.zip");
         }
         if ($initial) {
             $this->db->where("`person`.`last_name` LIKE '$initial%'", NULL, FALSE);

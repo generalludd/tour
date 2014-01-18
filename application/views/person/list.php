@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // list.php Chris Dart Dec 16, 2013 10:32:15 PM chrisdart@cerebratorium.com
@@ -14,24 +13,37 @@ $buttons[] = array(
         "type" => "span",
         "class" => "button show-person-filter"
 );
+
+$buttons[] = array(
+        "text" => "Export Records",
+        "href" => site_url("/person/export"),
+        "class" => "button export export-people-records"
+);
+
+$options = get_cookie("person_filter");
 ?>
-<? if(count($_GET)> 0):?>
+<? if($options):?>
+<? $options = unserialize($options);?>
 <fieldset>
 	<legend>Filters</legend>
 	<ul>
+<?
 
-<? if($this->input->get("veterans_only") == 1): ?>
-<li>Veterans Only</li>
-<? endif; ?>
-<? if($this->input->get("email_only") == 1): ?>
-<li>People with Email Addresses Only</li>
-<? endif;?>
-<? if($this->input->get("show_disabled") == 1):?>
-<li>Showing Disabled Records</li>
-<? endif; ?>
-<? if($this->input->get("initial")):?>
-<li>Limited to the letter "<?=$this->input->get("initial");?>"</li>
-<? endif; ?>
+$names = array_keys($options);
+    foreach ($names as $name) :
+        ?>
+<?
+
+
+if ($name == "initial") :
+            $name = "Limited to the Letter: " . $options[$name];
+         else :
+            $name = str_replace("_", " ", $name);
+            $name = ucwords($name);
+        endif;
+        ?>
+<li><?=$name;?></li>
+<? endforeach;?>
 </ul>
 </fieldset>
 <? endif;?>
@@ -54,7 +66,7 @@ $buttons[] = array(
 		<td>
 <?
 
-$button = array(
+    $button = array(
             "text" => "Join Tour",
             "type" => "span",
             "class" => "button new small select-tour",
