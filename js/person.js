@@ -94,7 +94,6 @@ $(document).ready(function(){
 				url: base_url + "person/delete",
 				data: form_data,
 				success: function(data){
-					
 					window.location.href = base_url + "person/view/" + my_id;
 				}
 			

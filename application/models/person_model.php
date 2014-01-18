@@ -10,7 +10,7 @@ class Person_model extends CI_Model
     var $shirt_size;
     var $salutation;
     var $address_id;
-    var $status;
+    var $status = 1;
 
     function __construct ()
     {
@@ -283,6 +283,7 @@ class Person_model extends CI_Model
             $this->phone->delete_for_person($id);
             $this->db->where("id",$id);
             $this->db->delete("person");
+
         } else {
             $this->disable($id);
         }

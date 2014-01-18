@@ -69,6 +69,7 @@ class Phone_model extends CI_Model
         $this->db->join("phone", "phone_person.phone_id = phone.id");
         $this->db->select("phone.id,phone.phone,phone.phone_type");
         $this->db->where("phone_person.person_id", $person_id);
+
         $result = $this->db->get()->result();
         return $result;
     }
@@ -104,6 +105,14 @@ class Phone_model extends CI_Model
         $this->db->delete("phone_person", array(
                 "phone_id" => $id
         ));
+    }
+
+    function delete_for_person ($id)
+    {
+        $phones = $this->get_for_person($id);
+        foreach ($phones as $phone) {
+            $this->delete($phone->id);
+        }
     }
 
     function fix ()

@@ -27,10 +27,12 @@ $full_name = "Adding a New Person";
 </fieldset>
 
 <input type="submit" name="submit-person-editor" id="submit-person-editor" class="button" value="<?=ucfirst($action);?>"/>
+<? if( $action == "update" ): ?>
 <? if(get_value($person, "id", FALSE) && $tour_count == 0 ):?>
 <span class="button delete delete-person" id="<?=sprintf("delete-person_%s",$person->id);?>">Delete</span>
 <? else: ?>
 <span class="button delete disable-person" id="<?=sprintf("disable-person_%s",$person->id);?>" title="This person has been on tours, they will be disabled instead of deleted">Disable</span>
 <? endif; ?>
+<? endif;?>
 </form>
 </div>
