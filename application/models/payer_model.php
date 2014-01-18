@@ -103,4 +103,5 @@ class Payer_model extends CI_Model
         $this->db->where("tour_id", $tour_id);
         $this->db->delete("payer");
     }
+
 }
