@@ -10,6 +10,7 @@ class Person_model extends CI_Model
     var $shirt_size;
     var $salutation;
     var $address_id;
+    var $status;
 
     function __construct ()
     {
@@ -41,16 +42,73 @@ class Person_model extends CI_Model
         return $result;
     }
 
-    function get_all ($letter = FALSE)
+    /**
+     *
+     * @param array $options
+     * @return array of objects
+     *
+     *         $options can contain:
+     *         initial (alpha character as in the initial letter of last names
+     *         to return a filtered list on last name)
+     *         veterans (boolean: true = selects only people who have been on a
+     *         tour).
+     *         tour_id (selects only people on a give tour_id);
+     *         email (boolean: true = only contacts with emails)
+     *
+     *
+     */
+    function get_all ($options = array())
     {
-        $this->db->from("address");
         $this->db->from("person");
         $this->db->order_by("person.last_name", "ASC");
         $this->db->order_by("person.first_name", "ASC");
-        $this->db->order_by("person.address_id", "ASC");
-        $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
-        if ($letter) {
-            $this->db->where("`person`.`last_name` LIKE '$letter%'", NULL, FALSE);
+        $show_disabled = FALSE;
+        $veterans_only = FALSE;
+        $tour_id = FALSE;
+        $initial = FALSE;
+        $email_only = FALSE;
+        $include_address = FALSE;
+        if (array_key_exists("veterans_only", $options) && $options["veterans_only"]) {
+            $veterans_only = TRUE;
+        }
+        if (array_key_exists("show_disabled", $options) && $options["show_disabled"]) {
+            $show_disabled = TRUE;
+        }
+        if (array_key_exists("tour_id", $options) && $options["tour_id"]) {
+            $tour_id = $options["tour_id"];
+        }
+        if (array_key_exists("initial", $options) && $options["initial"]) {
+            $initial = $options["initial"];
+        }
+        if (array_key_exists("email_only", $options) && $options["email_only"]) {
+            $email_only = $options["email_only"];
+        }
+        if (array_key_exists("include_address", $options)) {
+            $include_address = TRUE;
+        }
+
+        if (! $email_only || $include_address) {
+            $this->db->from("address");
+            $this->db->order_by("person.address_id", "ASC");
+            $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
+        }
+        if ($initial) {
+            $this->db->where("`person`.`last_name` LIKE '$initial%'", NULL, FALSE);
+        }
+        if ($veterans_only || $tour_id) {
+            $this->db->join("tourist", "tourist.person_id = person.id");
+        }
+
+        if ($tour_id) {
+            $this->db->where("tourist.tour_id", $tour_id);
+        }
+        if ($email_only) {
+            $this->db->where("`person`.`email` IS NOT NULL", NULL, FALSE);
+            $this->db->select("person.first_name, person.last_name, person.email");
+            $this->db->limit(5);
+        }
+        if (! $show_disabled) {
+            $this->db->where("status", 1);
         }
         $result = $this->db->get()->result();
         return $result;
@@ -89,7 +147,7 @@ class Person_model extends CI_Model
     function find_people ($name, $options = array())
     {
         $this->db->where("CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%'", NULL, FALSE);
-
+        $this->db->where("status", 1);
         $this->db->order_by("first_name", "ASC");
         $this->db->order_by("last_name", "ASC");
         $this->db->from("person");
@@ -101,7 +159,7 @@ class Person_model extends CI_Model
             $this->db->select($options["select"]);
         }
         if (array_key_exists("has_address", $options)) {
-            $this->db->where("`address_id` IS NOT NULL",NULL, FALSE);
+            $this->db->where("`address_id` IS NOT NULL", NULL, FALSE);
         }
         // The following are deprectated steps a vain attempt at selecting
         // tourists not already added to a tour.
@@ -187,4 +245,49 @@ class Person_model extends CI_Model
         $result = $this->db->get()->result();
         return $result;
     }
+
+    /**
+     * Remove a person from the list of searchable individuals
+     * Because deleting a person would cause problems with historical tour
+     * accounting
+     * People can only be marked as disabled (0)
+     *
+     * @param unknown $id
+     */
+    function disable ($id)
+    {
+        $this->db->where("id", $id);
+        $this->db->update("person", array(
+                "status" => 0
+        ));
+    }
+
+    function restore ($id)
+    {
+        $this->db->where("id", $id);
+        $this->db->update("person", array(
+                "status" => 1
+        ));
+    }
+
+    function delete ($id)
+    {
+        $this->load->model("tourist_model", "tourist");
+        if (count($this->tourist->get($id)) == 0) {
+            $address_id = $this->get($id, "address_id")->address_id;
+            $housemates = count($this->get_housemates($address_id, $id));
+            if ($housemates == 1) {
+                $this->load->model("address_model", "address");
+                $this->address->delete($address_id);
+            }
+            $this->load->model("phone_model", "phone");
+            $this->phone->delete_for_person($id);
+            $this->db->where("id",$id);
+            $this->db->delete("person");
+        } else {
+            $this->disable($id);
+        }
+    }
+
+
 }

@@ -48,7 +48,19 @@ class Tourist_model extends CI_Model
         return $result;
     }
 
+
+    /**
+     * DEPRECATED
+     * @param int $payer_id
+     * @param int $tour_id
+     */
     function get_by_payer ($payer_id, $tour_id)
+    {
+        return $this->get_for_payer($payer_id, $tour_id);
+
+    }
+
+    function get_for_payer($payer_id, $tour_id)
     {
         $this->db->from("tourist");
         $this->db->join("person", "tourist.person_id = person.id");
