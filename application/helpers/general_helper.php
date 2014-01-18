@@ -10,6 +10,9 @@ function mysql_timestamp ()
 
 function bake_cookie ($name, $value)
 {
+    if(is_array($value)){
+        $value = serialize($value);
+    }
     set_cookie(array(
             "name" => $name,
             "value" => $value,
