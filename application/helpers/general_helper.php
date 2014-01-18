@@ -66,6 +66,22 @@ function format_date ($date, $format = "standard")
     return $date;
 }
 
+function format_timestamp ($timestamp, $format = "standard")
+{
+    switch ($format) {
+        case "standard":
+            $output = date('m/d/Y, g:i:s A', strtotime($timestamp));
+            break;
+        case "date-only":
+            $output = date('m/d/Y', strtotime($timestamp));
+            break;
+        case "time-only":
+            $output = date('g:i:s A', strtotime($timestamp));
+            break;
+    }
+    return $output;
+}
+
 /**
  * ideally this will produce a cleaned up version of a time entry.
  * for now it just trims a time entry--which could be any string.
@@ -142,11 +158,20 @@ function get_value ($object, $item, $default = null)
     return $output;
 }
 
-function format_money ($int, $format = "standard")
+/**
+ * Accepts an integer and a value (either "standard" or "int") depending on
+ * whether
+ * the desired output is currency with $ or a number stripped of $ and extras.
+ *
+ * @param number $int
+ * @param string $format
+ * @return Ambigous <number, mixed, string>
+ */
+function format_money ($int = 0, $format = "standard")
 {
     $output = 0;
 
-    if ($int != "") {
+    if ($int != 0) {
         if ($format == "int") {
             $output = str_replace("\$", "", $int);
         } else {
@@ -206,11 +231,16 @@ function format_address ($address, $format = "postal")
 /**
  * given any list of numbers, find the first opening in the list.
  * BUG: only works if only one number is missing from the list;
- * @param array of objects $list
- * @param  object value $field
- * @return number
- * while statement and algorithm from
- * http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
+ *
+ * @param
+ *            array of objects $list
+ * @param
+ *            object value $field
+ * @return number while statement and algorithm from
+ *
+ *
+ *
+ *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
 function get_first_missing_number ($list, $field)
 {
@@ -219,8 +249,8 @@ function get_first_missing_number ($list, $field)
         $item_array[] = $item->$field;
     }
     $full_array = range(1, max($item_array));
-    //go through each item in item_array as a key-value pair
-    while (list($key, $value) = each($item_array)){
+    // go through each item in item_array as a key-value pair
+    while (list($key, $value) = each($item_array)) {
         if ($key != ($value - 1)) {
             $output = $full_array[$key];
         } else {
@@ -231,3 +261,56 @@ function get_first_missing_number ($list, $field)
     return $output;
 }
 
+function get_amt_due ($price, $rate, $ticket_count, $discount, $amt_paid)
+{
+    $total = $price * $ticket_count + ($rate - $discount - $amt_paid);
+    return $total;
+}
+
+function get_tour_price ($payer)
+{
+    if ($payer->is_comp == 1) {
+        $tour_price = 0;
+    } else {
+        switch ($payer->payment_type) {
+            case "full_price":
+                $tour_price = $payer->full_price;
+                break;
+            case "banquet_price":
+                $tour_price = $payer->banquet_price;
+                break;
+            case "early_price":
+                $tour_price = $payer->early_price;
+                break;
+            case "regular_price":
+                $tour_price = $payer->regular_price;
+                break;
+            default:
+                $tour_price = 0;
+                break;
+        }
+        return $tour_price;
+    }
+}
+
+function get_room_rate ($payer)
+{
+    switch ($payer->room_size) {
+        case "single_room":
+            $room_rate = $payer->single_room;
+            break;
+        case "triple_room":
+            $room_rate = $payer->triple_room;
+            break;
+        case "quad_room":
+            $room_rate = $payer->quad_room;
+            break;
+        default:
+            $room_rate = 0;
+            break;
+    }
+    if ($payer->is_comp == 1) {
+        $room_rate = 0;
+    }
+    return $room_rate;
+}
