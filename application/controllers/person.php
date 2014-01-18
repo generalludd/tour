@@ -84,6 +84,7 @@ class Person extends MY_Controller
         $data["initials"] = $this->person->get_initials();
 
         $data["people"] = $this->person->get_all($options);
+
         $data["title"] = "Address Book";
         $data["target"] = "person/list";
         $this->load->view("page/index", $data);

@@ -86,11 +86,13 @@ class Person_model extends CI_Model
         if (array_key_exists("include_address", $options)) {
             $include_address = TRUE;
         }
+        $this->db->select("person.*");
 
-        if (! $email_only || $include_address) {
+        if ($include_address) {
             $this->db->from("address");
             $this->db->order_by("person.address_id", "ASC");
             $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
+            $this->db->select("address.num, address.street, address.unit, address.unit_type, address.city, address.state,address.zip");
         }
         if ($initial) {
             $this->db->where("`person`.`last_name` LIKE '$initial%'", NULL, FALSE);
