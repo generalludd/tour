@@ -36,7 +36,6 @@ $buttons[] = array(
 </fieldset>
 <? endif;?>
 <?=create_button_bar($buttons);?>
-
 <table
 	class="list"
 	id="person-list">

@@ -87,6 +87,7 @@ class Person extends MY_Controller
 
         $data["title"] = "Address Book";
         $data["target"] = "person/list";
+
         $this->load->view("page/index", $data);
     }
 
