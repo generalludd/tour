@@ -65,6 +65,11 @@
 				id="edit-payer_<?=$payer->payer_id;?>_<?=$payer->tour_id;?>">
 					Edit</span></td>
 		</tr>
+		<? if(get_value($payer, "note",FALSE)): ?>
+		<tr>
+		<td colspan="11"><?=get_value($payer->note);?></td>
+		</tr>
+		<? endif;?>
 		<? endforeach; ?>
 	</tbody>
 </table>

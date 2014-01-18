@@ -86,6 +86,9 @@ $amt_due = $total_cost - $payer->amt_paid;
 			id="amt_due"><?=format_money($amt_due);?></span>
 	</p>
 	<p>
+	<textarea id="note" name="note" style="width:90%"><?=get_value($payer, "note");?></textarea>
+	</p>
+	<p>
 		<input
 			type="submit"
 			class="button"

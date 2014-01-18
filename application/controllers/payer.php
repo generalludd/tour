@@ -80,7 +80,7 @@ class Payer extends MY_Controller
         $data["payer"] = $payer;
         $data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
 
-        switch ($payer->payment_type) {
+/*         switch ($payer->payment_type) {
             case "full_price":
                 $tour_price = $payer->full_price;
                 break;
@@ -115,9 +115,10 @@ class Payer extends MY_Controller
         if ($payer->is_comp == 1) {
             $tour_price = 0;
             $room_rate = 0;
-        }
-        $data["room_rate"] = $room_rate;
-        $data["tour_price"] = $tour_price;
+        } */
+
+        $data["room_rate"] = get_room_rate($payer);
+        $data["tour_price"] = get_tour_price($payer);
         $data["target"] = "payer/edit";
         $data["title"] = "Editing Payer";
         $data["action"] = "update";

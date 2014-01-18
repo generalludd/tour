@@ -74,11 +74,18 @@ $total_tourists = 0;
 				class="button edit edit-payer"
 				id="edit-payer_<?=$payer->payer_id;?>_<?=$payer->tour_id;?>"> Edit</span></td>
 		</tr>
+				<? if(get_value($payer, "note",FALSE)): ?>
+		<tr>
+		<td></td>
+		<td colspan="10"><?=get_value($payer,"note");?></td>
+		</tr>
+		<? endif;?>
 		<?
 
 $total_due += $payer->amt_due;
     $total_paid += $payer->amt_paid;
     ?>
+
 		<? endforeach; ?>
 	</tbody>
 	<tfoot>
