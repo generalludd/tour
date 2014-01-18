@@ -57,9 +57,27 @@ class Person extends MY_Controller
         if ($this->input->get("initial")) {
             $initial = $this->input->get("initial");
             $options["initial"] = $initial;
+            bake_cookie("initial", $initial);
+        }else{
+            burn_cookie("initial");
         }
         if ($this->input->get("veterans_only")) {
             $options["veterans_only"] = TRUE;
+            bake_cookie("veterans_only", 1);
+        }else{
+            burn_cookie("veterans_only");
+        }
+        if ($this->input->get("email_only")) {
+            $options["email_only"] = TRUE;
+            bake_cookie("email_only", 1);
+        }else{
+            burn_cookie("email_only");
+        }
+        if ($this->input->get("show_disabled")) {
+            $options["show_disabled"] = TRUE;
+            bake_cookie("show_disabled", 1);
+        }else{
+            burn_cookie("show_disabled");
         }
         // get the list of letters for each of the first initials of last names
         // in the people table
@@ -176,6 +194,12 @@ class Person extends MY_Controller
         );
         $this->person->update($id, $values);
         echo $this->input->post("value");
+    }
+
+    function show_filter ()
+    {
+        $data["initials"] = get_keyed_pairs($this->person->get_initials(), array("initial","initial") ,TRUE);
+        $this->load->view("person/filter", $data);
     }
 
     /**

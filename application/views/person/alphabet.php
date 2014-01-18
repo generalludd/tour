@@ -2,12 +2,13 @@
 
 // alphabet.php Chris Dart Jan 1, 2014 8:05:15 PM chrisdart@cerebratorium.com
 
-foreach($initials as $letter){
+foreach($initials as $initial){
     $active = "";
-    if($this->input->get("letter") == $letter->initial){
+    if($this->input->get("intial") == $initial->initial){
         $active = "active";
     }
-$buttons[] = array("text"=>ucfirst($letter->initial),"href"=>site_url("person?letter=$letter->initial"),"class"=>"button letter $active");
+$buttons[] = array("text"=>ucfirst($initial->initial),"href"=>site_url("person?initial=$initial->initial"),"class"=>"button letter $active");
 }
 
 print create_button_bar($buttons);
+

@@ -104,8 +104,8 @@ class Person_model extends CI_Model
         }
         if ($email_only) {
             $this->db->where("`person`.`email` IS NOT NULL", NULL, FALSE);
-            $this->db->select("person.first_name, person.last_name, person.email");
-            $this->db->limit(5);
+            $this->db->select("person.first_name, person.last_name, person.email,person.id,person.status");
+            //$this->db->limit(5);
         }
         if (! $show_disabled) {
             $this->db->where("status", 1);
@@ -248,9 +248,6 @@ class Person_model extends CI_Model
 
     /**
      * Remove a person from the list of searchable individuals
-     * Because deleting a person would cause problems with historical tour
-     * accounting
-     * People can only be marked as disabled (0)
      *
      * @param unknown $id
      */

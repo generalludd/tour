@@ -48,6 +48,17 @@ $(document).ready(function(){
 		
 	});
 	
+	$(".show-person-filter").live("click", function(){
+		$.ajax({
+			type: "get",
+			url: base_url + "person/show_filter",
+			data: "",
+			success: function(data){
+				show_popup("Filter Search", data, "auto");
+			}
+		});
+	});
+	
 	$(".delete-person").live("click", function(){
 		my_id = this.id.split("_")[1];
 		decision = confirm("This person and their phone information (and address if they have no housemates) will be completely deleted from the database. Are you sure you want to continue? This cannot be undone!");
@@ -158,47 +169,3 @@ $(document).ready(function(){
 
 });
 
-function check_remove_person(my_id){
-	var has_tours;
-	$.ajax({
-		type: "get",
-		url: base_url + "tourist/get_tour_count/" + my_id,
-		data: form_data,
-		success:function(data){
-			has_tours =  data;
-		}
-
-	});
-	
-	if(has_tours){
-		decision = confirm("This person has been on several tours. Their record will only be removed from the list of people in the database. Continue?");
-	}else{
-		decision = confirm("This person and their phone information (and address if they have no housemates) will be completely deleted from the database. Are you sure you want to continue? This cannot be undone!");
-	}
-	if(decision){
-		if(!has_tours){
-			final_decision = confirm("You have decided to permanently delete this person from the database. This cannot be undone. Are you sure?");
-			if(!final_decision){
-				return false;
-			}
-		}
-		
-		delete_person(my_id);
-	
-}
-
-function delete_person(my_id){
-	form_data = {
-			person_id: my_id,
-			ajax: 1
-	};
-	$.ajax({
-		type: "post",
-		url: base_url + "person/delete",
-		data: form_data,
-		success: function(data){
-			window.location.href = base_url;
-		}
-	});
-}
-}
