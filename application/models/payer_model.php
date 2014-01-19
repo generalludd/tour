@@ -40,7 +40,7 @@ class Payer_model extends CI_Model
         }
     }
 
-    function get_for_tour ($payer_id, $tour_id)
+    function get_for_tour ( $payer_id, $tour_id )
     {
         $this->db->from("payer");
         $this->db->join("tour", "payer.tour_id=tour.id");
@@ -64,7 +64,7 @@ class Payer_model extends CI_Model
         return $result;
     }
 
-    function get_payers ($tour_id)
+    function get_payers ($tour_id,  $options = array())
     {
         $this->db->where("payer.tour_id", $tour_id);
         $this->db->where("`tour`.`id` = `payer`.`tour_id`", NULL, FALSE);
@@ -73,6 +73,10 @@ class Payer_model extends CI_Model
         $this->db->select(
                 "tour.id, tour.tour_name,tour.full_price, tour.banquet_price, tour.early_price, tour.regular_price, tour.single_room, tour.triple_room, tour.quad_room");
         $this->db->select("payer.*, person.first_name, person.last_name, person.email");
+        if(array_key_exists("include_address", $options) && $options["include_address"]){
+            $this->db->join("address","person.address_id = address.id");
+            $this->db->select("address.num, address.street, address.unit, address.city, address.state, address.zip");
+        }
         $this->db->order_by("person.last_name", "ASC");
         $this->db->order_by("person.first_name", "ASC");
         $result = $this->db->get()->result();

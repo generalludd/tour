@@ -18,11 +18,25 @@ class Tourist extends MY_Controller
     function view_all ()
     {
         $tour_id = $this->uri->segment(3);
+        $export = FALSE;
+        if ($this->input->get("export")) {
+            $export = TRUE;
+        }
+
+        $options = array();
+        if($export){
+            $data["target"] = "tourist/export";
+            $options["include_address"] = TRUE;
+            $this->load->helper('download');
+
+
+        }
+
         $this->load->model("tour_model", "tour");
         $this->load->model("payer_model", "payer");
         $this->load->model("phone_model", "phone");
         $tour = $this->tour->get($tour_id);
-        $payers = $this->payer->get_payers($tour_id);
+        $payers = $this->payer->get_payers($tour_id, $options);
         foreach ($payers as $payer) {
             $phones = $this->phone->get_for_person($payer->payer_id);
             $payer->phones = $phones;
@@ -80,8 +94,12 @@ class Tourist extends MY_Controller
         $data["tour"] = $tour;
         $data["payers"] = $payers;
         $data["title"] = "Tourist List: $tour->tour_name";
-        $data["target"] = "tourist/list";
-        $this->load->view("page/index", $data);
+        if ($export) {
+            $this->load->view($data["target"], $data);
+        } else {
+            $data["target"] = "tourist/list";
+            $this->load->view("page/index", $data);
+        }
     }
 
     /**
@@ -105,6 +123,18 @@ class Tourist extends MY_Controller
         $data["title"] = sprintf("Showing Tours for %s", $tourist->first_name, $tourist->last_name);
         $data["target"] = "tourist/tour_list";
         $this->load->view("page/index", $data);
+    }
+
+    function export ()
+    {
+        $options = get_cookie("person_filter");
+        $options = unserialize($options);
+        $options["include_address"] = TRUE;
+        $data["people"] = $this->person->get_all($options);
+        $data['target'] = 'Person Export';
+        $data['title'] = "Export of People";
+        $this->load->helper('download');
+        $this->load->view('person/export', $data);
     }
 
     function create ()

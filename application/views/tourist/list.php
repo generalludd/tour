@@ -7,10 +7,11 @@ $total_due = 0;
 $total_paid = 0;
 $total_payers = 0;
 $total_tourists = 0;
+$buttons[] = array("text"=> "Tour Details", "href" => site_url("tour/view/$tour->id"), "class"=>"button show-tour");
+$buttons[] = array("text" => "Hotels and Roommates", "href"=> site_url("hotel/view_all/$tour->id"), "class"=>"button show-hotels");
+$buttons[] = array("text" => "Export List for Mail Merge", "href"=>site_url("tourist/view_all/$tour->id?export=TRUE"), "class" => "button export export-tourists");
 ?>
 <h2><?=$tour->tour_name;?></h2>
-<? $buttons[] = array("text"=> "Tour Details", "href" => site_url("tour/view/$tour->id"), "class"=>"button show-tour");?>
-<? $buttons[] = array("text" => "Hotels and Roommates", "href"=> site_url("hotel/view_all/$tour->id"), "class"=>"button show-hotels");?>
 <?=create_button_bar($buttons);?>
 <table class="list">
 	<thead>

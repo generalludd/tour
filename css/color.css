@@ -133,6 +133,7 @@ div.list {
 	*background-image: url(images/help_button_hover.png);
 }
 
+
 .notice .link,.notice a {
 	color: #fff;
 }
@@ -243,6 +244,14 @@ a.button {
 .button.print {
 	
 }
+
+.button.export {
+    background-color: #CF46CC;
+        background: -moz-linear-gradient(top, #CF46CC 0,  #8C2D8B 100%);
+    
+    background: linear-gradient(top, #CF46CC 0, #8C2D8B 100%);
+}
+
 /* #CAD6E9 */
 /* #C3D0E2 */
 /* header page layout elements */
