@@ -825,6 +825,10 @@ textarea.save-field {
 	padding-left: 5px;
 }
 
+.triptych.column {
+	width: 28%;
+}
+
 .room-row {
 	min-height: 190px;
 }
@@ -934,4 +938,20 @@ div.housemate-info {
 textarea.editor {
 	width: 50%;
 	height: 15em;
+}
+
+input.note-field, input.address-field {
+	width: 25em;
+}
+
+.input-block {
+	padding: .35em 0;
+}
+.input-block.inline {
+	float: left;
+	padding-right: 2em;
+}
+
+label.above {
+	display: block;
 }

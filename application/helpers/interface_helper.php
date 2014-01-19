@@ -261,10 +261,20 @@ function create_input ($object, $name, $label, $options = array())
         $class = $options["class"];
     }
 
+    $label_class = "";
+    if(array_key_exists("label_class", $options)){
+$label_class = $options["label_class"];
+    }
+
     $value = get_value($object, $name, "");
     $envelope = "p";
     if (array_key_exists("envelope", $options)) {
         $envelope = $options["envelope"];
+    }
+
+    $envelope_class = "input-block";
+    if(array_key_exists("envelope_class",$options)){
+        $envelope_class = sprintf("%s %s", $envelope_class, $options["envelope_class"]);
     }
     $format = FALSE;
     if (array_key_exists("format", $options)) {
@@ -283,7 +293,7 @@ function create_input ($object, $name, $label, $options = array())
     if (array_key_exists("type", $options)) {
         $type = $options["type"];
     }
-    return sprintf("<%s><label for='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='input %s'/></%s>", $envelope, $name, $label, $type,
+    return sprintf("<%s class='%s'><label for='%s' class='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='input %s'/></%s>", $envelope, $envelope_class, $name, $label_class, $label, $type,
             $name, $id, $value, $class, $envelope);
 }
 

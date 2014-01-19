@@ -10,7 +10,7 @@ function mysql_timestamp ()
 
 function bake_cookie ($name, $value)
 {
-    if(is_array($value)){
+    if (is_array($value)) {
         $value = serialize($value);
     }
     set_cookie(array(
@@ -243,6 +243,8 @@ function format_address ($address, $format = "postal")
  *
  *
  *
+ *
+ *
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
 function get_first_missing_number ($list, $field)
@@ -316,4 +318,27 @@ function get_room_rate ($payer)
         $room_rate = 0;
     }
     return $room_rate;
+}
+
+function format_contact ($contact)
+{
+    $name = array();
+    $contact_info = array();
+
+    if (array_key_exists("name", $contact) && $contact["name"]) {
+        $name[] = $contact["name"];
+    }
+    if (array_key_exists("position", $contact) && $contact["position"]) {
+        $name[] = $contact["position"];
+    }
+
+    if (array_key_exists("phone", $contact) && $contact["phone"]) {
+        $contact_info[] = sprintf("Phone: %s", $contact["phone"]);
+    }
+    if (array_key_exists("email", $contact) && $contact["email"]) {
+        $contact_info[] = sprintf("<a href='mailto:%s'>%s</a>", $contact["email"], $contact["email"]);
+    }
+    $output = sprintf("%s<br/>%s", implode(", ", $name), implode(", ", $contact_info));
+
+    return $output;
 }
