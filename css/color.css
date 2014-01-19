@@ -18,6 +18,10 @@ backgrounds: #C7D7E9
 	background-color: #c7d7e9;
 }
 
+a, a:hover, a:link, a:visited {
+	color: #489310;
+}
+
 /*
 loggedin style changes the background to make sure users can tell they are logged in.
 

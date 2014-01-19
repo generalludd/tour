@@ -54,27 +54,27 @@ class Person extends MY_Controller
     function view_all ($options = array())
     {
         burn_cookie("person_filter");
+        $filters = array();
         $initial = FALSE;
         if ($this->input->get("initial")) {
             $initial = $this->input->get("initial");
-            $options["initial"] = $initial;
+            $filters["initial"] = $initial;
         }
         if ($this->input->get("veterans_only")) {
-            $options["veterans_only"] = TRUE;
+            $filters["veterans_only"] = TRUE;
         }
         if ($this->input->get("email_only")) {
-            $options["email_only"] = TRUE;
+            $filters["email_only"] = TRUE;
         }
         if ($this->input->get("show_disabled")) {
-            $options["show_disabled"] = TRUE;
+            $filters["show_disabled"] = TRUE;
         }
         // get the list of letters for each of the first initials of last names
         // in the people table
         $data["initials"] = $this->person->get_initials();
-
-        $data["people"] = $this->person->get_all($options);
-        bake_cookie("person_filter", $options);
-
+        $data["people"] = $this->person->get_all($filters);
+        bake_cookie("person_filters", $filters);
+        $data["filters"] = $filters;
         $data["title"] = "Address Book";
         $data["target"] = "person/list";
 

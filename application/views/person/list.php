@@ -20,23 +20,22 @@ $buttons[] = array(
         "class" => "button export export-people-records"
 );
 
-$options = get_cookie("person_filter");
-?>
-<? if($options):?>
-<? $options = unserialize($options);?>
+//$filters = get_cookie("person_filter");
+// if($filters): $filters = unserialize($options);?>
+<? if(!empty($filters)): ?>
 <fieldset>
 	<legend>Filters</legend>
 	<ul>
 <?
 
-$names = array_keys($options);
+$names = array_keys($filters);
     foreach ($names as $name) :
         ?>
 <?
 
 
 if ($name == "initial") :
-            $name = "Limited to the Letter: " . $options[$name];
+            $name = "Limited to the Letter: " . $filters[$name];
          else :
             $name = str_replace("_", " ", $name);
             $name = ucwords($name);
