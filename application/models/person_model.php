@@ -112,6 +112,7 @@ class Person_model extends CI_Model
         if (! $show_disabled) {
             $this->db->where("status", 1);
         }
+        $this->db->group_by("person.id");
         $result = $this->db->get()->result();
         return $result;
     }
