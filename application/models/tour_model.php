@@ -79,7 +79,7 @@ class Tour_model extends MY_Model
         $this->db->from("tour");
         $this->db->select($fields);
         $this->db->order_by("tour.start_date", "DESC");
-        if ($current_only) {
+        if ($current_only && $this->session->userdata("user_id") != 1) {
             $this->db->where("tour.start_date > CURDATE()", NULL, FALSE);
         }
         return $this->db->get()->result();
