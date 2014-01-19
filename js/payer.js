@@ -185,7 +185,7 @@ $(".select-payer").live("click", function(){
 		url: base_url + "tourist/insert",
 		data: form_data,
 		success: function(data){
-			$("#tourist-selector").html("<p><a href='tourist/show_all/" + my_tour + "' class='button'>Success: View Tourist List</a></p>");
+			window.location.href = base_url + "tourist/view_all/" + my_tour;
 		}
 	});
 });
