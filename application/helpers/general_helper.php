@@ -245,6 +245,7 @@ function format_address ($address, $format = "postal")
  *
  *
  *
+ *
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
 function get_first_missing_number ($list, $field)
@@ -253,7 +254,14 @@ function get_first_missing_number ($list, $field)
     foreach ($list as $item) {
         $item_array[] = $item->$field;
     }
-    $full_array = range(1, max($item_array));
+    $full_array = array(
+            1
+    );
+    $output = 1;
+    if (! empty($item_array)) {
+        $full_array = range(1, max($item_array));
+    }
+
     // go through each item in item_array as a key-value pair
     while (list($key, $value) = each($item_array)) {
         if ($key != ($value - 1)) {
