@@ -27,6 +27,7 @@
 </div>
 <h5 class="notice">Note: You can add special contacts after you click "<?=ucfirst($action);?>"</h5>
 <div class="block">
+<label for="address">Address</label><br/>
 <textarea id="address" name="address" class="address-field">
 <?=get_value($hotel,"address");?>
 </textarea>
