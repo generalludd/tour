@@ -100,7 +100,7 @@ function format_time ($time, $format = "standard")
 function prepare_variables ($object, $variables)
 {
     for ($i = 0; $i < count($variables); $i ++) {
-        $my_variable = $variables[$i];
+        $my_variable = trim($variables[$i]);
         if ($object->input->post($my_variable)) {
             $my_value = $object->input->post($my_variable);
             if (strpos($my_variable, "date")) {
@@ -235,17 +235,9 @@ function format_address ($address, $format = "postal")
  * given any list of numbers, find the first opening in the list.
  * BUG: only works if only one number is missing from the list;
  *
- * @param
- *            array of objects $list
- * @param
- *            object value $field
+ * @param  array of objects $list
+ * @param  object value $field
  * @return number while statement and algorithm from
- *
- *
- *
- *
- *
- *
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
 function get_first_missing_number ($list, $field)
