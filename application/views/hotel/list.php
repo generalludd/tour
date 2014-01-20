@@ -45,7 +45,7 @@ $buttons[] = array(
 <tr>
 			<td><a
 				class="view-hotel"
-				href="<?=site_url("hotel/view/$hotel->id");?>"><?=$hotel->hotel_name;?></a></td>
+				href="<?=site_url("hotel/view/$hotel->id");?>" title="View hotel details"><?=$hotel->hotel_name;?></a></td>
 			<td><?=format_date($hotel->arrival_date);?>,
 			<?=format_time($hotel->arrival_time);?></td>
 			<td>
@@ -56,7 +56,7 @@ $buttons[] = array(
 			<td><?=$hotel->fax;?></td>
 			<td><span
 				class="button edit edit-hotel"
-				id="<?=sprintf("edit-hotel_%s",$hotel->id);?>">Edit</span></td>
+				id="<?=sprintf("edit-hotel_%s",$hotel->id);?>">Edit Hotel</span></td>
 			<td><a
 				href="<?=site_url("roommate/view_for_tour/?tour_id=$tour->id&stay=$hotel->stay");?>"
 				class="button view-roommates"
