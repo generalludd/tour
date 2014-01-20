@@ -32,9 +32,8 @@ $buttons[] = array(
 	<thead>
 		<tr>
 			<th>Name</th>
-						<th></th>
 			<th></th>
-
+			<th></th>
 			<th>Arrival</th>
 			<th>Departure</th>
 			<th>Phone</th>
@@ -44,13 +43,17 @@ $buttons[] = array(
 	<tbody>
 <? foreach($hotels as $hotel): ?>
 <tr>
-			<td><a
+			<td>
+			<a
 				class="view-hotel"
-				href="<?=site_url("hotel/view/$hotel->id");?>" title="View hotel details"><?=$hotel->hotel_name;?></a></td>
-				<td><span
+				href="<?=site_url("hotel/view/$hotel->id");?>"
+				title="View hotel details"><?=$hotel->hotel_name;?></a></td>
+			<td>
+			<span
 				class="button edit edit-hotel"
 				id="<?=sprintf("edit-hotel_%s",$hotel->id);?>">Edit Hotel</span></td>
-			<td><a
+			<td>
+			<a
 				href="<?=site_url("roommate/view_for_tour/?tour_id=$tour->id&stay=$hotel->stay");?>"
 				class="button view-roommates"
 				title="Show all roommates for this hotel">Roommates</a></td>
@@ -62,7 +65,6 @@ $buttons[] = array(
 </td>
 			<td><?=$hotel->phone;?></td>
 			<td><?=$hotel->fax;?></td>
-
 		</tr>
 <? endforeach; ?>
 </tbody>
