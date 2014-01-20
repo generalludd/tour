@@ -16,7 +16,18 @@ class Hotel_Model extends CI_Model
     var $fax;
     var $url;
     var $email;
-    var $contact_name;
+    var $first_contact;
+    var $first_contact_position;
+    var $first_contact_phone;
+    var $first_contact_email;
+    var $second_contact;
+    var $second_contact_position;
+    var $second_contact_phone;
+    var $second_contact_email;
+    var $third_contact;
+    var $third_contact_position;
+    var $third_contact_phone;
+    var $third_contact_email;
     var $address;
 
     function __construct ()
@@ -38,7 +49,18 @@ class Hotel_Model extends CI_Model
                 "fax",
                 "url",
                 "email",
-                "contact_name",
+                "first_contact",
+                "first_contact_position",
+                "first_contact_phone",
+                "first_contact_email",
+                "second_contact",
+                "second_contact_position",
+                "second_contact_phone",
+                "second_contact_email",
+                "third_contact",
+                "third_contact_position",
+                "third_contact_phone",
+                "third_contact_email",
                 "address"
         );
         prepare_variables($this, $variables);
