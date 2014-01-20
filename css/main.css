@@ -320,7 +320,7 @@ ul.button-list li .button {
 }
 
 ul.button-list li .button.delete {
-	margin-top: -5px;
+	/*margin-top: -5px;*/
 }
 
 .mini-buttons ul.button-list li .button {
