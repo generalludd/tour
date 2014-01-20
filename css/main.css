@@ -941,7 +941,7 @@ textarea.editor {
 	height: 15em;
 }
 
-input.note-field, input.address-field {
+input.note-field, textarea.address-field {
 	width: 25em;
 }
 

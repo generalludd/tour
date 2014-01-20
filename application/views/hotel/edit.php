@@ -26,34 +26,10 @@
 <?=create_input($hotel, "fax", "Fax", $options = array("envelope"=>"div","format"=>"tel","type"=>"tel"));?>
 </div>
 <h5 class="notice">Note: You can add special contacts after you click "<?=ucfirst($action);?>"</h5>
-
-<!--<div class="contacts">
-<fieldset class="triptych column">
-<legend>First Contact</legend>
-<?=create_input($hotel, "first_contact", "Name",array("envelope"=>"div","label_class"=>"above"));?>
-<?=create_input($hotel, "first_contact_position", "Position",array("envelope"=>"div","label_class"=>"above"));?>
-<?=create_input($hotel, "first_contact_phone", "Phone",array("envelope"=>"div","label_class"=>"above"));?>
-<?=create_input($hotel, "first_contact_email", "Email",array("envelope"=>"div","label_class"=>"above"));?>
-</fieldset>
-<fieldset  class="triptych column">
-<legend>Second Contact</legend>
-<?=create_input($hotel, "second_contact", "Name",array("envelope"=>"div","label_class"=>"above"));?>
-<?=create_input($hotel, "second_contact", "Position",array("envelope"=>"div","label_class"=>"above"));?>
-<?=create_input($hotel, "second_contact_phone", "Phone",array("envelope"=>"div","label_class"=>"above"));?>
-<?=create_input($hotel, "second_contact_email", "Email",array("envelope"=>"div","label_class"=>"above"));?>
-</fieldset>
-<fieldset  class="triptych column">
-<legend>Third Contact</legend>
-<?=create_input($hotel, "third_contact", "Name",array("envelope"=>"div","label_class"=>"above"));?>
-<?=create_input($hotel, "third_contact", "Position",array("envelope"=>"div","label_class"=>"above"));?>
-
-<?=create_input($hotel, "third_contact_phone", "Phone",array("envelope"=>"div","label_class"=>"above"));?>
-<?=create_input($hotel, "third_contact_email", "Email",array("envelope"=>"div","label_class"=>"above"));?>
-</fieldset>
-</div>
--->
 <div class="block">
-<?=create_input($hotel, "address","Address",array("envelope"=>"div","class"=>"address-field"));?>
+<textarea id="address" name="address" class="address-field">
+<?=get_value($hotel,"address");?>
+</textarea>
 </div>
 <div class="block">
 <?=create_input($hotel, "note", "Notes", array("envelope"=>"div","class"=>"note-field"));?>
