@@ -13,7 +13,6 @@ $buttons[] = array(
         "text" => "Roommates",
         "href" => site_url(sprintf("roommate/view_for_tour/?tour_id=%s&stay=%s", get_value($hotel, "tour_id"), get_value($hotel, "stay")))
 );
-
 ?>
 <h3>Information for Hotel <?=$hotel->hotel_name; ?></h3>
 <?=create_button_bar($buttons);?>
@@ -33,23 +32,17 @@ $buttons[] = array(
 <?=create_field ("fax", get_value($hotel,"fax"), "Fax",array("envelope"=>"div","format"=>"tel","type"=>"tel"));?>
 <?=create_field ("email", get_value($hotel,"email"), "Email",array("envelope"=>"div","format"=>"email","type"=>"email"));?>
 <?=create_field ("url", get_value($hotel,"url"), "Website",array("envelope"=>"div","format"=>"url","type"=>"url"));?>
-<? if(get_value($hotel, "first_contact",FALSE)):?>
-<fieldset>
-			<legend>First Contact</legend>
-<?=format_contact(array("name"=>get_value($hotel,"first_contact",FALSE),"position"=>get_value($hotel,"first_contact_position",FALSE),"phone"=>get_value($hotel,"first_contact_phone",FALSE),"email"=>get_value($hotel,"first_contact_email",FALSE)));?>
-</fieldset>
-<? endif; ?>
-<? if(get_value($hotel, "second_contact",FALSE)):?>
-<fieldset>
-			<legend>Second Contact</legend>
-<?=format_contact(array("name"=>get_value($hotel,"second_contact",FALSE),"position"=>get_value($hotel,"second_contact_position",FALSE),"phone"=>get_value($hotel,"second_contact_phone",FALSE),"email"=>get_value($hotel,"second_contact_email",FALSE)));?>
-</fieldset>
-<? endif; ?>
-<? if(get_value($hotel, "third_contact",FALSE)):?>
-<fieldset>
-			<legend>Third Contact</legend>
-<?=format_contact(array("name"=>get_value($hotel,"third_contact",FALSE),"position"=>get_value($hotel,"third_contact_position",FALSE),"phone"=>get_value($hotel,"third_contact_phone",FALSE),"email"=>get_value($hotel,"third_contact_email",FALSE)));?>
-</fieldset>
+<? if(!empty($contacts)): ?>
+<h4>Contacts</h4>
+<?=create_button(array("text"=>"Add Contact","type"=>"span", "class"=>"button new small add-contact","id"=>sprintf("add-contact_%s",$hotel->id)));?>
+<? foreach($contacts as $contact): ?>
+<div class="contact-row row">
+<div class="contact-info">
+<?=format_contact(array("name"=>get_value($contact,"contact",FALSE),"position"=>get_value($contact,"position",FALSE),"phone"=>get_value($contact,"phone",FALSE),"fax"=>get_value($contact,"fax",FALSE), "email"=>get_value($contact,"email",FALSE)));?>
+</div>
+<?=create_button(array("text"=>"Edit Contact","type"=>"span","class"=>"button edit float-right small edit-contact", "id"=>sprintf("edit-contact_%s",$contact->id))); ?>
+</div>
+<?  endforeach; ?>
 <? endif;?>
 </div>
 	<div class="column">

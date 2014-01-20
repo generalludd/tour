@@ -306,6 +306,7 @@ input[type="time"] {
 ul.button-list {
 	list-style: none;
 	padding-left: 0px;
+	display: inline;
 }
 
 ul.button-list li {
@@ -497,7 +498,7 @@ h3,h4,h5,.support-view legend {
 	margin-top: 4px;
 	margin-bottom: 4px;
 	padding: 5px;
-	padding-left: 10px;
+	/*padding-left: 10px;*/
 }
 
 /*attendance values*/
@@ -633,7 +634,7 @@ a.button {
 
 #content .button-box {
 	padding: .5em 0;
-	height: 3.7em;
+	height: 1.5em;
 }
 
 .button-box .delete {
@@ -954,4 +955,21 @@ input.note-field, input.address-field {
 
 label.above {
 	display: block;
+}
+
+.contact-row {
+	position: relative;
+	display: block;
+	clear: both;
+}
+
+.contact-row .contact-info {
+	display: block;
+	padding-top: 1em;
+	padding-bottom: .5em;
+	/*float: left;*/
+}
+.contact-row .button.edit {
+	display: block;
+	float: left;
 }

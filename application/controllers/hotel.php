@@ -9,12 +9,14 @@ class Hotel extends MY_Controller
     {
         parent::__construct();
         $this->load->model("hotel_model", "hotel");
+        $this->load->model("contact_model","contact");
     }
 
     function view ()
     {
         $hotel_id = $this->uri->segment(3);
         $hotel = $this->hotel->get($hotel_id);
+        $data["contacts"] = $this->contact->get_all($hotel_id);
         $data["hotel"] = $hotel;
         $data["target"] = "hotel/view";
         $data["title"] = sprintf("Viewing Details for Hotel: %s", $hotel->hotel_name);
