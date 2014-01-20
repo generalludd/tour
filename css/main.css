@@ -953,6 +953,9 @@ input.note-field, input.address-field {
 	padding-right: 2em;
 }
 
+#hotel-editor .input-block-row {
+	min-width:34em;
+}
 label.above {
 	display: block;
 }
