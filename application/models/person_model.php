@@ -8,9 +8,9 @@ class Person_model extends CI_Model
     var $last_name;
     var $email;
     var $shirt_size;
-    var $salutation;
     var $address_id;
     var $status = 1;
+    var $is_veteran;
 
     function __construct ()
     {
@@ -24,7 +24,7 @@ class Person_model extends CI_Model
                 "last_name",
                 "email",
                 "shirt_size",
-                "salutation",
+                "is_veteran",
                 "address_id"
         );
         prepare_variables($this, $variables);
@@ -97,16 +97,17 @@ class Person_model extends CI_Model
         if ($initial) {
             $this->db->where("`person`.`last_name` LIKE '$initial%'", NULL, FALSE);
         }
-        if ($veterans_only || $tour_id) {
-            $this->db->join("tourist", "tourist.person_id = person.id");
+        if ($veterans_only) {
+            $this->db->where("person.is_veteran",1);
         }
 
         if ($tour_id) {
+            $this->db->join("tourist", "tourist.person_id = person.id");
             $this->db->where("tourist.tour_id", $tour_id);
         }
         if ($email_only) {
             $this->db->where("`person`.`email` IS NOT NULL", NULL, FALSE);
-            $this->db->select("person.first_name, person.last_name, person.email,person.id,person.status");
+            $this->db->select("person.first_name, person.last_name, person.email,person.id,person.status,person.is_veteran");
             //$this->db->limit(5);
         }
         if (! $show_disabled) {

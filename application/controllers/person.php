@@ -180,12 +180,12 @@ class Person extends MY_Controller
 
     function update_value ()
     {
+
         $id = $this->input->post("id");
         $values = array(
                 $this->input->post("field") => trim($this->input->post("value"))
         );
         $this->person->update($id, $values);
-        echo $this->input->post("value");
     }
 
     function show_filter ()

@@ -164,6 +164,32 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	$("#is_veteran").live("change", function(){
+		if($("#is_veteran").attr("checked")){
+			my_value = 1;
+		}else{
+			my_value = 0;
+		}
+		my_id = $("#id").val();
+		my_field = "is_veteran",
+		form_data = {
+				field: my_field,
+				value: my_value,
+				format: "checkbox",
+				id: my_id,
+				ajax: 1
+		};
+		$.ajax({
+			type: "post",
+			url: base_url + "person/update_value",
+			data: form_data,
+			success: function(data){
+				$("#is_veteran-ajax-response").html("Saved").show().fadeOut(1000);
+			}
+
+		});
+	});
 
 
 });

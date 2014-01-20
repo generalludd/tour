@@ -247,7 +247,7 @@ function create_field ($field_name, $value, $label, $options = array())
 function create_edit_field ($field_name, $value, $label, $options = array())
 {
     $options["editable"] = TRUE;
-  return  create_field($field_name, $value, $label, $options);
+    return create_field($field_name, $value, $label, $options);
 }
 
 function create_input ($object, $name, $label, $options = array())
@@ -262,18 +262,19 @@ function create_input ($object, $name, $label, $options = array())
     }
 
     $label_class = "";
-    if(array_key_exists("label_class", $options)){
-$label_class = $options["label_class"];
+    if (array_key_exists("label_class", $options)) {
+        $label_class = $options["label_class"];
     }
 
     $value = get_value($object, $name, "");
+
     $envelope = "p";
     if (array_key_exists("envelope", $options)) {
         $envelope = $options["envelope"];
     }
 
     $envelope_class = "input-block";
-    if(array_key_exists("envelope_class",$options)){
+    if (array_key_exists("envelope_class", $options)) {
         $envelope_class = sprintf("%s %s", $envelope_class, $options["envelope_class"]);
     }
     $format = FALSE;
@@ -293,8 +294,12 @@ $label_class = $options["label_class"];
     if (array_key_exists("type", $options)) {
         $type = $options["type"];
     }
-    return sprintf("<%s class='%s'><label for='%s' class='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='input %s'/></%s>", $envelope, $envelope_class, $name, $label_class, $label, $type,
-            $name, $id, $value, $class, $envelope);
+    $checked = "";
+    if ($type == "checkbox" && $value == 1) {
+        $checked = "checked";
+    }
+    return sprintf("<%s class='%s'><label for='%s' class='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='input %s' %s/></%s>", $envelope,
+            $envelope_class, $name, $label_class, $label, $type, $name, $id, $value, $class, $checked, $envelope);
 }
 
 /**
