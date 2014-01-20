@@ -7,9 +7,6 @@
 <? foreach($people as $person): ?>
 <tr>
 <td><?=sprintf("%s %s", $person->first_name, $person->last_name);?></td>
-<td>Vet: <input type="checkbox" name="is_veteran" id="is_veteran" value="1" <?=get_value($person, "is_veteran","FALSE")? "checked":"";?>/>
-</td>
-<td><?=get_value($person, "email");?></td>
 <td>
 <a href="<?=site_url("person/view/$person->id");?>" class="button mini">Show</a>
 </td>
