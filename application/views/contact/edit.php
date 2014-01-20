@@ -12,7 +12,7 @@ if ($action == "update") {
             "text" => "Delete",
             "type" => "span",
             "class" => "button delete delete-contact",
-            "id" => sprintf("delete-contact_%s", $contact->id)
+            "id" => sprintf("delete-contact_%s_%s", $contact->id, $contact->hotel_id)
     );
 }
 ?>
