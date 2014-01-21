@@ -86,6 +86,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 			id="amt_due"><?=format_money($amt_due);?></span>
 	</p>
 	<p>
+	<label for="note">Note</label><br/>
 	<textarea id="note" name="note" style="width:90%"><?=get_value($payer, "note");?></textarea>
 	</p>
 	<p>
@@ -96,7 +97,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 			id="save"
 			value="<?=ucfirst($action);?>" />
 			<? if($action == "update"): ?>
-			<span class="button delete delete-payer" id=<?=sprintf("delete-payer_%s_%s", $payer->payer_id, $tour_id);?>">Delete</span>
+						<span class="button delete delete-payer" id=<?=sprintf("delete-payer_%s_%s", $payer->payer_id, $tour_id);?>">Delete</span>
 			        <? endif; ?>
 	</p>
 </form>
