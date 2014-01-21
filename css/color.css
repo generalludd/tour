@@ -345,7 +345,7 @@ input.link {
 }
 
 table.list tr:hover {
-	background-color: #cdcdcd;
+	/*background-color: #cdcdcd;*/
 }
 
 .edit-field:hover {

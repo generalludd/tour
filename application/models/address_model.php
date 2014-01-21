@@ -38,6 +38,14 @@ class Address_model extends CI_Model
         return $result;
     }
 
+    function get_all ()
+    {
+        $this->db->from("address");
+        $result = $this->db->get()->result();
+
+        return $result;
+    }
+
     function insert ()
     {
         $this->prepare_variables();

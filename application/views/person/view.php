@@ -5,8 +5,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $buttons[] = array("text" => "Edit Person","type"=>"span", "class"=>"button edit edit-person","id"=>sprintf("edit-person_%s",$person->id));
 $buttons[] = array("text"=>"Join Tour", "type"=>"span","class"=>"button new mini select-tour", "id"=>sprintf("join-tour_%s",$person->id));
 $buttons[] = array("text" => sprintf("Tour History", $person->first_name), "href"=> site_url("/tourist/view_for_tourist/$person->id"), "class"=>"button show-tours-for-tourist");
-$buttons[] = array("text" => "<- Previous Record", "class"=>"button navigation previous-person-record", "href"=>site_url("person/view_previous/$person->id"));
-$buttons[] = array("text" => "Next Record ->", "class"=>"button navigation next-person-record","href"=>site_url("person/view_next/$person->id"));
+$nav_buttons[] = array("text" => "<- Previous Record", "class"=>"button navigation previous-person-record", "href"=>site_url("person/view_previous/$person->id"));
+$nav_buttons[] = array("text" => "Next Record ->", "class"=>"button navigation next-person-record","href"=>site_url("person/view_next/$person->id"));
 $address_buttons["select_housemate"] = array("text" => "Select Housemate", "type"=>"span", "class"=>"button small edit change-housemate","id"=>sprintf("change-housemate_%s",get_value($person,"id",$id)));
 $address_buttons["add_address"] = array("text" => "Add Address", "type"=>"span", "class"=>"button small new add-address","id"=>sprintf("add-address_%s",get_value($person,"id",$id)));
 $move_button[] = array("text" => "Move", "type"=>"span","title"=>"move this person to another address in the database", "class"=>"button small edit change-housemate","id"=>sprintf("change-housemate_%s",get_value($person,"id",$id)));
@@ -22,10 +22,13 @@ $restore_button[] = array("text" => "Restore Record", "type" =>"span", "class"=>
 <?=create_button_bar($restore_button);?>
 </div>
 </div>
+
 <? endif; ?>
+<?=create_button_bar($nav_buttons);?>
 
 <h3>Person Record: <?=sprintf("%s %s", $person->first_name, $person->last_name);?></h3>
 <?=create_button_bar($buttons);?>
+
 <div class="content">
 	<div
 		class="grouping block person-info"
@@ -40,13 +43,13 @@ $restore_button[] = array("text" => "Restore Record", "type" =>"span", "class"=>
 			name="address_id"
 			value="<?=get_value($person, "address_id");?>" />
 		<div class='field-set'>
-	<?=create_edit_field("first_name", get_value($person, "first_name"), "First Name",array("envelope"=>"div"));?>
+	<?=create_field("first_name", get_value($person, "first_name"), "First Name",array("envelope"=>"div"));?>
 </div>
 		<div class='field-set'>
-	<?=create_edit_field("last_name", get_value($person,"last_name"), "Last Name",array("envelope"=>"div"));?>
+	<?=create_field("last_name", get_value($person,"last_name"), "Last Name",array("envelope"=>"div"));?>
 </div>
 		<div class='field-set'>
-	<?=create_edit_field("email", get_value($person,"email"), "Email",array("envelope"=>"div"));?>
+	<?=create_field("email", get_value($person,"email"), "Email",array("envelope"=>"div"));?>
 </div>
 		<div class='field-set'>
 	<?=create_edit_field("shirt_size", get_value($person,"shirt_size"), "Shirt Size",array("envelope"=>"div","class"=>"dropdown","attributes"=>"menu='shirt_size'"));?>
@@ -96,4 +99,5 @@ $restore_button[] = array("text" => "Restore Record", "type" =>"span", "class"=>
 
 <? endif; ?>
 </fieldset>
+</div>
 </div>

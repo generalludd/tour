@@ -113,4 +113,14 @@ class Address extends My_Controller
         }
     }
 
+    function batch_update ()
+    {
+        $addresses = $this->address->get_all();
+        foreach ($addresses as $address) {
+            $street_address = format_address($address, "street-only");
+            $this->address->update($address->id, array(
+                    "address" => $street_address
+            ));
+        }
+    }
 }

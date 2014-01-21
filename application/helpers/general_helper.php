@@ -205,7 +205,7 @@ function format_field_name ($field)
  * @param object $address
  * @param string $format
  *            $format should be "postal" which is the address on two lines, or
- *            inline
+ *            inline or street-only which just shows the street address
  */
 function format_address ($address, $format = "postal")
 {
@@ -222,11 +222,15 @@ function format_address ($address, $format = "postal")
     } elseif ($address->unit && ! $street) {
         $street = $address->unit;
     }
-    $locality = sprintf("%s, %s %s", $address->city, $address->state, $address->zip);
-    if ($format == "postal") {
-        $output = sprintf("%s<br/>%s", $street, $locality);
-    } elseif ($format == "inline") {
-        $output = sprintf("%s, %s", $street, $locality);
+    if ($format != "street-only") {
+        $locality = sprintf("%s, %s %s", $address->city, $address->state, $address->zip);
+        if ($format == "postal") {
+            $output = sprintf("%s<br/>%s", $street, $locality);
+        } elseif ($format == "inline") {
+            $output = sprintf("%s, %s", $street, $locality);
+        }
+    }else{
+        $output = $street;
     }
     return $output;
 }
@@ -235,9 +239,12 @@ function format_address ($address, $format = "postal")
  * given any list of numbers, find the first opening in the list.
  * BUG: only works if only one number is missing from the list;
  *
- * @param  array of objects $list
- * @param  object value $field
+ * @param
+ *            array of objects $list
+ * @param
+ *            object value $field
  * @return number while statement and algorithm from
+ *
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
 function get_first_missing_number ($list, $field)
