@@ -20,8 +20,8 @@
 <?=create_input($tour, "early_price","Early Price $", array("type" => "number", "class"=>"money") );?>
 <?=create_input($tour, "regular_price","Regular Price $", array("type" => "number", "class"=>"money") );?>
 <?=create_input($tour, "single_room", "Single Room Adjustment $", array("type" => "number", "class"=>"money") );?>
-<?=create_input($tour, "triple_room","Triple Room Adjustment $", array("type" => "number", "class"=>"money") );?>
-<?=create_input($tour, "quad_room","Quad Room Adjustment $", array("type" => "number", "class"=>"money") );?>
+<?=create_input($tour, "triple_room","Triple Room Adjustment (include a '-') $", array("type" => "number", "class"=>"money") );?>
+<?=create_input($tour, "quad_room","Quad Room Adjustment (include a '-') $", array("type" => "number", "class"=>"money") );?>
 </div>
 <div class='button-box'>
 <ul class='button-list'>

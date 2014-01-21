@@ -23,8 +23,8 @@ $buttons["hotels"] = array("text"=> "Hotels","href"=>site_url("hotel/view_all/$t
 <?=create_edit_field("early_price", get_value($tour, "early_price"),"Early Price $", array("envelope" => "p") );?>
 <?=create_edit_field("regular_price", get_value($tour, "regular_price"),"Regular Price $", array("envelope" => "p") );?>
 <?=create_edit_field("single_room", get_value($tour, "single_room"),"Single Room Adjustment $", array("envelope" => "p") );?>
-<?=create_edit_field("triple_room", get_value($tour, "triple_room"),"Triple Room Adjustment $", array("envelope" => "p") );?>
-<?=create_edit_field("quad_room", get_value($tour, "quad_room"),"Quad Room Adjustment $", array("envelope" => "p") );?>
+<?=create_edit_field("triple_room", get_value($tour, "triple_room"),"Triple Room Adjustment (include a '-') $", array("envelope" => "p") );?>
+<?=create_edit_field("quad_room", get_value($tour, "quad_room"),"Quad Room Adjustment (include a '-')$", array("envelope" => "p") );?>
 </div>
 
 </div>
