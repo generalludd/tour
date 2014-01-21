@@ -120,15 +120,15 @@ $amt_due = $total_cost - $payer->amt_paid;
 				name="payer_id"
 				value="<?=$payer_id;?>" />
 			<p>
-				<label for="tourist-dropdown">Type the Name of the Tourist You Want
-					to Add</label><br /> <input
+				<label for="tourist-dropdown">Type the name of a current person you want to add to this ticket
+					</label><br /> <input
 					type="text"
 					id="tourist-dropdown"
 					name="tourist-dropdown"
 					value="" />
 			</p>
 			<fieldset>
-			<span class="button new small create-new-tourist">Add a New Tourist</span>
+			<span class="button new small create-new-tourist">Add a New Person as a Tourist</span>
 			<div id="add-new-tourist">
 			</div>
 			</fieldset>

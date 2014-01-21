@@ -353,6 +353,8 @@ $(".insert-new-tourist").live("click",function(){
 			tourist_count = $("#payer-tourist-list tr").length;
 			$("#tourist_count").val(tourist_count);
 			calculate_cost(1);
+			$(".create-new-tourist").fadeIn();
+
 		}
 		
 	});
