@@ -205,33 +205,18 @@ function format_field_name ($field)
  * @param object $address
  * @param string $format
  *            $format should be "postal" which is the address on two lines, or
- *            inline or street-only which just shows the street address
+ *            inline
  */
 function format_address ($address, $format = "postal")
 {
+    $output = NULL;
     $street = NULL;
-    if ($address->num && $address->street) {
-        $street = sprintf("%s %s", $address->num, $address->street);
-    } elseif ($address->num && ! $address->street) {
-        $street = $address->num;
-    } else {
-        $street = $address->street;
-    }
-    if ($address->unit && $street) {
-        $street = sprintf("%s, %s", $street, $address->unit);
-    } elseif ($address->unit && ! $street) {
-        $street = $address->unit;
-    }
-    if ($format != "street-only") {
         $locality = sprintf("%s, %s %s", $address->city, $address->state, $address->zip);
         if ($format == "postal") {
             $output = sprintf("%s<br/>%s", $street, $locality);
         } elseif ($format == "inline") {
             $output = sprintf("%s, %s", $street, $locality);
         }
-    }else{
-        $output = $street;
-    }
     return $output;
 }
 
