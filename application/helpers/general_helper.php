@@ -210,7 +210,7 @@ function format_field_name ($field)
 function format_address ($address, $format = "postal")
 {
     $output = NULL;
-    $street = NULL;
+    $street = $address->address;
         $locality = sprintf("%s, %s %s", $address->city, $address->state, $address->zip);
         if ($format == "postal") {
             $output = sprintf("%s<br/>%s", $street, $locality);
