@@ -209,19 +209,7 @@ function format_field_name ($field)
  */
 function format_address ($address, $format = "postal")
 {
-    $street = NULL;
-    if ($address->num && $address->street) {
-        $street = sprintf("%s %s", $address->num, $address->street);
-    } elseif ($address->num && ! $address->street) {
-        $street = $address->num;
-    } else {
-        $street = $address->street;
-    }
-    if ($address->unit && $street) {
-        $street = sprintf("%s, %s", $street, $address->unit);
-    } elseif ($address->unit && ! $street) {
-        $street = $address->unit;
-    }
+    $street = $address->address;
     if ($format != "street-only") {
         $locality = sprintf("%s, %s %s", $address->city, $address->state, $address->zip);
         if ($format == "postal") {

@@ -976,3 +976,10 @@ label.above {
 	display: block;
 	float: left;
 }
+
+.address-street-field {
+	width: 14em;
+}
+.address-state-field {
+	width: 3em;
+}

@@ -5,9 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // chrisdart@cerebratorium.com
 class Address_model extends CI_Model
 {
-    var $num;
-    var $street;
-    var $unit;
+    var $address;
     var $city;
     var $state;
     var $zip;
@@ -20,9 +18,7 @@ class Address_model extends CI_Model
     function prepare_variables ()
     {
         $variables = array(
-                "num",
-                "street",
-                "unit",
+                "address",
                 "city",
                 "state",
                 "zip"

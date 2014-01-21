@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // edit.php Chris Dart Dec 19, 2013 7:57:31 PM chrisdart@cerebratorium.com
 
@@ -17,24 +19,15 @@
 		id="id"
 		name="id"
 		value="<?=get_value($address, "id");?>" />
-	<p></p>
-	<p><?=create_input($address, "num","House Number", array("format"=>"int"));?>
-</p>
-	<p><?=create_input($address, "street","Street",  array("format"=>"text"));?>
-</p>
-	<p><?=create_input($address, "unit","Unit", array("format"=>"text"));?>
-</p>
-	<p><?=create_input($address, "city","City", array("format"=>"text"));?>
-</p>
-	<p><?=create_input($address, "state","State", array("format"=>"text"));?>
-</p>
-	<p><?=create_input($address, "zip","Zip", array("format"=>"int"));?>
-</p>
-	<p>
+	<?=create_input($address,"address","Street",array("format"=>"text","class"=>"address-street-field"));?>
+	<?=create_input($address, "city","City", array("format"=>"text"));?>
+<?=create_input($address, "state","State", array("format"=>"text","class"=>"address-state-field"));?>
+<?=create_input($address, "zip","Zip", array("format"=>"int"));?>
+	<div>
 		<input
 			type="submit"
 			name="submit"
 			value="<?=ucfirst($action);?>"
 			class="button" />
-	</p>
+	</div>
 </form>
