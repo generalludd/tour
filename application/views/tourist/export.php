@@ -53,7 +53,7 @@ foreach ($payers as $payer) {
     $line["city"] = $payer->city;
     $line["state"] = $payer->state;
     $line["zip"] = $payer->zip;
-    $output[] = implode(";", $line);
+    $output[] = sprintf("\"%s\"", implode("\",\"", $line));
     $line = NULL;
 }
 
