@@ -14,7 +14,7 @@ class Index extends MY_Controller
 
 	function index()
 	{
-	    redirect("person");
+	   redirect("person");
 	}
 
 
