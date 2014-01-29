@@ -89,6 +89,7 @@ class Person_model extends CI_Model
             $this->db->from("address");
             $this->db->order_by("person.address_id", "ASC");
             $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
+            $this->db->where("`person`.`address_id` IS NOT NULL",NULL, FALSE);
             $this->db->select("address.address, address.city, address.state,address.zip, person.address_id");
             $this->db->join("person", "person.address_id=address.id");
             $this->db->order_by("address.id");

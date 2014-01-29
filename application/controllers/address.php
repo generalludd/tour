@@ -114,9 +114,9 @@ class Address extends My_Controller
     function update_salutations ()
     {
         $this->load->model("person_model", "person");
-        $addresses = $this->address->get_all("id");
+        $addresses = $this->address->get_all();
         foreach ($addresses as $address) {
-            $values["formal_salutation"] = $people = $this->person->get_residents($address->id);
+            $people = $this->person->get_residents($address->id);
             $values["formal_salutation"] = format_salutation($people, "formal");
             $values["informal_salutation"] = format_salutation($people, "informal");
             $this->address->update($address->id, $values);
