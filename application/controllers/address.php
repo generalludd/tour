@@ -116,10 +116,10 @@ class Address extends My_Controller
         $this->load->model("person_model", "person");
         $addresses = $this->address->get_all();
         foreach ($addresses as $address) {
-            $people = $this->person->get_residents($address->id);
+            $people = $this->person->get_residents($address->address_id);
             $values["formal_salutation"] = format_salutation($people, "formal");
             $values["informal_salutation"] = format_salutation($people, "informal");
-            $this->address->update($address->id, $values);
+            $this->address->update($address->address_id, $values);
         }
     }
 
