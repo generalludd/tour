@@ -26,7 +26,6 @@ body {
 	display: none;
 }
 
-
 /*
 loggedin style changes the background to make sure users can tell they are logged in.
 
@@ -240,7 +239,7 @@ div.entry,div.list {
 	font-size: 1.1em;
 }
 
-.button , input[type="submit"] {
+.button,input[type="submit"] {
 	text-align: center;
 	/*position: static;*/
 	padding: .2em .4em;
@@ -321,6 +320,7 @@ ul.button-list li .button {
 
 ul.button-list li .button.delete {
 	/*margin-top: -5px;*/
+	
 }
 
 .mini-buttons ul.button-list li .button {
@@ -941,21 +941,23 @@ textarea.editor {
 	height: 15em;
 }
 
-input.note-field, textarea.address-field {
+input.note-field,textarea.address-field {
 	width: 25em;
 }
 
 .input-block {
 	padding: .35em 0;
 }
+
 .input-block.inline {
 	float: left;
 	padding-right: 2em;
 }
 
 #hotel-editor .input-block-row {
-	min-width:34em;
+	min-width: 34em;
 }
+
 label.above {
 	display: block;
 }
@@ -972,6 +974,7 @@ label.above {
 	padding-bottom: .5em;
 	/*float: left;*/
 }
+
 .contact-row .button.edit {
 	display: block;
 	float: left;
@@ -980,6 +983,7 @@ label.above {
 .address-street-field {
 	width: 14em;
 }
+
 .address-state-field {
 	width: 3em;
 }
