@@ -116,12 +116,10 @@ class Address extends My_Controller
         $this->load->model("person_model", "person");
         $addresses = $this->address->get_all("id");
         foreach ($addresses as $address) {
-            printf("id=%s<br/>", $address->id);
-
             $values["formal_salutation"] = $people = $this->person->get_residents($address->id);
-             $values["formal_salutation"] = format_salutation($people, "formal");
-             $values["informal_salutation"] = format_salutation($people, "informal");
-             $this->address->update($address->id, $values);
+            $values["formal_salutation"] = format_salutation($people, "formal");
+            $values["informal_salutation"] = format_salutation($people, "informal");
+            $this->address->update($address->id, $values);
         }
     }
 
@@ -135,5 +133,4 @@ class Address extends My_Controller
         $this->load->helper('download');
         $this->load->view('address/export', $data);
     }
-
 }
