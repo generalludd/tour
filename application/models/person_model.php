@@ -59,9 +59,6 @@ class Person_model extends CI_Model
      */
     function get_all ($options = array())
     {
-        $this->db->from("person");
-        $this->db->order_by("person.last_name", "ASC");
-        $this->db->order_by("person.first_name", "ASC");
         $show_disabled = FALSE;
         $veterans_only = FALSE;
         $tour_id = FALSE;
@@ -92,13 +89,19 @@ class Person_model extends CI_Model
             $this->db->from("address");
             $this->db->order_by("person.address_id", "ASC");
             $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
-            $this->db->select("address.num, address.street, address.unit, address.city, address.state,address.zip");
+            $this->db->select("address.address, address.city, address.state,address.zip, person.address_id");
+            $this->db->join("person", "person.address_id=address.id");
+            $this->db->order_by("address.id");
+        } else {
+            $this->db->from("person");
         }
+        $this->db->order_by("person.last_name", "ASC");
+        $this->db->order_by("person.first_name", "ASC");
         if ($initial) {
             $this->db->where("`person`.`last_name` LIKE '$initial%'", NULL, FALSE);
         }
         if ($veterans_only) {
-            $this->db->where("person.is_veteran",1);
+            $this->db->where("person.is_veteran", 1);
         }
 
         if ($tour_id) {
@@ -108,7 +111,7 @@ class Person_model extends CI_Model
         if ($email_only) {
             $this->db->where("`person`.`email` IS NOT NULL", NULL, FALSE);
             $this->db->select("person.first_name, person.last_name, person.email,person.id,person.status,person.is_veteran");
-            //$this->db->limit(5);
+            // $this->db->limit(5);
         }
         if (! $show_disabled) {
             $this->db->where("status", 1);
@@ -283,13 +286,10 @@ class Person_model extends CI_Model
             }
             $this->load->model("phone_model", "phone");
             $this->phone->delete_for_person($id);
-            $this->db->where("id",$id);
+            $this->db->where("id", $id);
             $this->db->delete("person");
-
         } else {
             $this->disable($id);
         }
     }
-
-
 }
