@@ -23,6 +23,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<?=create_input($address, "city","City", array("format"=>"text"));?>
 <?=create_input($address, "state","State", array("format"=>"text","class"=>"address-state-field"));?>
 <?=create_input($address, "zip","Zip", array("format"=>"int"));?>
+<?=create_input($address, "informal_salutation","Informal Salutation",array("format"=>"text"));?>
+<?=create_input($address, "formal_salutation", "Formal Salutation", array("format"=>"text"));?>
 	<div>
 		<input
 			type="submit"

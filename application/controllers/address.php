@@ -103,8 +103,6 @@ class Address extends My_Controller
     {
         if ($this->input->post("id")) {
             $id = $this->input->post("id");
-            print $id;
-            die();
             $values = array(
                     $this->input->post("field") => $value = trim($this->input->post("value"))
             );
@@ -113,5 +111,29 @@ class Address extends My_Controller
         }
     }
 
+    function update_salutations ()
+    {
+        $this->load->model("person_model", "person");
+        $addresses = $this->address->get_all("id");
+        foreach ($addresses as $address) {
+            printf("id=%s<br/>", $address->id);
+
+            $values["formal_salutation"] = $people = $this->person->get_residents($address->id);
+             $values["formal_salutation"] = format_salutation($people, "formal");
+             $values["informal_salutation"] = format_salutation($people, "informal");
+             $this->address->update($address->id, $values);
+        }
+    }
+
+    function export ()
+    {
+        $options = $this->input->cookie("person_filters");
+        $options = unserialize($options);
+        $data["addresses"] = $this->address->get_all($options);
+        $data['target'] = 'Address Export';
+        $data['title'] = "Export of Addresses";
+        $this->load->helper('download');
+        $this->load->view('address/export', $data);
+    }
 
 }

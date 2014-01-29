@@ -11,7 +11,7 @@ function replace_text ($text, $key, $value)
     return $text;
 }
 
-function format_salutation ($tourists)
+/*function format_salutation ($tourists)
 {
 	switch(count($tourists)){
 		case 1:
@@ -28,3 +28,4 @@ function format_salutation ($tourists)
     return $output;
 }
 
+*/

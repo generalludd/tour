@@ -180,7 +180,6 @@ class Person extends MY_Controller
 
     function update_value ()
     {
-
         $id = $this->input->post("id");
         $values = array(
                 $this->input->post("field") => trim($this->input->post("value"))
@@ -199,14 +198,30 @@ class Person extends MY_Controller
 
     function export ()
     {
-        $options = get_cookie("person_filter");
+        $options = $this->input->cookie("person_filters");
         $options = unserialize($options);
-        $options["include_address"] = TRUE;
-        $data["people"] = $this->person->get_all($options);
-        $data['target'] = 'Person Export';
-        $data['title'] = "Export of People";
+        $this->export_addresses($options);
+        /*
+        if (is_array($options) && array_key_exists("include_address", $options)) {
+            $this->export_addresses($options);
+        } else {
+            $data["people"] = $this->person->get_all($options);
+            $data['target'] = 'Person Export';
+            $data['title'] = "Export of People";
+            $this->load->helper('download');
+            $this->load->view('person/export', $data);
+        }
+        */
+    }
+
+    function export_addresses ($options)
+    {
+        $this->load->model("address_model", "address");
+        $data["addresses"] = $this->address->get_all($options);
+        $data['target'] = 'Address Export';
+        $data['title'] = "Export of Addresses";
         $this->load->helper('download');
-        $this->load->view('person/export', $data);
+        $this->load->view('address/export', $data);
     }
 
     /**

@@ -229,6 +229,12 @@ function format_address ($address, $format = "postal")
  * @return number while statement and algorithm from
  *
  *
+ *
+ *
+ *
+ *
+ *
+ *
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
 function get_first_missing_number ($list, $field)
@@ -331,5 +337,71 @@ function format_contact ($contact)
     }
     $output = sprintf("%s<br/>%s", implode(", ", $name), implode(", ", $contact_info));
 
+    return $output;
+}
+
+/**
+ *
+ * @param string $glue
+ * @param array $list
+ * @param string $conjunction creates a list in proper English list format
+ *        (lists less than 3 have no comma, list with 3 or more have commas and
+ *        final conjunction)
+ */
+function grammatical_implode ($glue, $list, $conjunction = "and")
+{
+    $adjusted_list = array();
+    $output = $list;
+    if (is_array($list)) {
+        if (count($list) == 1) {
+            $output = implode("", $list);
+        } elseif (count($list) == 2) {
+            $output = implode(" $conjunction ", $list);
+        } else {
+            for ($i = 0; $i < count($list); $i ++) {
+                $prefix = "";
+                if ($i + 1 == count($list)) {
+                    $prefix = $conjunction;
+                }
+                $adjusted_list[] = $prefix . " " . $list[$i];
+            }
+            $output = implode($glue, $adjusted_list);
+        }
+    }
+    return $output;
+}
+
+function format_salutation ($people, $format = "informal")
+{
+    $first_names = array();
+    $last_names = array();
+    $names = array();
+    $current_name = "";
+    foreach ($people as $person) {
+
+        $first_names[] = $person->first_name;
+        if (! in_array($current_name, $last_names)) {
+            $last_names[] = $person->last_name;
+            $current_name = $person->last_name;
+        }
+        $names[] = sprintf("%s %s", $person->first_name, $person->last_name);
+    }
+    if ($format == "informal") {
+        $output = grammatical_implode(", ", $first_names);
+    } else {
+        switch (count($first_names) - count($last_names)) {
+            case 0:
+                $output = grammatical_implode(", ", $names);
+                break;
+            case 1:
+                $firsts = grammatical_implode(", ", $first_names);
+                $last = implode("", $last_names);
+                $output = sprintf("%s %s", $firsts, $last);
+                break;
+            case 2:
+            default:
+                $output = grammatical_implode(", ", $names);
+        }
+    }
     return $output;
 }

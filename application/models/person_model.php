@@ -191,6 +191,19 @@ class Person_model extends CI_Model
     }
 
     /**
+     * get all the residents for a given address.
+     * @param int $address_id
+     * @return array of objects
+     */
+    function get_residents ($address_id)
+    {
+        $this->db->from("person");
+        $this->db->where("address_id", $address_id);
+        $result = $this->db->get()->result();
+        return $result;
+    }
+
+    /**
      * get the row number of the current record to view the next or previous
      * record
      *
