@@ -200,6 +200,7 @@ class Person extends MY_Controller
     {
         $options = $this->input->cookie("person_filters");
         $options = unserialize($options);
+
         $this->export_addresses($options);
         /*
         if (is_array($options) && array_key_exists("include_address", $options)) {
@@ -216,6 +217,7 @@ class Person extends MY_Controller
 
     function export_addresses ($options)
     {
+        $options["export"] = TRUE;
         $this->load->model("address_model", "address");
         $data["addresses"] = $this->address->get_all($options);
         $data['target'] = 'Address Export';
