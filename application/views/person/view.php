@@ -54,6 +54,10 @@ $restore_button[] = array("text" => "Restore Record", "type" =>"span", "class"=>
 		<div class='field-set'>
 	<?=create_edit_field("shirt_size", get_value($person,"shirt_size"), "Shirt Size",array("envelope"=>"div","class"=>"dropdown","attributes"=>"menu='shirt_size'"));?>
 </div>
+<div class='field-set'>
+<label for="note">Note:</label><br/>
+<?=get_value($person, "note");?>
+</div>
 <div class="field-set">
 <label for="is_veteran">Is Veteran: </label>
 <input type="checkbox" value="1" id="is_veteran" name="is_veteran" <?=get_value($person, "is_veteran", FALSE) ? "checked" : "";?>/><span class="ajax-info" id="is_veteran-ajax-response"></span>

@@ -9,6 +9,7 @@ class Person_model extends CI_Model
     var $email;
     var $shirt_size;
     var $address_id;
+    var $note;
     var $status = 1;
     var $is_veteran;
 
@@ -25,7 +26,8 @@ class Person_model extends CI_Model
                 "email",
                 "shirt_size",
                 "is_veteran",
-                "address_id"
+                "address_id",
+                "note",
         );
         prepare_variables($this, $variables);
     }
