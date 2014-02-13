@@ -75,7 +75,7 @@ class Payer_model extends CI_Model
         $this->db->select("payer.*, person.first_name, person.last_name, person.email");
         if(array_key_exists("include_address", $options) && $options["include_address"]){
             $this->db->join("address","person.address_id = address.id");
-            $this->db->select("address.num, address.street, address.unit, address.city, address.state, address.zip");
+            $this->db->select("address, address.city, address.state, address.zip, address.informal_salutation, address.formal_salutation");
         }
         $this->db->order_by("person.last_name", "ASC");
         $this->db->order_by("person.first_name", "ASC");
