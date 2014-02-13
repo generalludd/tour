@@ -387,10 +387,10 @@ function calculate_cost(include_amt){
 	}
 	
 	tour_price = $("#tour_price").val().valueOf();
-	$("#total_cost").html(( parseInt(tourist_count) * (parseInt(tour_price) + parseInt(room_rate)) - parseInt(discount)));
+	$("#total_cost").html(( parseInt(tourist_count) * (parseInt(tour_price)) + parseInt(room_rate) - parseInt(discount)));
 	if(include_amt){
 		$("#amt_due").html(
-				(parseInt(tourist_count) * (parseInt(tour_price) + parseInt(room_rate)))-amt_paid -parseInt(discount)
+				(parseInt(tourist_count) * (parseInt(tour_price)))-amt_paid -parseInt(discount)  + parseInt(room_rate)
 		);
 	}
 
