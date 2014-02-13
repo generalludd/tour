@@ -38,8 +38,9 @@ if (! $first_name) {
 <?=create_input($person,"is_veteran","Is Veteran",array("type"=>"checkbox"));?>
 <div>
 <label for="note">Note about <?=get_value($person,"first_name","this person"); ?>:</label><br/>
-<textarea id="note" name="note"><?=get_value($person,"note");?></textarea>
+<textarea id="note" name="note" class="save-field"><?=get_value($person,"note");?></textarea>
 </div>
+<p>
 <input
 			type="submit"
 			name="submit-person-editor"
@@ -58,5 +59,6 @@ if (! $first_name) {
 			title="This person has been on tours, they will be disabled instead of deleted">Disable</span>
 <? endif; ?>
 <? endif;?>
+</p>
 </form>
 </div>
