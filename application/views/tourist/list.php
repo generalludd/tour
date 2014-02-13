@@ -57,8 +57,6 @@ $buttons[] = array(
     <? endif;?>
     <br />
 <? endforeach; ?>
-
-
 			<td><span
 				class="button edit edit-payer"
 				id="edit-payer_<?=$payer->payer_id;?>_<?=$payer->tour_id;?>"> Edit

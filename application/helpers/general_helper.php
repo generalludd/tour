@@ -102,15 +102,15 @@ function prepare_variables ($object, $variables)
     for ($i = 0; $i < count($variables); $i ++) {
         $my_variable = trim($variables[$i]);
         if ($object->input->post($my_variable)) {
-            $my_value = $object->input->post($my_variable);
+            $my_value = trim($object->input->post($my_variable));
             if (strpos($my_variable, "date")) {
-                $my_value = format_date($my_value, "mysql");
+                $my_value = trim(format_date($my_value, "mysql"));
             }
             if (strpos($my_variable, "price") || strpos($my_variable, "room") || strpos($my_variable, "rate")) {
-                $my_value = format_money($my_value, "int");
+                $my_value = trim(format_money($my_value, "int"));
             }
             if (strpos("time", $my_variable)) {
-                $my_value = format_time($my_value);
+                $my_value = trim(format_time($my_value));
             }
             $object->$my_variable = trim($my_value);
         }
