@@ -2,7 +2,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // export.php Chris Dart Jan 18, 2014 3:12:18 PM chrisdart@cerebratorium.com
-$file_name = "people.csv";
+$date_stamp = date("Y-m-d_H-i");
+
+$file_name = sprintf("people_%s.csv",$date_stamp);
 $output = array(
         "First Name,Last Name,email, Address, City, State, Zip"
 );

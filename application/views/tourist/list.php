@@ -65,7 +65,7 @@ $buttons[] = array(
 					Payment</span></td>
 			<td>
             <? if($payer->phones || $payer->email): ?>
-                <? if(get_value($payer, "email", FALSE)): ?>
+                <? if(get_value($payer, "email", TRUE)): ?>
                     <?=format_email($payer->email);?><br />
                 <? endif; ?>
                 <? foreach($payer->phones as $phone):?>

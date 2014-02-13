@@ -7,8 +7,8 @@ $total_due = 0;
 $total_paid = 0;
 $total_payers = 0;
 $total_tourists = 0;
-
-$file_name = "tourists.csv";
+$date_stamp = date("Y-m-d_H-i");
+$file_name = sprintf("tourists_%s.csv",$date_stamp);
 $output = array(
         "Payer,Tourists, Payment Type, Price, Discount, Room Size, Room Rate, Amount Paid, Amount Due, Address, City, State, Zip"
 );
