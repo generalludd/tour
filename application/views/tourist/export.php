@@ -10,7 +10,7 @@ $total_tourists = 0;
 
 $file_name = "tourists.csv";
 $output = array(
-        "Payer,Tourists, Payment Type, Price, Discount, Room Size, Room Rate, Amount Paid, Amount Due, House Number, Street, Apartment, City, State, Zip"
+        "Payer,Tourists, Payment Type, Price, Discount, Room Size, Room Rate, Amount Paid, Amount Due, Address, City, State, Zip"
 );
 foreach ($payers as $payer) {
     $line["payer"] = sprintf("%s %s", $payer->first_name, $payer->last_name);
@@ -47,9 +47,7 @@ foreach ($payers as $payer) {
         $line["amt_paid"] = $payer->amt_paid;
         $line["amt_due"] = $payer->amt_due;
     }
-    $line["num"] = $payer->num;
-    $line["street"] = $payer->street;
-    $line["apartment"] = $payer->unit;
+    $line["address"] = $payer->address;
     $line["city"] = $payer->city;
     $line["state"] = $payer->state;
     $line["zip"] = $payer->zip;
