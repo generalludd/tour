@@ -81,6 +81,9 @@ $amt_due = $total_cost - $payer->amt_paid;
 			value="<?=get_value($payer,"amt_paid");?>" />
 	</p>
 	<p>
+	<?=get_value($payer, "amount");?>
+	</p>
+	<p>
 		<label for="amt_due">Amount Due:</label> <span
 			class="field"
 			id="amt_due"><?=format_money($amt_due);?></span>

@@ -27,7 +27,7 @@ $buttons[] = array(
 <table class="list">
 	<thead>
 		<tr>
-			<th style="width: 25ex">Payer (*) & Tourists</th>
+			<th style="width: 25ex">Payer (&#42;) &#36; Tourists</th>
 			<th></th>
 			<th>Contact Info</th>
 			<th>Payment Type<br />Price
@@ -59,8 +59,10 @@ $buttons[] = array(
 <? endforeach; ?>
 			<td><span
 				class="button edit edit-payer"
-				id="edit-payer_<?=$payer->payer_id;?>_<?=$payer->tour_id;?>"> Edit
-					Payment</span></td>
+				id="edit-payer_<?=$payer->payer_id;?>_<?=$payer->tour_id;?>">Edit
+					Ticket</span><br/><br/>
+					<span class="button edit edit-payments" id="<?=sprintf("edit-payments_%s_%s", $payer->tour_id, $payer->payer_id);?>">Edit Payments</span>
+					</td>
 			<td>
             <? if($payer->phones || $payer->email): ?>
                 <? if(get_value($payer, "email", TRUE)): ?>

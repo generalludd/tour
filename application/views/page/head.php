@@ -33,6 +33,7 @@ var base_url = '<?=base_url("index.php") . "/";?>';
 <script type="text/javascript" src="<?=base_url();?>js/receipt.js"></script>
 
 <script type="text/javascript" src="<?=base_url();?>js/roommate.js"></script>
+<script type="text/javascript" src="<?=base_url();?>js/payment.js"></script>
 
 <!-- admin scripts -->
 <script type="text/javascript" src="<?=base_url();?>js/password.js"></script>

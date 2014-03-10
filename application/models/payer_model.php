@@ -44,6 +44,7 @@ class Payer_model extends CI_Model
     {
         $this->db->from("payer");
         $this->db->join("tour", "payer.tour_id=tour.id");
+        $this->db->join("payment","payer.tour_id=payment.tour_id AND payer.payer_id = payment.payer_id");
         $this->db->join("person", "payer.payer_id=person.id");
         $this->db->where("payer.payer_id", $payer_id);
         $this->db->where("payer.tour_id", $tour_id);
@@ -51,6 +52,7 @@ class Payer_model extends CI_Model
                 "tour.tour_name,tour.full_price, tour.banquet_price, tour.early_price, tour.regular_price,tour.single_room, tour.triple_room, tour.quad_room");
         $this->db->select("person.first_name, person.last_name");
         $this->db->select("payer.*");
+        $this->db->select_sum("payment.amount");
         $result = $this->db->get()->row();
         return $result;
     }
