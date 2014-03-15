@@ -49,7 +49,7 @@ $restore_button[] = array("text" => "Restore Record", "type" =>"span", "class"=>
 	<?=create_field("last_name", get_value($person,"last_name"), "Last Name",array("envelope"=>"div"));?>
 </div>
 		<div class='field-set'>
-	<?=create_field("email", get_value($person,"email"), "Email",array("envelope"=>"div"));?>
+	<?=create_field("email", get_value($person,"email"), "Email",array("envelope"=>"div","format"=>"email"));?>
 </div>
 		<div class='field-set'>
 	<?=create_edit_field("shirt_size", get_value($person,"shirt_size"), "Shirt Size",array("envelope"=>"div","class"=>"dropdown","attributes"=>"menu='shirt_size'"));?>
