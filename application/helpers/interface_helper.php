@@ -223,6 +223,11 @@ function create_field ($field_name, $value, $label, $options = array())
     $format = "";
     if (array_key_exists("format", $options)) {
         $format = sprintf("format='%s'", $options["format"]);
+        if ($options["format"] == "url" && $value != "&nbsp;"){
+            $value = sprintf("<a href='%s' target='_blank'>%s</a>",$value, $value);
+        }elseif($options["format"] == "email" && $value != "&nbsp;"){
+            $value = sprintf("<a href='mailto:%s'>%s</a>",$value,$value);
+        }
     }
     /*
      * Attributes are non-standard html attributes that are used by javascript
@@ -232,6 +237,9 @@ function create_field ($field_name, $value, $label, $options = array())
     if (array_key_exists("attributes", $options)) {
         $attributes = $options["attributes"];
     }
+
+
+
     $output[] = sprintf("<span class='%s' %s %s %s>%s</span></%s>", $field_class, $attributes, $format, $id, $value, $envelope);
     return implode("\r", $output);
 }

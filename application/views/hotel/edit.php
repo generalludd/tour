@@ -25,6 +25,10 @@
 <?=create_input($hotel, "phone", "Phone", $options = array("envelope"=>"div","envelope_class"=>"inline","format"=>"tel","type"=>"tel"));?>
 <?=create_input($hotel, "fax", "Fax", $options = array("envelope"=>"div","format"=>"tel","type"=>"tel"));?>
 </div>
+<div class="input-block=row">
+<?=create_input($hotel, "email", "Email", $options = array("envelope"=>"div","envelope_class"=>"inline","format"=>"email","type"=>"email"));?>
+<?=create_input($hotel, "url", "Website", $options = array("envelope"=>"div","format"=>"url","type"=>"url"));?>
+</div>
 <h5 class="notice">Note: You can add special contacts after you click "<?=ucfirst($action);?>"</h5>
 <div class="block">
 <label for="address">Address</label><br/>
