@@ -53,7 +53,7 @@ class Auth extends CI_Controller
 			//The uri cookie is baked in the MY_Controller.php when the user is not logged in.
 			//Thus it is baked in all controller classes that extend this master controller which is all controllers except auth.php
 			if($uri = $this->input->cookie("uri")){
-				redirect("");
+				redirect($uri);
 			}else{
 				redirect("");
 			}
