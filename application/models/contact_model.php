@@ -43,7 +43,7 @@ class Contact_model extends CI_Model
     {
         $this->db->where("contact.id", $id);
         $this->db->from("contact");
-        $this->db->join("hotel","contact.hotel_id=hotel.id");
+        $this->db->join("hotel", "contact.hotel_id=hotel.id");
         $this->db->select("contact.*,hotel.hotel_name");
         $result = $this->db->get()->row();
         return $result;
@@ -64,9 +64,15 @@ class Contact_model extends CI_Model
         $this->db->update("contact", $this);
     }
 
-    function delete($id)
+    function delete ($id)
     {
-        $this->db->where("id",$id);
+        $this->db->where("id", $id);
+        $this->db->delete("contact");
+    }
+
+    function delete_for_hotel ($hotel_id)
+    {
+        $this->db->where("hotel_id", $hotel_id);
         $this->db->delete("contact");
     }
 }

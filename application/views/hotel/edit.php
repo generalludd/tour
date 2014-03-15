@@ -37,5 +37,8 @@
 </div>
 <div class="block">
 <input type="submit" name="submit" class="button" value="<?=ucfirst($action);?>"/>
+<? if($action == "update"):?>
+<span class="button delete delete-hotel" id="<?=sprintf("delete-hotel_%s_%s",$hotel->id, $hotel->tour_id);?>">Delete</span>
+        <? endif;?>
 </div>
 </form>

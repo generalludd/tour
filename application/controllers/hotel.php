@@ -101,4 +101,10 @@ class Hotel extends MY_Controller
         $this->hotel->update($id, $values);
         echo $this->input->post("value");
     }
+
+    function delete()
+    {
+        $id = $this->input->post("id");
+        $this->hotel->delete($id);
+    }
 }

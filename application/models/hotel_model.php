@@ -101,7 +101,7 @@ class Hotel_Model extends CI_Model
     {
         $this->db->from("hotel");
         $this->db->where("tour_id", $tour_id);
-        $this->db->order_by("stay","DESC");
+        $this->db->order_by("stay", "DESC");
         $this->db->limit(1);
         $this->db->select("stay");
         $result = $this->db->get()->row();
@@ -125,5 +125,13 @@ class Hotel_Model extends CI_Model
         } else {
             $this->db->update("hotel", $values);
         }
+    }
+
+    function delete ($id)
+    {
+        $this->load->model("contact_model", "contact");
+        $this->contact->delete_for_hotel($id);
+        $this->db->where("id", $id);
+        $this->db->delete("hotel");
     }
 }
