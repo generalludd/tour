@@ -91,4 +91,5 @@ $(document).ready(function(){
 function set_payment_total(){
 	total = $("#total-paid").val();
 	$("#amt_paid").val(total);
+	calculate_cost(1);
 }
