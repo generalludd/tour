@@ -57,11 +57,11 @@ $buttons[] = array(
     <? endif;?>
     <br />
 <? endforeach; ?>
-			<td><span
-				class="button edit edit-payer"
-				id="edit-payer_<?=$payer->payer_id;?>_<?=$payer->tour_id;?>">Edit
-					Ticket</span><br/><br/>
-					<span class="button edit edit-payments" id="<?=sprintf("edit-payments_%s_%s", $payer->tour_id, $payer->payer_id);?>">Edit Payments</span>
+			<td>
+			<a
+			href="<?=site_url("payer/edit?payer_id=$payer->payer_id&tour_id=$payer->tour_id");?>"
+				class="button edit">Edit
+					Payment</a>
 					</td>
 			<td>
             <? if($payer->phones || $payer->email): ?>

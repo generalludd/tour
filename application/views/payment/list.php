@@ -3,10 +3,9 @@
 // list.php Chris Dart Mar 9, 2014 7:27:03 PM chrisdart@cerebratorium.com
 $total_paid=0;
 $buttons["add_payment"] = array("text"=>"Add Payment", "class"=>"button add-payment new", "id"=>sprintf("add-payment_%s_%s",$tour_id, $payer_id),"type"=>"span");
-$done[] = array("text"=>"Done", "class"=>"button", "href"=>site_url("tourist/view_all/$tour_id"));
+//$done[] = array("text"=>"Done", "class"=>"button", "href"=>site_url("payer/edit?payer_id=$payer_id&tour_id=$tour_id"));
 ?>
 <div id="payment-list-box">
-
 <table id="payment-list">
 <thead>
 <tr>
@@ -39,17 +38,19 @@ Amount
 <tfoot>
 <tr>
 <td>
+Total Paid:
 </td>
-<td>
+<td >
 <?=format_money($total_paid,"standard");?>
 </td>
 </tr>
 </tfoot>
 </table>
-<div>
+<input type="hidden" id="total-paid" value="<?=$total_paid;?>"/>
+<div style="padding-top: 1em;">
 <?=create_button_bar($buttons);?>
 </div>
-<div>
-<?=create_button_bar($done);?>
+<div style="padding-top: 1em;">
+<? //=create_button_bar($done);?>
 </div>
 </div>
