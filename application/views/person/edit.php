@@ -56,7 +56,7 @@ if (! $first_name) {
 <span
 			class="button delete disable-person"
 			id="<?=sprintf("disable-person_%s",$person->id);?>"
-			title="This person has been on tours, they will be disabled instead of deleted">Disable</span>
+			title="This person has been on tours, they will be disabled instead of deleted">Delete</span>
 <? endif; ?>
 <? endif;?>
 </p>

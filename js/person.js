@@ -83,7 +83,7 @@ $(document).ready(function(){
 	
 	$(".disable-person").live("click",function(){
 		my_id = this.id.split("_")[1];
-		decision = confirm("This person has been on several tours. Their record will only be removed from the list of people in the database. Continue?");
+		decision = confirm("This person has been on several tours. Their record will only be hidden from the searchable list of people in the database. Continue?");
 		if(decision){
 			form_data = {
 					id: my_id,
