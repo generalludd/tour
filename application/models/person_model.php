@@ -187,6 +187,7 @@ class Person_model extends CI_Model
     {
         $this->db->where("person.address_id", $address_id);
         $this->db->where("person.id !=", $person_id);
+        $this->db->where("status",1); //only show non-disabled entries
         $this->db->order_by("person.last_name, person.first_name");
         $this->db->from("person");
         $result = $this->db->get()->result();
