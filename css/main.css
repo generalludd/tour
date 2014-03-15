@@ -987,3 +987,9 @@ label.above {
 .address-state-field {
 	width: 3em;
 }
+
+#payer-editor-block, #payer-tourist-block, #payment-list-block {
+	float: left;
+	width: 30%;
+	clear: none;
+}

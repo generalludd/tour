@@ -7,6 +7,14 @@ $tourist_count = count($tourists);
 $total_cost = ($tour_price - $payer->discount + $room_rate) * $tourist_count;
 $amt_due = $total_cost - $payer->amt_paid;
 ?>
+<div class="block header">
+<h4>Payer: <?=sprintf("%s %s", $payer->first_name, $payer->last_name);?></h4>
+<?if($action == "update"):?>
+<h5>Tour: <?=get_value($payer,"tour_name");?></h5>
+<? endif;?>
+</div>
+<div id="payer-editor-block" class="block">
+<h4>Ticket Details</h4>
 <form
 	name="payer-editor"
 	id="payer-editor"
@@ -37,10 +45,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 		id="tour_price"
 		name="tour_price"
 		value="<?=$tour_price;?>" />
-	<h4><?=sprintf("%s %s", $payer->first_name, $payer->last_name);?></h4>
-<?if($action == "update"):?>
-<h5><?=get_value($payer,"tour_name");?></h5>
-<? endif;?>
+
 <p>
 		<label for="is_comp">Complementary Ticket: </label>
 <?=form_checkbox("is_comp","1",get_value($payer,"is_comp","FALSE"));?>
@@ -78,15 +83,14 @@ $amt_due = $total_cost - $payer->amt_paid;
 			name="amt_paid"
 			id="amt_paid"
 			class="edit-payer-amounts money"
-			value="<?=get_value($payer,"amt_paid");?>" />
+			value="<?=get_value($payer,"amount");?>" readonly/>
 	</p>
 	<p>
-	<?=get_value($payer, "amount");?>
 	</p>
 	<p>
-		<label for="amt_due">Amount Due:</label> <span
+		<label for="amt_due">Amount Due:</label> $<span
 			class="field"
-			id="amt_due"><?=format_money($amt_due);?></span>
+			id="amt_due"><?=$amt_due;?></span>
 	</p>
 	<p>
 	<label for="note">Note</label><br/>
@@ -104,7 +108,16 @@ $amt_due = $total_cost - $payer->amt_paid;
 			        <? endif; ?>
 	</p>
 </form>
-<div id="payer-tourist-block block">
+</div>
+<div id="payment-list-block" class="block">
+<h4>Payment Details</h4>
+<? $payment_data["payments"] = $payer->payments;
+$payment_data["tour_id"] = $payer->tour_id;
+$payment_data["payer_id"] = $payer->payer_id;
+
+$this->load->view("payment/list",$payment_data);?>
+</div>
+<div id="payer-tourist-block" class="block">
 	<h4>Tourists</h4>
 <? $this->load->view("tourist/payer_list", $tourists);?>
 <div id="mini-selector">

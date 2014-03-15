@@ -10,6 +10,7 @@ class Payer extends MY_Controller
         parent::__construct();
         $this->load->model("payer_model", "payer");
         $this->load->model("tourist_model", "tourist");
+        $this->load->model("payment_model", "payment");
     }
 
     function view ()
@@ -27,6 +28,7 @@ class Payer extends MY_Controller
         // This allows the creation
         // of at least one tourist record as well.
         $this->payer->insert($payer_id, $tour_id);
+
         // create the intial payer record for this payer-as-tourist
         $this->tourist->insert_payer($payer_id, $tour_id);
         $data["room_sizes"] = get_keyed_pairs($this->variable->get_pairs("room_size"), array(
@@ -37,14 +39,16 @@ class Payer extends MY_Controller
                 "value",
                 "name"
         ));
-        $data["payer"] = $this->payer->get_for_tour($payer_id, $tour_id);
+        $payer = $this->payer->get_for_tour($payer_id, $tour_id);
+        $payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
+        $data["payer"] = $payer;
         $data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
         $data["room_rate"] = 0;
         $data["tour_price"] = 0;
         $data["target"] = "payer/edit";
         $data["title"] = "Creating Payer";
         $data["action"] = "update";
-        $this->load->view("payer/edit", $data);
+        $this->load->view("page/index", $data);
     }
 
     /**
@@ -76,53 +80,15 @@ class Payer extends MY_Controller
                 "name"
         ));
         $payer = $this->payer->get_for_tour($payer_id, $tour_id);
-
+        $payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
         $data["payer"] = $payer;
         $data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
-
-/*         switch ($payer->payment_type) {
-            case "full_price":
-                $tour_price = $payer->full_price;
-                break;
-            case "banquet_price":
-                $tour_price = $payer->banquet_price;
-                break;
-            case "early_price":
-                $tour_price = $payer->early_price;
-                break;
-            case "regular_price":
-                $tour_price = $payer->regular_price;
-                break;
-            default:
-                $tour_price = 0;
-                break;
-        }
-
-        switch ($payer->room_size) {
-            case "single_room":
-                $room_rate = $payer->single_room;
-                break;
-            case "triple_room":
-                $room_rate = $payer->triple_room;
-                break;
-            case "quad_room":
-                $room_rate = $payer->quad_room;
-                break;
-            default:
-                $room_rate = 0;
-                break;
-        }
-        if ($payer->is_comp == 1) {
-            $tour_price = 0;
-            $room_rate = 0;
-        } */
-
         $data["room_rate"] = get_room_rate($payer);
         $data["tour_price"] = get_tour_price($payer);
         $data["target"] = "payer/edit";
         $data["title"] = "Editing Payer";
         $data["action"] = "update";
-        $this->load->view("payer/edit", $data);
+        $this->load->view("page/index", $data);
     }
 
     /**

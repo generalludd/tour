@@ -56,6 +56,7 @@ $(document).ready(function(){
 			url: base_url + "payment/insert",
 			success: function(data){
 				$("#payment-list-box").html(data);
+				set_payment_total();
 			}
 		});
 	});
@@ -78,6 +79,7 @@ $(document).ready(function(){
 						success: function(data){
 							$("#payment-row_" + my_id).remove();
 							$("#payment-list-box").html(data);
+							set_payment_total();
 						}
 			});
 			}
@@ -85,3 +87,8 @@ $(document).ready(function(){
 	});
 	
 });
+
+function set_payment_total(){
+	total = $("#total-paid").val();
+	$("#amt_paid").val(total);
+}

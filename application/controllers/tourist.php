@@ -9,6 +9,7 @@ class Tourist extends MY_Controller
     {
         parent::__construct();
         $this->load->model("tourist_model", "tourist");
+        $this->load->model("payment_model","payment");
     }
 
     function view ()
@@ -24,12 +25,10 @@ class Tourist extends MY_Controller
         }
 
         $options = array();
-        if($export){
+        if ($export) {
             $data["target"] = "tourist/export";
             $options["include_address"] = TRUE;
             $this->load->helper('download');
-
-
         }
 
         $this->load->model("tour_model", "tour");
@@ -42,7 +41,7 @@ class Tourist extends MY_Controller
             $payer->phones = $phones;
             $tourists = $this->tourist->get_by_payer($payer->payer_id, $tour_id);
             $payer->tourists = $tourists;
-
+            $payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
             $price = 0;
             switch ($payer->payment_type) {
                 case "full_price":
