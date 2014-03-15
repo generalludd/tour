@@ -896,7 +896,6 @@ body.person #content {
 
 body.person fieldset.grouping,div.grouping {
 	float: left;
-	width: 100%;
 	clear: none;
 	min-width: 35ex;
 }
@@ -988,8 +987,18 @@ label.above {
 	width: 3em;
 }
 
-#payer-editor-block, #payer-tourist-block, #payment-list-block {
+#payer-editor-block,#payer-tourist-block,#payment-list-block {
 	float: left;
 	width: 30%;
 	clear: none;
+}
+
+#word-icon {
+	background-image: url(../tiny_mce/themes/advanced/img/icons.gif);
+	background-repeat: no-repeat;
+	height: 20px;
+	width: 20px;
+	display: inline-block;
+	background-position-x: -380px;
+	background-position-y: -20px
 }

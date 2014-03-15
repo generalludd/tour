@@ -20,6 +20,8 @@ class Tour extends MY_Controller
     {
         $id = $this->uri->segment(3);
         $data["tour"] = $this->tour->get($id);
+        $this->load->model("letter_model","letter");
+       $data["letters"] = $this->letter->get_for_tour($id);
         $data["title"] = sprintf("Tour Data: %s", $data["tour"]->tour_name);
         $data["target"] = "tour/view";
         $this->load->view("page/index", $data);

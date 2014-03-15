@@ -13,6 +13,7 @@
 <!-- jquery scripts -->
 <script type="text/javascript">
 var base_url = '<?=base_url("index.php") . "/";?>';
+var root_url = '<?=base_url();?>';
 </script>
 <script type="text/javascript" src="<?=base_url();?>js/jquery.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>js/jquery-ui.min.js"></script>

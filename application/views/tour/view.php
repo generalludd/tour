@@ -4,7 +4,6 @@
 
 ?>
 <input type="hidden" value="<?=get_value($tour, "id");?>" name="id" id="id" />
-<div class="grouping block person-info" id="person">
 <h2><?=get_value($tour, "tour_name");?></h2>
 <? $buttons["edit_tour"] = array( "text" => "Edit",  "type" => "span",  "class" => "button edit edit-tour", "id" => "et_$tour->id" );
 
@@ -26,5 +25,8 @@ $buttons["hotels"] = array("text"=> "Hotels","href"=>site_url("hotel/view_all/$t
 <?=create_edit_field("triple_room", get_value($tour, "triple_room"),"Triple Room Adjustment (include a '-') $", array("envelope" => "p") );?>
 <?=create_edit_field("quad_room", get_value($tour, "quad_room"),"Quad Room Adjustment (include a '-')$", array("envelope" => "p") );?>
 </div>
-
+<div class="letter-list-block" id="tour-letters">
+<? $data["letters"] = $letters;
+$data["tour_id"] = $tour->id;?>
+<? $this->load->view("letter/list",$data); ?>
 </div>
