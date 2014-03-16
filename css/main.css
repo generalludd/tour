@@ -805,7 +805,8 @@ fieldset.block label {
 }
 
 .edit-field.field {
-	padding: 0px 15px;
+	min-width: 10em;
+	display: block;
 }
 
 textarea.save-field {
@@ -1001,4 +1002,38 @@ label.above {
 	display: inline-block;
 	background-position-x: -380px;
 	background-position-y: -20px
+}
+
+.return-slip .row {
+    height: 28px;
+    border-top: 1px solid #000;
+    width: 100%;
+}
+
+.return-slip .row-1 {
+    border-top: 0;
+}
+
+.return-slip .row-last {
+    border-bottom: 1px solid #000;
+}
+
+.return-slip .column {
+    width: auto;
+    padding-right: 1em;
+}
+
+.return-slip .special-request-block {
+    width: 60%;
+}
+
+.return-slip .payment-block {
+	float: right;
+}
+
+.pagebreak-notice {
+	text-transform: uppercase;
+	text-align: center;
+	border-top: 1px dotted #ccc;
+	color: #ccc;
 }

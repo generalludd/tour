@@ -180,9 +180,7 @@ function save_field(me)
 	table = $(me).parents(".grouping").attr("id");
 	my_parent = $(me).parents("span");
 	my_id = $("#id").val();
-	if(table == "order"){
-		my_id = $("#order_id").val();
-	}
+	console.log(my_id);
 	if(table == "phone"){
 		my_id = me.parents(".field").attr("id").split("_")[1];
 	}
@@ -201,6 +199,8 @@ function save_field(me)
 		id: my_id
 	};
 	my_url =  base_url +  table + "/update_value";
+	console.log(my_url);
+
 	$.ajax({
 		type: "post",
 		url: my_url,

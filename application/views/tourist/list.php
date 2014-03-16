@@ -58,10 +58,13 @@ $buttons[] = array(
     <br />
 <? endforeach; ?>
 			<td>
-			<a
+			<p><a
 			href="<?=site_url("payer/edit?payer_id=$payer->payer_id&tour_id=$payer->tour_id");?>"
 				class="button edit">Edit
-					Payment</a>
+					Payment</a></p><p>
+					<span class="button new select-letter" id="<?=sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id);?>">Send Letter
+					</span>
+					</p>
 					</td>
 			<td>
             <? if($payer->phones || $payer->email): ?>

@@ -363,6 +363,78 @@ $(".insert-new-tourist").live("click",function(){
 	
 });
 
+$(".select-letter").live("click", function(){
+	my_id = this.id.split("_");
+	my_payer = my_id[1];
+	my_tour = my_id[2];
+	form_data = {
+			payer_id: my_payer,
+			tour_id: my_tour,
+			ajax: 1
+	};
+	$.ajax({
+		type: "get",
+		url: base_url + "letter/select",
+		data: form_data,
+		success: function(data){
+			show_popup("Select Letter",data,"auto");
+		}
+	});
+
+});
+
+
+$(".insert-merge-note").live("click", function(){
+	$(this).fadeOut();
+	$.ajax({
+		type: "get",
+		url: base_url + "merge/create_note",
+		success: function(data){
+			$("#merge-note").html(data);
+		}
+	});
+});
+
+$(".edit-merge-note").live("click", function(){
+	$(this).fadeOut();
+	my_id = $("#id").val();
+	form_data = {
+			id: my_id,
+			field: "note",
+			ajax: 1
+	};
+	$.ajax({
+		type: "get",
+		url: base_url + "merge/get_note",
+		data: form_data,
+		success: function(data){
+			$("#merge-note").html(data);
+			console.log(data);
+
+		}
+	});
+});
+
+$(".save-note").live("click", function(){
+	my_id = $("#id").val();
+	my_note = $("#note").val();
+	form_data = {
+			id: my_id,
+			field: "note",
+			value: my_note,
+			ajax: 1
+	};
+	$.ajax({
+		type: "post",
+		url: base_url + "merge/update_value",
+		data: form_data,
+		success: function(data){
+			$("#merge-note").html(data);
+			$("#note-button-block").html("<span class='button edit small edit-merge-note'>Edit Custom Note</span>");
+		}
+	});
+});
+
 });//end document load
 
 

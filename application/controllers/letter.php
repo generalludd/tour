@@ -13,6 +13,16 @@ class Letter extends MY_Controller
         $this->load->model("payer_model", "payer");
     }
 
+    function select ()
+    {
+        $payer_id = $this->input->get("payer_id");
+        $tour_id = $this->input->get("tour_id");
+        $data["payer_id"] = $payer_id;
+        $data["tour_id"] = $tour_id;
+        $data["letters"] = $this->letter->get_for_tour($tour_id);
+        $this->load->view("letter/select", $data);
+    }
+
     function view ()
     {
         $id = $this->uri->segment(3);
@@ -55,7 +65,7 @@ class Letter extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
-    function update()
+    function update ()
     {
         $id = $this->input->post("id");
         $this->letter->update($id);

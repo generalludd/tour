@@ -127,8 +127,7 @@ function create_button ($data)
 
 /**
  *
- * @param
- *            compound array $buttons
+ * @param compound array $buttons
  * @param array $options
  * @return string Using the create_button function aove, this accepts an array
  *         of button arrays
@@ -184,8 +183,7 @@ function create_button_bar ($buttons, $options = NULL)
  * @param string $field_name
  * @param string $value
  * @param string $label
- * @param array $options
- *            (envelope, class, attributes)
+ * @param array $options (envelope, class, attributes)
  */
 function create_field ($field_name, $value, $label, $options = array())
 {
@@ -204,7 +202,9 @@ function create_field ($field_name, $value, $label, $options = array())
      * clicked
      */
     $output[] = sprintf("<%s class='field-envelope' id='field-%s'>", $envelope, $field_name);
-    $output[] = sprintf("<label>%s:&nbsp;</label>", $label);
+    if ($label) {
+        $output[] = sprintf("<label>%s:&nbsp;</label>", $label);
+    }
     if ($value == "") {
         $value = "&nbsp;";
     }
@@ -223,11 +223,15 @@ function create_field ($field_name, $value, $label, $options = array())
     $format = "";
     if (array_key_exists("format", $options)) {
         $format = sprintf("format='%s'", $options["format"]);
-        if ($options["format"] == "url" && $value != "&nbsp;"){
-            $value = sprintf("<a href='%s' target='_blank'>%s</a>",$value, $value);
-        }elseif($options["format"] == "email" && $value != "&nbsp;"){
-            $value = sprintf("<a href='mailto:%s'>%s</a>",$value,$value);
+        if ($options["format"] == "url" && $value != "&nbsp;") {
+            $value = sprintf("<a href='%s' target='_blank'>%s</a>", $value, $value);
+        } elseif ($options["format"] == "email" && $value != "&nbsp;") {
+            $value = sprintf("<a href='mailto:%s'>%s</a>", $value, $value);
         }
+    }
+$title = "";
+    if(array_key_exists("title", $options)){
+$title = sprintf("title='%s'", $options["title"]);
     }
     /*
      * Attributes are non-standard html attributes that are used by javascript
@@ -238,9 +242,7 @@ function create_field ($field_name, $value, $label, $options = array())
         $attributes = $options["attributes"];
     }
 
-
-
-    $output[] = sprintf("<span class='%s' %s %s %s>%s</span></%s>", $field_class, $attributes, $format, $id, $value, $envelope);
+    $output[] = sprintf("<span class='%s' %s %s %s %s>%s</span></%s>", $field_class, $title, $attributes, $format, $id, $value, $envelope);
     return implode("\r", $output);
 }
 
@@ -315,8 +317,7 @@ function create_input ($object, $name, $label, $options = array())
  *
  * @param string $name
  * @param array $values
- * @param array $selections
- *            @TODO add id option
+ * @param array $selections @TODO add id option
  */
 function create_checkbox ($name, $values, $selections = array())
 {

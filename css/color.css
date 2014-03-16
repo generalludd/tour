@@ -354,9 +354,10 @@ table.list tr:hover {
 
 .edit-field:hover {
 	cursor: pointer;
-	background-image: url(images/edit_item.png);
+	background-color: #fff555;
+	/*background-image: url(images/edit_item.png);
 	background-repeat: no-repeat;
-	background-position: center left;
+	background-position: center left;*/
 }
 
 .search-field {
