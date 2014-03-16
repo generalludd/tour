@@ -32,6 +32,7 @@ if (! $for_tourist) {
 			<th>Quad Rate</th> -->
 			<th></th>
 			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -89,11 +90,14 @@ foreach ($tours as $tour) {
 				href="<?=site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
 <? else: ?>
 			<td><a
-				class="button show-hotels mini"
+				class="button show-hotels small"
 				href="<?=site_url("/hotel/view_all/$tour->id");?>">Hotels</a></td>
 			<td><a
-				class="button show-toursits mini"
+				class="button show-toursits small"
 				href="<?=site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
+				<td><a
+				class="button show-letters small"
+				href="<?=site_url("/tour/view/$tour->id");?>">Letter Templates</a></td>
 		</tr>
 <?
 endif;
