@@ -15,13 +15,16 @@ $salutation = $tourists;
 
 ?>
 <section class="non-printing">
-	<h4 class="notice">Key formatting will happen during printing.</h4>
+	<div class="alert" style="padding:1em; text-align: center;">
+	<p>Key formatting will happen during printing.</p>
 	<p>Hover over the date and salutation to edit them.</p>
+	</div>
 	<p>
 		For <a href="<?=site_url("tourist/view_all/$tour->id");?>"><?=$tour->tour_name;?></a><br />
 <?=format_date($tour->start_date, "standard");?> to <?=format_date($tour->end_date);?><br />
 Payment Deadline: <?=format_date($tour->due_date);?>
 </p>
+<?=create_button_bar(array(array("text"=>"Edit Source Letter","title"=>"Click here to edit the main section and the cancellation policy","class"=>"button edit", "href"=>site_url("letter/edit/$letter->id"))));?>
 </section>
 <div class="printed-content">
 <div

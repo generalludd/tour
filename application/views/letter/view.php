@@ -5,7 +5,7 @@
 ?>
 <h4><?=$title;?></h4>
 <p>
-For <a href="<?=site_url("tour/view/$tour->id");?>"><?=$tour->tour_name;?></a><br/>
+For <a href="<?=site_url("tourist/view_all/$tour->id");?>"><?=$tour->tour_name;?></a><br/>
 <?=format_date($tour->start_date, "standard");?> to <?=format_date($tour->end_date);?><br/>
 Payment Deadline: <?=format_date($tour->due_date);?>
 </p>
