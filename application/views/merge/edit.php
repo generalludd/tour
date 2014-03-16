@@ -64,7 +64,7 @@ Payment Deadline: <?=format_date($tour->due_date);?>
 <div class="block">
 <? if(get_value($letter, "cancellation",FALSE)):?>
 <p>
-		<strong>Cancellation Rules</strong>
+		<strong>Cancellation Policy</strong>
 	</p>
 <?=$letter->cancellation;?>
 
@@ -75,7 +75,7 @@ Payment Deadline: <?=format_date($tour->due_date);?>
 	<div class="block">
 <? if(get_value($letter, "cancellation",FALSE)):?>
 <p>
-			<strong>Cancellation Rules</strong>
+			<strong>Cancellation Policy</strong>
 		</p>
 <?=$letter->cancellation;?>
 
