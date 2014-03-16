@@ -9,12 +9,17 @@ $total_tourists = 0;
 $buttons[] = array(
         "text" => "Tour Details",
         "href" => site_url("tour/view/$tour->id"),
-        "class" => "button show-tour"
+        "class" => "button show-tour",
 );
 $buttons[] = array(
         "text" => "Hotels and Roommates",
         "href" => site_url("hotel/view_all/$tour->id"),
-        "class" => "button show-hotels"
+        "class" => "button show-hotels",
+);
+$buttons[] = array(
+	"text" => "Letter Templates",
+        "href"=> site_url("tour/view/$tour->id"),
+        "class" => "button show-tour",
 );
 $buttons[] = array(
         "text" => "Export List for Mail Merge",
