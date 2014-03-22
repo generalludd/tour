@@ -10,8 +10,8 @@ $amt_due = $total_cost - $payer->amt_paid;
 <div class="block header">
 <h4>Payer: <?=sprintf("%s %s", $payer->first_name, $payer->last_name);?></h4>
 <?if($action == "update"):?>
-<h5>Tour: <a href="javascript:document.forms[0].submit();" title="Save and return to tourist list" ><?=get_value($payer,"tour_name");?></a></h5>
-<?=create_button_bar(array(array("text"=>"Cancel", "class"=>"button cancel cancel-payment-edit","href"=>"javascript:history.back();")));?>
+<h5>Tour: <a href="#" class="save-payer-edits" title="Save and return to tourist list" ><?=get_value($payer,"tour_name");?></a></h5>
+<?=create_button_bar(array(array("text"=>"Cancel", "class"=>"button cancel cancel-payer-edit")));?>
 <? endif;?>
 </div>
 <div id="payer-editor-block" class="block triptych">
@@ -138,12 +138,12 @@ $this->load->view("payment/list",$payment_data);?>
 				value="<?=$payer_id;?>" />
 			<p>
 				<label for="tourist-dropdown">Type the name of a person <i>already in the address book</i> you want to add to this ticket. If no one is in the list, you will have an option to add them.
-					</label><br /> <input
+					</label></p> <div id="tourist-dropdown-block"><input
 					type="text"
 					id="tourist-dropdown"
 					name="tourist-dropdown"
 					value="" />
-			</p>
+</div>
 		</form>
 		<div id="add-new-tourist">
 			</div>

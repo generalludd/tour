@@ -25,6 +25,12 @@ $(document).ready(function(){
 		$(".datefield").datepicker();
 	});
 	
+	$(".history-back").live("click", function(){
+		history.back();
+		history.back();
+	});
+
+	
 });
 
 function show_popup(my_title,data,popup_width,x,y){

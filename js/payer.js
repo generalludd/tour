@@ -21,6 +21,25 @@ $(".edit-payer").live("click",function(){
 	
 });
 
+$(".save-payer-edits").live("click", function(){
+	document.forms[0].submit();
+});
+
+$(".cancel-payer-edit").live("click", function(){
+	$("#payer-editor-block").css("background-color","#FFCCCC");
+	tour_id = $("#tour_id").val();
+	ok = "<a class='button delete' href='" + base_url + "tourist/view_all/" + tour_id + "' >Yes</a>";
+	text = "<p>Do you want to cancel? This will discard ONLY changes<br/> you made to the \"Ticket Details\" column on this page.</p>";
+	button_box = "<div class='button-box mini'><ul class='button-list'><li>" + ok + "</li></ul></div>";
+	message = text + button_box;
+	
+	show_popup("Discard Changes to Ticket Details?", message, "auto");
+	$("#payer-editor-block").css("background-color","#fff");
+
+});
+
+
+
 
 /*
  * change the hidden value of the payment type based on changes to a dropdown

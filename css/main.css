@@ -381,7 +381,7 @@ legend {
 #navigation {
 	position: relative;
 	float: left;
-	width: 100%;
+	width: 95%;
 	padding: .75em 0 0 1em;
 	height: 3em;
 	min-width: 700px;
@@ -429,9 +429,13 @@ legend {
 
 /* end header page layout elements */ /*main div layout elements */
 #main {
+	width: 95%;
 	position: relative;
-	padding: 0 5em 2em 2em;
+	padding: 0 2em 2em 2em;
+	margin-left: auto;
+	margin-right: auto;
 	margin-top: 2.5em;
+	
 }
 
 #content {
@@ -995,11 +999,21 @@ label.above {
 	width: 3em;
 }
 
-#payer-editor-block,#payer-tourist-block,#payment-list-block {
+#payer-editor-block,#payment-list-block, #payer-tourist-block {
 	float: left;
-	width: 27%;
+	width: 30%;
 	clear: none;
 }
+
+#payer-editor-block {
+min-width: 300px;	
+}
+
+
+#payment-list-block, #payer-tourist-block {
+	min-width: 250px;
+}
+
 
 #word-icon {
 	background-image: url(../tiny_mce/themes/advanced/img/icons.gif);
@@ -1062,4 +1076,19 @@ label.above {
 	border-radius: 3px;
 	padding: 0 .5em;
 	margin: .5em;
+}
+#tourist-dropdown-block {
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+	padding:.5em;
+}
+
+
+#tourist-dropdown {
+	width: 80%;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	padding: .5em;
 }
