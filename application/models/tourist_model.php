@@ -49,17 +49,6 @@ class Tourist_model extends CI_Model
     }
 
 
-    /**
-     * DEPRECATED
-     * @param int $payer_id
-     * @param int $tour_id
-     */
-    function get_by_payer ($payer_id, $tour_id)
-    {
-        return $this->get_for_payer($payer_id, $tour_id);
-
-    }
-
     function get_for_payer($payer_id, $tour_id)
     {
         $this->db->from("tourist");
@@ -74,6 +63,7 @@ class Tourist_model extends CI_Model
     function get_by_tourist ($person_id)
     {
         $this->db->where("person_id", $person_id);
+        $this->db->where("payer.tour_id = tour.id",NULL, FALSE);
         $this->db->from("tourist");
         $this->db->join("payer", "tourist.payer_id = payer.payer_id");
         $this->db->join("tour", "tour.id = tourist.tour_id");
@@ -122,5 +112,18 @@ class Tourist_model extends CI_Model
         $this->db->where("payer_id", $payer_id);
         $this->db->where("tour_id", $tour_id);
         $this->db->delete("tourist");
+    }
+
+
+
+    /**
+     * DEPRECATED
+     * @param int $payer_id
+     * @param int $tour_id
+     */
+    function get_by_payer ($payer_id, $tour_id)
+    {
+        return $this->get_for_payer($payer_id, $tour_id);
+
     }
 }
