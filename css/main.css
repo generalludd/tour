@@ -248,6 +248,7 @@ div.entry,div.list {
 	/*font-size: 1.1em;*/
 	font-weight: normal;
 	font-size: inherit;
+	white-space: nowrap;
 }
 
 td .button,.row .button,.button.small {
@@ -1050,4 +1051,8 @@ label.above {
 	text-align: center;
 	border-top: 1px dotted #ccc;
 	color: #ccc;
+}
+
+.no-wrap {
+	white-space: nowrap;
 }

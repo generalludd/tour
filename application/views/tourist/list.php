@@ -33,14 +33,14 @@ $buttons[] = array(
 <table class="list">
 	<thead>
 		<tr>
-			<th style="width: 25ex">Payer (&#42;) &#36; Tourists</th>
+			<th class="no-wrap">Payer (&#42;) &amp; Tourists</th>
 			<th></th>
 			<th>Contact Info</th>
-			<th>Payment Type<br />Price
+			<th class="no-wrap">Payment Type<br />Price
 			</th>
 			<th>Paid</th>
 			<th>Discount</th>
-			<th>Room Size<br />Rate
+			<th class="no-wrap">Room Size<br />Rate
 			</th>
 			<th>Due</th>
 		</tr>
@@ -49,11 +49,7 @@ $buttons[] = array(
 
 <? foreach ($payers as $payer) : ?>
 <? $total_payers++;?>
-<? if($payer->is_cancelled): ?>
-<? $row_class .= "row row-break cancelled";?>
-<? endif; ?>
 <tr class="row row-break<?=$payer->is_cancelled ==1 ? " cancelled": "";?>">
-
 			<td>
 <? foreach($payer->tourists as $tourist) :?>
     <? if($payer->is_cancelled == 0):?>
@@ -121,20 +117,28 @@ $buttons[] = array(
 		<? endforeach; ?>
 	</tbody>
 	<tfoot>
-		<tr>
-			<td>Total Payers: <?=$total_payers - $total_cancels;?>
-	</td>
-			<td>Total Tourists: <?=$total_tourists;?>
-	</td>
-			<td>Total Cancels: <?=$total_cancels;?></td>
-			<td >Total Paid</td>
-			<td colspan='2'>
-	<?=format_money($total_paid);?>
-	</td>
-			<td>Total Due</td>
-			<td>
-	<?=format_money($total_due);?>
-	</td>
+	    <tr>
+        	<td>
+        	Tourists: <?=$total_tourists;?>
+        	</td>
+        	<td>
+        	Payers: <?=$total_payers - $total_cancels;?>
+        	</td>
+         	<td>
+        	Cancels: <?=$total_cancels;?>
+        	</td>
+        	<td style="text-align: right;">
+        	Total Paid
+        	</td>
+        	<td colspan='2'>
+        	<?=format_money($total_paid);?>
+        	</td>
+        	<td style="text-align: right;">
+        	Total Due
+        	</td>
+        	<td>
+        	<?=format_money($total_due);?>
+        	</td>
 		</tr>
 	</tfoot>
 </table>
