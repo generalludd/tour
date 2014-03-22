@@ -10,10 +10,11 @@ $amt_due = $total_cost - $payer->amt_paid;
 <div class="block header">
 <h4>Payer: <?=sprintf("%s %s", $payer->first_name, $payer->last_name);?></h4>
 <?if($action == "update"):?>
-<h5>Tour: <?=get_value($payer,"tour_name");?></h5>
+<h5>Tour: <a href="javascript:document.forms[0].submit();" title="Save and return to tourist list" ><?=get_value($payer,"tour_name");?></a></h5>
+<?=create_button_bar(array(array("text"=>"Cancel", "class"=>"button cancel cancel-payment-edit","href"=>"javascript:history.back();")));?>
 <? endif;?>
 </div>
-<div id="payer-editor-block" class="block">
+<div id="payer-editor-block" class="block triptych">
 <h4>Ticket Details</h4>
 <form
 	name="payer-editor"
@@ -109,7 +110,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 	</p>
 </form>
 </div>
-<div id="payment-list-block" class="block">
+<div id="payment-list-block" class="block triptych">
 <h4>Payment Details</h4>
 <? $payment_data["payments"] = $payer->payments;
 $payment_data["tour_id"] = $payer->tour_id;
@@ -117,7 +118,7 @@ $payment_data["payer_id"] = $payer->payer_id;
 
 $this->load->view("payment/list",$payment_data);?>
 </div>
-<div id="payer-tourist-block" class="block">
+<div id="payer-tourist-block" class="block triptych">
 	<h4>Tourists</h4>
 <? $this->load->view("tourist/payer_list", $tourists);?>
 <div id="mini-selector">
@@ -136,18 +137,15 @@ $this->load->view("payment/list",$payment_data);?>
 				name="payer_id"
 				value="<?=$payer_id;?>" />
 			<p>
-				<label for="tourist-dropdown">Type the name of a current person you want to add to this ticket
+				<label for="tourist-dropdown">Type the name of a person <i>already in the address book</i> you want to add to this ticket. If no one is in the list, you will have an option to add them.
 					</label><br /> <input
 					type="text"
 					id="tourist-dropdown"
 					name="tourist-dropdown"
 					value="" />
 			</p>
-			<fieldset>
-			<span class="button new small create-new-tourist">Add a New Person as a Tourist</span>
-			<div id="add-new-tourist">
-			</div>
-			</fieldset>
 		</form>
+		<div id="add-new-tourist">
+			</div>
 	</div>
 </div>

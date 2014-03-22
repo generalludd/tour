@@ -318,6 +318,9 @@ $(".delete-payer").live("click",function(){
 });
 
 $(".create-new-tourist").live("click", function(){
+	tourist_name = $("#tourist-dropdown").val();
+	first_name = tourist_name.split(" ")[0];
+	last_name = tourist_name.split(" ")[1];
 	form_data = {
 			ajax: '1'
 	};
@@ -328,6 +331,9 @@ $(".create-new-tourist").live("click", function(){
 		success: function(data){
 			$("#add-new-tourist").html(data);
 			$(".create-new-tourist").fadeOut();
+			$("#tourist-mini-selector").fadeOut();
+			$("#first_name").val(first_name);
+			$("#last_name").val(last_name);
 		}
 	});
 });
@@ -355,7 +361,8 @@ $(".insert-new-tourist").live("click",function(){
 			$("#tourist_count").val(tourist_count);
 			calculate_cost(1);
 			$(".create-new-tourist").fadeIn();
-
+			$("#tourist-mini-selector").fadeIn();
+			$("#tourist-dropdown").val("");
 		}
 		
 	});

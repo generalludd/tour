@@ -30,7 +30,8 @@ Amount
 <? $total_paid += $payment->amount;?>
 </td>
 <td>
-<span id="<?=sprintf("delete-payment_%s",$payment->id);?>" class="delete-payment delete button small">Delete</span>
+<?=create_button_bar(array(array("text"=>"Delete","class"=>"delete-payment delete button small",
+         "id"=>sprintf("delete-payment_%s",$payment->id), "type"=>"span")));?>
 </td>
 </tr>
 <? endforeach; ?>

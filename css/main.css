@@ -997,7 +997,7 @@ label.above {
 
 #payer-editor-block,#payer-tourist-block,#payment-list-block {
 	float: left;
-	width: 30%;
+	width: 27%;
 	clear: none;
 }
 
@@ -1039,7 +1039,7 @@ label.above {
 }
 
 #payment-list tr td:first-child {
-	min-width: 15ex;
+	min-width: 13ex;
 }
 
 #payment-list tfoot tr td {
@@ -1055,4 +1055,11 @@ label.above {
 
 .no-wrap {
 	white-space: nowrap;
+}
+
+.triptych {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	padding: 0 .5em;
+	margin: .5em;
 }

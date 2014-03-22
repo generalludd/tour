@@ -4,6 +4,7 @@
 
 ?>
 <table>
+<tbody>
 <? foreach($people as $person): ?>
 <tr>
 <td><?=sprintf("%s %s", $person->first_name, $person->last_name);?></td>
@@ -11,5 +12,13 @@
 </td>
 </tr>
 <? endforeach;?>
+</tbody>
+<tfoot>
+<tr>
+<td>No One Found</td>
+<td>
+<span class="button new small create-new-tourist">Add a New Person</span>
+</td>
 </table>
+
 

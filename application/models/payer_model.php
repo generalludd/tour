@@ -9,8 +9,8 @@ class Payer_model extends CI_Model
     var $room_size;
     var $discount;
     var $amt_paid;
-    var $is_comp;
-    var $is_cancelled;
+    var $is_comp = 0;
+    var $is_cancelled = 0;
     var $note;
 
     function __construct ()
