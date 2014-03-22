@@ -23,6 +23,7 @@ $(document).ready(function(){
 		my_id = this.id.split("_");
 		my_tour = my_id[1];
 		my_payer = my_id[2];
+		$(this).fadeOut(1000);
 		form_data = {
 			tour_id: my_tour,
 			payer_id: my_payer,
@@ -35,6 +36,7 @@ $(document).ready(function(){
 			url: base_url + "payment/create",
 			success: function(data){
 				$("#payment-list tbody").append(data);
+				
 			}
 		});
 	});
