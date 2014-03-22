@@ -284,7 +284,8 @@ $(".select-as-payer").live("click",function(){
 		url: base_url + "payer/insert",
 		data: form_data,
 		success: function(data){
-			$("#tourist-selector").html(data);
+			document.location.href = base_url + "payer/edit/?payer_id=" + my_person + "&tour_id=" + my_tour;
+//			$("#tourist-selector").html(data);
 		}
 	});
 });

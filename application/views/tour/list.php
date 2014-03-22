@@ -83,8 +83,7 @@ foreach ($tours as $tour) {
 <?=format_money($tour->amt_paid);?>
 </td>
 <td>
-<?=create_button(array("text"=>"Edit Payment", "type"=>"span","class"=>"button edit edit-payer", "id"=>sprintf("edit-payer_%s_%s",$tour->payer_id, $tour->tour_id)));?>
-
+<a href="<?=site_url("payer/edit/?payer_id=$tour->payer_id&tour_id=$tour->tour_id");?>" class="button edit">Edit Payment</a>
 </td>
 <td><a class="button show-toursits mini"
 				href="<?=site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
