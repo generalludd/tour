@@ -235,6 +235,7 @@ function format_address ($address, $format = "postal")
  *
  *
  *
+ *
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
 function get_first_missing_number ($list, $field)
@@ -404,4 +405,22 @@ function format_salutation ($people, $format = "informal")
         }
     }
     return $output;
+}
+/**
+ * custopm sort an array by key values
+ * @param array $array array to be sorted
+ * @param array $order array representing the order of the list
+ * @return restorted array
+ */
+function array_custom_sort ($array, $order)
+{
+    foreach ($array as $key => $value) {
+        $new_array[$key] = array(
+                "rank" => array_search($key, $order),
+                "key" => $key,
+                "value" => $value,
+        );
+    }
+    array_multisort($new_array);
+    return $new_array;
 }

@@ -9,7 +9,31 @@ class Tourist extends MY_Controller
     {
         parent::__construct();
         $this->load->model("tourist_model", "tourist");
-        $this->load->model("payment_model","payment");
+        $this->load->model("payment_model", "payment");
+    }
+
+    function index ()
+    {
+        $array = array(
+                "XXXL" => 5,
+                "XL" => 0,
+                "XXL" => 2,
+                "S" => 3,
+                "M" => 16,
+                "L" => 27,
+                "Unknown" => 45
+        );
+        $order = array(
+                "Unknown",
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL",
+                "XXXL"
+        );
+
+
     }
 
     function view ()

@@ -2,11 +2,14 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // list.php Chris Dart Dec 28, 2013 4:47:05 PM chrisdart@cerebratorium.com
+
+$this->load->helper("tour_helper");
 $total_due = 0;
 $total_paid = 0;
 $total_payers = 0;
 $total_cancels = 0;
 $total_tourists = 0;
+$shirt_count = array();
 $buttons[] = array(
         "text" => "Tour Details",
         "href" => site_url("tour/view/$tour->id"),
@@ -54,7 +57,9 @@ $buttons[] = array(
 <? foreach($payer->tourists as $tourist) :?>
     <? if($payer->is_cancelled == 0):?>
         <? $total_tourists++;?>
+        <? $shirt_count = update_shirt_count($shirt_count, $tourist->shirt_size); ?>
     <? endif;?>
+
     <? $tourist_name = sprintf("%s %s", $tourist->first_name,$tourist->last_name);?>
     <? printf("<a href='%s' title='View %s&rsquo;s address book entry'>%s</a>",site_url("person/view/$tourist->person_id"),$tourist_name, $tourist_name);?>
     <? if($tourist->person_id == $payer->payer_id) : ?>
@@ -142,3 +147,10 @@ $buttons[] = array(
 		</tr>
 	</tfoot>
 </table>
+<p><strong>Shirt Totals</strong><br/>
+<?=sort_shirts($shirt_count);?>
+</p>
+
+
+
+

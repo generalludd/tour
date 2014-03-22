@@ -73,6 +73,10 @@ class Tourist_model extends CI_Model
         return $result;
     }
 
+    function get_shirt_totals($tour_id){
+
+    }
+
     function insert ($data = FALSE)
     {
         if (is_array($data)) {
