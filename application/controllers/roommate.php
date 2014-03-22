@@ -19,7 +19,8 @@ class Roommate extends MY_Controller
     {
         $tour_id = $this->input->get("tour_id");
         $stay = $this->input->get("stay");
-
+        $this->load->model("payer_model", "payer");
+        $data["room_types"] = $this->payer->get_room_types($tour_id);
         if ($tour_id && $stay) {
             $room_list = $this->roommate->get_for_tour($tour_id, $stay);
             $rooms = array();
@@ -51,10 +52,10 @@ class Roommate extends MY_Controller
         $stay = $this->input->get("stay");
         if ($tour_id && $stay) {
             $last_room = $this->roommate->get_last_room($tour_id, $stay);
-            $room_list =  $this->roommate->get_room_numbers($tour_id, $stay);
-//             print get_first_missing_number($room_list, "room");
-//             die();
-            $data["room_number"] =  get_first_missing_number($room_list, "room");
+            $room_list = $this->roommate->get_room_numbers($tour_id, $stay);
+            // print get_first_missing_number($room_list, "room");
+            // die();
+            $data["room_number"] = get_first_missing_number($room_list, "room");
             $data["roommate_list"] = $this->get_roomless_menu($tour_id, $stay);
             $data["roommates"] = FALSE;
             $this->load->view("roommate/room", $data);

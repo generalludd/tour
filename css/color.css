@@ -364,6 +364,8 @@ table.list tr:hover {
 	color: #666;
 }
 
-.cancelled {
+.cancelled , tr.cancelled td {
 	background-color: #FFCCCC;
 }
+
+ 

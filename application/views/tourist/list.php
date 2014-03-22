@@ -5,6 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $total_due = 0;
 $total_paid = 0;
 $total_payers = 0;
+$total_cancels = 0;
 $total_tourists = 0;
 $buttons[] = array(
         "text" => "Tour Details",
@@ -48,10 +49,16 @@ $buttons[] = array(
 
 <? foreach ($payers as $payer) : ?>
 <? $total_payers++;?>
-<tr class="row row-break">
+<? if($payer->is_cancelled): ?>
+<? $row_class .= "row row-break cancelled";?>
+<? endif; ?>
+<tr class="row row-break<?=$payer->is_cancelled ==1 ? " cancelled": "";?>">
+
 			<td>
 <? foreach($payer->tourists as $tourist) :?>
-    <? $total_tourists++;?>
+    <? if($payer->is_cancelled == 0):?>
+        <? $total_tourists++;?>
+    <? endif;?>
     <? $tourist_name = sprintf("%s %s", $tourist->first_name,$tourist->last_name);?>
     <? printf("<a href='%s' title='View %s&rsquo;s address book entry'>%s</a>",site_url("person/view/$tourist->person_id"),$tourist_name, $tourist_name);?>
     <? if($tourist->person_id == $payer->payer_id) : ?>
@@ -86,6 +93,8 @@ $buttons[] = array(
             <td>Complementary</td>
         <? elseif ($payer->is_cancelled == 1): ?>
             <td class='cancelled'>Cancelled</td>
+            <? $total_cancels ++;?>
+
         <? else: ?>
             <td><?=sprintf("%s<br/>%s",format_field_name($payer->payment_type), format_money($payer->price));?>
            </td>
@@ -113,15 +122,16 @@ $buttons[] = array(
 	</tbody>
 	<tfoot>
 		<tr>
-			<td>Total Payers: <?=$total_payers;?>
+			<td>Total Payers: <?=$total_payers - $total_cancels;?>
 	</td>
 			<td>Total Tourists: <?=$total_tourists;?>
 	</td>
-			<td colspan='2'></td>
-			<td>
+			<td>Total Cancels: <?=$total_cancels;?></td>
+			<td >Total Paid</td>
+			<td colspan='2'>
 	<?=format_money($total_paid);?>
 	</td>
-			<td colspan='2'></td>
+			<td>Total Due</td>
 			<td>
 	<?=format_money($total_due);?>
 	</td>

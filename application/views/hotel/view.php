@@ -16,6 +16,7 @@ $buttons[] = array(
 ?>
 <h3>Information for Hotel <?=$hotel->hotel_name; ?></h3>
 <?=create_button_bar($buttons);?>
+
 <input
 	type="hidden"
 	id="id"
@@ -59,5 +60,14 @@ $buttons[] = array(
 <?=create_field ("arrival_time", get_value($hotel,"arrival_time"), "Arrival Time",array("envelope"=>"div","format"=>"time","type"=>"time"));?>
 <?=create_field ("departure_date",format_date( get_value($hotel,"departure_date")), "Departure Date",array("envelope"=>"div","format"=>"date","type"=>"date"));?>
 <?=create_field ("departure_time", get_value($hotel,"departure_time"), "Departure Time",array("envelope"=>"div","format"=>"time","type"=>"time"));?>
+</div>
+<div class="column">
+<p><strong>Room Type Count (from payer records):</strong></p>
+<? foreach($room_types as $room_type):?>
+<?$room_output[] = sprintf("%ss: %s", format_field_name($room_type->room_size), $room_type->count);?>
+<? endforeach;?>
+<p>
+<?=implode("<br/>", $room_output);?>
+</p>
 </div>
 </div>

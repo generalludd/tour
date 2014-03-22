@@ -9,7 +9,7 @@ class Hotel extends MY_Controller
     {
         parent::__construct();
         $this->load->model("hotel_model", "hotel");
-        $this->load->model("contact_model","contact");
+        $this->load->model("contact_model", "contact");
     }
 
     function view ()
@@ -18,6 +18,8 @@ class Hotel extends MY_Controller
         $hotel = $this->hotel->get($hotel_id);
         $data["contacts"] = $this->contact->get_all($hotel_id);
         $data["hotel"] = $hotel;
+        $this->load->model("payer_model", "payer");
+        $data["room_types"] = $this->payer->get_room_types($hotel->tour_id);
         $data["target"] = "hotel/view";
         $data["title"] = sprintf("Viewing Details for Hotel: %s", $hotel->hotel_name);
         $this->load->view("page/index", $data);
@@ -102,7 +104,7 @@ class Hotel extends MY_Controller
         echo $this->input->post("value");
     }
 
-    function delete()
+    function delete ()
     {
         $id = $this->input->post("id");
         $this->hotel->delete($id);

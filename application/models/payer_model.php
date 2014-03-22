@@ -85,6 +85,20 @@ class Payer_model extends CI_Model
         return $result;
     }
 
+    /**
+     * Get the number room types for a given tour (single, double, triple, quad)
+     * @param unknown $tour_id
+     * @return unknown
+     */
+    function get_room_types($tour_id){
+        $this->db->select("count(room_size) as count, room_size");
+        $this->db->from("payer");
+        $this->db->where("tour_id",$tour_id);
+        $this->db->group_by("room_size");
+        $result = $this->db->get()->result();
+        return $result;
+    }
+
     function update ($payer_id, $tour_id)
     {
         $this->db->where("tour_id", $tour_id);
@@ -109,5 +123,6 @@ class Payer_model extends CI_Model
         $this->db->where("tour_id", $tour_id);
         $this->db->delete("payer");
     }
+
 
 }
