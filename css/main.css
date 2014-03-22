@@ -1031,6 +1031,14 @@ label.above {
 	float: right;
 }
 
+#payment-list tr td:first-child {
+	min-width: 15ex;
+}
+
+#payment-list tfoot tr td {
+	border-top: 3px double #000;
+}
+
 .pagebreak-notice {
 	text-transform: uppercase;
 	text-align: center;
