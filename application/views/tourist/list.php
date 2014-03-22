@@ -62,14 +62,13 @@ $buttons[] = array(
     <? endif;?>
     <br />
 <? endforeach; ?>
+<br/>
+	<span class="button new select-letter" id="<?=sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id);?>">Send Letter</span>
 			<td>
-			<p><a
+			<a
 			href="<?=site_url("payer/edit?payer_id=$payer->payer_id&tour_id=$payer->tour_id");?>"
 				class="button edit">Edit
-					Payment</a></p><p>
-					<span class="button new select-letter" id="<?=sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id);?>">Send Letter
-					</span>
-					</p>
+					Payment</a>
 					</td>
 			<td>
             <? if($payer->phones || $payer->email): ?>
@@ -91,10 +90,12 @@ $buttons[] = array(
             <td><?=sprintf("%s<br/>%s",format_field_name($payer->payment_type), format_money($payer->price));?>
            </td>
         <? endif; ?>
-			<td><?=format_money($payer->amt_paid);?></td>
+			<td><?=format_money($payer->amt_paid);?>
+			</td>
 			<td><?=format_money($payer->discount);?></td>
 			<td><?=sprintf("%s<br/>%s", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
-			<td><?=format_money($payer->amt_due);?></td>
+			<td><?=format_money($payer->amt_due);?>
+			</td>
 		</tr>
 				<? if(get_value($payer, "note",FALSE)): ?>
 		<tr>
