@@ -27,7 +27,7 @@ class Person_model extends CI_Model
                 "shirt_size",
                 "is_veteran",
                 "address_id",
-                "note",
+                "note"
         );
         prepare_variables($this, $variables);
     }
@@ -91,7 +91,7 @@ class Person_model extends CI_Model
             $this->db->from("address");
             $this->db->order_by("person.address_id", "ASC");
             $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
-            $this->db->where("`person`.`address_id` IS NOT NULL",NULL, FALSE);
+            $this->db->where("`person`.`address_id` IS NOT NULL", NULL, FALSE);
             $this->db->select("address.address, address.city, address.state,address.zip, person.address_id");
             $this->db->join("person", "person.address_id=address.id");
             $this->db->order_by("address.id");
@@ -187,7 +187,7 @@ class Person_model extends CI_Model
     {
         $this->db->where("person.address_id", $address_id);
         $this->db->where("person.id !=", $person_id);
-        $this->db->where("status",1); //only show non-disabled entries
+        $this->db->where("status", 1); // only show non-disabled entries
         $this->db->order_by("person.last_name, person.first_name");
         $this->db->from("person");
         $result = $this->db->get()->result();
@@ -196,6 +196,7 @@ class Person_model extends CI_Model
 
     /**
      * get all the residents for a given address.
+     *
      * @param int $address_id
      * @return array of objects
      */
@@ -296,10 +297,12 @@ class Person_model extends CI_Model
         $this->load->model("tourist_model", "tourist");
         if (count($this->tourist->get($id)) == 0) {
             $address_id = $this->get($id, "address_id")->address_id;
-            $housemates = count($this->get_housemates($address_id, $id));
-            if ($housemates == 1) {
-                $this->load->model("address_model", "address");
-                $this->address->delete($address_id);
+            if ($address_id) {
+                $housemates = count($this->get_housemates($address_id, $id));
+                if ($housemates == 0) {
+                    $this->load->model("address_model", "address");
+                    $this->address->delete($address_id);
+                }
             }
             $this->load->model("phone_model", "phone");
             $this->phone->delete_for_person($id);
