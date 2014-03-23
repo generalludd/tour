@@ -39,15 +39,15 @@ loggedout indicates the opposite.
 
 /*Login Form elements*/
 div.login {
-	background-color: #C7D7E9;
-	background: -moz-linear-gradient(top, #c7d7e9 0, #c3d0e2 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #c7d7e9),
-		color-stop(100%, #c3d0e2));
-	background: -webkit-linear-gradient(top, #c7d7e9 0, #c3d0e2 100%);
-	background: -o-linear-gradient(top, #c7d7e9 0, #c3d0e2 100%);
-	background: -ms-linear-gradient(top, #c7d7e9 0, #c3d0e2 100%);
-	background: linear-gradient(top, #c7d7e9 0, #c3d0e2 100%);
-	border: none;
+	/*background-color: #ccc;
+	background: -moz-linear-gradient(top, #ccc 0, #eee 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ccc),
+		color-stop(100%, #eee));
+	background: -webkit-linear-gradient(top, #ccc 0, #eee 100%);
+	background: -o-linear-gradient(top, #ccc 0, #eee 100%);
+	background: -ms-linear-gradient(top, #ccc 0, #eee 100%);
+	background: linear-gradient(top, #ccc 0, #eee 100%);*/
+	border: 1px solid #ccc;
 	box-shadow: 2px 2px 4px #aaa;
 }
 
@@ -69,7 +69,8 @@ div.error-text {
 
 div.login-title {
 	color: black;
-	background-color: white;
+	border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px #aaa;
 }
 
 #notice {
@@ -320,7 +321,7 @@ h2,h3,h4,h5,h6 {
 }
 
 a.link,input.link {
-	color: blue;
+	color: #489310;
 }
 
 a.link:visited {

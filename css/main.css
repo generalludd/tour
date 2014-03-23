@@ -79,7 +79,7 @@ div.login.errors {
 }
 
 #login_form {
-	margin-top: 3em;
+	margin-top: 2em;
 }
 
 div.login-inputs {
@@ -234,7 +234,7 @@ div.entry,div.list {
 	box-shadow: 1px 1px 2px #333;
 }
 
-#navigation .button {
+#navigation .button,.login .button {
 	padding: .7em;
 	font-size: 1.1em;
 }
@@ -799,6 +799,16 @@ ul.buttons li {
 	display: inline;
 }
 
+.login .button-box {
+	width: 250px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.login ul.button-list li {
+	margin: 0 .5em;
+}
+
 #feedback-editor {
 	width: 30em;
 }
@@ -1032,6 +1042,7 @@ label.above {
 }
 
 .return-slip .row-1 {
+	
 }
 
 .return-slip .row-last {
