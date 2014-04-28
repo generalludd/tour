@@ -18,10 +18,9 @@ $restore_button[] = array("text" => "Restore Record", "type" =>"span", "class"=>
 	This person's record has been disabled which means you deleted it at
 	some point, but, because they were on at least one tour, they could not
 	be permanently deleted from the database.<br />
-	<div>
 <?=create_button_bar($restore_button);?>
-</div>
-</div>
+	</div>
+
 
 <? endif; ?>
 <?=create_button_bar($nav_buttons);?>
@@ -87,24 +86,23 @@ $restore_button[] = array("text" => "Restore Record", "type" =>"span", "class"=>
 <?=create_field("formal_salutation", $person->address->formal_salutation,"Formal Salutation");?>
 <div class="block housemate-info"
 			id="housemate">
-<? if(count($person->housemates) > 0):?>
-<p>
-				<label>Housemates</label>
-			</p>
-			<table class="block">
-<? foreach($person->housemates as $housemate):?>
-<tr>
-					<td><a href="<?=site_url("person/view/$housemate->id");?>"><?=sprintf("%s %s", $housemate->first_name,$housemate->last_name);?></a></td>
-				</tr>
-<? endforeach; ?>
-</table>
-<? endif;?>
-<?=create_button_bar(array(array("text" => "Add Housemate", "type"=>"span", "class"=>"button small new add-housemate","id"=>sprintf("add-housemate_%s_%s",$person->id, $person->address->id))));?>
+    <? if(count($person->housemates) > 0):?>
+    <p>
+    				<label>Housemates</label>
+    			</p>
+    			<table class="block">
+    <? foreach($person->housemates as $housemate):?>
+    <tr>
+    					<td><a href="<?=site_url("person/view/$housemate->id");?>"><?=sprintf("%s %s", $housemate->first_name,$housemate->last_name);?></a></td>
+    				</tr>
+    <? endforeach; ?>
+    </table>
+    <? endif;?>
+    <?=create_button_bar(array(array("text" => "Add Housemate", "type"=>"span", "class"=>"button small new add-housemate","id"=>sprintf("add-housemate_%s_%s",$person->id, $person->address->id))));?>
 </div>
 <? else: ?>
 <?=create_button_bar($address_buttons);?>
 
 <? endif; ?>
 </fieldset>
-</div>
 </div>
