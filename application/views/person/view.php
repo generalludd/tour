@@ -85,8 +85,7 @@ $restore_button[] = array("text" => "Restore Record", "type" =>"span", "class"=>
 <?=format_address($person->address,"inline");?>&nbsp;<?=create_button(array("text"=>"Edit","type"=>"span", "class"=>"button small edit edit-address","id"=>sprintf("edit-address_%s_%s",$person->address_id, $person->id)));?>
 <?=create_field("informal_salutation", $person->address->informal_salutation,"Informal Salutation");?>
 <?=create_field("formal_salutation", $person->address->formal_salutation,"Formal Salutation");?>
-<div
-			class="block housemate-info"
+<div class="block housemate-info"
 			id="housemate">
 <? if(count($person->housemates) > 0):?>
 <p>

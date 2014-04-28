@@ -33,6 +33,21 @@ $(document).ready(function(){
 	
 });
 
+$(window).scroll(function(){
+	var top=$('.button-box.float');
+	if($(window).scrollTop()>250){
+		if(top.css('position')!='fixed'){
+			top.css('position','fixed');
+			top.css('top', 10);
+		}
+	}else{
+		if(top.css('position')!='static'){
+			top.css('position','static');
+			top.css('top','inherit');
+		}
+	}
+});
+
 function show_popup(my_title,data,popup_width,x,y){
 	if(!popup_width){
 		popup_width=300;

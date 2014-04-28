@@ -39,8 +39,8 @@ if ($stay < $last_stay) {
 	style="clear: both">
 	<label>Hotel:&nbsp;</label><a
 		href="<?=site_url("hotel/view/$hotel->id");?>"><?=$hotel->hotel_name?></a>&nbsp;
-	<label>Arrival Date:&nbsp;</label><?=format_date(get_value($hotel,"arrival_date"));?>&nbsp;
-<label>Departure Date:&nbsp;</label><?=format_date(get_value($hotel,"departure_date"));?><br />
+	<label>Arrival Date:&nbsp;</label><?=format_date(get_value($hotel,"arrival_date"));?>,&nbsp;<?=get_value($hotel,"arrival_time");?>&nbsp;
+<label>Departure Date:&nbsp;</label><?=format_date(get_value($hotel,"departure_date"));?>,&nbsp;<?=get_value($hotel,"departure_time");?><br />
 <? if(get_value($hotel, "contact",FALSE)): ?>
     <label>Contact Info: </label><?=get_value($hotel, "contact");?>,&nbsp;
 <? endif;?>
@@ -57,7 +57,7 @@ if ($stay < $last_stay) {
 <? endforeach;?>
 <?=implode(", ", $room_output);?>
 </p>
-<?=create_button_bar($buttons);?>
+<?=create_button_bar($buttons, array("class"=>"float"));?>
 </div>
 <input
 	type="hidden"

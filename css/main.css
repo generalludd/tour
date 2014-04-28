@@ -344,6 +344,10 @@ ul.button-list li .button.delete {
 	
 }
 
+.button-box.float {
+	
+}
+
 textarea {
 	font-size: 1em;
 }
@@ -854,7 +858,13 @@ textarea.save-field {
 }
 
 .room-row {
-	min-height: 190px;
+	/*orphans: 3;
+	widows: 3;*/
+}
+
+h3 {
+	/*orphans: 3;
+	widows: 3;*/
 }
 
 #search_list td {
