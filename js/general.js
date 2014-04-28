@@ -33,17 +33,21 @@ $(document).ready(function(){
 	
 });
 
+/* set up floating button bars for working with long lists*/
+
 $(window).scroll(function(){
 	var top=$('.button-box.float');
 	if($(window).scrollTop()>250){
 		if(top.css('position')!='fixed'){
 			top.css('position','fixed');
 			top.css('top', 10);
+			top.css('background-color','#000');
 		}
 	}else{
 		if(top.css('position')!='static'){
 			top.css('position','static');
 			top.css('top','inherit');
+			top.css('background-color','inherit');
 		}
 	}
 });
