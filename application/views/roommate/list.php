@@ -51,9 +51,9 @@ if ($stay < $last_stay) {
 <label>Fax: </label><?=get_value($hotel,"fax");?>&nbsp;
 <? endif;?>
 
-<p><strong>Room Type Count (from payer records):</strong>
-<? foreach($room_types as $room_type):?>
-<?$room_output[] = sprintf("%ss: %s", format_field_name($room_type->room_size), $room_type->count);?>
+<p><strong>Room Type Count:</strong>
+<? foreach($room_count as $count):?>
+<?$room_output[] = sprintf("%ss: %s", format_field_name($count->size), $count->room_count);?>
 <? endforeach;?>
 <?=implode(", ", $room_output);?>
 </p>

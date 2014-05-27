@@ -22,7 +22,7 @@ class Roommate extends MY_Controller
         $tour_id = $this->input->get("tour_id");
         $stay = $this->input->get("stay");
         $this->load->model("variable_model", "variable");
-        $data["room_types"] = $this->payer->get_room_types($tour_id);
+        $data["room_count"] = $this->room->get_room_count($tour_id,$stay);
         $data["sizes"] = get_keyed_pairs(
                 $this->variable->get_pairs("room_type",
                         array(
