@@ -1020,19 +1020,13 @@ label.above {
 	width: 3em;
 }
 
-#payer-editor-block,#payment-list-block,#payer-tourist-block {
+.triptych {
 	float: left;
 	width: 30%;
 	clear: none;
+	min-width:330px;
 }
 
-#payer-editor-block {
-	min-width: 300px;
-}
-
-#payment-list-block,#payer-tourist-block {
-	min-width: 250px;
-}
 
 #word-icon {
 	background-image: url(../tiny_mce/themes/advanced/img/icons.gif);
@@ -1091,7 +1085,7 @@ label.above {
 	white-space: nowrap;
 }
 
-.triptych {
+.field-box {
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	padding: 0 .5em;

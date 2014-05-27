@@ -5,12 +5,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // chrisdart@cerebratorium.com
 class Payer_model extends CI_Model
 {
+
     var $payment_type;
+
     var $room_size;
+
     var $discount;
+
     var $amt_paid;
+
     var $is_comp = 0;
+
     var $is_cancelled = 0;
+
     var $note;
 
     function __construct ()
@@ -33,18 +40,32 @@ class Payer_model extends CI_Model
             $my_variable = $variables[$i];
             if ($this->input->post($my_variable)) {
                 if ($my_variable == "discount" || $my_variable == "amt_paid") {
-                    $this->$my_variable = format_money($this->input->post($my_variable), "int");
+                    $this->$my_variable = format_money(
+                            $this->input->post($my_variable), "int");
                 }
                 $this->$my_variable = $this->input->post($my_variable);
             }
         }
     }
 
-    function get_for_tour ( $payer_id, $tour_id )
+    function get_value ($payer_id, $tour_id, $field)
+    {
+        $this->db->from("payer");
+        $this->db->where("payer_id", $payer_id);
+        $this->db->where("tour_id", $tour_id);
+
+        // @TODO convert this into an array option for multiple fields
+        $this->db->select($field);
+        $result = $this->db->get()->row();
+        return $result;
+    }
+
+    function get_for_tour ($payer_id, $tour_id)
     {
         $this->db->from("payer");
         $this->db->join("tour", "payer.tour_id=tour.id");
-        $this->db->join("payment","payer.tour_id=payment.tour_id AND payer.payer_id = payment.payer_id");
+        $this->db->join("payment",
+                "payer.tour_id=payment.tour_id AND payer.payer_id = payment.payer_id");
         $this->db->join("person", "payer.payer_id=person.id");
         $this->db->where("payer.payer_id", $payer_id);
         $this->db->where("payer.tour_id", $tour_id);
@@ -66,7 +87,7 @@ class Payer_model extends CI_Model
         return $result;
     }
 
-    function get_payers ($tour_id,  $options = array())
+    function get_payers ($tour_id, $options = array())
     {
         $this->db->where("payer.tour_id", $tour_id);
         $this->db->where("`tour`.`id` = `payer`.`tour_id`", NULL, FALSE);
@@ -74,10 +95,13 @@ class Payer_model extends CI_Model
         $this->db->from("payer,tour");
         $this->db->select(
                 "tour.id, tour.tour_name,tour.full_price, tour.banquet_price, tour.early_price, tour.regular_price, tour.single_room, tour.triple_room, tour.quad_room");
-        $this->db->select("payer.*, person.first_name, person.last_name, person.email");
-        if(array_key_exists("include_address", $options) && $options["include_address"]){
-            $this->db->join("address","person.address_id = address.id");
-            $this->db->select("address, address.city, address.state, address.zip, address.informal_salutation, address.formal_salutation");
+        $this->db->select(
+                "payer.*, person.first_name, person.last_name, person.email");
+        if (array_key_exists("include_address", $options) &&
+                 $options["include_address"]) {
+            $this->db->join("address", "person.address_id = address.id");
+            $this->db->select(
+                    "address, address.city, address.state, address.zip, address.informal_salutation, address.formal_salutation");
         }
         $this->db->order_by("person.last_name", "ASC");
         $this->db->order_by("person.first_name", "ASC");
@@ -87,13 +111,15 @@ class Payer_model extends CI_Model
 
     /**
      * Get the number room types for a given tour (single, double, triple, quad)
+     *
      * @param unknown $tour_id
      * @return unknown
      */
-    function get_room_types($tour_id){
+    function get_room_types ($tour_id)
+    {
         $this->db->select("count(room_size) as count, room_size");
         $this->db->from("payer");
-        $this->db->where("tour_id",$tour_id);
+        $this->db->where("tour_id", $tour_id);
         $this->db->group_by("room_size");
         $result = $this->db->get()->result();
         return $result;
@@ -123,6 +149,4 @@ class Payer_model extends CI_Model
         $this->db->where("tour_id", $tour_id);
         $this->db->delete("payer");
     }
-
-
 }

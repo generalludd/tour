@@ -37,7 +37,7 @@ $(document).ready(function(){
 		};
 		$.ajax({
 			type: "get",
-			url: base_url + "roommate/create_room",
+			url: base_url + "room/create",
 			data: form_data,
 			success: function(data){
 				$("#roommate-list-block").append(data);

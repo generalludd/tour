@@ -9,6 +9,9 @@ class Roommate extends MY_Controller
     {
         parent::__construct();
         $this->load->model("roommate_model", "roommate");
+        $this->load->model("room_model","room");
+        $this->load->model("hotel_model","hotel");
+
     }
 
     function view ()
@@ -22,13 +25,12 @@ class Roommate extends MY_Controller
         $this->load->model("payer_model", "payer");
         $data["room_types"] = $this->payer->get_room_types($tour_id);
         if ($tour_id && $stay) {
-            $room_list = $this->roommate->get_for_tour($tour_id, $stay);
-            $rooms = array();
-            foreach ($room_list as $room) {
-                $rooms[$room->room] = $this->roommate->get_for_room($tour_id, $stay, $room->room);
-            }
-            $this->load->model("hotel_model", "hotel");
+            $rooms = $this->room->get_for_tour($tour_id, $stay);
+            $this->load->model("hotel_model");
+            echo $this->hotel_model->get(1);
+die();
             $hotel = $this->hotel->get_by_stay($tour_id, $stay);
+            die();
             $data["last_stay"] = $this->hotel->get_last_stay($tour_id);
             $data["hotel"] = $hotel;
             $data["tour_id"] = $tour_id;
@@ -53,8 +55,6 @@ class Roommate extends MY_Controller
         if ($tour_id && $stay) {
             $last_room = $this->roommate->get_last_room($tour_id, $stay);
             $room_list = $this->roommate->get_room_numbers($tour_id, $stay);
-            // print get_first_missing_number($room_list, "room");
-            // die();
             $data["room_number"] = get_first_missing_number($room_list, "room");
             $data["roommate_list"] = $this->get_roomless_menu($tour_id, $stay);
             $data["roommates"] = FALSE;

@@ -20,7 +20,7 @@ class Roommate_Model extends CI_Model
                 "tour_id",
                 "person_id",
                 "stay",
-                "room"
+                "room_id"
         );
         prepare_variables($this, $variables);
     }
@@ -31,8 +31,8 @@ class Roommate_Model extends CI_Model
         $this->db->join("person", "roommate.person_id = person.id");
         $this->db->where("roommate.tour_id", $tour_id);
         $this->db->where("roommate.stay", $stay);
-        $this->db->select("room");
-        $this->db->order_by("roommate.room");
+        $this->db->select("room_id");
+        $this->db->order_by("roommate.room_id");
         $result = $this->db->get()->result();
         return $result;
     }
@@ -41,21 +41,21 @@ class Roommate_Model extends CI_Model
     {
         $this->db->from("roommate");
         $this->db->where("tour_id", $tour_id);
-        $this->db->select("DISTINCT(`room`) AS room_count", FALSE);
-        $this->db->group_by("room");
+        $this->db->select("DISTINCT(`room_id`) AS room_count", FALSE);
+        $this->db->group_by("room_id");
         $this->db->get()->result();
         $result = $this->db->count_all_results();
         return $result;
     }
 
-    function get_for_room ($tour_id, $stay, $room)
+    function get_for_room ($tour_id, $stay, $room_id)
     {
         $this->db->from("roommate");
         $this->db->where("tour_id", $tour_id);
-        $this->db->where("room", $room);
+        $this->db->where("room_id", $room_id);
         $this->db->where("stay", $stay);
         $this->db->join("person", "roommate.person_id=person.id");
-        $this->db->select("roommate.room, roommate.tour_id, roommate.person_id");
+        $this->db->select("roommate.room_id, roommate.tour_id, roommate.person_id");
         $this->db->select("CONCAT(person.first_name,' ',person.last_name) as person_name", false);
 
         $result = $this->db->get()->result();
@@ -96,9 +96,9 @@ class Roommate_Model extends CI_Model
         $this->db->from("roommate");
         $this->db->where("tour_id", $tour_id);
         $this->db->where("stay", $stay);
-        $this->db->order_by("room", "ASC");
-        $this->db->group_by("room");
-        $this->db->select("room");
+        $this->db->order_by("room_id", "ASC");
+        $this->db->group_by("room_id");
+        $this->db->select("room_id");
         $result = $this->db->get()->result();
         return $result;
     }
@@ -107,15 +107,15 @@ class Roommate_Model extends CI_Model
     {
         $this->db->where("tour_id", $tour_id);
         $this->db->where("stay", $stay);
-        $this->db->select("room");
-        $this->db->group_by("room");
-        $this->db->order_by("room", "DESC");
+        $this->db->select("room_id");
+        $this->db->group_by("room_id");
+        $this->db->order_by("room_id", "DESC");
         $this->db->limit(1);
         $this->db->from("roommate");
         $result = $this->db->get()->row();
         $output = 0;
         if ($result) {
-            $output = $result->room;
+            $output = $result->room_id;
         }
         return $output;
     }
