@@ -52,10 +52,10 @@ if ($stay < $last_stay) {
 <? endif;?>
 
 <p><strong>Room Type Count (from payer records):</strong>
-<?// foreach($room_types as $room_type):?>
-<?//$room_output[] = sprintf("%ss: %s", format_field_name($room_type->room_size), $room_type->count);?>
-<? //endforeach;?>
-<?//=implode(", ", $room_output);?>
+<? foreach($room_types as $room_type):?>
+<?$room_output[] = sprintf("%ss: %s", format_field_name($room_type->room_size), $room_type->count);?>
+<? endforeach;?>
+<?=implode(", ", $room_output);?>
 </p>
 <?=create_button_bar($buttons, array("class"=>"float"));?>
 </div>
@@ -75,17 +75,8 @@ if ($stay < $last_stay) {
 	<?
 
 foreach ($rooms as $room) {
-    $data["rooms"] = $room;
-    $data["sizes"] = get_keyed_pairs(
-            $this->variable->get_pairs("room_type",
-                    array(
-                            "direction" => "ASC",
-                            "field" => "value"
-                    )),
-            array(
-                    "value",
-                    "name"
-            ));
+    $data["room"] = $room;
+     $data["sizes"] = $sizes;
     $this->load->view("room/edit", $data);
 }
 ?>

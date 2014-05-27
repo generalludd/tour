@@ -53,7 +53,7 @@ $(document).ready(function(){
 		form_data = {
 			tour_id: my_tour,
 			stay: my_stay,
-			room: my_room,
+			room_id: my_room,
 			person_id: my_person,
 			ajax: '1'
 		};

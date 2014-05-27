@@ -260,6 +260,52 @@ function create_edit_field ($field_name, $value, $label, $options = array())
     return create_field($field_name, $value, $label, $options);
 }
 
+/**
+ * create a field set that can be edited with AJAX on the fly.
+ *
+ * @param string $field_name
+ * @param string $value
+ * @param string $label
+ * @param array $options
+ *        	(envelope, class, attributes)
+ */
+function edit_field($field_name, $value, $label, $table, $id, $options = array()) {
+    $envelope = "p";
+    if (array_key_exists ( "envelope", $options )) {
+        $envelope = $options ["envelope"];
+    }
+
+    /* The id is split with the "-" delimiter in javascript when the field is clicked */
+    $output [] = sprintf ( "<%s class='field-envelope' id='%s__%s__%s'>", $envelope, $table,$field_name, $id );
+    $output [] = sprintf ( "<label>%s:&nbsp;</label>", $label );
+    if ($value == "") {
+        $value = "&nbsp;";
+    }
+
+    /* add additional classes to the actual field */
+    $classes [] = "edit-field field";
+    if (array_key_exists ( "class", $options )) {
+        $classes [] = $options ["class"];
+    }
+    $field_class = implode ( " ", $classes );
+    $format = "";
+    if (array_key_exists ( "format", $options )) {
+        $format = sprintf ( "format='%s'", $options ["format"] );
+    }
+
+
+    /*
+     * Attributes are non-standard html attributes that are used by javascript these can include the type of input to be generated
+    */
+    $attributes = "";
+    if (array_key_exists ( "attributes", $options )) {
+        $attributes = $options ["attributes"];
+    }
+    $output [] = sprintf ( "<span class='%s' %s %s name='%s'>%s</span></%s>", $field_class, $attributes, $format,$field_name, $value, $envelope );
+    return implode ( "\r", $output );
+
+}
+
 function create_input ($object, $name, $label, $options = array())
 {
     $id = $name;

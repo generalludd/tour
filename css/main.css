@@ -835,6 +835,10 @@ fieldset.block label {
 	display: block;
 }
 
+.roommate .edit-field.field {
+	display: inline;
+}
+
 textarea.save-field {
 	width: 80%;
 }

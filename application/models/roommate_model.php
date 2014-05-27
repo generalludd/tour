@@ -8,6 +8,7 @@ class Roommate_Model extends CI_Model
     var $tour_id;
     var $person_id;
     var $stay;
+    var $room_id;
 
     function __construct ()
     {
@@ -25,13 +26,14 @@ class Roommate_Model extends CI_Model
         prepare_variables($this, $variables);
     }
 
-    function get_for_tour ($tour_id, $stay)
+    function get_for_tour ($tour_id, $stay, $room_id)
     {
         $this->db->from("roommate");
         $this->db->join("person", "roommate.person_id = person.id");
         $this->db->where("roommate.tour_id", $tour_id);
         $this->db->where("roommate.stay", $stay);
-        $this->db->select("room_id");
+        $this->db->where("roommate.room_id",$room_id);
+        $this->db->select("CONCAT(person.first_name, ' ', person.last_name) as person_name, roommate.person_id",FALSE);
         $this->db->order_by("roommate.room_id");
         $result = $this->db->get()->result();
         return $result;
@@ -48,12 +50,10 @@ class Roommate_Model extends CI_Model
         return $result;
     }
 
-    function get_for_room ($tour_id, $stay, $room_id)
+    function get_for_room ($room_id)
     {
         $this->db->from("roommate");
-        $this->db->where("tour_id", $tour_id);
         $this->db->where("room_id", $room_id);
-        $this->db->where("stay", $stay);
         $this->db->join("person", "roommate.person_id=person.id");
         $this->db->select("roommate.room_id, roommate.tour_id, roommate.person_id");
         $this->db->select("CONCAT(person.first_name,' ',person.last_name) as person_name", false);

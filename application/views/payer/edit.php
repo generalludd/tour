@@ -130,13 +130,6 @@ $payment_data["payer_id"] = $payer->payer_id;
 $this->load->view("payment/list", $payment_data);
 ?>
 </div>
-	<div
-		id="roomate-list-block"
-		class="block field-box">
-		<h4>Rooming Details</h4>
-
-		<?//=$this->load->view("rooming/view");?>
-	</div>
 </div>
 <div
 	id="payer-tourist-block"

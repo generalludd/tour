@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // room_model.php Chris Dart Jan 9, 2014 9:46:17 PM chrisdart@cerebratorium.com
-class Room_model extends CI_Controller
+class Room_Model extends CI_Controller
 {
 
     var $tour_id;
@@ -18,6 +18,24 @@ class Room_model extends CI_Controller
         parent::__construct();
     }
 
+    function prepare_variables ()
+    {
+        $variables = array(
+                "tour_id",
+                "size",
+                "stay",
+                "room_id",
+        );
+
+        for ($i = 0; $i < count($variables); $i ++) {
+            $my_variable = $variables[$i];
+            if ($this->input->post($my_variable)) {
+                $this->$my_variable = urldecode(
+                        $this->input->post($my_variable));
+            }
+        }
+    }
+
     function create ($tour_id, $stay)
     {
         $room_list = $this->get_room_numbers($tour_id, $stay);
@@ -28,21 +46,38 @@ class Room_model extends CI_Controller
                         "stay" => $stay,
                         "room_id" => $room_id
                 ));
-        return $room_id;
+        $id = $this->db->insert_id();
+        return $this->get($id);
     }
 
-    function insert ($data)
+    function update ($id, $values = array())
     {
-        $this->db->insert("room", $data);
-        return $this->db->insert_id();
+        $this->db->where("id", $id);
+        if (empty($values)) {
+            $this->prepare_variables();
+            $this->db->update("room", $this);
+        } else {
+            $this->db->update("room", $values);
+            if ($values == 1) {
+                $keys = array_keys($values);
+                return $this->get_value($id, $keys[0]);
+            }
+        }
+    }
+
+    function get ($id)
+    {
+        $this->db->where("id", $id);
+        $this->db->from("room");
+        $result = $this->db->get()->row();
+        return $result;
     }
 
     function get_for_tour ($tour_id, $stay)
     {
         $this->db->from("room");
-        $this->db->join("roommate",
-                "room.room_id=room.room_id AND room.tour_id = roommate.tour_id AND room.stay = roommate.stay");
-        $this->db->join("person", "roommate.person_id = person.id");
+        // $this->db->join("variable", "room.size = variable.value AND
+        // variable.class = 'room_type'");
         $this->db->order_by("room.room_id");
         $this->db->where("room.tour_id", $tour_id);
         $this->db->where("room.stay", $stay);

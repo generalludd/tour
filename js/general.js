@@ -1,20 +1,58 @@
 $(document).ready(function(){
 
 	
-	$(".edit-field").live("click",function() {
-		edit_field($(this));
+	$(".field-envelope").on("click",".edit-field",function(){
+
+		my_parent = $(this).parent().attr("id");
+		my_attr = my_parent.split("__");
+		my_type = "text";
+		my_category = $(this).attr('menu');
+		my_name = $(this).attr("name");
+			if($(this).hasClass("dropdown")){
+				my_type = "dropdown";
+			}else if($(this).hasClass("checkbox")){
+				my_type = "checkbox";
+			}else if($(this).hasClass("multiselect")){
+				my_type = "multiselect";
+			}else if($(this).hasClass("textarea")){
+				my_type = "textarea";
+			}
+			form_data = {
+					table: my_attr[0],
+					field: my_name,
+					id: my_attr[2],
+					type: my_type,
+					category: my_category,
+					value: $(this).html()
+			};
+			$.ajax({
+				type:"get",
+				url: base_url + my_attr[0] + "/edit_value",
+				data: form_data,
+				success: function(data){
+					$("#" + my_parent + " .edit-field").html(data);
+					$("#" + my_parent + " .edit-field").removeClass("edit-field").removeClass("field").addClass("live-field").addClass("text");
+					$("#" + my_parent + " .live-field input").focus();
+				}
+			});
 	});
 
-	$(".save-field").live("blur", function() {
-		save_field($(this));
+	$(".field-envelope").on("blur",".live-field.text",function(){
+		//id, field, value {post}
+		console.log(this);
+		update_field(this);
+	
 	});
 	
-	$(".dropdown .save-field").live("change", function(){
-		save_field($(this));
+	$(".field-envelope").on("change",".live-field.dropdown",function(){
+		//id, field, value {post}
+		update_field(this);
+	
 	});
+	
 	
 	$(".checkbox .save-checkbox").live("click",function(){
-		save_field($(this));
+		update_field($(this));
 	});
 	
 	$(".multiselect .save-multiselect").live("click",function(){
@@ -233,6 +271,29 @@ function save_field(me)
 		success: function(output){
 			my_parent.addClass("edit-field").html(output);
 			
+		}
+	});
+}
+
+
+function update_field(me){
+	my_parent = $(me).parent().attr("id");
+	my_attr = my_parent.split("__");
+	my_value = $(me).children().val();
+	form_data = {
+			table: my_attr[0],
+			field: my_attr[1],
+			id: my_attr[2],
+			value: my_value
+	};
+	console.log(my_attr[1]);
+	$.ajax({
+		type:"post",
+		url: base_url + my_attr[0] + "/update_value",
+		data: form_data,
+		success: function(data){
+			$("#" + my_parent + " .live-field").html(data);
+			$("#" + my_parent + " .live-field").addClass("edit-field field").removeClass("live-field text");
 		}
 	});
 }
