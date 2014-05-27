@@ -37,7 +37,7 @@ $(document).ready(function(){
 		};
 		$.ajax({
 			type: "get",
-			url: base_url + "roommate/create_room",
+			url: base_url + "room/create",
 			data: form_data,
 			success: function(data){
 				$("#roommate-list-block").append(data);
@@ -53,7 +53,7 @@ $(document).ready(function(){
 		form_data = {
 			tour_id: my_tour,
 			stay: my_stay,
-			room: my_room,
+			room_id: my_room,
 			person_id: my_person,
 			ajax: '1'
 		};

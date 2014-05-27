@@ -424,3 +424,24 @@ function array_custom_sort ($array, $order)
     array_multisort($new_array);
     return $new_array;
 }
+
+function get_room_size($room_size){
+	switch($room_size){
+		case "single_room":
+		    $size = 1;
+		    break;
+		case "double_room":
+		    $size = 2;
+		    break;
+		case "triple_room":
+		    $size =3;
+		    break;
+		case "quad_room":
+		    $size = 4;
+		    break;
+		default:
+		    $size = 2;
+		    break;
+	}
+	return $size;
+}

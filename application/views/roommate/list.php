@@ -75,9 +75,9 @@ if ($stay < $last_stay) {
 	<?
 
 foreach ($rooms as $room) {
-    $data["roommates"] = $room;
-    $data["room_number"] = $room[0]->room;
-    $this->load->view("roommate/room", $data);
+    $data["room"] = $room;
+     $data["sizes"] = $sizes;
+    $this->load->view("room/edit", $data);
 }
 ?>
 </div>
