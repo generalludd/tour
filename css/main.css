@@ -839,6 +839,11 @@ fieldset.block label {
 	display: inline;
 }
 
+.room-size-label {
+	clear: both;
+	display: block;
+}
+
 textarea.save-field {
 	width: 80%;
 }
@@ -848,7 +853,6 @@ textarea.save-field {
 	float: left;
 	padding-bottom: 10px;
 }
-
 .column-odd {
 	padding-right: 5px;
 }
@@ -857,6 +861,9 @@ textarea.save-field {
 	padding-left: 5px;
 }
 
+.room-row.column {
+	width: 30%;
+}
 .triptych.column {
 	width: 28%;
 }

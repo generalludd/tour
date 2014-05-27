@@ -24,7 +24,7 @@ class Room_Model extends CI_Controller
                 "tour_id",
                 "size",
                 "stay",
-                "room_id",
+                "room_id"
         );
 
         for ($i = 0; $i < count($variables); $i ++) {
@@ -36,16 +36,18 @@ class Room_Model extends CI_Controller
         }
     }
 
-    function create ($tour_id, $stay)
+    function create ($tour_id, $stay, $size = "Double")
     {
         $room_list = $this->get_room_numbers($tour_id, $stay);
         $room_id = get_first_missing_number($room_list, "room_id");
-        $this->db->insert("room",
-                array(
-                        "tour_id" => $tour_id,
-                        "stay" => $stay,
-                        "room_id" => $room_id
-                ));
+        $data = array(
+                "tour_id" => $tour_id,
+                "stay" => $stay,
+                "room_id" => $room_id,
+                "size" => $size
+        );
+
+        $this->db->insert("room", $data);
         $id = $this->db->insert_id();
         return $this->get($id);
     }
@@ -117,15 +119,17 @@ class Room_Model extends CI_Controller
         return $output;
     }
 
-    function get_room_count($tour_id, $stay){
-       // select count(room.size), room.size from room where tour_id = 33 and stay = 1 group by room.size
-       $this->db->from("room");
-       $this->db->where("tour_id",$tour_id);
-       $this->db->where("stay",$stay);
-       $this->db->select("COUNT(`room`.`size`) as `room_count`",FALSE);
-       $this->db->select("room.size");
-       $this->db->group_by("room.size");
-       $result = $this->db->get()->result();
-       return $result;
+    function get_room_count ($tour_id, $stay)
+    {
+        // select count(room.size), room.size from room where tour_id = 33 and
+        // stay = 1 group by room.size
+        $this->db->from("room");
+        $this->db->where("tour_id", $tour_id);
+        $this->db->where("stay", $stay);
+        $this->db->select("COUNT(`room`.`size`) as `room_count`", FALSE);
+        $this->db->select("room.size");
+        $this->db->group_by("room.size");
+        $result = $this->db->get()->result();
+        return $result;
     }
 }

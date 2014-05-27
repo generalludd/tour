@@ -15,13 +15,28 @@ $buttons["add_stay"] = array(
         "id" => sprintf("add-stay_%s_%s", $tour_id, $stay),
         "title" => "Add another stay (day) to the tour by adding a hotel"
 );
+
 if ($stay > 1) {
+
+
     $previous_stay = $stay - 1;
+
+if(count($rooms)== 0){
+    $buttons["duplicate_stay"] = array(
+            "text"=>"Duplcate Previous Stay",
+            "class"=>"button new duplicate-previous-stay",
+            "id"=>sprintf("duplicate-stay_%s_%s",$tour_id, $stay),
+            "title"=>"Duplicate all the room assignments from the previous stay",
+
+    );
+}
     $buttons["previous_stay"] = array(
             "text" => "Previous Stay",
             "class" => "button previous-stay",
             "href" => site_url("roommate/view_for_tour/?tour_id=$tour_id&stay=$previous_stay")
     );
+
+
 }
 if ($stay < $last_stay) {
     $next_stay = $stay + 1;
@@ -52,6 +67,7 @@ if ($stay < $last_stay) {
 <? endif;?>
 
 <p><strong>Room Type Count:</strong>
+<? $room_output[] = "";?>
 <? foreach($room_count as $count):?>
 <?$room_output[] = sprintf("%ss: %s", format_field_name($count->size), $count->room_count);?>
 <? endforeach;?>
@@ -73,8 +89,12 @@ if ($stay < $last_stay) {
 	class="block"
 	id="roommate-list-block">
 	<?
-
+$room_size = "";
 foreach ($rooms as $room) {
+    if($room_size != $room->size){
+        echo "<h4 class='room-size-label'>$room->size</h4>";
+        $room_size = $room->size;
+    }
     $data["room"] = $room;
      $data["sizes"] = $sizes;
     $this->load->view("room/edit", $data);

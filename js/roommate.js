@@ -94,6 +94,22 @@ $(document).ready(function(){
 	}
 	});
 	
+	$(".button-box").on("click",".duplicate-previous-stay",function(){
+		my_id = this.id.split("_");
+		form_data = {
+				tour_id: my_id[1],
+				stay : my_id[2]
+		};
+		$.ajax({
+			type:"post",
+			url: base_url + "roommate/duplicate",
+			data: form_data,
+			success: function(data){
+				window.location.href = base_url + "roommate/view_for_tour/?tour_id=" + my_id[1] + "&stay=" + my_id[2];
+			}
+		});
+		
+	});
 	
 	
 });//end document.ready

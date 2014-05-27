@@ -22,7 +22,7 @@ class Roommate extends MY_Controller
         $tour_id = $this->input->get("tour_id");
         $stay = $this->input->get("stay");
         $this->load->model("variable_model", "variable");
-        $data["room_count"] = $this->room->get_room_count($tour_id,$stay);
+        $data["room_count"] = $this->room->get_room_count($tour_id, $stay);
         $data["sizes"] = get_keyed_pairs(
                 $this->variable->get_pairs("room_type",
                         array(
@@ -56,6 +56,34 @@ class Roommate extends MY_Controller
             $this->load->view("page/index", $data);
         }
     }
+
+    /**
+     * duplicate duplicates all the rooms from the previous stay to the current stay.
+     */
+
+    function duplicate ()
+    {
+        $tour_id = $this->input->post("tour_id");
+        $stay = $this->input->post("stay");
+        $previous_stay = $stay - 1;
+        $rooms = $this->room->get_for_tour($tour_id, $previous_stay);
+        foreach ($rooms as $room) {
+            $new_room = $this->room->create($room->tour_id, $stay,
+                    $room->size);
+            $persons = $this->roommate->get_for_room($room->id);
+            foreach ($persons as $person) {
+                $data = array(
+                        "person_id" => $person->person_id,
+                        "tour_id" => $tour_id,
+                        "stay" => $stay,
+                        "room_id" => $new_room->id
+                );
+                $this->roommate->insert($data);
+            }
+        }
+        redirect("roommate/view_for_tour/?tour_id=$tour_id&stay=$stay");
+    }
+
 
     function view_for_stay ()
     {
@@ -98,7 +126,7 @@ class Roommate extends MY_Controller
                 $this->input->post("field") => $value = trim(
                         $this->input->post("value"))
         );
-        $this->phone->update($id, $values);
+        $this->roommate->update($id, $values);
         print $this->input->post("value");
     }
 

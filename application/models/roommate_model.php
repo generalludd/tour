@@ -5,9 +5,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // chrisdart@cerebratorium.com
 class Roommate_Model extends CI_Model
 {
+
     var $tour_id;
+
     var $person_id;
+
     var $stay;
+
     var $room_id;
 
     function __construct ()
@@ -32,8 +36,10 @@ class Roommate_Model extends CI_Model
         $this->db->join("person", "roommate.person_id = person.id");
         $this->db->where("roommate.tour_id", $tour_id);
         $this->db->where("roommate.stay", $stay);
-        $this->db->where("roommate.room_id",$room_id);
-        $this->db->select("CONCAT(person.first_name, ' ', person.last_name) as person_name, roommate.person_id",FALSE);
+        $this->db->where("roommate.room_id", $room_id);
+        $this->db->select(
+                "CONCAT(person.first_name, ' ', person.last_name) as person_name, roommate.person_id",
+                FALSE);
         $this->db->order_by("roommate.room_id");
         $result = $this->db->get()->result();
         return $result;
@@ -55,8 +61,11 @@ class Roommate_Model extends CI_Model
         $this->db->from("roommate");
         $this->db->where("room_id", $room_id);
         $this->db->join("person", "roommate.person_id=person.id");
-        $this->db->select("roommate.room_id, roommate.tour_id, roommate.person_id");
-        $this->db->select("CONCAT(person.first_name,' ',person.last_name) as person_name", false);
+        $this->db->select(
+                "roommate.room_id, roommate.tour_id, roommate.person_id");
+        $this->db->select(
+                "CONCAT(person.first_name,' ',person.last_name) as person_name",
+                false);
 
         $result = $this->db->get()->result();
         return $result;
@@ -64,15 +73,20 @@ class Roommate_Model extends CI_Model
 
     function get_roomless ($tour_id, $stay)
     {
-        $this->db->select("person.id, concat(person.first_name,' ', person.last_name) as person_name", FALSE);
+        $this->db->select(
+                "person.id, concat(person.first_name,' ', person.last_name) as person_name",
+                FALSE);
         $this->db->from("tourist");
         $this->db->join("hotel", "tourist.tour_id= hotel.tour_id", "left");
-        $this->db->join("roommate", "tourist.person_id = roommate.person_id AND tourist.tour_id = roommate.tour_id AND hotel.stay = roommate.stay", "left");
+        $this->db->join("roommate",
+                "tourist.person_id = roommate.person_id AND tourist.tour_id = roommate.tour_id AND hotel.stay = roommate.stay",
+                "left");
         $this->db->join("person", "tourist.person_id=person.id");
-        $this->db->join("payer","tourist.payer_id = payer.payer_id AND tourist.tour_id = payer.tour_id");
+        $this->db->join("payer",
+                "tourist.payer_id = payer.payer_id AND tourist.tour_id = payer.tour_id");
         $this->db->where("tourist.tour_id", $tour_id);
         $this->db->where("hotel.stay", $stay);
-        $this->db->where("payer.is_cancelled != 1",NULL,FALSE);
+        $this->db->where("payer.is_cancelled != 1", NULL, FALSE);
         $this->db->where("`roommate`.`person_id` IS NULL", NULL, FALSE);
         $this->db->order_by("person.first_name", "DESC");
         $this->db->order_by("person.address_id", "ASC");
@@ -80,10 +94,14 @@ class Roommate_Model extends CI_Model
         return $result;
     }
 
-    function insert ()
+    function insert ($data = array())
     {
-        $this->prepare_variables();
-        $this->db->insert("roommate", $this);
+        if (empty($data)) {
+            $this->prepare_variables();
+            $this->db->insert("roommate", $this);
+        } else {
+            $this->db->insert("roommate", $data);
+        }
     }
 
     function delete ($deletion)
