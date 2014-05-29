@@ -80,7 +80,7 @@ class Room_Model extends CI_Controller
         $this->db->from("room");
         // $this->db->join("variable", "room.size = variable.value AND
         // variable.class = 'room_type'");
-        $this->db->order_by("room.room_id");
+        $this->db->order_by("room.size");
         $this->db->where("room.tour_id", $tour_id);
         $this->db->where("room.stay", $stay);
         $result = $this->db->get()->result();

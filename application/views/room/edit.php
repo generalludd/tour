@@ -4,9 +4,8 @@
 
 ?>
 <div
-	class="room-row column"
+	class="room-row triptych"
 	id="room_<?=$room->id;?>">
-	<h4>Room# <?=$room->room_id;?></h4>
 	<?=edit_field("size",get_value($room,"size"),"Room Size","room",$room->id,array("envelope"=>"span","class"=>"dropdown","attributes"=>"menu='room_type'"));?>
 	<div class="roommates-box">
 		<table class="list roommates">

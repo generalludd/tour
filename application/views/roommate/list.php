@@ -53,8 +53,8 @@ if ($stay < $last_stay) {
 	id="hotel-info"
 	style="clear: both">
 	<label>Hotel:&nbsp;</label><a
-		href="<?=site_url("hotel/view/$hotel->id");?>"><?=$hotel->hotel_name?></a>&nbsp;
-	<label>Arrival Date:&nbsp;</label><?=format_date(get_value($hotel,"arrival_date"));?>,&nbsp;<?=get_value($hotel,"arrival_time");?>&nbsp;
+		href="<?=site_url("hotel/view/$hotel->id");?>"><?=$hotel->hotel_name?></a><br/>
+	<label>Arrival Date:&nbsp;</label><?=format_date(get_value($hotel,"arrival_date"));?>,&nbsp;<?=get_value($hotel,"arrival_time");?><br/>
 <label>Departure Date:&nbsp;</label><?=format_date(get_value($hotel,"departure_date"));?>,&nbsp;<?=get_value($hotel,"departure_time");?><br />
 <? if(get_value($hotel, "contact",FALSE)): ?>
     <label>Contact Info: </label><?=get_value($hotel, "contact");?>,&nbsp;
