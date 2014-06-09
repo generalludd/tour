@@ -67,7 +67,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 &nbsp;$<span id="room_rate_display"><?=$room_rate;?></span>
 		</p>
 		<p>
-			<label for="discount">Discount:</label> &nbsp;$<input
+			<label for="discount">Adjustment:</label> &nbsp;$<input
 				type="number"
 				class="edit-payer-amounts money"
 				name="discount"
