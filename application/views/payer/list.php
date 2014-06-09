@@ -15,7 +15,7 @@
 			<th>Payment Type</th>
 			<th>Price</th>
 			<th>Paid</th>
-			<th>Discount</th>
+			<th>Adjustment</th>
 			<th>Room Size (Rate)</th>
 			<th>Due</th>
 			<th></th>
