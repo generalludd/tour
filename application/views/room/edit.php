@@ -15,20 +15,20 @@
 <tr>
 					<td
 						class="roommate-row"
-						id="<?=sprintf("roommate_%s_%s", get_value($roommate,"room",$room->room_id),  $roommate->person_id);?>">
+						id="<?=sprintf("roommate_%s_%s", get_value($roommate,"room_id",$room->room_id),  $roommate->person_id);?>">
 						<a href="<?=site_url("person/view/$roommate->person_id");?>"><?=$roommate->person_name;?></a>
 					</td>
 					<td><span
-						id="<?=sprintf("delete-roommate_%s_%s", get_value($roommate,"room",$room->room_id),  $roommate->person_id);?>"
+						id="<?=sprintf("delete-roommate_%s_%s", get_value($roommate,"room_id",$room->room_id),  $roommate->person_id);?>"
 						class="delete button delete-roommate"> Delete</span></td>
 				</tr>
 
 			<? endforeach;?>
-
-<? endif;?>
+			<? endif;?>
 </tbody>
 		</table>
-<? $buttons[] = array("text"=>"Add Roommate","type"=>"span","class"=>"button new small add-roommate","id"=>sprintf("add-roommate_%s", $room->id));?>
-<?=create_button_bar($buttons);?>
+<?=create_button_bar(array(array("text"=>"Add Roommate","type"=>"span","class"=>"button new small add-roommate","id"=>sprintf("add-roommate_%s", $room->id))));?>
+
+
 </div>
 </div>

@@ -67,7 +67,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".delete-roommate").live("click",function(){
+	$(document).on("click",".delete-roommate",function(){
 		question = confirm("Are you sure you want to delete this roommate? This cannot be undone!"); 
 	if(question){
 		my_id = this.id.split("_");
@@ -76,12 +76,13 @@ $(document).ready(function(){
 		my_tour = $("#tour_id").val();
 		my_stay = $("#stay").val();
 		form_data = {
-				room: my_room,
+				room_id: my_room,
 				tour_id: my_tour,
 				person_id: my_person,
 				stay: my_stay,
 				ajax: "1"
 		};
+		
 		$.ajax({
 			type: "post",
 			url: base_url + "roommate/delete",

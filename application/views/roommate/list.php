@@ -69,7 +69,7 @@ if ($stay < $last_stay) {
 <p><strong>Room Type Count:</strong>
 <? $room_output[] = "";?>
 <? foreach($room_count as $count):?>
-<?$room_output[] = sprintf("%ss: %s", format_field_name($count->size), $count->room_count);?>
+<? $room_output[] = sprintf("%ss: %s", format_field_name($count->size), $count->room_count);?>
 <? endforeach;?>
 <?=implode(", ", $room_output);?>
 </p>
@@ -89,17 +89,21 @@ if ($stay < $last_stay) {
 	class="block"
 	id="roommate-list-block">
 	<?
-$room_size = "";
-foreach ($rooms as $room) {
-    if($room_size != $room->size){
-        echo "<h4 class='room-size-label'>$room->size</h4>";
-        $room_size = $room->size;
-    }
-    $data["room"] = $room;
+$room_size = "";?>
+
+<? foreach ($rooms as $room): ?>
+   <? if($room_size != $room->size):?>
+       <h4 class='room-size-label'><?=$room->size;?></h4>
+       <? $room_size = $room->size;?>
+    <? endif;?>
+<div class="roommate-block">
+
+   <? $data["room"] = $room;
      $data["sizes"] = $sizes;
-    $this->load->view("room/edit", $data);
-}
-?>
+    $this->load->view("room/edit", $data); ?>
+</div>
+<? endforeach;?>
+
 </div>
 
 

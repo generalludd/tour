@@ -30,6 +30,7 @@ class Roommate_Model extends CI_Model
         prepare_variables($this, $variables);
     }
 
+
     function get_for_tour ($tour_id, $stay, $room_id)
     {
         $this->db->from("roommate");
@@ -68,6 +69,7 @@ class Roommate_Model extends CI_Model
                 false);
 
         $result = $this->db->get()->result();
+
         return $result;
     }
 

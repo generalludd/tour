@@ -134,18 +134,18 @@ class Roommate extends MY_Controller
     {
         $deletion = array(
                 "person_id" => $this->input->post("person_id"),
-                "room" => $this->input->post("room"),
+                "room_id" => $this->input->post("room_id"),
                 "stay" => $this->input->post("stay"),
                 "tour_id" => $this->input->post("tour_id")
         );
         $this->roommate->delete($deletion);
         $tour_id = $this->input->post("tour_id");
         $stay = $this->input->post("stay");
-        $room = $this->input->post("room");
-        $data["room_number"] = $room;
-        $data["roommates"] = $this->roommate->get_for_room($tour_id, $stay,
-                $room);
-        $this->load->view("roommate/room", $data);
+        $room_id = $this->input->post("room_id");
+        $data["room"] = $this->room->get($room_id);
+        $data["room"]->roommates = $this->roommate->get_for_room(
+                $room_id);
+        $this->load->view("room/edit", $data);
     }
 
     /**

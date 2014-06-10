@@ -1,8 +1,7 @@
 $(document).ready(function(){
 
 	
-	$(".field-envelope").on("click",".edit-field",function(){
-
+	$(document).on("click",".edit-field",function(){
 		my_parent = $(this).parent().attr("id");
 		my_attr = my_parent.split("__");
 		my_type = "text";

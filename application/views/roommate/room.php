@@ -16,11 +16,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <tr>
 					<td
 						class="roommate-row"
-						id="<?=sprintf("roommate_%s_%s", get_value($roommate,"room",$room_number),  $roommate->person_id);?>">
+						id="<?=sprintf("roommate_%s_%s", $room_number,  $roommate->person_id);?>">
 						<a href="<?=site_url("person/view/$roommate->person_id");?>"><?=$roommate->person_name;?></a>
 					</td>
 					<td><span
-						id="<?=sprintf("delete-roommate_%s_%s", get_value($roommate,"room",$room_number),  $roommate->person_id);?>"
+						id="<?=sprintf("delete-roommate_%s_%s", $room_number,  $roommate->person_id);?>"
 						class="delete button delete-roommate"> Delete</span></td>
 				</tr>
 
