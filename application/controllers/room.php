@@ -9,7 +9,6 @@ class Room extends MY_Controller
     {
         parent::__construct();
         $this->load->model("room_model", "room");
-        $this->load->model("roommates_model", "roommates");
         $this->load->model("variable_model", "variable");
     }
 
@@ -37,28 +36,6 @@ class Room extends MY_Controller
         }
     }
 
-    function insert ()
-    {
-        $person_id = $this->input->post("person_id");
-        $tour_id = $this->input->post("tour_id");
-        // does the person have a room? Don't allow this if they do.
-        $tourists = $this->tourist->get_for_payer($person_id, $tour_id);
-        $room_size = get_room_size(
-                $this->payer->get_value($person_id, $tour_id, "room_size")->room_size);
-        $room_id = $this->room->insert(
-                array(
-                        "tour_id" => $tour_id,
-                        "size" => $room_size
-                ));
-        foreach ($tourists as $tourist) {
-            $data = array(
-                    "room_id" => $room_id,
-                    "person_id" => $tourist->person_id,
-                    "tour_id" => $tour_id
-            );
-            $this->roommates->insert($data);
-        }
-    }
 
     function edit_value ()
     {
