@@ -15,7 +15,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 			class="save-payer-edits"
 			title="Save and return to tourist list"><?=get_value($payer,"tour_name");?></a>
 	</h5>
-<?=create_button_bar(array(array("text"=>"Cancel", "class"=>"button cancel cancel-payer-edit")));?>
+
 <? endif;?>
 </div>
 <div
@@ -102,17 +102,15 @@ $amt_due = $total_cost - $payer->amt_paid;
 				style="width: 90%"><?=get_value($payer, "note");?></textarea>
 		</p>
 		<p>
-			<input
-				type="submit"
-				class="button"
-				name="save"
-				id="save"
-				value="<?=ucfirst($action);?>" />
+
+<? $buttons[] = array("text"=>sprintf("<input type='submit' class='button edit' name='save' value='%s'/>",ucfirst($action)), "type"=>"pass-through");?>
 			<? if($action == "update"): ?>
-						<span
-				class="button delete delete-payer"
-				id="<?=sprintf("delete-payer_%s_%s", $payer->payer_id, $tour_id);?>">Delete</span>
-			        <? endif; ?>
+<? $buttons[] = array("text"=>"Cancel", "class"=>"button cancel cancel-payer-edit", "title"=>"Cancel the changes to the above payment data.");?>
+<? $buttons[] = array("text"=>"Delete Payer", "title"=>"Completely delete this payer, payment, rooming, and tourist info for this payer", "class"=>"button delete delete-payer", "id"=>sprintf("delete-payer_%s_%s", $payer->payer_id, $tour_id));?>
+
+		<? endif; ?>
+		<?=create_button_bar($buttons);?>
+
 	</p>
 	</form>
 </div>

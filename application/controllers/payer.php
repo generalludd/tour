@@ -115,6 +115,15 @@ class Payer extends MY_Controller
         $payer_id = $this->input->post("payer_id");
         $tour_id = $this->input->post("tour_id");
         $this->payer->update($payer_id, $tour_id);
+        if($this->input->post("is_cancelled") == 1){
+            $this->load->model("roommate_model","roommate");
+            //get everyone on the payer's ticket and delete them from the roommate list for the tour.
+            $tourists = $this->tourist->get_for_payer($payer_id, $tour_id);
+            foreach($tourists as $tourist){
+            $deletion = array("tour_id"=>$tour_id, "person_id"=>$tourist->person_id);
+            $this->roommate->delete($deletion);
+            }
+        }
         redirect("/tourist/view_all/$tour_id");
     }
 

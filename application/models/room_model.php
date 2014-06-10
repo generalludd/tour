@@ -132,4 +132,10 @@ class Room_Model extends CI_Controller
         $result = $this->db->get()->result();
         return $result;
     }
+
+    function delete($id){
+        $this->db->delete("room",array("id"=>$id));
+        echo $this->db->last_query();
+        $this->db->delete("roommate",array("room_id"=>$id));
+    }
 }

@@ -107,6 +107,16 @@ class Room extends MY_Controller
         echo $value;
     }
 
+    function delete(){
+        $id = $this->input->post("id");
+        if($this->room->delete($id)){
+            $output =  TRUE;
+        }else{
+            $output = FALSE;
+        }
+        echo $output;
+    }
+
     function _get_dropdown ($category, $value, $field)
     {
         $this->load->model("variable_model", "variable");

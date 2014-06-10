@@ -62,12 +62,14 @@ class Roommate_Model extends CI_Model
         $this->db->from("roommate");
         $this->db->where("room_id", $room_id);
         $this->db->join("person", "roommate.person_id=person.id");
+        $this->db->join("tourist","tourist.person_id=person.id");
         $this->db->select(
                 "roommate.room_id, roommate.tour_id, roommate.person_id");
         $this->db->select(
                 "CONCAT(person.first_name,' ',person.last_name) as person_name",
                 false);
-
+        $this->db->select("tourist.payer_id");
+        $this->db->group_by("roommate.person_id");
         $result = $this->db->get()->result();
 
         return $result;

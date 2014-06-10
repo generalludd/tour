@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".add-roommate").live("click",function(){
+	$("html").on("click",".add-roommate",function(){
 		my_room = $("#room").val();
 		if(!my_room){
 		my_room = this.id.split("_")[1];
@@ -26,7 +26,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$(".add-room").live("click",function(){
+	$("html").on("click",".add-room", function(){
 		my_id = this.id.split("_");
 		my_tour = my_id[1];
 		my_stay = my_id[2];
@@ -41,11 +41,12 @@ $(document).ready(function(){
 			data: form_data,
 			success: function(data){
 				$("#roommate-list-block").append(data);
+				location.href = "#end-of-list";
 			}
 		});
 	});
 	
-	$(".roommates #person_id").live("change",function(){
+	$("html").on("change",".roommates #person_id",function(){
 		my_tour = $("#tour_id").val();
 		my_stay = $("#stay").val();
 		my_room = $(this).parents("div.room-row").attr("id").split("_")[1];
@@ -67,7 +68,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(document).on("click",".delete-roommate",function(){
+	$("html").on("click",".delete-roommate",function(){
 		question = confirm("Are you sure you want to delete this roommate? This cannot be undone!"); 
 	if(question){
 		my_id = this.id.split("_");
@@ -88,14 +89,14 @@ $(document).ready(function(){
 			url: base_url + "roommate/delete",
 			data: form_data,
 			success: function(data){
-				$(".room-row#room_" + my_room).html(data);
+				$("#roommate-block_" + my_room).html(data);
 			}
 		});
 		
 	}
 	});
 	
-	$(".button-box").on("click",".duplicate-previous-stay",function(){
+	$("html").on("click",".duplicate-previous-stay",function(){
 		my_id = this.id.split("_");
 		form_data = {
 				tour_id: my_id[1],
@@ -110,6 +111,26 @@ $(document).ready(function(){
 			}
 		});
 		
+	});
+	
+	$("html").on("click",".delete-room",function(){
+		question = confirm("are you sure you want to delete this room? This cannot be undone!");
+		if(question){
+			my_id = this.id.split("_")[1];
+			form_data = {
+					id:my_id
+			};
+			
+			$.ajax({
+				type: "post",
+				data: form_data,
+				url: base_url + "room/delete",
+				success: function(data){
+					$("#room_" + my_id).remove();
+					
+				}
+			});
+		}
 	});
 	
 	

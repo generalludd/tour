@@ -355,6 +355,9 @@ textarea {
 .delete {
 	float: right;
 }
+.delete.no-float{
+	float: none;
+}
 
 label {
 	font-weight: bold;
