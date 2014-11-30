@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -51,9 +51,9 @@ if ( ! function_exists('valid_email'))
  */
 if ( ! function_exists('send_email'))
 {
-	function send_email($receipt, $subject = 'Test email', $message = 'Hello World')
+	function send_email($recipient, $subject = 'Test email', $message = 'Hello World')
 	{
-		return mail($receipt, $subject, $message);
+		return mail($recipient, $subject, $message);
 	}
 }
 

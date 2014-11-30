@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -65,7 +65,7 @@ class CI_Email {
 	var	$_smtp_auth		= FALSE;
 	var $_replyto_flag	= FALSE;
 	var	$_debug_msg		= array();
-	var	$_receipts	= array();
+	var	$_recipients	= array();
 	var	$_cc_array		= array();
 	var	$_bcc_array		= array();
 	var	$_headers		= array();
@@ -148,7 +148,7 @@ class CI_Email {
 		$this->_finalbody	= "";
 		$this->_header_str	= "";
 		$this->_replyto_flag = FALSE;
-		$this->_receipts	= array();
+		$this->_recipients	= array();
 		$this->_cc_array	= array();
 		$this->_bcc_array	= array();
 		$this->_headers		= array();
@@ -251,7 +251,7 @@ class CI_Email {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Set receipts
+	 * Set Recipients
 	 *
 	 * @access	public
 	 * @param	string
@@ -275,11 +275,11 @@ class CI_Email {
 		switch ($this->_get_protocol())
 		{
 			case 'smtp'		:
-				$this->_receipts = $to;
+				$this->_recipients = $to;
 			break;
 			case 'sendmail'	:
 			case 'mail'		:
-				$this->_receipts = implode(", ", $to);
+				$this->_recipients = implode(", ", $to);
 			break;
 		}
 
@@ -1032,7 +1032,7 @@ class CI_Email {
 
 				if ($this->_get_protocol() == 'mail')
 				{
-					$this->_header_str .= $hdr;
+					$this->_header_str .= rtrim($hdr);
 					$this->_finalbody = $this->_body;
 				}
 				else
@@ -1070,7 +1070,7 @@ class CI_Email {
 
 				if ($this->_get_protocol() == 'mail')
 				{
-					$this->_header_str .= $hdr;
+					$this->_header_str .= rtrim($hdr);
 				}
 				else
 				{
@@ -1092,7 +1092,7 @@ class CI_Email {
 
 				if ($this->_get_protocol() == 'mail')
 				{
-					$this->_header_str .= $hdr;
+					$this->_header_str .= rtrim($hdr);
 				}
 
 				$body .= $this->_get_mime_message() . $this->newline . $this->newline;
@@ -1110,7 +1110,7 @@ class CI_Email {
 
 				if ($this->_get_protocol() == 'mail')
 				{
-					$this->_header_str .= $hdr;
+					$this->_header_str .= rtrim($hdr);
 				}
 
 				$body .= $this->_get_mime_message() . $this->newline . $this->newline;
@@ -1362,11 +1362,11 @@ class CI_Email {
 			$this->reply_to($this->_headers['From']);
 		}
 
-		if (( ! isset($this->_receipts) AND ! isset($this->_headers['To']))  AND
+		if (( ! isset($this->_recipients) AND ! isset($this->_headers['To']))  AND
 			( ! isset($this->_bcc_array) AND ! isset($this->_headers['Bcc'])) AND
 			( ! isset($this->_headers['Cc'])))
 		{
-			$this->_set_error_message('lang:email_no_receipts');
+			$this->_set_error_message('lang:email_no_recipients');
 			return FALSE;
 		}
 
@@ -1536,7 +1536,7 @@ class CI_Email {
 	{
 		if ($this->_safe_mode == TRUE)
 		{
-			if ( ! mail($this->_receipts, $this->_subject, $this->_finalbody, $this->_header_str))
+			if ( ! mail($this->_recipients, $this->_subject, $this->_finalbody, $this->_header_str))
 			{
 				return FALSE;
 			}
@@ -1550,7 +1550,7 @@ class CI_Email {
 			// most documentation of sendmail using the "-f" flag lacks a space after it, however
 			// we've encountered servers that seem to require it to be in place.
 
-			if ( ! mail($this->_receipts, $this->_subject, $this->_finalbody, $this->_header_str, "-f ".$this->clean_email($this->_headers['From'])))
+			if ( ! mail($this->_recipients, $this->_subject, $this->_finalbody, $this->_header_str, "-f ".$this->clean_email($this->_headers['From'])))
 			{
 				return FALSE;
 			}
@@ -1620,7 +1620,7 @@ class CI_Email {
 
 		$this->_send_command('from', $this->clean_email($this->_headers['From']));
 
-		foreach ($this->_receipts as $val)
+		foreach ($this->_recipients as $val)
 		{
 			$this->_send_command('to', $val);
 		}
