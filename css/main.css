@@ -1000,7 +1000,7 @@ input.note-field,textarea.address-field {
 	padding-right: 2em;
 }
 
-#hotel-editor .input-block-row {
+#hotel-editor .input-block.row {
 	min-width: 34em;
 }
 

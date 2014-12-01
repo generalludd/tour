@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".add-address").live("click",function(){
+	$(".add-address").on("click",function(){
 		my_id = this.id.split("_")[1];
 		form_data = {
 				id: my_id,
@@ -17,7 +17,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$(".edit-address").live("click",function(){
+	$(".edit-address").on("click",function(){
 		my_address = this.id.split("_")[1];
 		my_person = this.id.split("_")[2];
 		form_data = {
@@ -36,7 +36,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".change-housemate").live("click",function(){
+	$(".change-housemate").on("click",function(){
 		my_id = this.id.split("_")[1];
 		form_data = {
 				person_id: my_id,
@@ -52,7 +52,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('#find_housemate').live('keyup', function(event) {
+	$('#find_housemate').on('keyup', function(event) {
 		var find_housemate = $("#find_housemate").val();
 		if (find_housemate.length > 2 && find_housemate != "find housemates") {
 			search_words = find_housemate.split(' ');
@@ -87,21 +87,21 @@ $(document).ready(function(){
 	});// end stuSearch.keyup
 	
 
-	$('#find_housemate').live('focus', function(event) {
+	$('#find_housemate').on('focus', function(event) {
 		$('#find_housemate').val('').css( {
 			color : 'black'
 		});
 	});
 	
 	
-	$('#find_housemate').live('blur', function(event) {
+	$('#find_housemate').on('blur', function(event) {
 		
 		$("#search_list").fadeOut();
 		$('#find_housemate').css({color:'#666'}).val('find housemates');
 		//$("#search_list").remove();
 	});
 	
-	$(".select-housemate").live("click",function(){
+	$(".select-housemate").on("click",function(){
 		my_person = $("#person_id").val();
 		my_address = this.id.split("_")[1];
 		form_data = {

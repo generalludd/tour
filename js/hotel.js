@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	$(".add-hotel").live("click",function(){
+	$(".add-hotel").on("click",function(){
 		my_tour = this.id.split("_")[1];
 		form_data  = {
 				ajax: "1",
@@ -17,7 +17,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$(".edit-hotel").live("click",function(){
+	$(".edit-hotel").on("click",function(){
 		my_hotel = this.id.split("_")[1];
 		form_data = {
 			ajax: "1",
@@ -28,12 +28,12 @@ $(document).ready(function(){
 			url: base_url + "hotel/edit",
 			data: form_data,
 			success: function(data){
-				show_popup("Editing a Hotel",data,"auto");
+				show_popup("Editing a Hotel",data,"580px");
 			}
 		});
 	});
 	
-	$(".delete-hotel").live("click", function(){
+	$(".delete-hotel").on("click", function(){
 		my_id = this.id.split("_");
 		my_hotel = my_id[1];
 		my_tour = my_id[2];
