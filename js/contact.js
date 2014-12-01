@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$("html").on("click",".edit-contact",function(){
+	$(".edit-contact").live("click",function(){
 		my_id = this.id.split("_")[1];
 		form_data = {
 				id: my_id,
@@ -15,7 +15,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("html").on("click",".add-contact",function(){
+	$(".add-contact").live("click",function(){
 		my_id = this.id.split("_")[1];
 		form_data = {
 				hotel_id: my_id,
@@ -31,7 +31,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("html").on("click",".delete-contact",function(){
+	$(".delete-contact").live("click",function(){
 		my_id = this.id.split("_");
 		my_contact = my_id[1];
 		my_hotel = my_id[2];

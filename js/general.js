@@ -50,19 +50,19 @@ $(document).ready(function(){
 	});
 	
 	
-	$(".checkbox .save-checkbox").live("click",function(){
+	$(".checkbox .save-checkbox").on("click",function(){
 		update_field($(this));
 	});
 	
-	$(".multiselect .save-multiselect").live("click",function(){
+	$(".multiselect .save-multiselect").on("click",function(){
 		save_field($(this));
 	});
 	
-	$(".datefield").live("focus", function(){
+	$(".datefield").on("focus", function(){
 		$(".datefield").datepicker();
 	});
 	
-	$(".history-back").live("click", function(){
+	$(".history-back").on("click", function(){
 		history.back();
 		history.back();
 	});
