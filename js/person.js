@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$('#person_search').live('keyup', function(event) {
 		var person_search = this.value;
-		if (person_search.length > 6 && person_search != "find people") {
+		if (person_search.length > 3 && person_search != "find people") {
 			search_words = person_search.split(' ');
 			my_name = search_words.join('%');
 			var form_data = {

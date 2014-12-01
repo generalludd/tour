@@ -184,12 +184,7 @@ div.login-title {
 	padding-top: 1em;
 }
 
-.page-list .student_list {
-	width: 250px;
-	margin-left: 0;
-}
 
-/*student search elements*/
 div.result {
 	font-size: 1em;
 	position: absolute;
@@ -200,7 +195,6 @@ div.result {
 	padding-left: 2%;
 }
 
-/*student list elements*/
 div.entry,div.list {
 	width: 60%;
 	text-indent: 2%;
@@ -226,7 +220,7 @@ div.entry,div.list {
 	width: 70%;
 }
 
-.button,#navigation,#advancedSearch,#browser_warning,.notice,.warning,#searchForm fieldset,.support-view legend,input[type="submit"],#navigation input[type="text"]
+.button,#navigation,#browser_warning,.notice,.warning,input[type="submit"],#navigation input[type="text"]
 	{
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -478,7 +472,7 @@ h2 {
 	padding: 10px;
 }
 
-h3,.support-view legend {
+h3 {
 	font-size: 1.5em;
 	font-weight: bold;
 	margin: 1em 0;
@@ -505,40 +499,18 @@ h5 {
 	margin: 0;
 }
 
-h3,h4,h5,.support-view legend {
+h3,h4,h5 {
 	margin-top: 4px;
 	margin-bottom: 4px;
 	padding: 5px;
 	/*padding-left: 10px;*/
 }
 
-/*attendance values*/
-ol.attendance {
-	padding: 0;
-	margin: 0;
-	display: inline
-}
-
-li.attendance {
-	display: inline;
-	padding-left: .5em;
-	margin-left: .5em;
-	margin-top: .5em;
-	border-left: .01em solid black;
-	color: black
-}
-
-li.attendance:first-child {
-	padding-left: 0;
-	border-left: none;
-	margin-left: 0
-}
 
 .field {
 	margin-bottom: .5em;
 }
-/*column boxes (see attendance_list.inc.html)
-*/
+
 .columnbox {
 	width: 100%;
 }
@@ -556,46 +528,6 @@ li.attendance:first-child {
 	float: left;
 }
 
-/* Editor for Student Info page */
-#editor {
-	height: 130px;
-	width: 380px;
-	left: 280px;
-	top: 100px;
-	position: absolute;
-	visibility: hidden;
-}
-
-.chartbox {
-	width: 100%;
-	height: 25px;
-}
-
-.chartcol20 {
-	width: 20%;
-	height: 100px;
-	float: left;
-}
-
-.chartcol15 {
-	width: 15%;
-	height: 100px;
-	float: left;
-}
-
-.chartcol12 {
-	width: 12.5%;
-	height: 100px;
-	float: left;
-}
-
-.charttop {
-	width: 100%
-}
-
-.chartbottom {
-	width: 100%;
-}
 
 img:hover {
 	cursor: pointer;
@@ -671,6 +603,8 @@ a.button {
 	box-shadow: 3px 3px 4px #666;
 	background-color: #fff;
 	border: 1px solid #ddd;
+	max-height: 250px;
+	overflow: scroll;
 }
 
 table.list caption {
@@ -785,10 +719,6 @@ fieldset.advanced div.advanced {
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-#search_list .studentName {
-	padding-top: 0;
 }
 
 .button-box {
