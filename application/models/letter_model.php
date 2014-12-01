@@ -47,7 +47,6 @@ class Letter_model extends CI_Model
     function insert ()
     {
         $this->prepare_variables();
-        print $this->creation_date;
         $this->db->insert("letter", $this);
         $id = $this->db->insert_id();
         return $id;

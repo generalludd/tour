@@ -21,7 +21,7 @@ Payment Deadline: <?=format_date($tour->due_date);?>
 </p>
 <p>
 <label for="creation_date">Date Created</label>
-<input type="date" name="creation_date" class="datefield" value="<?=format_date(get_value($letter,"creation_date",date("Y-m-d")));?>"/>
+<input type="text" name="creation_date" class="datefield" value="<?=format_date(get_value($letter,"creation_date",date("Y-m-d")));?>"/>
 </p>
 <p>
 <label for="body">Main Letter Text</label><br/>
