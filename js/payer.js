@@ -2,7 +2,7 @@
  * 
  */
 $(document).ready(function(){
-$(".edit-payer").on("click",function(){
+$(".edit-payer").live("click",function(){
 	my_id = this.id.split("_");
 	form_data ={
 	payer_id: my_id[1],
@@ -21,11 +21,11 @@ $(".edit-payer").on("click",function(){
 	
 });
 
-$(".save-payer-edits").on("click", function(){
+$(".save-payer-edits").live("click", function(){
 	document.forms[0].submit();
 });
 
-$(".cancel-payer-edit").on("click", function(){
+$(".cancel-payer-edit").live("click", function(){
 	$("#payer-editor-block").css("background-color","#FFCCCC");
 	tour_id = $("#tour_id").val();
 	ok = "<a class='button delete' href='" + base_url + "tourist/view_all/" + tour_id + "' >Yes</a>";
@@ -45,7 +45,7 @@ $(".cancel-payer-edit").on("click", function(){
  * change the hidden value of the payment type based on changes to a dropdown
  * in the payer editor. 
  */
-$(".change_payment_type").on("mouseup",function(){
+$(".change_payment_type").live("mouseup",function(){
 	my_id = $("#tour_id").val();
 	my_type = $(this).val();
 	
@@ -67,7 +67,7 @@ $(".change_payment_type").on("mouseup",function(){
 	
 });
 
-$(".change_room_size").on("change",function(){
+$(".change_room_size").live("change",function(){
 	my_id = $("#tour_id").val();
 	amt_paid = $("#amt_paid").val().valueOf();
 	my_type = $(this).val();
@@ -93,13 +93,13 @@ $(".change_room_size").on("change",function(){
 
 
 
-$("input.edit-payer-amounts").on("blur",function(){
+$("input.edit-payer-amounts").live("blur",function(){
 calculate_cost(1);	
 });
 
 
 
-$('#tourist-dropdown').on('keyup', function(event) {
+$('#tourist-dropdown').live('keyup', function(event) {
 	var person_search = this.value;
 	if (person_search.length > 6 && person_search != "find person") {
 		search_words = person_search.split(' ');
@@ -143,7 +143,7 @@ if(data.length > 0){
 
 
 
-$('#tourist-dropdown').on('blur', function(event) {
+$('#tourist-dropdown').live('blur', function(event) {
 	$("#search_list").fadeOut();
 });
 
@@ -154,7 +154,7 @@ $('#tourist-dropdown').on('blur', function(event) {
  * in this case payer returns a list of tourists for a given payer. 
  */
 
-$(".select_for_tour").on("click", function(){
+$(".select_for_tour").live("click", function(){
 	my_id = this.id.split("_");
 	my_person = my_id[1];
 	my_payer = my_id[2];
@@ -187,7 +187,7 @@ $(".select_for_tour").on("click", function(){
  * in this case "tour" will return a confirmation with an option to 
  */
 
-$(".select-payer").on("click", function(){
+$(".select-payer").live("click", function(){
 	my_id = this.id.split("_");
 	my_person = my_id[1];
 	my_payer = my_id[2];
@@ -211,7 +211,7 @@ $(".select-payer").on("click", function(){
 
 
 
-$(".delete-tourist").on("click",function(){
+$(".delete-tourist").live("click",function(){
 	question = confirm("Are you sure you want to remove this person from this list? This cannot be undone");
 	if(question){
 		my_id = this.id.split("_");
@@ -238,7 +238,7 @@ $(".delete-tourist").on("click",function(){
 		}
 });
 
-$(".select-tourist-type").on("click",function(){
+$(".select-tourist-type").live("click",function(){
 	my_id = this.id.split("_")[1];
 	form_data = {
 			id: my_id,
@@ -254,7 +254,7 @@ $(".select-tourist-type").on("click",function(){
 	});
 });
 
-$(".select-tour").on("click",function(){
+$(".select-tour").live("click",function(){
 	my_id = this.id.split("_")[1];
 	form_data = {
 			id: my_id,
@@ -272,7 +272,7 @@ $(".select-tour").on("click",function(){
 
 
 
-$(".select-as-tourist").on("click",function(){
+$(".select-as-tourist").live("click",function(){
 	my_tour = this.id.split("_")[1];
 	my_person = $("#person_id").val();
 	form_data = {
@@ -290,7 +290,7 @@ $(".select-as-tourist").on("click",function(){
 	});
 });
 
-$(".select-as-payer").on("click",function(){
+$(".select-as-payer").live("click",function(){
 	my_tour = this.id.split("_")[1];
 	my_person = $("#person_id").val();
 	form_data = {
@@ -309,7 +309,7 @@ $(".select-as-payer").on("click",function(){
 	});
 });
 
-$(".delete-payer").on("click",function(){
+$(".delete-payer").live("click",function(){
 	request = confirm("Only delete a payer if they have been added to the tour by mistake. Check 'Cancel' if they have dropped out.");
 	if(request){
 		plea = confirm ("Are you really sure? This will remove this payer, all their accompanying tourists, and any roommmate records for the tour they may have. Continue?");
@@ -336,7 +336,7 @@ $(".delete-payer").on("click",function(){
 	}
 });
 
-$(".create-new-tourist").on("click", function(){
+$(".create-new-tourist").live("click", function(){
 	tourist_name = $("#tourist-dropdown").val();
 	first_name = tourist_name.split(" ")[0];
 	last_name = tourist_name.split(" ")[1];
@@ -357,7 +357,7 @@ $(".create-new-tourist").on("click", function(){
 	});
 });
 
-$(".insert-new-tourist").on("click",function(){
+$(".insert-new-tourist").live("click",function(){
 	my_tour = $("#tour_id").val();
 	my_payer = $("#payer_id").val();
 	form_data = {
@@ -390,7 +390,7 @@ $(".insert-new-tourist").on("click",function(){
 	
 });
 
-$(".select-letter").on("click", function(){
+$(".select-letter").live("click", function(){
 	my_id = this.id.split("_");
 	my_payer = my_id[1];
 	my_tour = my_id[2];
@@ -411,7 +411,7 @@ $(".select-letter").on("click", function(){
 });
 
 
-$(".insert-merge-note").on("click", function(){
+$(".insert-merge-note").live("click", function(){
 	$(this).fadeOut();
 	$.ajax({
 		type: "get",
@@ -422,7 +422,7 @@ $(".insert-merge-note").on("click", function(){
 	});
 });
 
-$(".edit-merge-note").on("click", function(){
+$(".edit-merge-note").live("click", function(){
 	$(this).fadeOut();
 	my_id = $("#id").val();
 	form_data = {
@@ -442,7 +442,7 @@ $(".edit-merge-note").on("click", function(){
 	});
 });
 
-$(".save-note").on("click", function(){
+$(".save-note").live("click", function(){
 	my_id = $("#id").val();
 	my_note = $("#note").val();
 	form_data = {
