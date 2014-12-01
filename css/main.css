@@ -1043,7 +1043,7 @@ label.above {
 
 
 #word-icon {
-	background-position: -380px, -20px;
+	background-position: -380px -20px;
 	background-image: url(../tiny_mce/themes/advanced/img/icons.gif);
 	background-repeat: no-repeat;
 	height: 20px;
