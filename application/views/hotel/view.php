@@ -56,9 +56,9 @@ $buttons[] = array(
 				href="<?=site_url("tour/view/$hotel->tour_id");?>"><?=$hotel->tour_name;?></a>
 		</div>
 <?=create_field("stay",get_value($hotel,"stay"), "Stay", array("envelope"=>"div","format"=>"number","type","number"));?>
-<?=create_field ("arrival_date", format_date( get_value($hotel,"arrival_date")), "Arrival Date",array("envelope"=>"div","format"=>"date","type"=>"text"));?>
+<?=create_field ("arrival_date", format_date( get_value($hotel,"arrival_date")), "Arrival Date",array("envelope"=>"div","format"=>"date","type"=>"date"));?>
 <?=create_field ("arrival_time", get_value($hotel,"arrival_time"), "Arrival Time",array("envelope"=>"div","format"=>"time","type"=>"time"));?>
-<?=create_field ("departure_date",format_date( get_value($hotel,"departure_date")), "Departure Date",array("envelope"=>"div","format"=>"date","type"=>"text"));?>
+<?=create_field ("departure_date",format_date( get_value($hotel,"departure_date")), "Departure Date",array("envelope"=>"div","format"=>"date","type"=>"date"));?>
 <?=create_field ("departure_time", get_value($hotel,"departure_time"), "Departure Time",array("envelope"=>"div","format"=>"time","type"=>"time"));?>
 </div>
 <div class="column">

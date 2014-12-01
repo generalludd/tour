@@ -12,20 +12,21 @@
 <label for="tour_id">Tour:&nbsp;</label>
 <?=form_dropdown("tour_id",$tour_list,get_value($hotel,"tour_id",$tour->id),"id='tour_id'");?>
 </div>
-<div class="input-block=row">
 <?=create_input($hotel, "stay", "Tour Stay Number",$options = array("envelope"=>"div","type"=>"number"));?>
-<?=create_input($hotel, "arrival_date", "Arrival Date", $options = array("envelope"=>"div","envelope_class"=>"inline","format"=>"date","type"=>"text","class"=>"datefield"));?>
+<div class="input-block row">
+
+<?=create_input($hotel, "arrival_date", "Arrival Date", $options = array("envelope"=>"div","envelope_class"=>"inline","format"=>"date","type"=>"date","class"=>"datefield"));?>
 </div>
 <?=create_input($hotel, "arrival_time", "Arrival Time", $options = array("envelope"=>"div","format"=>"time","type"=>"time"));?>
-<div class="input-block-row">
-<?=create_input($hotel, "departure_date", "Departure Date", $options = array("envelope"=>"div","envelope_class"=>"inline","format"=>"date","type"=>"text","class"=>"datefield"));?>
+<div class="input-block row">
+<?=create_input($hotel, "departure_date", "Departure Date", $options = array("envelope"=>"div","envelope_class"=>"inline","format"=>"date","type"=>"date","class"=>"datefield"));?>
 <?=create_input($hotel, "departure_time", "Departure Time", $options = array("envelope"=>"div","format"=>"time","type"=>"time"));?>
 </div>
-<div class="input-block=row">
+<div class="input-block row">
 <?=create_input($hotel, "phone", "Phone", $options = array("envelope"=>"div","envelope_class"=>"inline","format"=>"tel","type"=>"tel"));?>
 <?=create_input($hotel, "fax", "Fax", $options = array("envelope"=>"div","format"=>"tel","type"=>"tel"));?>
 </div>
-<div class="input-block=row">
+<div class="input-block row">
 <?=create_input($hotel, "email", "Email", $options = array("envelope"=>"div","envelope_class"=>"inline","format"=>"email","type"=>"email"));?>
 <?=create_input($hotel, "url", "Website", $options = array("envelope"=>"div","format"=>"url","type"=>"url"));?>
 </div>
