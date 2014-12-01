@@ -26,14 +26,14 @@ Payment Deadline: <?=format_date($tour->due_date);?>
 <p>
 <label for="body">Main Letter Text</label><br/>
 NOTE: DO NOT PASTE DIRECTLY FROM ANOTHER WORD PROCESSOR, USE THE <span id="word-icon"></span> BUTTON BELOW<br/>
-<textarea id="body" class="tinymce" name="body">
+<textarea id="body" class="tinymce" name="body" style="width:100%">
 <?=get_value($letter, "body");?>
 </textarea>
 </p>
 <p>
 <label for="cancellation">Cancellation Paragraph</label><br/>
 NOTE: DO NOT PASTE DIRECTLY FROM ANOTHER WORD PROCESSOR, USE THE <span id="word-icon"></span> BUTTON BELOW<br/>
-<textarea id="cancellation" class="tinymce" name="cancellation">
+<textarea id="cancellation" class="tinymce" style="width: 100%" name="cancellation">
 <?=get_value($letter, "cancellation");?>
 </textarea>
 </p>

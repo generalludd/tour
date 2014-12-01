@@ -147,10 +147,11 @@ $buttons[] = array(
 		</tr>
 	</tfoot>
 </table>
+<?php if($shirt_count):?>
 <p><strong>Shirt Totals</strong><br/>
 <?=sort_shirts($shirt_count);?>
 </p>
-
+<?php endif; 
 
 
 

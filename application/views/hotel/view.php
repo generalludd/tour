@@ -63,11 +63,15 @@ $buttons[] = array(
 </div>
 <div class="column">
 <p><strong>Room Type Count (from payer records):</strong></p>
+<?php if($room_types):?>
 <? foreach($room_types as $room_type):?>
 <?$room_output[] = sprintf("%ss: %s", format_field_name($room_type->room_size), $room_type->count);?>
 <? endforeach;?>
 <p>
 <?=implode("<br/>", $room_output);?>
 </p>
+<?php else:?>
+<p>No Rooms Entered Yet</p>
+<?php endif;?>
 </div>
 </div>

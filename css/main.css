@@ -276,8 +276,8 @@ input[type="number"] {
 	width: 10ex;
 }
 
-input[type="date"] {
-	width: 28ex;
+input[type="date"], input.datefield {
+	width: 14ex;
 }
 
 input[type="tel"] {
@@ -285,7 +285,7 @@ input[type="tel"] {
 }
 
 input[type="time"] {
-	width: 7ex;
+	width: 14ex;
 }
 
 .unread {
