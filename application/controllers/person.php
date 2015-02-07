@@ -203,22 +203,11 @@ class Person extends MY_Controller
     {
         $options = $this->input->cookie("person_filters");
         $options = unserialize($options);
-
         $this->export_addresses($options);
-        /*
-        if (is_array($options) && array_key_exists("include_address", $options)) {
-            $this->export_addresses($options);
-        } else {
-            $data["people"] = $this->person->get_all($options);
-            $data['target'] = 'Person Export';
-            $data['title'] = "Export of People";
-            $this->load->helper('download');
-            $this->load->view('person/export', $data);
-        }
-        */
+        
     }
 
-    function export_addresses ($options)
+    function export_addresses ($options = NULL)
     {
         $options["export"] = TRUE;
         $this->load->model("address_model", "address");
