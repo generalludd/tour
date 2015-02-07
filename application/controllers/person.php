@@ -15,6 +15,7 @@ class Person extends MY_Controller
 
     function index ()
     {
+    	 
         $this->view_all();
     }
 
@@ -53,6 +54,8 @@ class Person extends MY_Controller
 
     function view_all ($options = array())
     {
+    
+    	
         burn_cookie("person_filter");
         $filters = array();
         $initial = FALSE;

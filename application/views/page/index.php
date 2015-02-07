@@ -27,14 +27,28 @@ if($this->uri->segment(1) == ""){
 </div>
 </div>
 <?php endif; ?>
-<div id="alert" class="message"><?=$this->session->userdata("notice");
-?></div>
-<?=$this->session->set_userdata("notice",NULL);?>
+
 
 <!-- main -->
 
 <div id="main"><!-- content -->
-<div id="content"><?
+<div id="content">
+<?php if($this->session->flashdata("notice")):?>
+<div id="notice"><?=$this->session->flashdata("notice");
+?></div>
+<?php endif;?>
+<?php if($this->session->flashdata("alert") || BACKUP_STATUS > 1209599):?>
+<div id="alert"><?=$this->session->flashdata("alert");
+?>
+<?php if(BACKUP_STATUS > 1209599):?>
+<p>
+It has been over <?php echo round(BACKUP_STATUS/60/60/24,0); ?> days since the last backup. You should <a href="<?php echo site_url("backup"); ?>">click here to backup now</a>. 
+</p>
+<?php endif;?>
+
+</div>
+<?php endif; ?>
+<?
 $this->load->view($target);
 ?></div>
 <!-- end content -->

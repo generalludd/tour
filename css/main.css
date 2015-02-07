@@ -142,11 +142,9 @@ div.login-title {
 
 /* general notices */
 #notice {
-	position: absolute;
 	top: 25%;
 	left: 15%;
 	overflow: auto;
-	visibility: hidden;
 	float: none;
 	padding: 12px;
 	border-style: solid;

@@ -14,11 +14,31 @@ backgrounds: #C7D7E9
 	background-color: yellow;
 }
 
+#notice, #alert {
+	color: #468847;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	padding: 8px 35px 8px 14px;
+	margin-bottom: 20px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+#alert {
+	color: #b94a48;
+background-color: #f2dede;
+border-color: #eed3d7;
+}
+
 .striped {
 	background-color: #c7d7e9;
 }
 
-a,a:hover,a:link,a:visited {
+a, a:hover, a:link, a:visited {
 	color: #489310;
 }
 
@@ -70,19 +90,14 @@ div.error-text {
 div.login-title {
 	color: black;
 	border: 1px solid #ccc;
-    box-shadow: 2px 2px 4px #aaa;
-}
-
-#notice {
-	background-color: #fcfcaa;
-	border-color: black;
+	box-shadow: 2px 2px 4px #aaa;
 }
 
 div.result {
 	background-color: white;
 }
 
-div.entry,div.list {
+div.entry, div.list {
 	border-top-color: silver;
 	border-right-color: silver;
 	border-left-color: silver;
@@ -93,7 +108,7 @@ div.list {
 }
 
 /*form elements*/
-.button,input[type="submit"],.button.active:hover {
+.button, input[type="submit"], .button.active:hover {
 	border: none;
 	color: #ffffff;
 	background: #489310;
@@ -106,7 +121,7 @@ div.list {
 	background: linear-gradient(top, #67b021 0, #489310 100%);
 }
 
-.button:hover,submit:hover {
+.button:hover, submit:hover {
 	opacity: .90;
 	color: #000;
 	border: none;
@@ -138,7 +153,7 @@ div.list {
 	*background-image: url(images/help_button_hover.png);
 }
 
-.notice .link,.notice a {
+.notice .link, .notice a {
 	color: #fff;
 }
 
@@ -182,7 +197,7 @@ a.button {
 	/* 	background-image: url(images/edit_button_hover.png); */
 }
 
-.button.new,a.button.new {
+.button.new, a.button.new {
 	border: 1px solid #ddd000;
 	background-color: #eff11;
 	color: #000;
@@ -196,7 +211,7 @@ a.button {
 	/* 		background-image: url(images/new_button.png); */
 }
 
-.button.new:hover,.button.new.active {
+.button.new:hover, .button.new.active {
 	border: 1px solid #ddd000;
 	background-color: #dff110;
 	background: -moz-linear-gradient(top, #dff110 0, #eeff11 100%);
@@ -289,7 +304,7 @@ a.button {
 	background-color: transparent;
 }
 
-h2,h3,h4,h5,h6 {
+h2, h3, h4, h5, h6 {
 	/*background-color: #C7D7E9;*/
 	border: none;
 }
@@ -299,7 +314,7 @@ h2,h3,h4,h5,h6 {
 	color: white;
 }
 
-.warning,.notice,.error {
+.warning, .notice, .error {
 	color: black;
 	opacity: .90;
 	filter: Alpha(Opacity =                                 90);
@@ -316,11 +331,11 @@ h2,h3,h4,h5,h6 {
 	background: #ff0;
 }
 
-.warning h4,.notice h4 {
+.warning h4, .notice h4 {
 	border-color: black;
 }
 
-a.link,input.link {
+a.link, input.link {
 	color: #489310;
 }
 
@@ -328,7 +343,7 @@ a.link:visited {
 	*color: purple;
 }
 
-span.link,label.link {
+span.link, label.link {
 	color: blue;
 	text-decoration: underline;
 	cursor: pointer;
@@ -365,8 +380,6 @@ table.list tr:hover {
 	color: #666;
 }
 
-.cancelled , tr.cancelled td {
+.cancelled, tr.cancelled td {
 	background-color: #FFCCCC;
 }
-
- 
