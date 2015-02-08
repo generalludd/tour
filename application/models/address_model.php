@@ -45,6 +45,7 @@ class Address_model extends CI_Model
         if (array_key_exists("export", $options)) {
         	//$this->db->group_by("address.id");
         	$this->db->select("DISTINCT(`address`.`id`)");
+        	$this->db->order_by("address.zip");
         }
         if (array_key_exists("veterans_only", $options) && $options["veterans_only"]) {
             $veterans_only = TRUE;
