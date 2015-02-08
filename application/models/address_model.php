@@ -42,6 +42,10 @@ class Address_model extends CI_Model
     {
         $veterans_only = FALSE;
         $tour_id = FALSE;
+        if (array_key_exists("export", $options)) {
+        	//$this->db->group_by("address.id");
+        	$this->db->select("DISTINCT(`address`.`id`)");
+        }
         if (array_key_exists("veterans_only", $options) && $options["veterans_only"]) {
             $veterans_only = TRUE;
         }
@@ -54,10 +58,7 @@ class Address_model extends CI_Model
         $this->db->select("address.address, address.city, address.state,address.zip,address.informal_salutation,address.formal_salutation, person.address_id");
         $this->db->join("person", "person.address_id=address.id");
         $this->db->order_by("address.id");
-        if (array_key_exists("export", $options)) {
-            //$this->db->group_by("address.id");
-            $this->db->select("DISTINCT(`address`.`id`)");
-        }
+       
         if ($veterans_only) {
             $this->db->where("person.is_veteran", 1);
         }
