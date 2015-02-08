@@ -55,7 +55,8 @@ class Address_model extends CI_Model
         $this->db->join("person", "person.address_id=address.id");
         $this->db->order_by("address.id");
         if (array_key_exists("export", $options)) {
-            $this->db->group_by("address.id");
+            //$this->db->group_by("address.id");
+            $this->db->select("DISTINCT(`address`.`id`)");
         }
         if ($veterans_only) {
             $this->db->where("person.is_veteran", 1);

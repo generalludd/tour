@@ -215,8 +215,6 @@ class Person extends MY_Controller
         $data['target'] = 'Address Export';
         $data['title'] = "Export of Addresses";
         $this->load->helper('download');
-        print_r($data);
-        die();
         $this->load->view('address/export', $data);
     }
 
