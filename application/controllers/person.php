@@ -201,9 +201,9 @@ class Person extends MY_Controller
 
     function export ()
     {
-       /*  $options = $this->input->cookie("person_filters");
-        $options = unserialize($options); */
-        $this->export_addresses();
+        $options = $this->input->cookie("person_filters");
+        $options = unserialize($options); 
+        $this->export_addresses($options);
         
     }
 
