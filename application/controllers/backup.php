@@ -27,7 +27,6 @@ class Backup extends MY_Controller{
 	    force_download($filename, $backup);
 		//*/
 		redirect("person");
-		
 	}
 	
 	
