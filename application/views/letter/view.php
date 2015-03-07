@@ -17,4 +17,5 @@ Payment Deadline: <?=format_date($tour->due_date);?>
 <?=$letter->cancellation;?>
 </div>
 <? $buttons[] = array("text"=>"Edit Letter", "href"=>site_url("letter/edit/$letter->id"), "class"=>"button edit");
+$buttons[] = array("text"=>"Delete","class"=>"button delete no-float delete-template","id"=>sprintf("delete-template_%s_%s",$letter->id,$tour->id));
 print create_button_bar($buttons);

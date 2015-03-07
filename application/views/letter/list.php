@@ -5,6 +5,8 @@ $buttons["add_letter"] = array("text"=>"Add Letter", "class"=>"button add-letter
 ?>
 <h4>List of Letter Templates</h4>
 
+<? if($letters): ?>
+
 <div id="letter-list-box">
 <table id="letter-list">
 <thead>
@@ -35,6 +37,7 @@ Title
 <? endforeach; ?>
 </tbody>
 </table>
+<? endif; ?>
 <div style="padding-top: 1em;">
 <?=create_button_bar($buttons);?>
 </div>

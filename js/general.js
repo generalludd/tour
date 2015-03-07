@@ -66,6 +66,28 @@ $(document).ready(function(){
 		history.back();
 		history.back();
 	});
+	
+	$(".delete-template").on("click",function(){
+		my_id = this.id.split("_");
+		form_data = {
+				id: my_id[1],
+				tour_id: my_id[2]
+		};
+		
+		if(confirm("Are you sure you want to delete this letter? It cannot be undone.")){
+			$.ajax({
+				type: "post",
+				url: base_url + "letter/delete",
+				data: form_data,
+				success: function(data){
+					window.location.href = base_url + "tour/view/" + my_id[2];
+
+
+				}
+			});
+		}
+
+	});
 
 	
 });
