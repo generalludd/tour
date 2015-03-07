@@ -112,7 +112,8 @@ class Person_model extends CI_Model
             $this->db->where("tourist.tour_id", $tour_id);
         }
         if ($email_only) {
-            $this->db->where("`person`.`email` IS NOT NULL", NULL, FALSE);
+            $this->db->where("(`person`.`email` IS NOT NULL OR `person`.`email` = '')", NULL, FALSE);
+            //$this->db->or_where("`person`.`email`", "");
             $this->db->select("person.first_name, person.last_name, person.email,person.id,person.status,person.is_veteran");
             // $this->db->limit(5);
         }
