@@ -46,6 +46,9 @@ if ($name == "initial") :
 </ul>
 </fieldset>
 <? endif;?>
+<p class="message">
+Total Found Count: <?=count($people); ?>
+</p>
 <?=create_button_bar($buttons);?>
 <table
 	class="list"
