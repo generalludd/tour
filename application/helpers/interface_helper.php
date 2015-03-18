@@ -246,22 +246,9 @@ $title = sprintf("title='%s'", $options["title"]);
     return implode("\r", $output);
 }
 
-/**
- * deprecated for create_field
- *
- * @param unknown $field_name
- * @param unknown $value
- * @param unknown $label
- * @param unknown $options
- */
-function create_edit_field ($field_name, $value, $label, $options = array())
-{
-    $options["editable"] = TRUE;
-    return create_field($field_name, $value, $label, $options);
-}
 
 /**
- * create a field set that can be edited with AJAX on the fly.
+ * create a displayed field easily on complex forms for AJAX-ready in-place editing.
  *
  * @param string $field_name
  * @param string $value
@@ -277,7 +264,9 @@ function edit_field($field_name, $value, $label, $table, $id, $options = array()
 
     /* The id is split with the "-" delimiter in javascript when the field is clicked */
     $output [] = sprintf ( "<%s class='field-envelope' id='%s__%s__%s'>", $envelope, $table,$field_name, $id );
+if($label){
     $output [] = sprintf ( "<label>%s:&nbsp;</label>", $label );
+}
     if ($value == "") {
         $value = "&nbsp;";
     }

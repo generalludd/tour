@@ -268,8 +268,12 @@ input[type="number"] {
 	width: 10ex;
 }
 
-input[type="date"], input.datefield {
+ input.datefield {
 	width: 14ex;
+}
+
+input[type="date"] {
+	width: 26ex;
 }
 
 input[type="tel"] {
@@ -616,11 +620,15 @@ table.list td {
 	vertical-align: top;
 }
 
+
+
 table.list {
 	border-spacing: 5px 0;
 	padding-bottom: 5px;
 	padding-top: 5px;
 }
+
+
 
 table.list th {
 	border-bottom-style: solid;
@@ -654,6 +662,8 @@ table.list tfoot tr td {
 	border-top-width: 3px;
 	border-top-color: #000;
 }
+
+
 
 table.files {
 	border-spacing: 5px;

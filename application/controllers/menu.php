@@ -68,6 +68,55 @@ class Menu extends MY_Controller
 
 	}
 
-
+	function edit_value ()
+	{
+		$data["name"] = $this->input->get("field");
+	
+		$value = $this->input->get("value");
+		if ($value != "&nbsp;") {
+			$data["value"] = $value;
+		} else {
+			$data['value'] = "";
+		}
+		if (is_array($value)) {
+			$data["value"] = implode(",", $value);
+		}
+		$data["id"] = $this->input->get("id");
+		$data["size"] = strlen($data["value"]) + 5;
+		$data["type"] = $this->input->get("type");
+		$data["category"] = $this->input->get("category");
+	
+		switch ($data["type"]) {
+			case "dropdown":
+				$output = $this->_get_dropdown($data["category"], $data["value"], $data["name"]);
+				break;
+			case "multiselect":
+				$output = $this->_get_multiselect($data["category"], $data["value"], $data["name"]);
+				break;
+			case "textarea":
+				$output = form_textarea($data, $data["value"]);
+				break;
+			case "autocomplete":
+				$data["type"] = "text";
+				$output = form_input($data, $data["value"], "class='autocomplete'");
+				break;
+			case "time":
+				$output = sprintf("<input type='%s' name='%s' id='%s' value='%s' size='%s'/>", $data['type'], $data['name'], $data['id'], $data['value'],
+				$data['size']);
+				break;
+			case "email":
+				$output = sprintf("<input type='%s' name='%s' id='%s' value='%s' size='%s'/>", $data['type'], $data['name'], $data['id'], $data['value'],
+				$data['size']);
+				break;
+			case "date":
+				$output = sprintf("<input type='text' class='datefield' name=%s' id='%s' value='%s' size='%s'/>", $data['name'], $data['id'], $data['value'],
+				$data['size']);
+				break;
+			default:
+				$output = form_input($data);
+		}
+	
+		echo $output;
+	}
 
 }

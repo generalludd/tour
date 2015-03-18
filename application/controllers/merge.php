@@ -84,6 +84,8 @@ class Merge extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
+    
+    
     function update_value ()
     {
         $id = $this->input->post("id");

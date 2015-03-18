@@ -1,40 +1,47 @@
 $(document).ready(function(){
 
 	
-	$(document).on("click",".edit-field",function(){
-		my_parent = $(this).parent().attr("id");
-		my_attr = my_parent.split("__");
-		my_type = "text";
-		my_category = $(this).attr('menu');
-		my_name = $(this).attr("name");
-			if($(this).hasClass("dropdown")){
-				my_type = "dropdown";
-			}else if($(this).hasClass("checkbox")){
-				my_type = "checkbox";
-			}else if($(this).hasClass("multiselect")){
-				my_type = "multiselect";
-			}else if($(this).hasClass("textarea")){
-				my_type = "textarea";
-			}
-			form_data = {
-					table: my_attr[0],
-					field: my_name,
-					id: my_attr[2],
-					type: my_type,
-					category: my_category,
-					value: $(this).html()
-			};
-			$.ajax({
-				type:"get",
-				url: base_url + my_attr[0] + "/edit_value",
-				data: form_data,
-				success: function(data){
-					$("#" + my_parent + " .edit-field").html(data);
-					$("#" + my_parent + " .edit-field").removeClass("edit-field").removeClass("field").addClass("live-field").addClass("text");
-					$("#" + my_parent + " .live-field input").focus();
+	$(document).on("click",".field-envelope .edit-field",function(){
+			me = $(this);
+			my_parent = me.parent().attr("id");
+			my_attr = my_parent.split("__");
+			my_type = "text";
+			my_category = me.attr('menu');
+			my_name = me.attr("name");
+				if(me.hasClass("dropdown")){
+					my_type = "dropdown";
+				}else if(me.hasClass("checkbox")){
+					my_type = "checkbox";
+				}else if(me.hasClass("multiselect")){
+					my_type = "multiselect";
+				}else if(me.hasClass("textarea")){
+					my_type = "textarea";
+				}else if(me.hasClass("autocomplete")){
+					my_type = "autocomplete";
+				}else if(me.hasClass("date")){
+					my_type = "date";
 				}
-			});
-	});
+				form_data = {
+						table: my_attr[0],
+						field: my_name,
+						id: my_attr[2],
+						type: my_type,
+						category: my_category,
+						value: me.html()
+				};
+		console.log(form_data);
+				$.ajax({
+					type:"get",
+					url: base_url +  "menu/edit_value",
+					data: form_data,
+					success: function(data){
+						$("#" + my_parent + " .edit-field").html(data);
+						$("#" + my_parent + " .edit-field").removeClass("edit-field").removeClass("field").addClass("live-field").addClass("text");
+						$("#" + my_parent + " .live-field input").focus();
+						
+					}
+				});
+		});
 
 	$(".field-envelope").on("blur",".live-field.text",function(){
 		//id, field, value {post}

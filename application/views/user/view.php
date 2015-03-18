@@ -34,12 +34,12 @@
 			?>
 			<? endif;?>
 			<?=create_button_bar($edit_buttons);?>
-			<?=create_edit_field("first",$user->first_name,"First Name");?>
-			<?=create_edit_field("last",$user->last_name,"Last Name");?>
-			<?=create_edit_field("email",$user->email,"Email Address");?>
+			<?=create_field("first",$user->first_name,"First Name");?>
+			<?=create_field("last",$user->last_name,"Last Name");?>
+			<?=create_field("email",$user->email,"Email Address");?>
 			<? if($this->session->userdata("role") == "admin" && $this->session->userdata("user_id") != 1):?>
-			<?=create_edit_field("is_active",$user->is_active,"Status", array("class"=>"dropdown","attributes"=>"menu='user_status'"));?>
-			<?=create_edit_field("role",$user->role, "Database Role",
+			<?=create_field("is_active",$user->is_active,"Status", array("class"=>"dropdown","attributes"=>"menu='user_status'"));?>
+			<?=create_field("role",$user->role, "Database Role",
 			array("class"=>"dropdown","attributes"=>"menu='role'"));?>
 			<?endif; ?>
 		</fieldset>
