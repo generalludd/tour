@@ -305,6 +305,11 @@ function create_input ($object, $name, $label, $options = array())
     if (array_key_exists("class", $options)) {
         $class = $options["class"];
     }
+    
+    $required="";
+    if(array_key_exists("required",$options)){
+    	$required = "required";
+    }
 
     $label_class = "";
     if (array_key_exists("label_class", $options)) {
@@ -346,8 +351,8 @@ function create_input ($object, $name, $label, $options = array())
     if ($type == "checkbox" && $value == 1) {
         $checked = "checked";
     }
-    return sprintf("<%s class='%s'><label for='%s' class='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='input %s' %s/></%s>", $envelope,
-            $envelope_class, $name, $label_class, $label, $type, $name, $id, $value, $class, $checked, $envelope);
+    return sprintf("<%s class='%s'><label for='%s' class='%s'>%s: </label><input type='%s' name='%s' id='%s' value='%s' class='input %s' %s %s/></%s>", $envelope,
+            $envelope_class, $name, $label_class, $label, $type, $name, $id, $value, $class, $checked,$required, $envelope);
 }
 
 /**

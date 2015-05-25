@@ -12,7 +12,7 @@
 <label for="tour_id">Tour:&nbsp;</label>
 <?=form_dropdown("tour_id",$tour_list,get_value($hotel,"tour_id",$tour->id),"id='tour_id'");?>
 </div>
-<?=create_input($hotel, "stay", "Tour Stay Number",$options = array("envelope"=>"div","type"=>"number"));?>
+<?=create_input($hotel, "stay", "Tour Stay Number",$options = array("envelope"=>"div","type"=>"number","required"=>TRUE));?>
 <div class="input-block row">
 
 <?=create_input($hotel, "arrival_date", "Arrival Date", $options = array("envelope"=>"div","envelope_class"=>"inline","format"=>"date","type"=>"date","class"=>"datefield"));?>
