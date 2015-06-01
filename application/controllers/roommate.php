@@ -109,7 +109,7 @@ class Roommate extends MY_Controller
 		function add_placeholder ( $tour_id, $stay )
 		{
 			$person_id = $this->roommate->get_next_placeholder ( $tour_id, $stay );
-			echo sprintf ( "<input type='text' id='insert-placeholder_%s_%s_%s' class='insert-placeholder' value='' placeholder='Enter a Placeholder Name'/>", $tour_id, $stay, $person_id );
+			echo sprintf ( "<input type='text' id='insert-placeholder_%s_%s_%s' class='insert-placeholder' value='' placeholder='Enter a Placeholder'/>", $tour_id, $stay, $person_id );
 		}
 
 		function insert_placeholder ()
@@ -189,7 +189,7 @@ class Roommate extends MY_Controller
 			), TRUE );
 			if ($ajax) {
 				$output = form_dropdown ( "person_id", $roomless_pairs, FALSE, sprintf ( "id='person_id' %s", $class ? "class='$class'" : "" ) );
-				$output .= sprintf ( "<a href='%s' class='add-placeholder button new'>Add Placeholder</a>", site_url ( "roommate/add_placeholder/$tour_id/$stay" ) );
+				$output .= sprintf ( " or <a href='%s' class='add-placeholder link new'>Add Placeholder</a>", site_url ( "roommate/add_placeholder/$tour_id/$stay" ) );
 				echo $output;
 			}
 			else {
