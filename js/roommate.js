@@ -26,6 +26,47 @@ $(document).ready(function(){
 		
 	});
 	
+	$("html").on("click",".add-placeholder",function(e){
+		e.preventDefault();
+		me = this;
+		my_url = $(me).attr("href");
+		form_data = {
+			ajax:1	
+		};
+		$.ajax({
+			type:'get',
+			data:form_data,
+			url:my_url,
+			success: function(data){
+				$(me).parents("td").html(data);
+			}
+		});
+	});
+	
+	$("html").on("blur",".insert-placeholder",function(e){
+		e.preventDefault();
+		me = this;
+		my_id = me.id.split("_");
+		my_room = $(me).parents(".room-row").attr("id").split("_")[1];
+		
+		form_data = {
+				room_id: my_room,
+				tour_id: my_id[1],
+				stay: my_id[2],
+				person_id: my_id[3],
+				placeholder: $(me).val(),
+				ajax: 1
+		};
+		$.ajax({
+			type:"post",
+			url: base_url + "roommate/insert_placeholder",
+			data: form_data,
+			success: function(data){
+				$(me).parent('td').html(data);
+			}
+		});
+	});
+	
 	$("html").on("click",".add-room", function(){
 		my_id = this.id.split("_");
 		my_tour = my_id[1];

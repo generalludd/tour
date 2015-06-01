@@ -13,6 +13,8 @@ class Roommate_Model extends CI_Model
     var $stay;
 
     var $room_id;
+    
+    var $placeholder;
 
     function __construct ()
     {
@@ -61,17 +63,16 @@ class Roommate_Model extends CI_Model
     {
         $this->db->from("roommate");
         $this->db->where("room_id", $room_id);
-        $this->db->join("person", "roommate.person_id=person.id");
-        $this->db->join("tourist","tourist.person_id=person.id");
+        $this->db->join("person", "roommate.person_id=person.id","left");
+        $this->db->join("tourist","tourist.person_id=person.id","left");
         $this->db->select(
-                "roommate.room_id, roommate.tour_id, roommate.person_id");
+                "roommate.room_id, roommate.tour_id, roommate.person_id, roommate.placeholder");
         $this->db->select(
                 "CONCAT(person.first_name,' ',person.last_name) as person_name",
                 false);
         $this->db->select("tourist.payer_id");
         $this->db->group_by("roommate.person_id");
         $result = $this->db->get()->result();
-
         return $result;
     }
 
@@ -96,6 +97,23 @@ class Roommate_Model extends CI_Model
         $this->db->order_by("person.address_id", "ASC");
         $result = $this->db->get()->result();
         return $result;
+    }
+    
+    function get_next_placeholder($tour_id, $stay){
+    	//select (person_id -1) as person_id from roommate where person_id < 1 order by person_id asc limit 1
+    	$this->db->from("roommate");
+    	$this->db->select("(person_id -1) as person_id");
+    	$this->db->where("tour_id",$tour_id);
+    	$this->db->where("stay",$stay);
+    	$this->db->where("person_id < ", 1);
+    	$this->db->order_by("person_id","asc");
+    	$this->db->limit(1);
+    	$output = $this->db->get()->row();
+    	if(!$output){
+    		$output = -1;
+    	}
+    	return $output;
+    	
     }
 
     function insert ($data = array())

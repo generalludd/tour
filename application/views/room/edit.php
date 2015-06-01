@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 
 // edit.php Chris Dart May 26, 2014 6:32:43 PM chrisdart@cerebratorium.com
 
@@ -11,24 +12,29 @@
 		<? if(get_value($room,"roommates",FALSE)):?>
 <? foreach($room->roommates as $roommate):?>
 <tr>
-					<td
-						class="roommate-row"
+					<td class="roommate-row"
 						id="<?=sprintf("roommate_%s_%s", get_value($roommate,"room_id",$room->room_id),  $roommate->person_id);?>">
-						<a href="<?=site_url("payer/edit/?payer_id=$roommate->payer_id&tour_id=$roommate->tour_id");?>"><?=$roommate->person_name;?></a>
+	<? if($roommate->person_id > 0): ?>
+<a
+							href="<?=site_url("payer/edit/?payer_id=$roommate->payer_id&tour_id=$roommate->tour_id");?>">
+	<?=$roommate->person_name;?>
+	</a>
+	<?else: ?>
+	<?=$roommate->placeholder; ?>
+	<?endif; ?>
+</td>
+					<td>
+						<span
+							id="<?=sprintf("delete-roommate_%s_%s", get_value($roommate,"room_id",$room->room_id),  $roommate->person_id);?>"
+							class="delete button delete-roommate no-float">Delete</span>
 					</td>
-					<td><span
-						id="<?=sprintf("delete-roommate_%s_%s", get_value($roommate,"room_id",$room->room_id),  $roommate->person_id);?>"
-						class="delete button delete-roommate no-float"> Delete</span></td>
 				</tr>
 
 			<? endforeach;?>
 			<? endif;?>
 </tbody>
 		</table>
-<?=create_button_bar(array(
-        array("text"=>"Add Roommate","type"=>"span","class"=>"button new small add-roommate","id"=>sprintf("add-roommate_%s", $room->id)),
-        array("text"=>"Delete Room","type"=>"span","class"=>"button delete small no-float delete-room", "id"=>sprintf("delete-room_%s",$room->id),"title"=>"Delete room and all roommates")
-));?>
+<?=create_button_bar ( array (array ("text" => "Add Roommate","type" => "span","class" => "button new small add-roommate","id" => sprintf ( "add-roommate_%s", $room->id ) ),array ("text" => "Delete Room","type" => "span","class" => "button delete small no-float delete-room","id" => sprintf ( "delete-room_%s", $room->id ),"title" => "Delete room and all roommates" ) ) );?>
 
 
 </div>
