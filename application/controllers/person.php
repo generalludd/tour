@@ -53,9 +53,7 @@ class Person extends MY_Controller
     }
 
     function view_all ($options = array())
-    {
-    
-    	
+    {	
         burn_cookie("person_filter");
         $filters = array();
         $initial = FALSE;
@@ -76,6 +74,7 @@ class Person extends MY_Controller
         // in the people table
         $data["initials"] = $this->person->get_initials();
         $data["people"] = $this->person->get_all($filters);
+       $data["address_count"] = count( $this->address->get_all($filters));
         bake_cookie("person_filters", $filters);
         $data["filters"] = $filters;
         $data["title"] = "Address Book";

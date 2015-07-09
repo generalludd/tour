@@ -53,12 +53,23 @@ class Address_model extends CI_Model
         if (array_key_exists("tour_id", $options) && $options["tour_id"]) {
             $tour_id = $options["tour_id"];
         }
+        if(array_key_exists("email_only",$options)){
+        	$this->db->where("person.email IS NOT NULL",NULL,FALSE);
+        }
+        if(array_key_exists("initial",$options)){
+        	$initials = sprintf("person.last_name LIKE '%s%s'",$options['initial'],"%");
+        	$this->db->where($initials,NULL,FALSE);
+        }
+        
+        if(!array_key_exists("show_disabled",$options)){
+        	$this->db->where("person.status",1);
+        }
         $this->db->from("address");
         $this->db->order_by("person.address_id", "ASC");
         $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
         $this->db->select("address.address, address.city, address.state,address.zip,address.informal_salutation,address.formal_salutation, person.address_id");
+        $this->db->select("person.first_name,person.last_name");
         $this->db->join("person", "person.address_id=address.id");
-        $this->db->order_by("address.id");
        
         if ($veterans_only) {
             $this->db->where("person.is_veteran", 1);
@@ -67,8 +78,9 @@ class Address_model extends CI_Model
             $this->db->join("tourist", "tourist.person_id = person.id");
             $this->db->where("tourist.tour_id", $tour_id);
         }
+        $this->db->order_by("address.id");
+        $this->db->group_by("address.id");
         $result = $this->db->get()->result();
-
         return $result;
     }
 

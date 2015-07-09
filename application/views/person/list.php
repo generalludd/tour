@@ -47,7 +47,21 @@ if ($name == "initial") :
 </fieldset>
 <? endif;?>
 <p class="message">
-Total Found Count: <?=count($people); ?>
+Total Person Count: <?=count($people); ?>
+<br/>
+<?php 
+// $address_ids = array();
+// $address_count = 0;
+// $current_address = 0;
+// foreach($people as $person){
+// 	if(!in_array($person->address_id,$address_ids)){
+// 		$address_count++;
+// 		$address_ids[] = $person->address_id;
+// 	}
+// }
+
+?>
+Total Address Count: <?php echo $address_count; ?>
 </p>
 <?=create_button_bar($buttons);?>
 <table

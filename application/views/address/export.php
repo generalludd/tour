@@ -8,18 +8,30 @@ $file_name = sprintf ( "people_%s.csv", $date_stamp );
 $output = array (
 		"Formal Salutation, Informal Salutation, Address, City, State, Zip" 
 );
-
-foreach ( $addresses as $address )
-{
-	$line [] = $address->formal_salutation;
-	$line [] = $address->informal_salutation;
-	$line [] = $address->address;
-	$line [] = $address->city;
-	$line [] = $address->state;
-	$line [] = $address->zip;
-    $output[] = sprintf("\"%s\"", implode("\",\"", $line));
-	$line = NULL;
+$current_address = FALSE;
+foreach ( $addresses as $address ) {
+	if ( $address->id != $current_address) {
+		if (empty ( $address->formal_salutation )) {
+			$line [] =  $address->first_name . " " .  $address->last_name;
+		}
+		else {
+			$line [] = $address->formal_salutation;
+		}
+		
+		if(empty($address->informal_salutation)){
+			$line[] = $address->first_name;
+		}else{
+		$line [] = $address->informal_salutation;
+		}
+		$line [] = $address->address;
+		$line [] = $address->city;
+		$line [] = $address->state;
+		$line [] = $address->zip;
+		$output [] = sprintf ( "\"%s\"", implode ( "\",\"", $line ) );
+		$line = NULL;
+		$current_address = $address->id;
+	}
 }
 
-$data =  implode ( "\n", $output );
+$data = implode ( "\n", $output );
 force_download ( $file_name, $data );
