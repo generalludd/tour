@@ -11,8 +11,12 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 			<tbody>
 		<? if(!empty($roommates)):?>
 <? foreach($roommates as $roommate):?>
+<? $roommate_class = "roomate-row";?>
+<? if($roommate->person_id < 1): ?>
+<? $roomate_class .= " placeholder" ?>
+<? endif; ?>
 <tr>
-	<td class="roommate-row"
+	<td class="<?=$roomate_class; ?>"
 		id="<?=sprintf("roommate_%s_%s", $room_number,  $roommate->person_id);?>">
 		<a href="<?=site_url("person/view/$roommate->person_id");?>"><?=$roommate->placeholder?$roommate->placeholder:$roommate->person_name;?></a>
 	</td>
