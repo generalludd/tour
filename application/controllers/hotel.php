@@ -10,16 +10,22 @@ class Hotel extends MY_Controller
         parent::__construct();
         $this->load->model("hotel_model", "hotel");
         $this->load->model("contact_model", "contact");
+
     }
 
-    function view ()
+    function view ($hotel_id)
     {
-        $hotel_id = $this->uri->segment(3);
+    	$this->load->model("room_model","room");
         $hotel = $this->hotel->get($hotel_id);
         $data["contacts"] = $this->contact->get_all($hotel_id);
         $data["hotel"] = $hotel;
-        $this->load->model("payer_model", "payer");
-        $data["room_types"] = $this->payer->get_room_types($hotel->tour_id);
+        $rooms = $this->room->get_for_tour ( $hotel->tour_id, $hotel->stay );
+        $room_types = array("Double"=>0,"Single"=>0,"King"=>0,"Triple"=>0,"Quad"=>0);
+        foreach ( $rooms as $room ) {
+        	$room_types[$room->size] ++;
+        }
+        $data["room_types"] = $room_types;
+        $data["rooms"] = $rooms;
         $data["target"] = "hotel/view";
         $data["title"] = sprintf("Viewing Details for Hotel: %s", $hotel->hotel_name);
         $this->load->view("page/index", $data);
