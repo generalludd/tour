@@ -93,8 +93,8 @@ class Roommate_Model extends CI_Model
         $this->db->where("hotel.stay", $stay);
         $this->db->where("payer.is_cancelled != 1", NULL, FALSE);
         $this->db->where("`roommate`.`person_id` IS NULL", NULL, FALSE);
-        $this->db->order_by("person.first_name", "DESC");
-        $this->db->order_by("person.address_id", "ASC");
+        $this->db->order_by("person.last_name", "ASC");
+        $this->db->order_by("person.first_name", "ASC");
         $result = $this->db->get()->result();
         return $result;
     }
