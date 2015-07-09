@@ -71,7 +71,8 @@ class Roommate extends MY_Controller
 							"person_id" => $person->person_id,
 							"tour_id" => $tour_id,
 							"stay" => $stay,
-							"room_id" => $new_room->id 
+							"room_id" => $new_room->id,
+							"placeholder"=>$person->placeholder,
 					);
 					$this->roommate->insert ( $data );
 				}

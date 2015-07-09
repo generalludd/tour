@@ -108,9 +108,11 @@ class Roommate_Model extends CI_Model
     	$this->db->where("person_id < ", 1);
     	$this->db->order_by("person_id","asc");
     	$this->db->limit(1);
-    	$output = $this->db->get()->row()->person_id;
-    	if(!$output){
+    	$result = $this->db->get()->row();
+     	if(!$result){
     		$output = -1;
+    	}else{
+    		$output = $result->person_id;
     	}
     	return $output;
     	
