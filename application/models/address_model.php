@@ -81,6 +81,7 @@ class Address_model extends CI_Model
         $this->db->order_by("address.id");
         $this->db->group_by("address.id");
         $result = $this->db->get()->result();
+        $this->session->set_flashdata("alert",$this->db->last_query());
         return $result;
     }
 
