@@ -78,10 +78,9 @@ class Address_model extends CI_Model
             $this->db->join("tourist", "tourist.person_id = person.id");
             $this->db->where("tourist.tour_id", $tour_id);
         }
-        $this->db->order_by("address.id");
-        $this->db->group_by("address.id");
+        $this->db->order_by("address_id");
+        $this->db->group_by("address_id");
         $result = $this->db->get()->result();
-        $this->session->set_flashdata("alert",$this->db->last_query());
         return $result;
     }
 
