@@ -43,7 +43,7 @@ if($this->uri->segment(1) == ""){
 <?php if(BACKUP_STATUS > 1209599):?>
 <p>
 <marquee>
-It has been over <?php echo round(BACKUP_STATUS/60/60/24,0); ?> days since the last backup. You should <a href="<?php echo site_url("backup"); ?>">click here to backup now</a>. 
+It has been over <?php echo round(BACKUP_STATUS/60/60/24,0); ?> days since the last backup. You should <a href="<?php echo site_url("backup"); ?>" class="hide-backup-warning">click here to backup now</a>. 
 </marquee>
 </p>
 <?php endif;?>

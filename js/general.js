@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+	$(document).on("click",".hide-backup-warning",function(){
+		$("#alert p").html("Move the file backup file from your downloads folder to your backups folder.");
+	})
 	
 	$(document).on("click",".field-envelope .edit-field",function(){
 			me = $(this);
