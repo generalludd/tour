@@ -4,7 +4,7 @@ class Backup extends MY_Controller{
 	
 	function __construct(){
 		parent::__construct();
-		$this->load->model("log_model","log");
+		$this->load->model("loging_model","log");
 	}
 	
 	function index(){

@@ -1,6 +1,6 @@
 <?php  defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Log_Model extends MY_Model{
+class Logging_Model extends MY_Model{
 	
 	var $event_type;
 	var $event;
