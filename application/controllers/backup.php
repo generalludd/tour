@@ -4,7 +4,7 @@ class Backup extends MY_Controller{
 	
 	function __construct(){
 		parent::__construct();
-		$this->load->model("loging_model","log");
+		$this->load->model("logging_model","logging");
 	}
 	
 	function index(){
@@ -19,7 +19,7 @@ class Backup extends MY_Controller{
 		// Load the file helper and write the file to your server
 		$this->load->helper('file');
 		write_file($temp_file, $backup);
-		$this->log->log("backup","success");
+		$this->logging->log("backup","success");
 		$this->session->set_flashdata("notice","Move the file backup file from your downloads folder to your backups folder.");
 		
 		// Load the download helper and send the file to your desktop

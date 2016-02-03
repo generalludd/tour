@@ -2,7 +2,7 @@
 
 class MY_Loader extends CI_Loader {
 
-	public function dbutil()
+	public function dbutil($db = NULL, $return = FALSE)
 	{
 
 		if (! class_exists('CI_DB'))

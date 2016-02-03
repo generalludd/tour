@@ -68,7 +68,7 @@ class Address_model extends CI_Model
         $this->db->order_by("person.address_id", "ASC");
         $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
         $this->db->select("address.address, address.city, address.state,address.zip,address.informal_salutation,address.formal_salutation, person.address_id");
-        $this->db->select("person.first_name,person.last_name");
+        $this->db->select("person.first_name,person.last_name,person.email");
         $this->db->join("person", "person.address_id=address.id");
        
         if ($veterans_only) {

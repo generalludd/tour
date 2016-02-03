@@ -6,7 +6,7 @@ $date_stamp = date ( "Y-m-d_H-i-s" );
 
 $file_name = sprintf ( "people_%s.csv", $date_stamp );
 $output = array (
-		"Formal Salutation, Informal Salutation, Address, City, State, Zip" 
+		"Formal Salutation, Informal Salutation, Address, City, State, Zip, Email" 
 );
 $current_address = FALSE;
 foreach ( $addresses as $address ) {
@@ -27,6 +27,7 @@ foreach ( $addresses as $address ) {
 		$line [] = $address->city;
 		$line [] = $address->state;
 		$line [] = $address->zip;
+		$line [] = $address->email;
 		$output [] = sprintf ( "\"%s\"", implode ( "\",\"", $line ) );
 		$line = NULL;
 		$current_address = $address->id;
