@@ -88,7 +88,6 @@ class Tour_model extends MY_Model
 
     function get_value ($id, $field)
     {
-        // return parent::get_value("tour", $id, $field);
         $this->db->from("tour");
         $this->db->where("id", $id);
         $this->db->select($field);
