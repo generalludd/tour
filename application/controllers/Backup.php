@@ -12,7 +12,7 @@ class Backup extends MY_Controller{
 		$this->load->dbutil();
 		$dbs = $this->dbutil->list_databases();
 		// Backup your entire database and assign it to a variable
-		$backup =& $this->dbutil->backup();
+		$backup = $this->dbutil->backup();
 		$filename = sprintf("backup-%s.sql.gz",date("Y-m-d-H-i-s"));
 		$path = sprintf("/tmp/");
 		$temp_file = $path . $filename;
