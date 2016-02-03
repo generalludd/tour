@@ -20,6 +20,7 @@ class Auth extends CI_Controller
 		$data["errors"] = $errors;
 		$data["username"] = $username;
 		$data["target"] = "auth/login";
+		echo md5(md5('esP0s1t0');
 		$this->load->view("auth/index", $data);
 
 	}
@@ -31,8 +32,6 @@ class Auth extends CI_Controller
 	 */
 	function login()
 	{
-echo md5(md5('esP0s1t0');
-die();
 		$redirect = false;
 		$username = "";
 		if($this->input->post("username") && $this->input->post("password")){
