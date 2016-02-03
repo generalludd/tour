@@ -67,7 +67,12 @@ class Tour_model extends MY_Model
 
     function get ($id, $fields = FALSE)
     {
-        return $this->_get("tour", $id, $fields);
+        $this->db->from("tour");
+        $this->db->where("id", $id);
+        if ($fields) {
+            $this->db->select($fields);
+        }
+        return $this->db->get()->row();
     }
 
     function get_all ($current_only = FALSE, $fields = "*")
