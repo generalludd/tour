@@ -30,10 +30,6 @@ class Hotel_Model extends CI_Model
     var $third_contact_email;
     var $address;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
 
     function prepare_variables ()
     {

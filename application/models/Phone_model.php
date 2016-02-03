@@ -8,10 +8,6 @@ class Phone_model extends CI_Model
     var $phone;
     var $phone_type;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
 
     function prepare_variables ()
     {

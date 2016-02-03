@@ -11,10 +11,7 @@ class Letter_model extends CI_Model
     var $tour_id;
     var $creation_date;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
+
 
     function prepare_variables ()
     {

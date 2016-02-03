@@ -9,10 +9,6 @@ class Tourist_model extends CI_Model
     var $payer_id;
     var $person_id;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
 
     /**
      * get all the tours for a given person.

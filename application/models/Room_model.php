@@ -13,10 +13,6 @@ class Room_Model extends CI_Controller
 
     var $stay;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
 
     function prepare_variables ()
     {

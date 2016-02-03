@@ -11,10 +11,7 @@ class Payment_Model extends CI_Model
     var $receipt_date;
     var $method;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
+
 
     function prepare_variables ()
     {

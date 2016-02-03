@@ -20,10 +20,6 @@ class Payer_model extends CI_Model
 
     var $note;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
 
     function prepare_variables ()
     {

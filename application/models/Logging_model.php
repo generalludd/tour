@@ -6,9 +6,6 @@ class Logging_Model extends MY_Model{
 	var $event;
 	var $timestamp;
 	
-	function __construct(){
-		parent::__construct();
-	}
 	
 	function get_latest($event_type){
 		$this->db->where("event_type",$event_type);

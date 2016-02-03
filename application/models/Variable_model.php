@@ -14,10 +14,6 @@ class Variable_Model extends CI_Model
 
     var $type;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
 
     function prepare_variables ()
     {

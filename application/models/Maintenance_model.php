@@ -10,9 +10,7 @@
 
 class Maintenance_model extends CI_Model
 {
-    function __construct(){
-        parent::__construct();
-    }
+
 
     /**
      * cleanup function that removes all orphaned addresses (ones that are no longer connected to any person)

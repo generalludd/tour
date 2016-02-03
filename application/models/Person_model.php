@@ -13,10 +13,6 @@ class Person_model extends CI_Model
     var $status = 1;
     var $is_veteran;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
 
     function prepare_variables ()
     {

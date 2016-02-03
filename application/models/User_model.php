@@ -11,15 +11,6 @@ class User_model extends CI_Model
 	var $role;
 
 
-	function __construct()
-	{
-
-		parent::__construct();
-		$this->load->helper('general');
-
-	}
-
-
 	function prepare_variables()
 	{
 

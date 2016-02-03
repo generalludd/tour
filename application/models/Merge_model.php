@@ -11,10 +11,7 @@ class Merge_model extends CI_Model
     var $note;
     var $salutation;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
+
 
     function prepare_variables ()
     {
