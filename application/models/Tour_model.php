@@ -71,7 +71,7 @@ class Tour_model extends MY_Model
 
     function get ($id, $fields = FALSE)
     {
-        return parent::get("tour", $id, $fields);
+        return $this->_get("tour", $id, $fields);
     }
 
     function get_all ($current_only = FALSE, $fields = "*")
