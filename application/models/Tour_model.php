@@ -16,10 +16,6 @@ class Tour_model extends MY_Model
     var $triple_room;
     var $quad_room;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
 
     function prepare_variables ()
     {

@@ -12,10 +12,6 @@ class Contact_model extends CI_Model
     var $fax;
     var $email;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
 
     function prepare_variables ()
     {

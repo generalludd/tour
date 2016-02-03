@@ -12,10 +12,7 @@ class Address_model extends CI_Model
     var $formal_salutation;
     var $informal_salutation;
 
-    function __construct ()
-    {
-        parent::__construct();
-    }
+
 
     function prepare_variables ()
     {
