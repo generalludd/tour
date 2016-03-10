@@ -63,7 +63,7 @@ class Tourist extends MY_Controller
         foreach ($payers as $payer) {
             $phones = $this->phone->get_for_person($payer->payer_id);
             $payer->phones = $phones;
-            $tourists = $this->tourist->get_by_payer($payer->payer_id, $tour_id);
+            $tourists = $this->tourist->get_for_payer($payer->payer_id, $tour_id);
             $payer->tourists = $tourists;
             $payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
             $price = 0;

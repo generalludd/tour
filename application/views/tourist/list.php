@@ -71,7 +71,11 @@ $buttons[] = array(
     <br />
 <? endforeach; ?>
 <br/>
+<?php if($payer->merge_id):?>
+<span class="button edit select-letter" id="<?=sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id);?>">Edit Letter</span>
+<?php else:?>
 	<span class="button new select-letter" id="<?=sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id);?>">Send Letter</span>
+	<?php endif;?>
 			<td>
 			<a
 			href="<?=site_url("payer/edit?payer_id=$payer->payer_id&tour_id=$payer->tour_id");?>"
