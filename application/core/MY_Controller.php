@@ -20,8 +20,8 @@ class MY_Controller extends CI_Controller
         $this->load->model("variable_model", "variable");
         
         //find out when the last database backup happened
-        $this->load->model("log_model","log");
-        $latest_backup = $this->log->get_latest("backup");
+        $this->load->model("logging_model","logging");
+        $latest_backup = $this->logging->get_latest("backup");
         //more than 4 weeks since last backup
         if(!empty($latest_backup)){
         	$backup_time = date("U") - $latest_backup->unix_time;
