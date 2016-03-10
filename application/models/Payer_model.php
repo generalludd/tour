@@ -99,6 +99,9 @@ class Payer_model extends CI_Model
             $this->db->select(
                     "address, address.city, address.state, address.zip, address.informal_salutation, address.formal_salutation");
         }
+        $this->db->join("letter","letter.tour_id = payer.tour_id","LEFT");
+        $this->db->join("merge","merge.payer_id = payer.payer_id AND letter.id = merge.letter_id","LEFT");
+        $this->db->select("merge.id as merge_id");
         $this->db->order_by("person.last_name", "ASC");
         $this->db->order_by("person.first_name", "ASC");
         $result = $this->db->get()->result();
