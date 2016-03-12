@@ -6,11 +6,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $filters = unserialize(get_cookie("person_filters"));
 $initial = "";
 $veterans_only = "";
+$non_veterans = "";
 $email_only = "";
 $show_disabled = "";
 if ($filters) {
     $initial = array_key_exists("initial", $filters) ? $filters["initial"] : FALSE;
     $veterans_only = array_key_exists("veterans_only", $filters) ? "checked" : "";
+    $non_veterans = array_key_exists("non_veterans",$filters) ? "checked":"";
     $email_only = array_key_exists("email_only", $filters) ? "checked" : "";
     $show_disabled = array_key_exists("show_disabled", $filters) ? "checked" : "";
 }
@@ -31,6 +33,14 @@ if ($filters) {
 			id="veterans_only"
 			value="1"
 			<?=$veterans_only;?> />
+	</p>
+		<p>
+		<label for="non_veterans">Show Non-Veterans Only: </label> <input
+			type="checkbox"
+			name="non_veterans"
+			id="non_veterans"
+			value="1"
+			<?=$non_veterans;?> />
 	</p>
 	<p>
 		<label for="email_only">Show only people with email addresses</label>

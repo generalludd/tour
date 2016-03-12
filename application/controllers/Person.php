@@ -64,6 +64,9 @@ class Person extends MY_Controller
         if ($this->input->get("veterans_only")) {
             $filters["veterans_only"] = TRUE;
         }
+        if ($this->input->get("non_veterans")) {
+        	$filters["non_veterans"] = TRUE;
+        }
         if ($this->input->get("email_only")) {
             $filters["email_only"] = TRUE;
         }

@@ -59,12 +59,16 @@ class Person_model extends CI_Model
     {
         $show_disabled = FALSE;
         $veterans_only = FALSE;
+        $non_veterans = FALSE;
         $tour_id = FALSE;
         $initial = FALSE;
         $email_only = FALSE;
         $include_address = FALSE;
         if (array_key_exists("veterans_only", $options) && $options["veterans_only"]) {
             $veterans_only = TRUE;
+        }
+        if (array_key_exists("non_veterans", $options) && $options["non_veterans"]) {
+        	$non_veterans = TRUE;
         }
         if (array_key_exists("show_disabled", $options) && $options["show_disabled"]) {
             $show_disabled = TRUE;
@@ -101,6 +105,8 @@ class Person_model extends CI_Model
         }
         if ($veterans_only) {
             $this->db->where("person.is_veteran", 1);
+        }elseif($non_veterans){
+        	$this->db->where("person.is_veteran IS NULL",NULL, FALSE);
         }
 
         if ($tour_id) {
@@ -118,6 +124,7 @@ class Person_model extends CI_Model
         }
         $this->db->group_by("person.id");
         $result = $this->db->get()->result();
+        $this->session->set_flashdata("notice",$this->db->last_query());
         return $result;
     }
 
