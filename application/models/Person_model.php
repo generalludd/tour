@@ -124,7 +124,6 @@ class Person_model extends CI_Model
         }
         $this->db->group_by("person.id");
         $result = $this->db->get()->result();
-        $this->session->set_flashdata("notice",$this->db->last_query());
         return $result;
     }
 
