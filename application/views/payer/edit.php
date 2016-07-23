@@ -67,14 +67,6 @@ $amt_due = $total_cost - $payer->amt_paid;
 &nbsp;$<span id="room_rate_display"><?=$room_rate;?></span>
 		</p>
 		<p>
-			<label for="discount">Adjustment:</label> &nbsp;$<input
-				type="number"
-				class="edit-payer-amounts money"
-				name="discount"
-				id="discount"
-				value="<?=get_value($payer, "discount");?>" />
-		</p>
-		<p>
 			<label for="total_cost">Total Cost: </label> &nbsp;$<span
 				class="field"
 				id="total_cost"><?=$total_cost;?></span>
@@ -88,7 +80,14 @@ $amt_due = $total_cost - $payer->amt_paid;
 				value="<?=get_value($payer,"amount");?>"
 				readonly />
 		</p>
-		<p></p>
+		<p>
+			<label for="discount">Total Price Discount:</label> &nbsp;$<input
+				type="number"
+				class="edit-payer-amounts money"
+				name="discount"
+				id="discount"
+				value="<?=get_value($payer, "discount");?>" />
+		</p>
 		<p>
 			<label for="amt_due">Amount Due:</label> $<span
 				class="field"
