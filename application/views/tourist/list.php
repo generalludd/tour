@@ -155,7 +155,9 @@ $buttons[] = array(
 <p><strong>Shirt Totals</strong><br/>
 <?=sort_shirts($shirt_count);?>
 </p>
-<?php endif; 
+<?php endif; ?>
 
-
+<p>
+<?php echo date("m-d-Y");?>
+</p>
 
