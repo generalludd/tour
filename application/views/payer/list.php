@@ -73,3 +73,4 @@
 		<? endforeach; ?>
 	</tbody>
 </table>
+<?php echo date("m-d-Y");
