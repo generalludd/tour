@@ -100,7 +100,7 @@ class Tourist extends MY_Controller {
 			$tourist_count = $this->payer->get_tourist_count ( $payer->payer_id, $payer->tour_id );
 			$payments = $this->payments->get_total ( $tour_id, $payer->payer_id );
 			$payer->amt_paid = $payments;
-			$payer->amt_due = ($price + $rate) * $tourist_count - ($payer->amt_paid + $payer->discount);
+			$payer->amt_due = ($price + $rate) * $tourist_count - ( $payer->amt_paid + $payer->discount);
 			
 			$payer->tourist_count = $tourist_count;
 		}
