@@ -49,7 +49,6 @@ class Payment_Model extends CI_Model
         $this->db->select_sum("amount");
         $this->db->from("payment");
         $result = $this->db->get()->row();
-        print $this->db->last_query();
         return $result->amount;
     }
 

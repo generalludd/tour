@@ -27,6 +27,7 @@ $(document).ready(function(){
 		form_data = {
 			tour_id: my_tour,
 			payer_id: my_payer,
+			type: "payment",
 			ajax: 1
 		};
 
@@ -41,6 +42,27 @@ $(document).ready(function(){
 		});
 	});
 	
+	$(".add-reimbursement").live("click",function(){
+		my_id = this.id.split("_");
+		my_tour = my_id[1];
+		my_payer = my_id[2];
+		$(this).fadeOut(1000);
+		form_data = {
+				tour_id: my_tour,
+				payer_id: my_payer,
+				type: "reimbursement",
+				ajax: 1
+		};
+		$.ajax({
+			type: "get",
+			data: form_data,
+			url: base_url  + "payment/create",
+			success: function(data){
+				$("#reimbursement-list tbody").append(data);
+			}
+		})
+	})
+	
 	$(".insert-payment").live("click",function(){
 		my_id = this.id.split("_");
 		my_tour = my_id[1];
@@ -49,15 +71,43 @@ $(document).ready(function(){
 				tour_id: my_tour,
 				payer_id: my_payer,
 				amount: $("#amount").val(),
+				type: "payment",
 				receipt_date: $("#receipt_date").val(),
 				ajax: 1
 		};
 		$.ajax({
 			type: "post",
 			data: form_data,
-			url: base_url + "payment/insert",
+			url: base_url + "payment/insert/payment",
 			success: function(data){
-				$("#payment-list-box").html(data);
+				$("#payments").html(data);
+				set_payment_total();
+			}
+		});
+	});
+	
+	$(".insert-reimbursement").live("click",function(){
+		my_id = this.id.split("_");
+		my_tour = my_id[1];
+		my_payer = my_id[2];
+		amt = $("#amount").val();
+		if(amt > 0){
+			amt = amt * -1;
+		}
+		form_data = {
+				tour_id: my_tour,
+				payer_id: my_payer,
+				amount: amt,
+				type: "reimbursement",
+				receipt_date: $("#receipt_date").val(),
+				ajax: 1
+		};
+		$.ajax({
+			type: "post",
+			data: form_data,
+			url: base_url + "payment/insert/reimbursement",
+			success: function(data){
+				$("#reimbursements").html(data);
 				set_payment_total();
 			}
 		});
@@ -66,8 +116,6 @@ $(document).ready(function(){
 	$(".delete-payment").live("click",function(){
 		ask = confirm("Are you sure you want to delete this payment? This cannot be undone!");
 		if(ask){
-			again = confirm("Are you absolutely sure?");
-			if(again){
 				
 				my_id = this.id.split("_")[1];
 
@@ -76,16 +124,34 @@ $(document).ready(function(){
 				};
 				$.ajax({
 						type: "post",
-						url: base_url + "payment/delete",
+						url: base_url + "payment/delete/payment",
 						data: form_data,
 						success: function(data){
 							$("#payment-row_" + my_id).remove();
-							$("#payment-list-box").html(data);
+							$("#payments").html(data);
+							set_payment_total();
+						}
+			});
+		}
+	});
+	$(".delete-reimbursement").live("click",function(){
+		ask = confirm("Are you sure you want to delete this reimbursement? This cannot be undone!");
+		if(ask){
+				my_id = this.id.split("_")[1];
+				form_data = {
+						id: my_id
+				};
+				$.ajax({
+						type: "post",
+						url: base_url + "payment/delete/reimbursement",
+						data: form_data,
+						success: function(data){
+							$("#payment-row_" + my_id).remove();
+							$("#reimbursements").html(data);
 							set_payment_total();
 						}
 			});
 			}
-		}
 	});
 	
 });

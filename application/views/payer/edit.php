@@ -76,6 +76,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 				type="number"
 				name="amt_paid"
 				id="amt_paid"
+				readonly
 				class="edit-payer-amounts money"
 				value="<?=get_value($payer,"amount");?>"
 				readonly />
@@ -125,6 +126,8 @@ $payment_data["tour_id"] = $payer->tour_id;
 $payment_data["payer_id"] = $payer->payer_id;
 
 $this->load->view("payment/list", $payment_data);
+$this->load->view("payment/reimbursement", $payment_data);
+
 ?>
 </div>
 </div>

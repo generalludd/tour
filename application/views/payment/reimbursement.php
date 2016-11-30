@@ -2,11 +2,10 @@
 
 // list.php Chris Dart Mar 9, 2014 7:27:03 PM chrisdart@cerebratorium.com
 $total_paid=0;
-$buttons["add_payment"] = array("text"=>"Add Payment", "class"=>"button add-payment new", "id"=>sprintf("add-payment_%s_%s",$tour_id, $payer_id),"type"=>"span");
-//$done[] = array("text"=>"Done", "class"=>"button", "href"=>site_url("payer/edit?payer_id=$payer_id&tour_id=$tour_id"));
+$buttons["add_reimbursement"] = array("text"=>"Add Reimbursement", "class"=>"button add-reimbursement new", "id"=>sprintf("add-reimbursement_%s_%s",$tour_id, $payer_id),"type"=>"span");
 ?>
-<div id="payments">
-<table id="payment-list">
+<div id="reimbursements">
+<table id="reimbursement-list">
 <thead>
 <tr>
 <th>
@@ -21,7 +20,7 @@ Amount
 </thead>
 <tbody>
 <? foreach($payments as $payment): ?>
-<?php if($payment->amount > 0):?>
+<?php if($payment->amount < 0):?>
 <tr id="<? printf("payment-row_%s",$payment->id);?>">
 <td>
 <?=format_date($payment->receipt_date,"standard");?>
@@ -31,8 +30,8 @@ Amount
 <? $total_paid += $payment->amount;?>
 </td>
 <td>
-<?=create_button_bar(array(array("text"=>"Delete","class"=>"delete-payment delete button small",
-         "id"=>sprintf("delete-payment_%s",$payment->id), "type"=>"span")));?>
+<?=create_button_bar(array(array("text"=>"Delete","class"=>"delete-reimbursement delete button small",
+         "id"=>sprintf("delete-reimbursement_%s",$payment->id), "type"=>"span")));?>
 </td>
 </tr>
 <?php endif;?>
@@ -41,7 +40,7 @@ Amount
 <tfoot>
 <tr>
 <td>
-Total Paid:
+Total Reimbursed:
 </td>
 <td >
 <?=format_money($total_paid,"standard");?>
