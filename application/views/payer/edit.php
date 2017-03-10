@@ -76,8 +76,9 @@ $amt_due = $total_cost - $payer->amt_paid;
 				type="number"
 				name="amt_paid"
 				id="amt_paid"
+				readonly
 				class="edit-payer-amounts money"
-				value="<?=get_value($payer,"amount");?>"
+				value="<?php echo $amount;//get_value($payer,"amount");?>"
 				readonly />
 		</p>
 		<p>
@@ -91,7 +92,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 		<p>
 			<label for="amt_due">Amount Due:</label> $<span
 				class="field"
-				id="amt_due"><?=$amt_due;?></span>
+				id="amt_due"><?=$total_cost - $amount;?></span>
 		</p>
 		<p>
 			<label for="note">Note</label><br />
@@ -125,6 +126,8 @@ $payment_data["tour_id"] = $payer->tour_id;
 $payment_data["payer_id"] = $payer->payer_id;
 
 $this->load->view("payment/list", $payment_data);
+$this->load->view("payment/reimbursement", $payment_data);
+
 ?>
 </div>
 </div>

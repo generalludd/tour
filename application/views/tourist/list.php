@@ -108,7 +108,7 @@ $buttons[] = array(
 			</td>
 			<td><?=format_money($payer->discount);?></td>
 			<td><?=sprintf("%s<br/>%s", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
-			<td><?=format_money($payer->amt_due);?>
+			<td><?php echo $payer->is_cancelled == 1?0:format_money($payer->amt_due);?>
 			</td>
 		</tr>
 				<? if(get_value($payer, "note",FALSE)): ?>
@@ -118,9 +118,10 @@ $buttons[] = array(
 		</tr>
 		<? endif;?>
 		<?
-
-    $total_due += $payer->amt_due;
-    $total_paid += $payer->amt_paid;
+		if($payer->is_cancelled != 1){
+    		$total_due += $payer->amt_due;
+      	 	$total_paid +=  $payer->amt_paid;
+    	}
     ?>
 
 		<? endforeach; ?>

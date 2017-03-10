@@ -20,7 +20,7 @@ class Payment extends MY_Controller
         print_r($output);
     }
 
-    function view_list ($tour_id = NULL, $payer_id = NULL)
+    function view_list ($tour_id = NULL, $payer_id = NULL, $type = "payment")
     {
         if (! $tour_id || ! $payer_id) {
             $tour_id = $this->input->get("tour_id");
@@ -29,21 +29,27 @@ class Payment extends MY_Controller
         $data["payments"] = $this->payment->get_all($tour_id, $payer_id);
         $data["tour_id"] = $tour_id;
         $data["payer_id"] = $payer_id;
-        $this->load->view("payment/list", $data);
+        if($type == "payment"){
+        	$this->load->view("payment/list", $data);
+        }else{
+        	$this->load->view("payment/reimbursement", $data);
+        	 
+        }
     }
 
     function create ()
     {
         $data["tour_id"] = $this->input->get("tour_id");
         $data["payer_id"] = $this->input->get("payer_id");
+        $data["type"] = $this->input->get("type");
         $this->load->view("payment/insert", $data);
     }
 
-    function insert ()
+    function insert ($type)
     {
         $id = $this->payment->insert();
         $payment = $this->payment->get($id);
-        $this->view_list($payment->tour_id, $payment->payer_id);
+        $this->view_list($payment->tour_id, $payment->payer_id, $type);
     }
 
     function edit ()
@@ -54,11 +60,11 @@ class Payment extends MY_Controller
     {
     }
 
-    function delete ()
+    function delete ($type)
     {
         $id = $this->input->post("id");
         $payment = $this->payment->get($id);
         $this->payment->delete($id);
-        $this->view_list($payment->tour_id,$payment->payer_id);
+        $this->view_list($payment->tour_id,$payment->payer_id, $type);
     }
 }

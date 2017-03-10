@@ -3,7 +3,7 @@
 @import "ui.datepicker.css";
 
 body {
-	font-size: 15px;
+	font-size: 18px;
 	font-family: tahoma, sans-serif;
 	margin: 10px;
 	padding: 10px;
@@ -457,7 +457,7 @@ legend {
 }
 
 h1 {
-	font-size: 18px;
+	font-size: 2em;
 	font-weight: bold;
 	margin: 0;
 }
@@ -1018,11 +1018,11 @@ label.above {
 	float: right;
 }
 
-#payment-list tr td:first-child {
+#payment-list-block tr td:first-child {
 	min-width: 13ex;
 }
 
-#payment-list tfoot tr td {
+#payment-list-block tfoot tr td{
 	border-top: 3px double #000;
 }
 
