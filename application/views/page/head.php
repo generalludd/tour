@@ -15,9 +15,9 @@ var base_url = '<?=base_url("index.php") . "/";?>';
 var root_url = '<?=base_url();?>';
 </script>
 
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 
 <!-- Custom Scripts  -->
 <script type="text/javascript" src="<?=base_url("js/general.js");?>"></script>
