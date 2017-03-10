@@ -5,7 +5,7 @@ $buttons["add_letter"] = array("text"=>"Add Letter", "class"=>"button add-letter
 ?>
 <h4>List of Letter Templates</h4>
 
-<? if($letters): ?>
+<?php if($letters): ?>
 
 <div id="letter-list-box">
 <table id="letter-list">
@@ -22,26 +22,26 @@ Title
 </tr>
 </thead>
 <tbody>
-<? foreach($letters as $letter): ?>
-<tr id="<? printf("letter-row_%s",$letter->id);?>">
+<?php foreach($letters as $letter): ?>
+<tr id="<?php printf("letter-row_%s",$letter->id);?>">
 <td>
-<?=format_date($letter->creation_date,"standard");?>
+<?php print format_date($letter->creation_date,"standard");?>
 </td>
 <td>
-<?=$letter->title;?>
+<?php print $letter->title;?>
 </td>
 <td>
-<a href="<?=site_url("letter/edit/$letter->id");?>" class="edit-letter edit button small">Edit</a>
+<a href="<?php print site_url("letter/edit/$letter->id");?>" class="edit-letter edit button small">Edit</a>
 </td>
 </tr>
-<? endforeach; ?>
+<?php endforeach; ?>
 </tbody>
 </table>
-<? endif; ?>
+<?php endif; ?>
 <div style="padding-top: 1em;">
-<?=create_button_bar($buttons);?>
+<?php print create_button_bar($buttons);?>
 </div>
 <div style="padding-top: 1em;">
-<? //=create_button_bar($done);?>
+<?php //=create_button_bar($done);?>
 </div>
 </div>

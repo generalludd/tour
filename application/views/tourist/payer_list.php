@@ -22,12 +22,12 @@ foreach ($tourists as $tourist) :
  endif;
     ?>
 <tr>
-			<td><?=sprintf("%s %s", $tourist->first_name, $tourist->last_name);?>
+			<td><?php print sprintf("%s %s", $tourist->first_name, $tourist->last_name);?>
 </td>
-			<td><?=$button;?></td>
+			<td><?php print $button;?></td>
 		</tr>
 
 
-<? endforeach; ?>
+<?php endforeach; ?>
 </tbody>
 </table>

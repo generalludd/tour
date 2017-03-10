@@ -2,9 +2,9 @@
 
 // list.php Chris Dart Dec 28, 2013 4:47:05 PM chrisdart@cerebratorium.com
 ?>
-<h2><?=$tour->tour_name;?></h2>
-<? $buttons[] = array("text"=> "Tour Details", "href" => site_url("tour/view/$tour->id"), "class"=>"button mini show-tour");?>
-<?=create_button_bar($buttons);?>
+<h2><?php print $tour->tour_name;?></h2>
+<?php $buttons[] = array("text"=> "Tour Details", "href" => site_url("tour/view/$tour->id"), "class"=>"button mini show-tour");?>
+<?php print create_button_bar($buttons);?>
 <table class="list">
 	<thead>
 		<tr>
@@ -23,53 +23,53 @@
 	</thead>
 	<tbody>
 
-<? foreach ($payers as $payer) : ?>
+<?php foreach ($payers as $payer) : ?>
 
 <tr class="row row-break">
-			<td><a href="<?=site_url("person/view/$payer->payer_id");?>"><?=sprintf("%s %s", $payer->first_name,$payer->last_name);?></a></td>
+			<td><a href="<?php print site_url("person/view/$payer->payer_id");?>"><?php print sprintf("%s %s", $payer->first_name,$payer->last_name);?></a></td>
 
             <td>
-<? foreach($payer->tourists as $tourist) :?>
-<? if($tourist->person_id != $payer->payer_id) : ?>
-<table><tr><td><a href="<?=site_url("person/view/$tourist->person_id");?>"><?=sprintf("%s %s", $tourist->first_name,$tourist->last_name);?></a></td></tr></table>
-<? endif; ?>
-<? endforeach; ?>
+<?php foreach($payer->tourists as $tourist) :?>
+<?php if($tourist->person_id != $payer->payer_id) : ?>
+<table><tr><td><a href="<?php print site_url("person/view/$tourist->person_id");?>"><?php print sprintf("%s %s", $tourist->first_name,$tourist->last_name);?></a></td></tr></table>
+<?php endif; ?>
+<?php endforeach; ?>
 </td>
  <td>
-            <? if($payer->phones || $payer->email): ?>
-                <? if(get_value($payer, "email", FALSE)): ?>
-                    <?=format_email($payer->email);?><br />
-                <? endif; ?>
-                <? foreach($payer->phones as $phone):?>
-                    <?=sprintf("%s: %s",$phone->phone_type, $phone->phone);?><br />
-                <? endforeach;?>
-            <? endif; ?>
+            <?php if($payer->phones || $payer->email): ?>
+                <?php if(get_value($payer, "email", FALSE)): ?>
+                    <?php print format_email($payer->email);?><br />
+                <?php endif; ?>
+                <?php foreach($payer->phones as $phone):?>
+                    <?php print sprintf("%s: %s",$phone->phone_type, $phone->phone);?><br />
+                <?php endforeach;?>
+            <?php endif; ?>
             </td>
 			<?
         if ($payer->is_comp == 1) :
             ?>
             <td>Complementary</td>
-        <? elseif ($payer->is_cancelled == 1): ?>
+        <?php elseif ($payer->is_cancelled == 1): ?>
             <td class='cancelled'>Cancelled</td>
-        <? else: ?>
-            <td><?=format_field_name($payer->payment_type);?></td>
-        <? endif; ?>
+        <?php else: ?>
+            <td><?php print format_field_name($payer->payment_type);?></td>
+        <?php endif; ?>
 			<td>
-			<?=format_money($payer->price);?></td>
-			<td><?=format_money($payer->amt_paid);?></td>
-			<td><?=format_money($payer->discount);?></td>
-			<td><?=sprintf("%s (%s)", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
+			<?php print format_money($payer->price);?></td>
+			<td><?php print format_money($payer->amt_paid);?></td>
+			<td><?php print format_money($payer->discount);?></td>
+			<td><?php print sprintf("%s (%s)", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
 			<td><?php echo $payer->is_cancelled==1?0:format_money($payer->amt_due);?></td>
 			<td><span
 				class="button edit edit-payer"
-				id="edit-payer_<?=$payer->payer_id;?>_<?=$payer->tour_id;?>">
+				id="edit-payer_<?php print $payer->payer_id;?>_<?php print $payer->tour_id;?>">
 					Edit</span></td>
 		</tr>
-		<? if(get_value($payer, "note",FALSE)): ?>
+		<?php if(get_value($payer, "note",FALSE)): ?>
 		<tr>
-		<td colspan="11"><?=get_value($payer->note);?></td>
+		<td colspan="11"><?php print get_value($payer->note);?></td>
 		</tr>
-		<? endif;?>
-		<? endforeach; ?>
+		<?php endif;?>
+		<?php endforeach; ?>
 	</tbody>
 </table>

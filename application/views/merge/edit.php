@@ -20,76 +20,76 @@ $salutation = $tourists;
 	<p>Hover over the date and salutation to edit them.</p>
 	</div>
 	<p>
-		For <a href="<?=site_url("tourist/view_all/$tour->id");?>"><?=$tour->tour_name;?></a><br />
-<?=format_date($tour->start_date, "standard");?> to <?=format_date($tour->end_date);?><br />
-Payment Deadline: <?=format_date($tour->due_date);?>
+		For <a href="<?php print site_url("tourist/view_all/$tour->id");?>"><?php print $tour->tour_name;?></a><br />
+<?php print format_date($tour->start_date, "standard");?> to <?php print format_date($tour->end_date);?><br />
+Payment Deadline: <?php print format_date($tour->due_date);?>
 </p>
-<?=create_button_bar(array(array("text"=>"Edit Source Letter","title"=>"Click here to edit the main section and the cancellation policy","class"=>"button edit", "href"=>site_url("letter/edit/$letter->id"))));?>
+<?php print create_button_bar(array(array("text"=>"Edit Source Letter","title"=>"Click here to edit the main section and the cancellation policy","class"=>"button edit", "href"=>site_url("letter/edit/$letter->id"))));?>
 </section>
 <div class="printed-content">
 <div
 	class="grouping block merge-date"
 	id="merge">
-<?=edit_field("sent_date", format_date(get_value($merge, "sent_date",date("m-d-Y"))), NULL, "merge",get_value($merge,"id"), array("class"=>"date", "editable"=>TRUE,"size"=>"26ex" ,"title"=>"Click to edit the date"));?>
-<?=edit_field("salutation", $salutation, NULL, "merge",get_value($merge,"id"),array("format"=>"text","editable"=>TRUE, "title"=>"Click to edit the salutation"));?>
+<?php print edit_field("sent_date", format_date(get_value($merge, "sent_date",date("m-d-Y"))), NULL, "merge",get_value($merge,"id"), array("class"=>"date", "editable"=>TRUE,"size"=>"26ex" ,"title"=>"Click to edit the date"));?>
+<?php print edit_field("salutation", $salutation, NULL, "merge",get_value($merge,"id"),array("format"=>"text","editable"=>TRUE, "title"=>"Click to edit the salutation"));?>
 </div>
 <div class="block">
-<?=$letter->body;?>
+<?php print $letter->body;?>
 </div>
 <form
 	id="merge-editor"
 	name="merge-editor"
-	action="<?=site_url("merge/$action");?>"
+	action="<?php print site_url("merge/$action");?>"
 	method="post">
 	<input
 		type="hidden"
 		id="id"
 		name="id"
-		value="<?=get_value($merge, "id");?>" /> <input
+		value="<?php print get_value($merge, "id");?>" /> <input
 		type="hidden"
 		id="payer_id"
 		name="payer_id"
-		value="<?=$payer->payer_id;?>" />
+		value="<?php print $payer->payer_id;?>" />
 	<div id="merge-note">
-<?=get_value($merge,"note");?>
+<?php print get_value($merge,"note");?>
 </div>
 	<div id="note-button-block">
-<? if(get_value($merge, "note", FALSE)):?>
+<?php if(get_value($merge, "note", FALSE)):?>
 <span class="button edit small edit-merge-note">Edit Custom Note</span>
-<? else: ?>
+<?php else: ?>
 <span class="button new small insert-merge-note">Insert Custom Note</span>
-<? endif;?>
+<?php endif;?>
 </div>
 </form>
 <!-- <div class="block">
-<? if(get_value($letter, "cancellation",FALSE)):?>
+<?php if(get_value($letter, "cancellation",FALSE)):?>
 <p>
 		<strong>Cancellation Policy</strong>
 	</p>
-<?=$letter->cancellation;?>
+<?php print $letter->cancellation;?>
 
-<? endif; ?>
+<?php endif; ?>
 </div> -->
 <!-- <div class="non-printing pagebreak-notice">Page Break Here</div> -->
 <div class="block return-slip">
 	<div class="block">
-<? if(get_value($letter, "cancellation",FALSE)):?>
+<?php if(get_value($letter, "cancellation",FALSE)):?>
 <p>
-			<strong><?=$tour->tour_name;?> Cancellation Policy</strong>
+			<strong><?php print $tour->tour_name;?> Cancellation Policy</strong>
 		</p>
-<?=$letter->cancellation;?>
+<?php print $letter->cancellation;?>
 
-<? endif; ?>
+<?php endif; ?>
 </div>
 	<div class="row-1 row">
 		<div class="tourist-block column">
 
-<label>Tourists: </label><?=$tourists;?>
+<label>Tourists: </label><?php print $tourists;?>
 </div>
 		<div class="payment-block column">
 			<label>Amount Paid: </label><span
-				style="min-width: 4em; display: inline-block"><?=format_money($payer->amount);?></span>
-			<label>Amount Due: </label><?=format_money($payer->amt_due);?>
+				style="min-width: 4em; display: inline-block"><?php print format_money($payer->amount);?></span>
+			<label>Amount Due: </label><?php print format_money($payer->amt_due);?>
 </div>
 	</div>
 	<div class="row row-2">
@@ -101,15 +101,16 @@ Payment Deadline: <?=format_date($tour->due_date);?>
 		<div class="special-request-block column">
 			<label>Special Requests: </label>
 		</div>
-<? foreach ($payer->tourists as $tourist):?>
-<? $shirt_list = array();?>
-<? if(!empty($tourist->shirt_size)):?>
+		<?php $shirt_list = array();?>
+<?php foreach ($payer->tourists as $tourist):?>
 
-<? $shirt_list[] = $tourist->shirt_size;?>
-<?endif;?>
-<? endforeach; ?>
+<?php if(!empty($tourist->shirt_size)):?>
+
+<?php $shirt_list[] = $tourist->shirt_size;?>
+<?php endif;?>
+<?php endforeach; ?>
 <div class="shirt-size-block column">
-			<label>Shirt Sizes: </label><?=implode(", ", $shirt_list);?></div>
+			<label>Shirt Sizes: </label><?php print implode(", ", $shirt_list);?></div>
 	</div>
 </div>
 </div>

@@ -31,8 +31,8 @@ $buttons[] = array(
         "class" => "button export export-tourists"
 );
 ?>
-<h2><?=$tour->tour_name;?></h2>
-<?=create_button_bar($buttons);?>
+<h2><?php print $tour->tour_name;?></h2>
+<?php print create_button_bar($buttons);?>
 <table class="list">
 	<thead>
 		<tr>
@@ -50,73 +50,73 @@ $buttons[] = array(
 	</thead>
 	<tbody>
 
-<? foreach ($payers as $payer) : ?>
-<? $total_payers++;?>
-<tr class="row row-break<?=$payer->is_cancelled ==1 ? " cancelled": "";?>">
+<?php foreach ($payers as $payer) : ?>
+<?php $total_payers++;?>
+<tr class="row row-break<?php print $payer->is_cancelled ==1 ? " cancelled": "";?>">
 			<td>
-<? foreach($payer->tourists as $tourist) :?>
-    <? if($payer->is_cancelled == 0):?>
-        <? $total_tourists++;?>
-        <? $shirt_count = update_shirt_count($shirt_count, $tourist->shirt_size); ?>
-    <? endif;?>
+<?php foreach($payer->tourists as $tourist) :?>
+    <?php if($payer->is_cancelled == 0):?>
+        <?php $total_tourists++;?>
+        <?php $shirt_count = update_shirt_count($shirt_count, $tourist->shirt_size); ?>
+    <?php endif;?>
 
-    <? $tourist_name = sprintf("%s %s", $tourist->first_name,$tourist->last_name);?>
-    <? printf("<a href='%s' title='View %s&rsquo;s address book entry'>%s</a>",site_url("person/view/$tourist->person_id"),$tourist_name, $tourist_name);?>
-    <? if($tourist->person_id == $payer->payer_id) : ?>
-    <?="*";?>
-    <? endif; ?>
-    <? if(get_value($tourist, "shirt_size", FALSE)): ?>
-        &nbsp;(<?=$tourist->shirt_size;?>)
-    <? endif;?>
+    <?php $tourist_name = sprintf("%s %s", $tourist->first_name,$tourist->last_name);?>
+    <?php printf("<a href='%s' title='View %s&rsquo;s address book entry'>%s</a>",site_url("person/view/$tourist->person_id"),$tourist_name, $tourist_name);?>
+    <?php if($tourist->person_id == $payer->payer_id) : ?>
+    <?php print "*";?>
+    <?php endif; ?>
+    <?php if(get_value($tourist, "shirt_size", FALSE)): ?>
+        &nbsp;(<?php print $tourist->shirt_size;?>)
+    <?php endif;?>
     <br />
-<? endforeach; ?>
+<?php endforeach; ?>
 <br/>
 <?php if($payer->merge_id):?>
-<span class="button edit select-letter" id="<?=sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id);?>">Edit Letter</span>
+<span class="button edit select-letter" id="<?php print sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id);?>">Edit Letter</span>
 <?php else:?>
-	<span class="button new select-letter" id="<?=sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id);?>">Send Letter</span>
+	<span class="button new select-letter" id="<?php print sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id);?>">Send Letter</span>
 	<?php endif;?>
 			<td>
 			<a
-			href="<?=site_url("payer/edit?payer_id=$payer->payer_id&tour_id=$payer->tour_id");?>"
+			href="<?php print site_url("payer/edit?payer_id=$payer->payer_id&tour_id=$payer->tour_id");?>"
 				class="button edit">Edit
 					Payment</a>
 					</td>
 			<td>
-            <? if($payer->phones || $payer->email): ?>
-                <? if(get_value($payer, "email", TRUE)): ?>
-                    <?=format_email($payer->email);?><br />
-                <? endif; ?>
-                <? foreach($payer->phones as $phone):?>
-                    <?=sprintf("%s: %s",$phone->phone_type, $phone->phone);?><br />
-                <? endforeach;?>
-            <? endif; ?>
+            <?php if($payer->phones || $payer->email): ?>
+                <?php if(get_value($payer, "email", TRUE)): ?>
+                    <?php print format_email($payer->email);?><br />
+                <?php endif; ?>
+                <?php foreach($payer->phones as $phone):?>
+                    <?php print sprintf("%s: %s",$phone->phone_type, $phone->phone);?><br />
+                <?php endforeach;?>
+            <?php endif; ?>
             </td>
 			<?
     if ($payer->is_comp == 1) :
         ?>
             <td>Complementary</td>
-        <? elseif ($payer->is_cancelled == 1): ?>
+        <?php elseif ($payer->is_cancelled == 1): ?>
             <td class='cancelled'>Cancelled</td>
-            <? $total_cancels ++;?>
+            <?php $total_cancels ++;?>
 
-        <? else: ?>
-            <td><?=sprintf("%s<br/>%s",format_field_name($payer->payment_type), format_money($payer->price));?>
+        <?php else: ?>
+            <td><?php print sprintf("%s<br/>%s",format_field_name($payer->payment_type), format_money($payer->price));?>
            </td>
-        <? endif; ?>
-			<td><?=format_money($payer->amt_paid);?>
+        <?php endif; ?>
+			<td><?php print format_money($payer->amt_paid);?>
 			</td>
-			<td><?=format_money($payer->discount);?></td>
-			<td><?=sprintf("%s<br/>%s", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
+			<td><?php print format_money($payer->discount);?></td>
+			<td><?php print sprintf("%s<br/>%s", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
 			<td><?php echo $payer->is_cancelled == 1?0:format_money($payer->amt_due);?>
 			</td>
 		</tr>
-				<? if(get_value($payer, "note",FALSE)): ?>
+				<?php if(get_value($payer, "note",FALSE)): ?>
 		<tr>
 			<td></td>
-			<td colspan="10"><?=get_value($payer,"note");?></td>
+			<td colspan="10"><?php print get_value($payer,"note");?></td>
 		</tr>
-		<? endif;?>
+		<?php endif;?>
 		<?
 		if($payer->is_cancelled != 1){
     		$total_due += $payer->amt_due;
@@ -124,37 +124,37 @@ $buttons[] = array(
     	}
     ?>
 
-		<? endforeach; ?>
+		<?php endforeach; ?>
 	</tbody>
 	<tfoot>
 	    <tr>
         	<td>
-        	Tourists: <?=$total_tourists;?>
+        	Tourists: <?php print $total_tourists;?>
         	</td>
         	<td>
-        	Payers: <?=$total_payers - $total_cancels;?>
+        	Payers: <?php print $total_payers - $total_cancels;?>
         	</td>
          	<td>
-        	Cancels: <?=$total_cancels;?>
+        	Cancels: <?php print $total_cancels;?>
         	</td>
         	<td style="text-align: right;">
         	Total Paid
         	</td>
         	<td colspan='2'>
-        	<?=format_money($total_paid);?>
+        	<?php print format_money($total_paid);?>
         	</td>
         	<td style="text-align: right;">
         	Total Due
         	</td>
         	<td>
-        	<?=format_money($total_due);?>
+        	<?php print format_money($total_due);?>
         	</td>
 		</tr>
 	</tfoot>
 </table>
 <?php if($shirt_count):?>
 <p><strong>Shirt Totals</strong><br/>
-<?=sort_shirts($shirt_count);?>
+<?php print sort_shirts($shirt_count);?>
 </p>
 <?php endif; ?>
 

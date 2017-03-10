@@ -20,23 +20,23 @@ Amount
 </tr>
 </thead>
 <tbody>
-<? foreach($payments as $payment): ?>
+<?php foreach($payments as $payment): ?>
 <?php if($payment->amount > 0):?>
-<tr id="<? printf("payment-row_%s",$payment->id);?>">
+<tr id="<?php printf("payment-row_%s",$payment->id);?>">
 <td>
-<?=format_date($payment->receipt_date,"standard");?>
+<?php print format_date($payment->receipt_date,"standard");?>
 </td>
 <td>
-<?=format_money($payment->amount,"standard");?>
-<? $total_paid += $payment->amount;?>
+<?php print format_money($payment->amount,"standard");?>
+<?php $total_paid += $payment->amount;?>
 </td>
 <td>
-<?=create_button_bar(array(array("text"=>"Delete","class"=>"delete-payment delete button small",
+<?php print create_button_bar(array(array("text"=>"Delete","class"=>"delete-payment delete button small",
          "id"=>sprintf("delete-payment_%s",$payment->id), "type"=>"span")));?>
 </td>
 </tr>
 <?php endif;?>
-<? endforeach; ?>
+<?php endforeach; ?>
 </tbody>
 <tfoot>
 <tr>
@@ -44,13 +44,13 @@ Amount
 Total Paid:
 </td>
 <td >
-<?=format_money($total_paid,"standard");?>
+<?php print format_money($total_paid,"standard");?>
 </td>
 </tr>
 </tfoot>
 </table>
-<input type="hidden" id="total-paid" value="<?=$total_paid;?>"/>
+<input type="hidden" id="total-paid" value="<?php print $total_paid;?>"/>
 <div style="padding-top: 1em;">
-<?=create_button_bar($buttons);?>
+<?php print create_button_bar($buttons);?>
 </div>
 </div>

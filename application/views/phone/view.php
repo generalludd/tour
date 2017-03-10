@@ -6,15 +6,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <table>
 <tbody>
-<? foreach ($person->phones as $phone): ?>
+<?php foreach ($person->phones as $phone): ?>
     <tr class="phone-row field-set">
-    <td class="label"><?=$phone->phone_type;?></td>
-    <td><?=$phone->phone;?></td>
-    <td><span class="button edit small edit-phone" id="<?=sprintf("edit-phone_%s",$phone->id);?>">Edit</span></td>
-   <td><span class="button delete small delete-phone" id="<?=sprintf("delete-phone_%s", $phone->id);?>">Delete</span></td>
+    <td class="label"><?php print $phone->phone_type;?></td>
+    <td><?php print $phone->phone;?></td>
+    <td><span class="button edit small edit-phone" id="<?php print sprintf("edit-phone_%s",$phone->id);?>">Edit</span></td>
+   <td><span class="button delete small delete-phone" id="<?php print sprintf("delete-phone_%s", $phone->id);?>">Delete</span></td>
 
     </tr>
-<? endforeach; ?>
+<?php endforeach; ?>
 </tbody>
 </table>
 

@@ -12,17 +12,17 @@ if($this->uri->segment(1) == ""){
 <!DOCTYPE html>
 <html>
 <head>
-<? $this->load->view('page/head');?>
+<?php $this->load->view('page/head');?>
 </head>
-<body class="browser <?=$body_class;?>">
+<body class="browser <?php print $body_class;?>">
 <div id="page">
 <?php if(!$print): ?>
 <div id='header'>
 
 <div id='page-title'>Ball Park Tours</div>
 <div id='navigation'>
-<?  $this->load->view('page/navigation'); ?>
-<div id='utility'><? $this->load->view('page/utility');?></div>
+<?php  $this->load->view('page/navigation'); ?>
+<div id='utility'><?php $this->load->view('page/utility');?></div>
 
 </div>
 </div>
@@ -34,11 +34,11 @@ if($this->uri->segment(1) == ""){
 <div id="main"><!-- content -->
 <div id="content">
 <?php if($this->session->flashdata("notice")):?>
-<div id="notice"><?=$this->session->flashdata("notice");
+<div id="notice"><?php print $this->session->flashdata("notice");
 ?></div>
 <?php endif;?>
 <?php if($this->session->flashdata("alert") || BACKUP_STATUS > 1209599):?>
-<div id="alert"><?=$this->session->flashdata("alert");
+<div id="alert"><?php print $this->session->flashdata("alert");
 ?>
 <?php if(BACKUP_STATUS > 1209599):?>
 <p>

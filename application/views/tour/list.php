@@ -12,7 +12,7 @@ if (! $for_tourist) {
     print create_button_bar($buttons);
 }
 ?>
-<? if(count($tours)>0): ?>
+<?php if(count($tours)>0): ?>
 <table class="list">
 	<thead>
 		<tr>
@@ -20,9 +20,9 @@ if (! $for_tourist) {
 			<th>Start</th>
 			<th>End</th>
 			<th>Payment Due</th>
-			<? if($for_tourist):?>
+			<?php if($for_tourist):?>
 			<th>Amt Paid</th>
-			<? endif;?>
+			<?php endif;?>
 			<!-- <th>Full Price</th>
 			<th>Banquet Price</th>
 			<th>Early Bird</th>
@@ -41,62 +41,62 @@ $row_class = "odd";
 
 foreach ($tours as $tour) {
     ?>
-<tr class="<?=$row_class;?>">
+<tr class="<?php print $row_class;?>">
 			<td>
 
-		<a href="<?=site_url("tour/view/$tour->id");?>">
-<?=$tour->tour_name;?>
+		<a href="<?php print site_url("tour/view/$tour->id");?>">
+<?php print $tour->tour_name;?>
 </a>
 </td>
 			<td>
-<?=format_date($tour->start_date);?>
+<?php print format_date($tour->start_date);?>
 </td>
 			<td>
-<?=format_date($tour->end_date);?>
+<?php print format_date($tour->end_date);?>
 </td>
 			<td>
-<?=format_date($tour->due_date);?>
+<?php print format_date($tour->due_date);?>
 </td>
 			<!-- <td>
-<?=format_money($tour->full_price);?>
+<?php print format_money($tour->full_price);?>
 </td>
 			<td>
-<?=format_money($tour->banquet_price);?>
+<?php print format_money($tour->banquet_price);?>
 </td>
 			<td>
-<?=format_money($tour->early_price);?>
+<?php print format_money($tour->early_price);?>
 </td>
 			<td>
-<?=format_money($tour->regular_price);?>
+<?php print format_money($tour->regular_price);?>
 </td>
 			<td>
-<?=format_money($tour->single_rate);?>
+<?php print format_money($tour->single_rate);?>
 </td>
 			<td>
-<?=format_money($tour->triple_rate);?>
+<?php print format_money($tour->triple_rate);?>
 </td>
 			<td>
-<?=format_money($tour->quad_rate);?>
+<?php print format_money($tour->quad_rate);?>
 </td> -->
-<? if($for_tourist): ?>
+<?php if($for_tourist): ?>
 <td>
-<?=format_money($tour->amt_paid);?>
+<?php print format_money($tour->amt_paid);?>
 </td>
 <td>
-<a href="<?=site_url("payer/edit/?payer_id=$tour->payer_id&tour_id=$tour->tour_id");?>" class="button edit">Edit Payment</a>
+<a href="<?php print site_url("payer/edit/?payer_id=$tour->payer_id&tour_id=$tour->tour_id");?>" class="button edit">Edit Payment</a>
 </td>
 <td><a class="button show-toursits mini"
-				href="<?=site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
-<? else: ?>
+				href="<?php print site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
+<?php else: ?>
 			<td><a
 				class="button show-hotels small"
-				href="<?=site_url("/hotel/view_all/$tour->id");?>">Hotels</a></td>
+				href="<?php print site_url("/hotel/view_all/$tour->id");?>">Hotels</a></td>
 			<td><a
 				class="button show-toursits small"
-				href="<?=site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
+				href="<?php print site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
 				<td><a
 				class="button show-letters small"
-				href="<?=site_url("/tour/view/$tour->id");?>">Letter Templates</a></td>
+				href="<?php print site_url("/tour/view/$tour->id");?>">Letter Templates</a></td>
 		</tr>
 <?
 endif;
@@ -110,6 +110,6 @@ endif;
 ?>
 </tbody>
 </table>
-<? elseif($for_tourist):?>
+<?php elseif($for_tourist):?>
 <p>There are no tours on record for this person. Click on "Join Tour" to add this person to a current tour.</p>
-<? endif;
+<?php endif;

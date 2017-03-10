@@ -6,10 +6,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <script
 	type="text/javascript"
-	src="<?=base_url("tiny_mce/jquery.tinymce.js");?>"></script>
+	src="<?php print base_url("tiny_mce/jquery.tinymce.js");?>"></script>
 <script
 	type="text/javascript"
-	src="<?=base_url("js/editor.js");?>"></script>
+	src="<?php print base_url("js/editor.js");?>"></script>
 <p>
 	NOTE: DO NOT PASTE DIRECTLY FROM ANOTHER WORD PROCESSOR, USE THE <span
 		id="word-icon"></span> BUTTON BELOW
@@ -18,6 +18,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	id="note"
 	class="tinymce"
 	name="note">
-<?=get_value($merge, "note");?>
+<?php print get_value($merge, "note");?>
 </textarea>
-<?=create_button_bar(array(array("text"=>"Save Note","class"=>"button save save-note", "type"=>"span")));
+<?php print create_button_bar(array(array("text"=>"Save Note","class"=>"button save save-note", "type"=>"span")));

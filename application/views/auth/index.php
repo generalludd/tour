@@ -4,13 +4,13 @@
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <title>Ballpark Tours Database</title>
-<link href="<?=base_url();?>/css/main.css" type="text/css" rel="stylesheet" media="all" />
-<link href="<?=base_url();?>/css/color.css" type="text/css" rel="stylesheet" media="all" />
+<link href="<?php print base_url("/css/main.css");?>" type="text/css" rel="stylesheet" media="all" />
+<link href="<?php print base_url("/css/color.css");?>" type="text/css" rel="stylesheet" media="all" />
 
-<script type="text/javascript" src="<?=base_url();?>js/jquery.min.js"></script>
-<script type="text/javascript" src="<?=base_url();?>js/password.js"></script>
+<script type="text/javascript" src="<?php print base_url("js/jquery.min.js");?>"></script>
+<script type="text/javascript" src="<?php print base_url("js/password.js");?>"></script>
 </head>
-<body class="not-logged-in <?=$this->uri->segment(1);?>">
+<body class="not-logged-in <?php print $this->uri->segment(1);?>">
 <div id="main">
 <?php
 $this->load->view($target);

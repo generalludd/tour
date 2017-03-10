@@ -24,10 +24,10 @@ $buttons[] = array(
 ?>
 <h3>
 	Hotels for Tour: <a
-		href="<?=site_url("tour/view/$tour->id");?>"
-		title="View tour details"><?=$tour->tour_name;?></a>
+		href="<?php print site_url("tour/view/$tour->id");?>"
+		title="View tour details"><?php print $tour->tour_name;?></a>
 </h3>
-<?=create_button_bar($buttons);?>
+<?php print create_button_bar($buttons);?>
 <table class="list">
 	<thead>
 		<tr>
@@ -41,31 +41,31 @@ $buttons[] = array(
 		</tr>
 	</thead>
 	<tbody>
-<? foreach($hotels as $hotel): ?>
+<?php foreach($hotels as $hotel): ?>
 <tr>
 			<td>
 			<a
 				class="view-hotel"
-				href="<?=site_url("hotel/view/$hotel->id");?>"
-				title="View hotel details"><?=$hotel->hotel_name;?></a></td>
+				href="<?php print site_url("hotel/view/$hotel->id");?>"
+				title="View hotel details"><?php print $hotel->hotel_name;?></a></td>
 			<td>
 			<span
 				class="button edit edit-hotel"
-				id="<?=sprintf("edit-hotel_%s",$hotel->id);?>">Edit Hotel</span></td>
+				id="<?php print sprintf("edit-hotel_%s",$hotel->id);?>">Edit Hotel</span></td>
 			<td>
 			<a
-				href="<?=site_url("roommate/view_for_tour/?tour_id=$tour->id&stay=$hotel->stay");?>"
+				href="<?php print site_url("roommate/view_for_tour/?tour_id=$tour->id&stay=$hotel->stay");?>"
 				class="button view-roommates"
 				title="Show all roommates for this hotel">Roommates</a></td>
-			<td><?=format_date($hotel->arrival_date);?>,
-			<?=format_time($hotel->arrival_time);?></td>
+			<td><?php print format_date($hotel->arrival_date);?>,
+			<?php print format_time($hotel->arrival_time);?></td>
 			<td>
-<?=format_date($hotel->departure_date);?>,
-<?=format_time($hotel->departure_time);?>
+<?php print format_date($hotel->departure_date);?>,
+<?php print format_time($hotel->departure_time);?>
 </td>
-			<td><?=$hotel->phone;?></td>
-			<td><?=$hotel->fax;?></td>
+			<td><?php print $hotel->phone;?></td>
+			<td><?php print $hotel->fax;?></td>
 		</tr>
-<? endforeach; ?>
+<?php endforeach; ?>
 </tbody>
 </table>

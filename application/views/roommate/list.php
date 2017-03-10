@@ -47,62 +47,62 @@ if ($stay < $last_stay) {
     );
 }
 ?>
-<h3><?=sprintf("Roommates for Tour: <a href='%s'>%s</a>, Stay: %s",site_url("tour/view/$tour_id"), $hotel->tour_name, $stay);?></h3>
+<h3><?php print sprintf("Roommates for Tour: <a href='%s'>%s</a>, Stay: %s",site_url("tour/view/$tour_id"), $hotel->tour_name, $stay);?></h3>
 <div
 	class="block hotel-info info-block"
 	id="hotel-info"
 	style="clear: both">
 	<label>Hotel:&nbsp;</label><a
-		href="<?=site_url("hotel/view/$hotel->id");?>"><?=$hotel->hotel_name?></a><br/>
-	<label>Arrival Date:&nbsp;</label><?=format_date(get_value($hotel,"arrival_date"));?>,&nbsp;<?=get_value($hotel,"arrival_time");?><br/>
-<label>Departure Date:&nbsp;</label><?=format_date(get_value($hotel,"departure_date"));?>,&nbsp;<?=get_value($hotel,"departure_time");?><br />
-<? if(get_value($hotel, "contact",FALSE)): ?>
-    <label>Contact Info: </label><?=get_value($hotel, "contact");?>,&nbsp;
-<? endif;?>
-<? if(get_value($hotel, "phone",FALSE)): ?>
-<label>Phone: </label><?=get_value($hotel, "phone");?>&nbsp;
-<? endif;?>
-<? if(get_value($hotel, "fax",FALSE)): ?>
-<label>Fax: </label><?=get_value($hotel,"fax");?>&nbsp;
-<? endif;?>
+		href="<?php print site_url("hotel/view/$hotel->id");?>"><?php print $hotel->hotel_name?></a><br/>
+	<label>Arrival Date:&nbsp;</label><?php print format_date(get_value($hotel,"arrival_date"));?>,&nbsp;<?php print get_value($hotel,"arrival_time");?><br/>
+<label>Departure Date:&nbsp;</label><?php print format_date(get_value($hotel,"departure_date"));?>,&nbsp;<?php print get_value($hotel,"departure_time");?><br />
+<?php if(get_value($hotel, "contact",FALSE)): ?>
+    <label>Contact Info: </label><?php print get_value($hotel, "contact");?>,&nbsp;
+<?php endif;?>
+<?php if(get_value($hotel, "phone",FALSE)): ?>
+<label>Phone: </label><?php print get_value($hotel, "phone");?>&nbsp;
+<?php endif;?>
+<?php if(get_value($hotel, "fax",FALSE)): ?>
+<label>Fax: </label><?php print get_value($hotel,"fax");?>&nbsp;
+<?php endif;?>
 
 <p><strong>Room Type Count:</strong>
-<? $room_output = array();?>
-<? foreach($room_count as $count):?>
-<? $room_output[] = sprintf("%ss: %s", format_field_name($count->size), $count->room_count);?>
-<? endforeach;?>
-<?=implode(", ", $room_output);?>
+<?php $room_output = array();?>
+<?php foreach($room_count as $count):?>
+<?php $room_output[] = sprintf("%ss: %s", format_field_name($count->size), $count->room_count);?>
+<?php endforeach;?>
+<?php print implode(", ", $room_output);?>
 </p>
-<?=create_button_bar($buttons, array("class"=>"float"));?>
+<?php print create_button_bar($buttons, array("class"=>"float"));?>
 </div>
 <input
 	type="hidden"
 	id="stay"
 	name="stay"
-	value="<?=$stay;?>" />
+	value="<?php print $stay;?>" />
 <input
 	type="hidden"
 	id="tour_id"
 	name="tour_id"
-	value="<?=$tour_id;?>" />
+	value="<?php print $tour_id;?>" />
 <div
 	class="block"
 	id="roommate-list-block">
 	<?
 $room_size = "";?>
 
-<? foreach ($rooms as $room): ?>
-   <? if($room_size != $room->size):?>
-       <h4 class='room-size-label'><?=$room->size;?></h4>
-       <? $room_size = $room->size;?>
-    <? endif;?>
-<div class="roommate-block" id="roommate-block_<?=$room->id;?>">
+<?php foreach ($rooms as $room): ?>
+   <?php if($room_size != $room->size):?>
+       <h4 class='room-size-label'><?php print $room->size;?></h4>
+       <?php $room_size = $room->size;?>
+    <?php endif;?>
+<div class="roommate-block" id="roommate-block_<?php print $room->id;?>">
 
-   <? $data["room"] = $room;
+   <?php $data["room"] = $room;
      $data["sizes"] = $sizes;
     $this->load->view("room/edit", $data); ?>
 </div>
-<? endforeach;?>
+<?php endforeach;?>
 
 </div>
 <a id="end-of-list"></a>

@@ -47,15 +47,15 @@ $buttons [] = array (
 </fieldset>
 <?php endif;?>
 <p class="message">
-Total Person Count: <?=count($people); ?>
+Total Person Count: <?php print count($people); ?>
 <br />
 Total Address Count: <?php print $address_count; ?>
 </p>
-<?=create_button_bar($buttons);?>
+<?php print create_button_bar($buttons);?>
 <table class="list" id="person-list">
 <?php foreach($people as $person): ?>
 <?php $disabled=$person->status == 0 ? "highlight":""; ?>
-<tr class="<?=$disabled;?>">
+<tr class="<?php print $disabled;?>">
 		<td>
 <?php print $person->first_name;?>
 </td>

@@ -7,16 +7,16 @@ $total_cost = ($tour_price - $payer->discount + $room_rate) * $tourist_count;
 $amt_due = $total_cost - $payer->amt_paid;
 ?>
 <div class="block header">
-	<h4>Payer: <?=sprintf("%s %s", $payer->first_name, $payer->last_name);?></h4>
+	<h4>Payer: <?php print sprintf("%s %s", $payer->first_name, $payer->last_name);?></h4>
 <?if($action == "update"):?>
 <h5>
 		Tour: <a
 			href="#"
 			class="save-payer-edits"
-			title="Save and return to tourist list"><?=get_value($payer,"tour_name");?></a>
+			title="Save and return to tourist list"><?php print get_value($payer,"tour_name");?></a>
 	</h5>
 
-<? endif;?>
+<?php endif;?>
 </div>
 <div
 	id="payer-editor-block"
@@ -26,50 +26,50 @@ $amt_due = $total_cost - $payer->amt_paid;
 		name="payer-editor"
 		id="payer-editor"
 		method="post"
-		action="<?=base_url("index.php/payer/$action");?>">
+		action="<?php print base_url("index.php/payer/$action");?>">
 		<input
 			type="hidden"
 			id="payer_id"
 			name="payer_id"
-			value="<?=$payer->payer_id;?>" /> <input
+			value="<?php print $payer->payer_id;?>" /> <input
 			type="hidden"
 			id="tour_id"
 			name="tour_id"
-			value="<?=$tour_id;?>" /> <input
+			value="<?php print $tour_id;?>" /> <input
 			type="hidden"
 			id="tourist_count"
 			name="tourist_count"
-			value="<?=$tourist_count;?>" /> <input
+			value="<?php print $tourist_count;?>" /> <input
 			type="hidden"
 			id="room_rate"
 			name="room_rate"
-			value="<?=$room_rate;?>" /> <input
+			value="<?php print $room_rate;?>" /> <input
 			type="hidden"
 			id="tour_price"
 			name="tour_price"
-			value="<?=$tour_price;?>" />
+			value="<?php print $tour_price;?>" />
 		<p>
 			<label for="is_comp">Complementary Ticket: </label>
-<?=form_checkbox("is_comp","1",get_value($payer,"is_comp","FALSE"));?>
+<?php print form_checkbox("is_comp","1",get_value($payer,"is_comp","FALSE"));?>
 </p>
 		<p>
 			<label for="is_cancelled">Cancelled: </label>
-<?=form_checkbox("is_cancelled","1",get_value($payer,"is_cancelled","FALSE"));?>
+<?php print form_checkbox("is_cancelled","1",get_value($payer,"is_cancelled","FALSE"));?>
 </p>
 		<p>
 			<label for="payment_type">Payment Type</label>
-<?=form_dropdown("payment_type",$payment_types, get_value($payer,"payment_type"), "class='change_payment_type'");?>
-&nbsp;$<span id="tour_price_display"><?=$tour_price;?></span>
+<?php print form_dropdown("payment_type",$payment_types, get_value($payer,"payment_type"), "class='change_payment_type'");?>
+&nbsp;$<span id="tour_price_display"><?php print $tour_price;?></span>
 		</p>
 		<p>
 			<label for="room_size">Room Size</label>
-<?=form_dropdown("room_size",$room_sizes,get_value($payer, "room_size"), "class='change_room_size'");?>
-&nbsp;$<span id="room_rate_display"><?=$room_rate;?></span>
+<?php print form_dropdown("room_size",$room_sizes,get_value($payer, "room_size"), "class='change_room_size'");?>
+&nbsp;$<span id="room_rate_display"><?php print $room_rate;?></span>
 		</p>
 		<p>
 			<label for="total_cost">Total Cost: </label> &nbsp;$<span
 				class="field"
-				id="total_cost"><?=$total_cost;?></span>
+				id="total_cost"><?php print $total_cost;?></span>
 		</p>
 		<p>
 			<label for="amt_paid">Amount Paid</label> $<input
@@ -87,29 +87,29 @@ $amt_due = $total_cost - $payer->amt_paid;
 				class="edit-payer-amounts money"
 				name="discount"
 				id="discount"
-				value="<?=get_value($payer, "discount");?>" />
+				value="<?php print get_value($payer, "discount");?>" />
 		</p>
 		<p>
 			<label for="amt_due">Amount Due:</label> $<span
 				class="field"
-				id="amt_due"><?=$total_cost - $amount;?></span>
+				id="amt_due"><?php print $total_cost - $amount;?></span>
 		</p>
 		<p>
 			<label for="note">Note</label><br />
 			<textarea
 				id="note"
 				name="note"
-				style="width: 90%"><?=get_value($payer, "note");?></textarea>
+				style="width: 90%"><?php print get_value($payer, "note");?></textarea>
 		</p>
 		<p>
 
-<? $buttons[] = array("text"=>sprintf("<input type='submit' class='button edit' name='save' value='%s'/>",ucfirst($action)), "type"=>"pass-through");?>
-			<? if($action == "update"): ?>
-<? $buttons[] = array("text"=>"Cancel", "class"=>"button cancel cancel-payer-edit", "title"=>"Cancel the changes to the above payment data.");?>
-<? $buttons[] = array("text"=>"Delete Payer", "title"=>"Completely delete this payer, payment, rooming, and tourist info for this payer", "class"=>"button delete delete-payer", "id"=>sprintf("delete-payer_%s_%s", $payer->payer_id, $tour_id));?>
+<?php $buttons[] = array("text"=>sprintf("<input type='submit' class='button edit' name='save' value='%s'/>",ucfirst($action)), "type"=>"pass-through");?>
+			<?php if($action == "update"): ?>
+<?php $buttons[] = array("text"=>"Cancel", "class"=>"button cancel cancel-payer-edit", "title"=>"Cancel the changes to the above payment data.");?>
+<?php $buttons[] = array("text"=>"Delete Payer", "title"=>"Completely delete this payer, payment, rooming, and tourist info for this payer", "class"=>"button delete delete-payer", "id"=>sprintf("delete-payer_%s_%s", $payer->payer_id, $tour_id));?>
 
-		<? endif; ?>
-		<?=create_button_bar($buttons);?>
+		<?php endif; ?>
+		<?php print create_button_bar($buttons);?>
 
 	</p>
 	</form>
@@ -135,7 +135,7 @@ $this->load->view("payment/reimbursement", $payment_data);
 	id="payer-tourist-block"
 	class="block triptych field-box">
 	<h4>Tourists</h4>
-<? $this->load->view("tourist/payer_list", $tourists);?>
+<?php $this->load->view("tourist/payer_list", $tourists);?>
 <div id="mini-selector">
 		<form
 			name="tourist-mini-selector"
@@ -146,11 +146,11 @@ $this->load->view("payment/reimbursement", $payment_data);
 				type="hidden"
 				id="tour_id"
 				name="tour_id"
-				value="<?=$tour_id;?>" /> <input
+				value="<?php print $tour_id;?>" /> <input
 				type="hidden"
 				id="payer_id"
 				name="payer_id"
-				value="<?=$payer_id;?>" />
+				value="<?php print $payer_id;?>" />
 			<p>
 				<label for="tourist-dropdown">Type the name of a person <i>already
 						in the address book</i> you want to add to this ticket. If no one

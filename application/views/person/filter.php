@@ -20,11 +20,11 @@ if ($filters) {
 <form
 	name="person-filter"
 	id="person-filter"
-	action="<?=site_url("person/view_all");?>"
+	action="<?php print site_url("person/view_all");?>"
 	method="get">
 	<p>
 		<label for="initial">Filter on Last Name Initial</label>
-<?=form_dropdown("initial",$initials,$initial);?>
+<?php print form_dropdown("initial",$initials,$initial);?>
 </p>
 	<p>
 		<label for="veterans_only">Show Veterans Only: </label> <input
@@ -32,7 +32,7 @@ if ($filters) {
 			name="veterans_only"
 			id="veterans_only"
 			value="1"
-			<?=$veterans_only;?> />
+			<?php print $veterans_only;?> />
 	</p>
 		<p>
 		<label for="non_veterans">Show Non-Veterans Only: </label> <input
@@ -40,7 +40,7 @@ if ($filters) {
 			name="non_veterans"
 			id="non_veterans"
 			value="1"
-			<?=$non_veterans;?> />
+			<?php print $non_veterans;?> />
 	</p>
 	<p>
 		<label for="email_only">Show only people with email addresses</label>
@@ -49,7 +49,7 @@ if ($filters) {
 			name="email_only"
 			id="email_only"
 			value="1"
-			<?=$email_only;?> />
+			<?php print $email_only;?> />
 	</p>
 	<p>
 		<label for="show_disabled">Include people who've been removed from the
@@ -58,7 +58,7 @@ if ($filters) {
 			name="show_disabled"
 			id="show_disabled"
 			value="1"
-			<?=$show_disabled;?> />
+			<?php print $show_disabled;?> />
 	</p>
 	<p>
 		<input

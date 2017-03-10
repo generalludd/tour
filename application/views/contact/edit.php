@@ -19,21 +19,21 @@ if ($action == "update") {
 <form
 	name="contact-editor"
 	id="contact-editor"
-	action="<?=site_url("contact/$action");?>"
+	action="<?php print site_url("contact/$action");?>"
 	method="post">
 	<input
 		type="hidden"
 		name="id"
 		id="id"
-		value="<?=get_value($contact,"id");?>" /> <input
+		value="<?php print get_value($contact,"id");?>" /> <input
 		type="hidden"
 		name="hotel_id"
 		id="hotel_id"
-		value="<?=$hotel_id;?>" />
-<?=create_input($contact, "contact", "Contact Name", array("envelope"=>"div"));?>
-<?=create_input($contact, "position", "Position", array("envelope"=>"div"));?>
-<?=create_input($contact, "phone", "Phone", array("envelope"=>"div", "type"=>"tel"));?>
-<?=create_input($contact, "fax",  "Fax", array("envelope"=>"div", "type"=>"tel"));?>
-<?=create_input($contact, "email", "Email", array("envelope"=>"div","type"=>"email"));?>
-<?=create_button_bar($buttons);?>
+		value="<?php print $hotel_id;?>" />
+<?php print create_input($contact, "contact", "Contact Name", array("envelope"=>"div"));?>
+<?php print create_input($contact, "position", "Position", array("envelope"=>"div"));?>
+<?php print create_input($contact, "phone", "Phone", array("envelope"=>"div", "type"=>"tel"));?>
+<?php print create_input($contact, "fax",  "Fax", array("envelope"=>"div", "type"=>"tel"));?>
+<?php print create_input($contact, "email", "Email", array("envelope"=>"div","type"=>"email"));?>
+<?php print create_button_bar($buttons);?>
 </form>

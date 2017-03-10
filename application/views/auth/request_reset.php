@@ -2,7 +2,7 @@
 
 <div class="login">
 <div class="login-title">Password Reset</div>
-<form action="<?=site_url("auth/send_reset"); ?>" method="post"
+<form action="<?php print site_url("auth/send_reset"); ?>" method="post"
 	name="login_form" id="login_form">
 
 <?
@@ -16,7 +16,7 @@ if($errors):
 	}
 	?> 
 	<div class="error-text">
-<? print $output; ?>
+<?php print $output; ?>
 </div>
 <?
 endif;

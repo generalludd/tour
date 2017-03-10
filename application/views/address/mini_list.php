@@ -4,13 +4,13 @@
 
 ?>
 <table>
-<? foreach($people as $person): ?>
+<?php foreach($people as $person): ?>
 <tr>
-<td><?=sprintf("%s %s", $person->first_name, $person->last_name);?></td>
-<td><? $button = array("text"=>"Select Housemate", "type"=>"span","class"=>"button new small select-housemate", "id"=>sprintf("select-housemate_%s",$person->address_id));?>
-<?=create_button($button);?>
+<td><?php print sprintf("%s %s", $person->first_name, $person->last_name);?></td>
+<td><?php $button = array("text"=>"Select Housemate", "type"=>"span","class"=>"button new small select-housemate", "id"=>sprintf("select-housemate_%s",$person->address_id));?>
+<?php print create_button($button);?>
 </td>
 </tr>
-<? endforeach;?>
+<?php endforeach;?>
 </table>
 

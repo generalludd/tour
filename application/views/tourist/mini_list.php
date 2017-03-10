@@ -5,13 +5,13 @@
 ?>
 <table>
 <tbody>
-<? foreach($people as $person): ?>
+<?php foreach($people as $person): ?>
 <tr>
-<td><?=sprintf("%s %s", $person->first_name, $person->last_name);?></td>
-<td><span class="button mini select_for_tour" id="<?=sprintf("select-for-tour_%s_%s_%s",$person->id, $payer_id, $tour_id);?>">Select</span>
+<td><?php print sprintf("%s %s", $person->first_name, $person->last_name);?></td>
+<td><span class="button mini select_for_tour" id="<?php print sprintf("select-for-tour_%s_%s_%s",$person->id, $payer_id, $tour_id);?>">Select</span>
 </td>
 </tr>
-<? endforeach;?>
+<?php endforeach;?>
 </tbody>
 <tfoot>
 <tr>
