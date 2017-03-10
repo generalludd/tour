@@ -745,7 +745,8 @@ ul.buttons li {
 }
 
 .login .button-box {
-	width: 250px;
+	width: 90%;
+	text-align: center;
 	margin: 0 auto;
 	position: relative;
 }
