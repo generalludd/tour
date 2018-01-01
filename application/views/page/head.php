@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php print $title;?></title>
-<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/main.css')?>" />
-<link type="text/css" rel="stylesheet" media="screen" href="<?php print base_url('css/color.css')?>"/>
-<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/popup.css')?>" />
+<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/main.css') . "?" . date("u");?>" />
+<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/color.css'). "?" . date("u")?>"/>
+<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/popup.css'). "?" . date("u")?>" />
 <link type="text/css" rel="stylesheet" media="print" href="<?php print base_url('css/print.css')?>" />
 <!-- jquery scripts -->
 <script type="text/javascript">

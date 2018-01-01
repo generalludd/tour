@@ -23,13 +23,6 @@ if (! $for_tourist) {
 			<?php if($for_tourist):?>
 			<th>Amt Paid</th>
 			<?php endif;?>
-			<!-- <th>Full Price</th>
-			<th>Banquet Price</th>
-			<th>Early Bird</th>
-			<th>Regular</th>
-			<th>Single Rate</th>
-			<th>Triple Rate</th>
-			<th>Quad Rate</th> -->
 			<th></th>
 			<th></th>
 			<th></th>
@@ -57,27 +50,6 @@ foreach ($tours as $tour) {
 			<td>
 <?php print format_date($tour->due_date);?>
 </td>
-			<!-- <td>
-<?php print format_money($tour->full_price);?>
-</td>
-			<td>
-<?php print format_money($tour->banquet_price);?>
-</td>
-			<td>
-<?php print format_money($tour->early_price);?>
-</td>
-			<td>
-<?php print format_money($tour->regular_price);?>
-</td>
-			<td>
-<?php print format_money($tour->single_rate);?>
-</td>
-			<td>
-<?php print format_money($tour->triple_rate);?>
-</td>
-			<td>
-<?php print format_money($tour->quad_rate);?>
-</td> -->
 <?php if($for_tourist): ?>
 <td>
 <?php print format_money($tour->amt_paid);?>

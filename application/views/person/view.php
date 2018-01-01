@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // view.php Chris Dart Dec 11, 2013 7:47:55 PM chrisdart@cerebratorium.com
-$buttons[] = array("text" => "Edit Person","type"=>"span", "class"=>"button edit edit-person","id"=>sprintf("edit-person_%s",$person->id));
+$buttons[] = array("text" => "Edit Person","href"=>site_url("person/edit/$person->id"), "class"=>"button edit dialog","id"=>sprintf("edit-person_%s",$person->id));
 $buttons[] = array("text"=>"Join Tour", "type"=>"span","class"=>"button new mini select-tour", "id"=>sprintf("join-tour_%s",$person->id));
 $buttons[] = array("text" => sprintf("Tour History", $person->first_name), "href"=> site_url("/tourist/view_for_tourist/$person->id"), "class"=>"button show-tours-for-tourist");
 $nav_buttons[] = array("text" => "<- Previous Record", "class"=>"button navigation previous-person-record", "href"=>site_url("person/view_previous/$person->id"));
