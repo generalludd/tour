@@ -112,12 +112,6 @@ div.list {
 	border: none;
 	color: #ffffff;
 	background: #489310;
-	background: -moz-linear-gradient(top, #67b021 0, #489310 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #67b021),
-		color-stop(100%, #489310));
-	background: -webkit-linear-gradient(top, #67b021 0, #489310 100%);
-	background: -o-linear-gradient(top, #67b021 0, #489310 100%);
-	background: -ms-linear-gradient(top, #67b021 0, #489310 100%);
 	background: linear-gradient(top, #67b021 0, #489310 100%);
 }
 
@@ -125,22 +119,11 @@ div.list {
 	opacity: .90;
 	color: #000;
 	border: none;
-	filter: Alpha(Opacity =                                                 90);
-	/* 	background: #91b347 url(images/button_20_over.png) 50% 50% repeat-x; */
 	background: #67b021;
-	background: -moz-linear-gradient(top, #489310 0, #67b021 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #489310),
-		color-stop(100%, #67b021));
-	background: -webkit-linear-gradient(top, #489310 0, #67b021 100%);
-	background: -o-linear-gradient(top, #489310 0, #67b021 100%);
-	background: -ms-linear-gradient(top, #489310 0, #67b021 100%);
 	background: linear-gradient(top, #489310 0, #67b021 100%);
 }
 
 .button.help {
-	*border: 1px solid #dff110;
-	*background-color: #dff110;
-	*color: black;
 	border: none;
 	background-color: transparent;
 	color: transparent;
@@ -149,8 +132,6 @@ div.list {
 }
 
 .button.help:hover {
-	*background-color: #dff110;
-	*background-image: url(images/help_button_hover.png);
 }
 
 .notice .link, .notice a {
@@ -160,13 +141,8 @@ div.list {
 .button.active {
 	color: #fff;
 	background: #67b021;
-	/*box-shadow: -1px -1px 1px #489310 inset;*/
 }
 
-/* .button.active:hover { */
-/* 	background-color: #ffe45c; */
-/* 	background-image: url(images/ui-bg_highlight-soft_75_ffe45c_1x100.png); */
-/* } */
 a.button {
 	color: #fff;
 }
@@ -174,55 +150,26 @@ a.button {
 .button.edit {
 	border: none;
 	background-color: #0077bd;
-	background: -moz-linear-gradient(top, #63ACE4 0, #0077bd 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #63ACE4),
-		color-stop(100%, #0077bd));
-	background: -webkit-linear-gradient(top, #63ACE4 0, #0077bd 100%);
-	background: -o-linear-gradient(top, #63ACE4 0, #0077bd 100%);
-	background: -ms-linear-gradient(top, #63ACE4 0, #0077bd 100%);
 	background: linear-gradient(top, #63ACE4 0, #0077bd 100%);
-	/*box-shadow: -1px -1px 1px #63ace4 inset;*/
 	color: #fff;
 }
 
 .button.edit:hover {
 	background-color: #63ACE4;
-	background: -moz-linear-gradient(top, #0077bd 0, #63ACE4 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #0077bd),
-		color-stop(100%, #63ACE4));
-	background: -webkit-linear-gradient(top, #0077bd 0, #63ACE4 100%);
-	background: -o-linear-gradient(top, #0077bd 0, #63ACE4 100%);
-	background: -ms-linear-gradient(top, #0077bd 0, #63ACE4 100%);
 	background: linear-gradient(top, #0077bd 0, #63ACE4 100%);
-	/* 	background-image: url(images/edit_button_hover.png); */
 }
 
 .button.new, a.button.new {
 	border: 1px solid #ddd000;
-	background-color: #eff11;
+	background-color: #eff110;
 	color: #000;
-	background: -moz-linear-gradient(top, #eeff11 0, #dff110 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eeff11),
-		color-stop(100%, #dff110));
-	background: -webkit-linear-gradient(top, #eeff11 0, #dff110 100%);
-	background: -o-linear-gradient(top, #eeff11 0, #dff110 100%);
-	background: -ms-linear-gradient(top, #eeff11 0, #dff110 100%);
-	background: linear-gradient(top, #eeff11 0, #dff110 100%);
-	/* 		background-image: url(images/new_button.png); */
 }
 
 .button.new:hover, .button.new.active {
 	border: 1px solid #ddd000;
 	background-color: #dff110;
-	background: -moz-linear-gradient(top, #dff110 0, #eeff11 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dff110),
-		color-stop(100%, #eeff11));
-	background: -webkit-linear-gradient(top, #dff110 0, #eeff11 100%);
-	background: -o-linear-gradient(top, #dff110 0, #eeff11 100%);
-	background: -ms-linear-gradient(top, #dff110 0, #eeff11 100%);
 	background: linear-gradient(top, #dff110 0, #eeff11 100%);
 	color: #000;
-	background: -moz-linear-gradient(top, #dff110 0, #eeff11 100%);
 }
 
 .button.new.active {
@@ -233,29 +180,12 @@ a.button {
 /* #C9192D */
 .button.delete {
 	background-color: #c9192d;
-	background: -moz-linear-gradient(top, #DB5F3A 0, #c9192d 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DB5F3A),
-		color-stop(100%, #c9192d));
-	background: -webkit-linear-gradient(top, #DB5F3A 0, #c9192d 100%);
-	background: -o-linear-gradient(top, #DB5F3A 0, #c9192d 100%);
-	background: -ms-linear-gradient(top, #DB5F3A 0, #c9192d 100%);
 	background: linear-gradient(top, #DB5F3A 0, #c9192d 100%);
 	color: white;
-
-	/* 	opacity: .90; */
-	/* 	filter: Alpha(Opacity =                                   90); */
-	/* 	background: #E14F1C url(images/delete.png) 50% 50% repeat-x; */
-	/* 	border: 1px solid #CD0A0A; */
 }
 
 .button.delete:hover {
 	background-color: #db5f3a;
-	background: -moz-linear-gradient(top, #c9192d 0, #DB5F3A 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #c9192d),
-		color-stop(100%, #DB5F3A));
-	background: -webkit-linear-gradient(top, #c9192d 0, #DB5F3A 100%);
-	background: -o-linear-gradient(top, #c9192d 0, #DB5F3A 100%);
-	background: -ms-linear-gradient(top, #c9192d 0, #DB5F3A 100%);
 	background: linear-gradient(top, #c9192d 0, #DB5F3A 100%);
 	color: white;
 }
@@ -266,13 +196,7 @@ a.button {
 
 .button.export {
 	background-color: #CF46CC;
-	background: -moz-linear-gradient(top, #CF46CC 0, #8C2D8B 100%);
 	background: linear-gradient(top, #CF46CC 0, #8C2D8B 100%);
-	background: -webkit-linear-gradient(top, #CF46CC 0, #8C2D8B 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #CF46CC),
-		color-stop(100%, #8C2D8B));
-	background: -o-linear-gradient(top, #CF46CC 0, #8C2D8B 100%);
-	background: -ms-linear-gradient(top, #CF46CC 0, #8C2D8B 100%);
 }
 
 /* #CAD6E9 */
