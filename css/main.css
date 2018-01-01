@@ -71,7 +71,7 @@ div.login {
 	display: block;
 	border-radius: 5px;
 	box-shadow: 4px 4px 11px #000;
-	height: 250px;
+	height: 100%;
 }
 
 div.login.errors {
@@ -87,7 +87,7 @@ div.login-inputs {
 	width: 250px;
 }
 
-.login-inputs input[type="text"] {
+.login-inputs input[type="text"], .login-inputs input[type="password"] {
 	font-size: 1.2em;
 }
 
@@ -749,6 +749,7 @@ ul.buttons li {
 	text-align: center;
 	margin: 0 auto;
 	position: relative;
+	height: 100%;
 }
 
 .login ul.button-list li {
