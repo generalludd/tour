@@ -45,7 +45,7 @@
                 <?php endforeach;?>
             <?php endif; ?>
             </td>
-			<?
+			<?php
         if ($payer->is_comp == 1) :
             ?>
             <td>Complementary</td>

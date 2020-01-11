@@ -5,7 +5,7 @@
 <form action="<?php print site_url("auth/send_reset"); ?>" method="post"
 	name="login_form" id="login_form">
 
-<?
+<?php
 if($errors):
 	if(is_array($errors)){
 		foreach($errors as $msg){
@@ -18,7 +18,7 @@ if($errors):
 	<div class="error-text">
 <?php print $output; ?>
 </div>
-<?
+<?php
 endif;
 ?>
 
