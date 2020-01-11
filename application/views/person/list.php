@@ -66,7 +66,7 @@ Total Address Count: <?php print $address_count; ?>
 			<a href="<?php print site_url("person/view/$person->id");?>" class="button small">View</a>
 		</td>
 		<td>
-<?
+<?php
 	
 	$button = array (
 			"text" => "Join Tour",

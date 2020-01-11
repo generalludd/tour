@@ -8,7 +8,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 ?>
 <div class="block header">
 	<h4>Payer: <?php print sprintf("%s %s", $payer->first_name, $payer->last_name);?></h4>
-<?if($action == "update"):?>
+<?php if($action == "update"):?>
 <h5>
 		Tour: <a
 			href="#"
@@ -119,7 +119,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 		id="payment-list-block"
 		class="block field-box">
 		<h4>Payment Details</h4>
-<?
+<?php
 
 $payment_data["payments"] = $payer->payments;
 $payment_data["tour_id"] = $payer->tour_id;

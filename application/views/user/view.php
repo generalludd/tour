@@ -18,7 +18,7 @@
 					"class"=>array("button","password_edit","edit"),
 					"text"=>"Change Password");
 			?>
-			<?endif;?>
+			<?php endif;?>
 			<?php if($user_id == 1 && $user->id != $user_id):?>
 			<?php $edit_buttons[] = array("selection" => "edit",
 					"class" => "masquerade button",
@@ -41,7 +41,7 @@
 			<?php print create_field("is_active",$user->is_active,"Status", array("class"=>"dropdown","attributes"=>"menu='user_status'"));?>
 			<?php print create_field("role",$user->role, "Database Role",
 			array("class"=>"dropdown","attributes"=>"menu='role'"));?>
-			<?endif; ?>
+			<?php endif; ?>
 		</fieldset>
 	</div>
 

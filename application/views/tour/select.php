@@ -6,7 +6,7 @@
 <input type="hidden" name="person_id" id="person_id" value="<?php print $id;?>"/>
 <div id="tourist-selector">
 
-<?if(count($tours)>=1):?>
+<?php if(count($tours)>=1):?>
 <div style="width:60ex">
 Choose "payer" if the person is paying for the tour.<br/>Choose "tourist" if someone else is paying<br/>The payer must already have been added as a payer to the selected tour.
 </div>
