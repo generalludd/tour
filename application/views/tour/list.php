@@ -29,7 +29,7 @@ if (! $for_tourist) {
 		</tr>
 	</thead>
 	<tbody>
-<?
+<?php
 $row_class = "odd";
 
 foreach ($tours as $tour) {
@@ -70,7 +70,7 @@ foreach ($tours as $tour) {
 				class="button show-letters small"
 				href="<?php print site_url("/tour/view/$tour->id");?>">Letter Templates</a></td>
 		</tr>
-<?
+<?php
 endif;
     if ($row_class == "odd") {
         $row_class = "even";

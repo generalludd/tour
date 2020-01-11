@@ -23,9 +23,9 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 							href="<?php print site_url("payer/edit/?payer_id=$roommate->payer_id&tour_id=$roommate->tour_id");?>">
 	<?php print $roommate->person_name;?>
 	</a>
-	<?else: ?>
+	<?php else: ?>
 	<?php print $roommate->placeholder; ?>
-	<?endif; ?>
+	<?php endif; ?>
 </td>
 					<td>
 						<span

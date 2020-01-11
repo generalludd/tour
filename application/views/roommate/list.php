@@ -88,7 +88,7 @@ if ($stay < $last_stay) {
 <div
 	class="block"
 	id="roommate-list-block">
-	<?
+	<?php
 $room_size = "";?>
 
 <?php foreach ($rooms as $room): ?>

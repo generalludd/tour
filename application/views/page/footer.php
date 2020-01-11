@@ -8,4 +8,4 @@ if(!isset($print)):
 <?php print "App Version: " . APP_VERSION; ?>
 </div>
 
-<?endif;
+<?php endif;

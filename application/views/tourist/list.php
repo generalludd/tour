@@ -92,7 +92,7 @@ $buttons[] = array(
                 <?php endforeach;?>
             <?php endif; ?>
             </td>
-			<?
+			<?php
     if ($payer->is_comp == 1) :
         ?>
             <td>Complementary</td>
@@ -117,7 +117,7 @@ $buttons[] = array(
 			<td colspan="10"><?php print get_value($payer,"note");?></td>
 		</tr>
 		<?php endif;?>
-		<?
+		<?php
 		if($payer->is_cancelled != 1){
     		$total_due += $payer->amt_due;
       	 	$total_paid +=  $payer->amt_paid;

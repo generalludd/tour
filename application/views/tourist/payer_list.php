@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <table class="list" id="payer-tourist-list">
 	<tbody>
- <?
+ <?php
 
 foreach ($tourists as $tourist) :
     $button = "";
