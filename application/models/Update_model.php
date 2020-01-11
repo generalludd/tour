@@ -28,7 +28,7 @@ class Update_model extends My_Model {
 			$attr = ['engine' => 'InnoDB'];
 			$this->dbforge->add_field($fields);
 			$this->dbforge->add_key('id', TRUE);
-			$this->dbforge->create_table('update', TRUE, $attr);
+			$this->dbforge->create_table('updates', TRUE, $attr);
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Update_model extends My_Model {
 			if ($this->update_exists($update->id) === 0) {
 				$result = $this->db->query($update->query);
 				if ($result) {
-					$this->db->update('update', [
+					$this->db->insert('updates', [
 						'id' => $update->id,
 						'description' => $update->description,
 					]);
@@ -51,7 +51,7 @@ class Update_model extends My_Model {
 	}
 
 	function update_exists($id) {
-		$this->db->from('update');
+		$this->db->from('updates');
 		$this->db->where('id', $id);
 		return $this->db->get()->num_rows();
 	}
