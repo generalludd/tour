@@ -4,9 +4,9 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 // list.php Chris Dart Dec 16, 2013 10:32:15 PM chrisdart@cerebratorium.com
 $this->load->view("person/alphabet");
 $buttons [] = [
-	"text" => "Add a New Person",
-	"type" => "span",
-	"class" => "button new create-person",
+	'text' => 'Add a New Person',
+	'href' => base_url('person/create'),
+	'class' => 'button new create-person',
 ];
 $buttons [] = [
 	"text" => "Filter Results",

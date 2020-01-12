@@ -24,7 +24,7 @@
 						<?php print create_button([
 							'text' => 'Select as Tourist',
 							'class' => 'button select-as-tourist',
-							'href' => base_url('payer/select_payer/'. $tour->id . '/' . $id),
+							'href' => base_url('payer/select_payer/' . $tour->id . '/' . $id),
 						]); ?>
 					</td>
 					<td>
@@ -33,14 +33,8 @@
 							'class' => 'button select-as-payer',
 							'href' => base_url('payer/insert'),
 							'data' => [
-								[
-									'key' => 'tour_id',
-									'value' => $tour->id,
-								],
-								[
-									'key' => 'person_id',
-									'value' => $id,
-								]
+								'tour_id' => $tour->id,
+								'person_id' => $id,
 							],
 						]); ?>
 					</td>

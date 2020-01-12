@@ -6,19 +6,31 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 ?>
 <div>
-Select the payer below as the host for <?php print $tourist_name;?> on the tour <?php print $tour_name;?>
-<br/>
-If the payer is not in this list, you must add them first before adding tourists
+	Select the payer below as the host for <?php print $tourist_name; ?> on the
+	tour <?php print $tour_name; ?>
+	<br/>
+	If the payer is not in this list, you must add them first before adding
+	tourists
 </div>
 <table class="list">
-<?php foreach($payers as $payer): ?>
-<tr>
-		<td>
-<?php print sprintf("%s %s",$payer->first_name, $payer->last_name);?>
-</td>
-		<td>
-<?php print create_button(array("text"=>"Select", "class"=>"button mini select-payer", "type"=>"span","id"=>sprintf("select-payer_%s_%s_%s", $tourist_id, $payer->payer_id, $tour_id)));?>
-</td>
-	</tr>
-<?php endforeach;?>
+	<?php foreach ($payers as $payer): ?>
+		<tr>
+			<td>
+				<?php print sprintf("%s %s", $payer->first_name, $payer->last_name); ?>
+			</td>
+			<td>
+				<?php print create_button([
+					'text' => 'Select',
+					'class' => 'button mini select-payer',
+					'href' => base_url('tourist/insert'),
+					'data' =>
+						[
+							'tourist_id' => $tourist_id,
+							'payer_id' => $payer->payer_id,
+							'tour_id' => $tour_id,
+						],
+				]); ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
 </table>

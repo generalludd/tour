@@ -153,7 +153,14 @@ class Person extends MY_Controller
                 "name"
         ), TRUE);
         $data["action"] = "insert";
-        $this->load->view("person/edit", $data);
+        $data['target'] = 'person/edit';
+        $data['title'] = 'Add a new person to the person list';
+        if($this->input->get('ajax')){
+					$this->load->view('page/modal', $data);
+				}
+        else{
+        	$this->load->view('page/index', $data);
+				}
     }
 
     function add_housemate ()

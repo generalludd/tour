@@ -78,8 +78,8 @@ function create_button ($data)
         }
 			$data_attributes= [];
 			if(array_key_exists('data', $data)){
-        	foreach ($data['data'] as $data_attribute){
-        		$data_attributes[] = sprintf('data-%s="%s"', $data_attribute['key'], $data_attribute['value']);
+        	foreach ($data['data'] as $key=>$value){
+        		$data_attributes[] = sprintf('data-%s="%s"', $key, $value);
 					}
 				}
         if ($type != "pass-through") {

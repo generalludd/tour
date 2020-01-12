@@ -76,7 +76,7 @@ $(document).ready(function(){
 		history.back();
 	});
 	
-	$(".delete-template").on("click",function(){
+	$("body").on("click",".delete-template", function(){
 		my_id = this.id.split("_");
 		form_data = {
 				id: my_id[1],
@@ -111,7 +111,7 @@ $(document).ready(function(){
 			data: form_data,
 			url: url,
 			success: function(data){
-				show_modal(this);
+				show_popup('Edit Person',data,400);
 				$("#redirect_url").val(redirect_url);
 			}
 		});
