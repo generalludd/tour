@@ -3,7 +3,7 @@
 // edit.php Chris Dart Mar 14, 2014 9:40:39 PM chrisdart@cerebratorium.com
 
 ?>
-<script type="text/javascript" src="<?php print base_url("tiny_mce/jquery.tinymce.js");?>"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script type="text/javascript" src="<?php print base_url("js/editor.js");?>"></script>
 <h4>Letter Template</h4>
 <p>
@@ -25,14 +25,12 @@ Payment Deadline: <?php print format_date($tour->due_date);?>
 </p>
 <p>
 <label for="body">Main Letter Text</label><br/>
-NOTE: DO NOT PASTE DIRECTLY FROM ANOTHER WORD PROCESSOR, USE THE <span id="word-icon"></span> BUTTON BELOW<br/>
 <textarea id="body" class="tinymce" name="body" style="width:100%">
 <?php print get_value($letter, "body");?>
 </textarea>
 </p>
 <p>
-<label for="cancellation">Cancellation Paragraph</label><br/>
-NOTE: DO NOT PASTE DIRECTLY FROM ANOTHER WORD PROCESSOR, USE THE <span id="word-icon"></span> BUTTON BELOW<br/>
+<label for="cancellation">Cancellation Paragraph</label>
 <textarea id="cancellation" class="tinymce" style="width: 100%" name="cancellation">
 <?php print get_value($letter, "cancellation");?>
 </textarea>

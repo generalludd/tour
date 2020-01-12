@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$(".edit-receipt-message").live("click", function() {
+	$(".edit-receipt-message").on("click", function() {
 		my_id = this.id.split("_")[1];
 
 		form_data = {
@@ -20,7 +20,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#resend").live("click",function(){
+	$("#resend").on("click",function(){
 		if($("#resend").attr("checked")){
 			$(".alert").html("This message will be resent.").fadeIn();
 		}else{

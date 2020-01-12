@@ -102,7 +102,6 @@ $(document).ready(function(){
 	$(document).on("click",".create.dialog, .edit.dialog",function(e){
 		e.preventDefault();
 		let redirect_url = $(location).attr("href");
-		console.log(redirect_url);
 		let url = $(this).attr("href");
 		let form_data = {
 				ajax: 1
@@ -291,7 +290,6 @@ function save_field(me)
 	table = $(me).parents(".grouping").attr("id");
 	my_parent = $(me).parents("span");
 	my_id = $("#id").val();
-	console.log(my_id);
 	if(table == "phone"){
 		my_id = me.parents(".field").attr("id").split("_")[1];
 	}
@@ -310,7 +308,6 @@ function save_field(me)
 		id: my_id
 	};
 	my_url =  base_url +  table + "/update_value";
-	console.log(my_url);
 
 	$.ajax({
 		type: "post",
@@ -334,7 +331,6 @@ function update_field(me){
 			id: my_attr[2],
 			value: my_value
 	};
-	console.log(my_attr[1]);
 	$.ajax({
 		type:"post",
 		url: base_url + my_attr[0] + "/update_value",

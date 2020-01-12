@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('#person_search').live('keyup', function(event) {
+	$('#person_search').on('keyup', function(event) {
 		var person_search = this.value;
 		if (person_search.length > 3 && person_search != "find people") {
 			search_words = person_search.split(' ');
@@ -32,14 +32,14 @@ $(document).ready(function(){
 	});// end stuSearch.keyup
 	
 
-	$('#person_search').live('focus', function(event) {
+	$('#person_search').on('focus', function(event) {
 		$('#person_search').val('').css( {
 			color : 'black'
 		});
 	});
 	
 	
-	$('#person_search').live('blur', function(event) {
+	$('#person_search').on('blur', function(event) {
 		
 		$("#search_list").fadeOut();
 		$('#person_search').css({color:'#666'}).val('find people');
@@ -48,7 +48,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$(".show-person-filter").live("click", function(){
+	$(".show-person-filter").on("click", function(){
 		$.ajax({
 			type: "get",
 			url: base_url + "person/show_filter",
@@ -59,7 +59,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".delete-person").live("click", function(){
+	$(".delete-person").on("click", function(){
 		my_id = this.id.split("_")[1];
 		decision = confirm("This person and their phone information (and address if they have no housemates) will be completely deleted from the database. Are you sure you want to continue? This cannot be undone!");
 		if(decision){
@@ -81,7 +81,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$(".disable-person").live("click",function(){
+	$(".disable-person").on("click",function(){
 		my_id = this.id.split("_")[1];
 		decision = confirm("This person has been on several tours. Their record will only be hidden from the searchable list of people in the database. Continue?");
 		if(decision){
@@ -101,7 +101,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$(".restore-person").live("click",function(){
+	$(".restore-person").on("click",function(){
 		my_id = this.id.split("_")[1];
 		form_data = {
 			id: my_id,
@@ -118,7 +118,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".create-person").live("click",function(){
+	$(".create-person").on("click",function(){
 		form_data = {
 				ajax: '1'
 		};
@@ -132,7 +132,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".edit-person").live("click",function(){
+	$(".edit-person").on("click",function(){
 		my_id = this.id.split("_")[1];
 		form_data = {
 				ajax: 1
@@ -148,7 +148,7 @@ $(document).ready(function(){
 	});
 	
 	
-	$(".add-housemate").live("click", function(){
+	$(".add-housemate").on("click", function(){
 		my_person = this.id.split("_")[1];
 		my_address = this.id.split("_")[2];
 		form_data = {
@@ -165,7 +165,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("#is_veteran").live("change", function(){
+	$("#is_veteran").on("change", function(){
 		if($("#is_veteran").attr("checked")){
 			my_value = 1;
 		}else{
