@@ -445,3 +445,26 @@ function get_room_size($room_size){
 	}
 	return $size;
 }
+
+function create_link($path, $text, $options = []){
+	$values=[
+		'href="'.  base_url($path) . '"',
+	];
+	if($options){
+		foreach($options as $key=>$value){
+			$values[] = $key . '="'. $value .'"';
+		}
+	}
+
+	return sprintf('<a %s>%s</a>', implode(' ', $values), $text);
+}
+
+function person_link($person){
+	$text = $person->first_name . ' ' . $person->last_name;
+	$title = sprintf('View %s\'s record', $text);
+	$options = [
+		'title' => $title,
+	];
+	$path = 'person/view/' . $person->id;
+	return create_link($path, $text, $options);
+}

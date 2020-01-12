@@ -4,6 +4,20 @@ $(document).ready(function(){
 		$("#alert").attr("id","notice").html("Move the file backup file from your downloads folder to your backups folder.").fadeOut(5000);
 		
 	});
+
+	$(document).on("click", '.delete-action', function(e){
+		let my_controller = $(this).data('controller');
+		let my_id = $(this).data('id');
+		let my_action = $(this).data('action');
+		let my_form = $(this).data('form');
+		if(my_action == "delete") {
+			let do_delete = confirm("Are you sure you want to delete this record? This is permanent!");
+			if(!do_delete){
+				return false;
+			}
+		}
+		$('#' + my_form).attr('action', base_url + '/' + my_controller + '/' + my_action).submit();
+	});
 	
 	$(document).on("click",".field-envelope .edit-field",function(){
 			let me = $(this);
