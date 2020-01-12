@@ -187,24 +187,25 @@ $(".select_for_tour").on("click", function(){
  * in this case "tour" will return a confirmation with an option to 
  */
 
-$(".select-payer").on("click", function(){
-	my_id = this.id.split("_");
-	my_person = my_id[1];
-	my_payer = my_id[2];
-	my_tour = my_id[3];
-	form_data = {
-			person_id: my_person,
-			payer_id: my_payer,
-			tour_id: my_tour,
+$("body").on("click",".select-payer", function(e){
+	e.preventDefault();
+	let tour_id = $(this).data('tour_id');
+	let tourist_id = $(this).data('tourist_id');
+	let payer_id = $(this).data('payer_id');
+	let url  = $(this).attr('href');
+	let form_data = {
+			person_id: tourist_id,
+			payer_id: payer_id,
+			tour_id: tour_id,
 			target: "tour",
 			ajax: 1
 	};
 	$.ajax({
 		type: "post",
-		url: base_url + "tourist/insert",
+		url: url,
 		data: form_data,
 		success: function(data){
-			window.location.href = base_url + "tourist/view_all/" + my_tour;
+			window.location.href = base_url + "tourist/view_all/" + tour_id;
 		}
 	});
 });
@@ -254,15 +255,17 @@ $(".select-tourist-type").on("click",function(){
 	});
 });
 
-$(".select-tour").on("click",function(){
-	my_id = this.id.split("_")[1];
-	form_data = {
-			id: my_id,
-			ajax: "1"
+$(".select-tour").on("click",function(e){
+	e.preventDefault();
+	let my_url = $(this).attr('href');
+	let person_id = $(this).data('person_id')
+	let form_data = {
+			ajax: "1",
+			id: person_id
 	};
 	$.ajax({
 		type: "get",
-		url: base_url + "tour/show_current",
+		url: my_url,
 		data: form_data,
 		success: function(data){
 			show_popup("Select a Tour",data,"auto");
@@ -272,35 +275,39 @@ $(".select-tour").on("click",function(){
 
 
 
-$(".select-as-tourist").on("click",function(){
-	my_tour = this.id.split("_")[1];
-	my_person = $("#person_id").val();
-	form_data = {
+$("body").on("click",".select-as-tourist",function(e){
+	e.preventDefault();
+	let my_tour = $(this).data('tour_id');
+	let my_person = $(this).data('person_id');
+	let my_url = $(this).attr('href');
+	let form_data = {
 			tour_id: my_tour,
 			person_id: my_person,
 			ajax: "1"
 	};
 	$.ajax({
 		type: "get",
-		url: base_url + "payer/select_payer",
+		url: my_url,
 		data: form_data,
 		success: function(data){
-			$("#tourist-selector").html(data);
+			$("#popup").html(data);
 		}
 	});
 });
 
-$(".select-as-payer").on("click",function(){
-	my_tour = this.id.split("_")[1];
-	my_person = $("#person_id").val();
-	form_data = {
-			ajax:"1",
+$("body").on("click",".select-as-payer",function(e){
+	e.preventDefault();
+	let my_tour = $(this).data('tour_id');
+	let my_person = $(this).data('person_id');
+	let my_url = $(this).attr('href');
+	let form_data = {
+			ajax: 1,
 			tour_id: my_tour,
-			payer_id: my_person
+			payer_id: my_person,
 	};
 	$.ajax({
 		type: "post",
-		url: base_url + "payer/insert",
+		url: my_url,
 		data: form_data,
 		success: function(data){
 			document.location.href = base_url + "payer/edit/?payer_id=" + my_person + "&tour_id=" + my_tour;

@@ -8,7 +8,7 @@ if(!isset($print)):
 <?php print "App Version: " . APP_VERSION; ?>
 </div>
 
-<?php endif;
-?>
+<?php endif;?>
+<div id="popup"></div>
 
 

@@ -6,12 +6,12 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click",".field-envelope .edit-field",function(){
-			me = $(this);
-			my_parent = me.parent().attr("id");
-			my_attr = my_parent.split("__");
-			my_type = "text";
-			my_category = me.attr('menu');
-			my_name = me.attr("name");
+			let me = $(this);
+			let my_parent = me.parent().attr("id");
+			let my_attr = my_parent.split("__");
+			let my_type = "text";
+			let my_category = me.attr('menu');
+			let my_name = me.attr("name");
 				if(me.hasClass("dropdown")){
 					my_type = "dropdown";
 				}else if(me.hasClass("checkbox")){
@@ -25,7 +25,7 @@ $(document).ready(function(){
 				}else if(me.hasClass("date")){
 					my_type = "date";
 				}
-				form_data = {
+				let form_data = {
 						table: my_attr[0],
 						field: my_name,
 						id: my_attr[2],
@@ -76,7 +76,7 @@ $(document).ready(function(){
 		history.back();
 	});
 	
-	$(".delete-template").on("click",function(){
+	$("body").on("click",".delete-template", function(){
 		my_id = this.id.split("_");
 		form_data = {
 				id: my_id[1],
@@ -101,9 +101,9 @@ $(document).ready(function(){
 	
 	$(document).on("click",".create.dialog, .edit.dialog",function(e){
 		e.preventDefault();
-		redirect_url = $(location).attr("href");
-		url = $(this).attr("href");
-		form_data = {
+		let redirect_url = $(location).attr("href");
+		let url = $(this).attr("href");
+		let form_data = {
 				ajax: 1
 		};
 		$.ajax({
@@ -111,7 +111,7 @@ $(document).ready(function(){
 			data: form_data,
 			url: url,
 			success: function(data){
-				show_popup("*",data,"auto");
+				show_popup('Edit Person',data,400);
 				$("#redirect_url").val(redirect_url);
 			}
 		});
@@ -338,6 +338,21 @@ function update_field(me){
 		success: function(data){
 			$("#" + my_parent + " .live-field").html(data);
 			$("#" + my_parent + " .live-field").addClass("edit-field field").removeClass("live-field text");
+		}
+	});
+}
+function show_modal(me) {
+	let target = $(me).attr("href");
+	let form_data = {
+		ajax: 1
+	};
+	$.ajax({
+		type: "get",
+		data: form_data,
+		url: target,
+		success: function (data) {
+			$("#popup").html(data);
+			$("#my_dialog").modal("show");
 		}
 	});
 }
