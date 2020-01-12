@@ -317,7 +317,7 @@ $("body").on("click",".select-as-payer",function(e){
 });
 
 $(".delete-payer").on("click",function(){
-	request = confirm("Only delete a payer if they have been added to the tour by mistake. Check 'Cancel' if they have dropped out.");
+	request = confirm("Only delete a payer if they have been added to the tour by mistake. Check 'Cancelled' at the top of the record if they have dropped out.");
 	if(request){
 		plea = confirm ("Are you really sure? This will remove this payer, all their accompanying tourists, and any roommmate records for the tour they may have. Continue?");
 	if(plea){

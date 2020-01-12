@@ -8,7 +8,7 @@
 		<tr>
 			<td><?php print sprintf('%s %s', $person->first_name, $person->last_name); ?></td>
 			<td>
-				<a href="<?php print site_url('person/view/$person->id'); ?>"
+				<a href="<?php print site_url('person/view/' . $person->id); ?>"
 					 class="button mini">Show</a>
 			</td>
 			<td>

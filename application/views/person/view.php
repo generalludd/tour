@@ -138,12 +138,24 @@ $restore_button[] = [
 		<!--<h5>Address</h5>-->
 		<?php if (isset($person->address)): ?>
 			<label>Address:</label><br/>
-			<?php print format_address($person->address, "inline"); ?>&nbsp;<?php print create_button([
+			<?php print format_address($person->address, "inline"); ?>&nbsp;<?php
+
+			$edit_buttons[] = [
 				"text" => "Edit",
 				"type" => "span",
 				"class" => "button small edit edit-address",
 				"id" => sprintf("edit-address_%s_%s", $person->address_id, $person->id),
-			]); ?>
+			];
+			$edit_buttons[] = [
+				'text'=>'Delete',
+				'class'=>'button small delete',
+				'data'=>[
+					'address_id'=>$person->address_id,
+					'person_id' =>$person->id,
+				],
+				'href'=>base_url('person/remove_address/' . $person->id . '/' . $person->address_id),
+			];
+			print create_button_bar($edit_buttons); ?>
 			<?php print create_field("informal_salutation", $person->address->informal_salutation, "Informal Salutation"); ?>
 			<?php print create_field("formal_salutation", $person->address->formal_salutation, "Formal Salutation"); ?>
 			<div class="block housemate-info"
@@ -173,7 +185,6 @@ $restore_button[] = [
 			</div>
 		<?php else: ?>
 			<?php print create_button_bar($address_buttons); ?>
-
 		<?php endif; ?>
 	</fieldset>
 </div>
