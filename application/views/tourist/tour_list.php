@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $tours['for_tourist'] = TRUE;
 $buttons[] = [
 	'text' => 'Person Details',
-	'href' => site_url('person/view/$tourist->person_id'),
+	'href' => base_url('person/view/' . $tourist->person_id),
 ];
 $buttons[] = [
 	'text' => 'Join Tour',
