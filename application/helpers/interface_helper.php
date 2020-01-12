@@ -23,6 +23,7 @@ if (! defined('BASEPATH')) exit('No direct script access allowed');
  *         "enclosure" is an option array with type class and id keys. This is
  *         used if the particular button needs an added container (for AJAX
  *         manipulation)
+ * 				"data" is an array of compound arrays of key=> value pairs
  *
  *         EXAMPLES
  *         A button that provides a standard url (type and class are defaults
@@ -75,6 +76,12 @@ function create_button ($data)
         if (array_key_exists("title", $data)) {
             $title = "title ='" . $data["title"] . "'";
         }
+			$data_attributes= [];
+			if(array_key_exists('data', $data)){
+        	foreach ($data['data'] as $key=>$value){
+        		$data_attributes[] = sprintf('data-%s="%s"', $key, $value);
+					}
+				}
         if ($type != "pass-through") {
 
             if (array_key_exists("class", $data)) {
@@ -99,8 +106,8 @@ function create_button ($data)
             if (array_key_exists("id", $data)) {
                 $id = "id='" . $data["id"] . "'";
             }
-
-            $button = "<$type $href $id $class $target $title>$text</$type>";
+						$data_attributes = implode(' ', $data_attributes);
+            $button = "<$type $href $id $class $target $title $data_attributes>$text</$type>";
 
             if (array_key_exists("enclosure", $data)) {
                 if (array_key_exists("type", $data["enclosure"])) {

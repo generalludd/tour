@@ -109,10 +109,9 @@ class Tour extends MY_Controller
         }
     }
 
-    function show_current ()
+    function show_current ($id)
     {
         $this->load->model("tourist_model", "tourist");
-        $id = $this->input->get("id");
         $data["id"] = $id;
         $tours = $this->tour->get_all(TRUE);
         $data["tours"] = $tours;
@@ -122,7 +121,14 @@ class Tour extends MY_Controller
         $tourist_tours = $this->tourist->get($id, $tour_list);
 
         $data["query"] = $this->db->last_query();
-        $this->load->view("tour/select", $data);
+        $data['target'] = 'tour/select';
+        $data['title'] = 'Select a Tour';
+        if($this->input->get('ajax')) {
+					$this->load->view('page/modal', $data);
+				}
+        else{
+        	$this->load->view('page/index', $data);
+				}
     }
 
     function show_payers ()

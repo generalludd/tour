@@ -4,16 +4,21 @@
 
 ?>
 <table>
-<?php foreach($people as $person): ?>
-<tr>
-<td><?php print sprintf("%s %s", $person->first_name, $person->last_name);?></td>
-<td>
-<a href="<?php print site_url("person/view/$person->id");?>" class="button mini">Show</a>
-</td>
-<td>
-<?php print create_button(array("text"=>"Join Tour", "type"=>"span","class"=>"button new mini select-tour", "id"=>sprintf("join-tour_%s",$person->id)));?>
-</td>
-</tr>
-<?php endforeach;?>
+	<?php foreach ($people as $person): ?>
+		<tr>
+			<td><?php print sprintf('%s %s', $person->first_name, $person->last_name); ?></td>
+			<td>
+				<a href="<?php print site_url('person/view/$person->id'); ?>"
+					 class="button mini">Show</a>
+			</td>
+			<td>
+				<?php print create_button([
+					'text' => 'Join Tour',
+					'class' => 'button new mini select-tour',
+					'href' => base_url('tour/show_current/' . $person->id),
+				]); ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
 </table>
 
