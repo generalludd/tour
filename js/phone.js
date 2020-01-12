@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".add-phone").live("click",function(){
+	$(".add-phone").on("click",function(){
 		my_id = this.id.split("_")[1];
 		form_data = {
 				person_id: my_id,
@@ -17,7 +17,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$(".edit-phone").live("click",function(){
+	$(".edit-phone").on("click",function(){
 		my_id = this.id.split("_")[1];
 		my_person = $("#id").val();
 
@@ -36,7 +36,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".delete-phone").live("click", function(){
+	$(".delete-phone").on("click", function(){
 		question = confirm("Are you sure you want to delete this phone number? It cannot be undone!");
 		if(question){
 			my_id = this.id.split("_")[1];

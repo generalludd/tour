@@ -1,6 +1,6 @@
 $('#popup_container').ready(function(){
 	
-	$('.password_edit').live('click',function(){
+	$('.password_edit').on('click',function(){
 		var my_id="";
 		if(this.id) {
 			 my_id=this.id.split('_')[1];
@@ -23,15 +23,15 @@ $('#popup_container').ready(function(){
 	}); // end password_edit
 	
 	
-	$('#new_password').live('keyup',function(){
+	$('#new_password').on('keyup',function(){
 		match_passwords();
 	});
 	
-	$('#check_password').live('keyup',function(){
+	$('#check_password').on('keyup',function(){
 		match_passwords();
 	});
 	
-	$('.change_password').live('click',function(){
+	$('.change_password').on('click',function(){
 		var my_id = $("#id").val();
 		var my_current_password=$('#current_password').val();
 		var my_new_password=$('#new_password').val();
@@ -75,7 +75,7 @@ $('#popup_container').ready(function(){
 			
 	});
 	
-	$('.log_out').live('click', function(){
+	$('.log_out').on('click', function(){
 		document.location = "index.php?target=logout";
 	}// end function
 	);// end log_out

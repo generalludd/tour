@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$(".edit-payments").live("click", function(){
+	$(".edit-payments").on("click", function(){
 		my_id = this.id.split("_");
 		my_tour = my_id[1];
 		my_payer = my_id[2];
@@ -19,7 +19,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".add-payment").live("click", function(){
+	$(".add-payment").on("click", function(){
 		my_id = this.id.split("_");
 		my_tour = my_id[1];
 		my_payer = my_id[2];
@@ -42,7 +42,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".add-reimbursement").live("click",function(){
+	$(".add-reimbursement").on("click",function(){
 		my_id = this.id.split("_");
 		my_tour = my_id[1];
 		my_payer = my_id[2];
@@ -63,7 +63,7 @@ $(document).ready(function(){
 		})
 	})
 	
-	$(".insert-payment").live("click",function(){
+	$(".insert-payment").on("click",function(){
 		my_id = this.id.split("_");
 		my_tour = my_id[1];
 		my_payer = my_id[2];
@@ -86,7 +86,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".insert-reimbursement").live("click",function(){
+	$(".insert-reimbursement").on("click",function(){
 		my_id = this.id.split("_");
 		my_tour = my_id[1];
 		my_payer = my_id[2];
@@ -113,7 +113,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".delete-payment").live("click",function(){
+	$(".delete-payment").on("click",function(){
 		ask = confirm("Are you sure you want to delete this payment? This cannot be undone!");
 		if(ask){
 				
@@ -134,7 +134,7 @@ $(document).ready(function(){
 			});
 		}
 	});
-	$(".delete-reimbursement").live("click",function(){
+	$(".delete-reimbursement").on("click",function(){
 		ask = confirm("Are you sure you want to delete this reimbursement? This cannot be undone!");
 		if(ask){
 				my_id = this.id.split("_")[1];
