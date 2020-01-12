@@ -436,8 +436,6 @@ $(".edit-merge-note").live("click", function(){
 		data: form_data,
 		success: function(data){
 			$("#merge-note").html(data);
-			console.log(data);
-
 		}
 	});
 });

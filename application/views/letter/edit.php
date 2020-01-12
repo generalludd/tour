@@ -3,7 +3,7 @@
 // edit.php Chris Dart Mar 14, 2014 9:40:39 PM chrisdart@cerebratorium.com
 
 ?>
-<script type="text/javascript" src="<?php print base_url("tiny_mce/jquery.tinymce.js");?>"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script type="text/javascript" src="<?php print base_url("js/editor.js");?>"></script>
 <h4>Letter Template</h4>
 <p>
