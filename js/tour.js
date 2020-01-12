@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-$(".edit-tour").live("click", function(){
+$(".edit-tour").on("click", function(){
 	my_id = this.id.split("_")[1];
 	form_data = {
 			id : my_id
@@ -17,7 +17,7 @@ $(".edit-tour").live("click", function(){
 	
 });
 
-$(".create-tour").live("click", function(){
+$(".create-tour").on("click", function(){
 		$.ajax({
 			type:"get",
 			url: base_url + "tour/create",

@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php print $title;?></title>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/main.css') . "?" . date("u");?>" />
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/color.css'). "?" . date("u")?>"/>
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/popup.css'). "?" . date("u")?>" />
@@ -15,10 +16,9 @@ var base_url = '<?php print base_url("index.php") . "/";?>';
 var root_url = '<?php print base_url();?>';
 </script>
 
-<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <!-- Custom Scripts  -->
 <script type="text/javascript" src="<?php print base_url("js/general.js");?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/tour.js');?>"></script>

@@ -14,6 +14,7 @@ $salutation = $tourists;
 }
 
 ?>
+
 <section class="non-printing">
 	<div class="alert" style="padding:1em; text-align: center;">
 	<p>Key formatting will happen during printing.</p>
