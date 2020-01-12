@@ -33,7 +33,6 @@ $(document).ready(function(){
 						category: my_category,
 						value: me.html()
 				};
-		console.log(form_data);
 				$.ajax({
 					type:"get",
 					url: base_url +  "menu/edit_value",
@@ -49,7 +48,6 @@ $(document).ready(function(){
 
 	$(".field-envelope").on("blur",".live-field.text",function(){
 		//id, field, value {post}
-		console.log(this);
 		update_field(this);
 	
 	});
@@ -104,7 +102,6 @@ $(document).ready(function(){
 	$(document).on("click",".create.dialog, .edit.dialog",function(e){
 		e.preventDefault();
 		redirect_url = $(location).attr("href");
-		console.log(redirect_url);
 		url = $(this).attr("href");
 		form_data = {
 				ajax: 1
@@ -293,7 +290,6 @@ function save_field(me)
 	table = $(me).parents(".grouping").attr("id");
 	my_parent = $(me).parents("span");
 	my_id = $("#id").val();
-	console.log(my_id);
 	if(table == "phone"){
 		my_id = me.parents(".field").attr("id").split("_")[1];
 	}
@@ -312,7 +308,6 @@ function save_field(me)
 		id: my_id
 	};
 	my_url =  base_url +  table + "/update_value";
-	console.log(my_url);
 
 	$.ajax({
 		type: "post",
@@ -336,7 +331,6 @@ function update_field(me){
 			id: my_attr[2],
 			value: my_value
 	};
-	console.log(my_attr[1]);
 	$.ajax({
 		type:"post",
 		url: base_url + my_attr[0] + "/update_value",
@@ -347,4 +341,3 @@ function update_field(me){
 		}
 	});
 }
-	
