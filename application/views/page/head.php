@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php print $title;?></title>
+<!-- Latest compiled and minified CSS -->
+
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/main.css') . "?" . date("u");?>" />
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/color.css'). "?" . date("u")?>"/>
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/popup.css'). "?" . date("u")?>" />

@@ -6,12 +6,12 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click",".field-envelope .edit-field",function(){
-			me = $(this);
-			my_parent = me.parent().attr("id");
-			my_attr = my_parent.split("__");
-			my_type = "text";
-			my_category = me.attr('menu');
-			my_name = me.attr("name");
+			let me = $(this);
+			let my_parent = me.parent().attr("id");
+			let my_attr = my_parent.split("__");
+			let my_type = "text";
+			let my_category = me.attr('menu');
+			let my_name = me.attr("name");
 				if(me.hasClass("dropdown")){
 					my_type = "dropdown";
 				}else if(me.hasClass("checkbox")){
@@ -25,7 +25,7 @@ $(document).ready(function(){
 				}else if(me.hasClass("date")){
 					my_type = "date";
 				}
-				form_data = {
+				let form_data = {
 						table: my_attr[0],
 						field: my_name,
 						id: my_attr[2],
@@ -33,7 +33,6 @@ $(document).ready(function(){
 						category: my_category,
 						value: me.html()
 				};
-		console.log(form_data);
 				$.ajax({
 					type:"get",
 					url: base_url +  "menu/edit_value",
@@ -49,7 +48,6 @@ $(document).ready(function(){
 
 	$(".field-envelope").on("blur",".live-field.text",function(){
 		//id, field, value {post}
-		console.log(this);
 		update_field(this);
 	
 	});
@@ -103,10 +101,10 @@ $(document).ready(function(){
 	
 	$(document).on("click",".create.dialog, .edit.dialog",function(e){
 		e.preventDefault();
-		redirect_url = $(location).attr("href");
+		let redirect_url = $(location).attr("href");
 		console.log(redirect_url);
-		url = $(this).attr("href");
-		form_data = {
+		let url = $(this).attr("href");
+		let form_data = {
 				ajax: 1
 		};
 		$.ajax({
@@ -114,7 +112,7 @@ $(document).ready(function(){
 			data: form_data,
 			url: url,
 			success: function(data){
-				show_popup("*",data,"auto");
+				show_modal(this);
 				$("#redirect_url").val(redirect_url);
 			}
 		});
@@ -347,4 +345,18 @@ function update_field(me){
 		}
 	});
 }
-	
+function show_modal(me) {
+	let target = $(me).attr("href");
+	let form_data = {
+		ajax: 1
+	};
+	$.ajax({
+		type: "get",
+		data: form_data,
+		url: target,
+		success: function (data) {
+			$("#popup").html(data);
+			$("#my_dialog").modal("show");
+		}
+	});
+}
