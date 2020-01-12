@@ -52,7 +52,7 @@ class Merge_model extends CI_Model
     function quick_insert ($payer_id, $letter_id)
     {
         $merge = $this->get_for_payer($payer_id, $letter_id);
-        if (count($merge) == 1) {
+        if ($merge) {
             $result = $merge;
         } else {
             $this->payer_id = $payer_id;

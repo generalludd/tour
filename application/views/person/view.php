@@ -79,7 +79,7 @@ $restore_button[] = array("text" => "Restore Record", "type" =>"span", "class"=>
 		class="grouping block address-info"
 		id="address">
 		<!--<h5>Address</h5>-->
-<?php if(count($person->address)>0): ?>
+<?php if(isset($person->address)): ?>
 <label>Address:</label><br />
 <?php print format_address($person->address,"inline");?>&nbsp;<?php print create_button(array("text"=>"Edit","type"=>"span", "class"=>"button small edit edit-address","id"=>sprintf("edit-address_%s_%s",$person->address_id, $person->id)));?>
 <?php print create_field("informal_salutation", $person->address->informal_salutation,"Informal Salutation");?>
