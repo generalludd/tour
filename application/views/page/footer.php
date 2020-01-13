@@ -9,6 +9,4 @@ if(!isset($print)):
 </div>
 
 <?php endif;?>
-<div id="popup"></div>
-
 
