@@ -270,7 +270,7 @@ input[type="number"] {
 }
 
 input[type="date"] {
-	width: 26ex;
+	width: 10em;
 }
 
 input[type="tel"] {

@@ -19,10 +19,10 @@ class Payment_Model extends CI_Model
                 "tour_id",
                 "payer_id",
                 "amount",
-                "receipt_date",
                 "method"
         );
         prepare_variables($this, $variables);
+        $this->receipt_date = date('Y-m-d',strtotime($this->input->post('receipt_date')));
     }
 
     function get ($id)

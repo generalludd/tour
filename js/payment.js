@@ -19,22 +19,18 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".add-payment").on("click", function(){
-		my_id = this.id.split("_");
-		my_tour = my_id[1];
-		my_payer = my_id[2];
+	$(document).on("click", ".add-payment",function(e){
+		e.preventDefault();
+		let my_href = $(this).attr('href');
 		$(this).fadeOut(1000);
-		form_data = {
-			tour_id: my_tour,
-			payer_id: my_payer,
-			type: "payment",
+		let form_data = {
 			ajax: 1
 		};
 
 		$.ajax({
 			type: "get",
 			data: form_data,
-			url: base_url + "payment/create",
+			url: my_href,
 			success: function(data){
 				$("#payment-list tbody").append(data);
 				
@@ -128,7 +124,7 @@ function insert_amount(me){
 	let my_tour = $(me).data('tour_id');
 	let my_payer = $(me).data('payer_id');
 	let my_type = $(me).data('type');
-	let receipt_date = $("#receipt_date").val();
+	let my_receipt_date = $("#receipt_date").val();
 	let my_href = $(me).attr('href');
 	let my_target = '#' + my_type + 's';
 	let amt = $("#amount").val();
@@ -142,7 +138,7 @@ function insert_amount(me){
 		payer_id: my_payer,
 		amount: amt,
 		type: my_type,
-		receipt_date: receipt_date,
+		receipt_date: my_receipt_date,
 		ajax: 1
 	};
 	$.ajax({
