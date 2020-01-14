@@ -1,4 +1,4 @@
-#Tour: A small tour management system
+# Tour: A small tour management system
 
 Built for a baseball tours operator, https://ballparktours.net, this system offers the following features:
 * An address book with ability to associate multiple people with a single address
@@ -8,18 +8,18 @@ Built for a baseball tours operator, https://ballparktours.net, this system offe
 * A simple letter merge option that allows creation of boilerplate letters to be printed and the ability to add notes and a small remittance note at the bottom
 * Payment tracking including complementary tickets, partial payment tracking, and other documentation (not connected to any 3rd party payment service). 
 
-##Need Support?
+## Need Support?
 Contact me, @generalludd, for questions or support requests. An installation function will be added in future versions. 
 
-##Built on CodeIgniter
+## Built on CodeIgniter
 
 This application is built with CodeIgniter is an Application Development Framework--a light-weight, simple PHP framework. 
 
-##Server Requirements
+## Server Requirements
 
 PHP version 5.6 or newer is required.
 
-##License
+## License
 Tour is licensed under the MIT license.
 
 Please see the CodeIgniter license
