@@ -7,7 +7,9 @@ $buttons[] = array(
         "text" => "Add a Hotel",
         "type" => "span",
         "class" => "button new add-hotel",
-        "id" => sprintf("add-hotel_%s", $tour->id)
+        'data'=>[
+        	'tour_id'=>$tour->id,
+				],
 );
 $buttons[] = array(
         "text" => "Tour Details",

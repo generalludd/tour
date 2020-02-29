@@ -17,10 +17,8 @@ $(document).ready(function(){
 	
 	$("body").on("click",".add-contact",function(e){
 		e.preventDefault();
-		let my_id = this.id.split("_")[1];
 		let my_url = $(this).attr("href");
 		let form_data = {
-				hotel_id: my_id,
 				ajax: 1
 		};
 		$.ajax({

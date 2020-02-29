@@ -1,14 +1,14 @@
 $(document).ready(function(){
 	
-	$(".add-hotel").on("click",function(){
-		my_tour = this.id.split("_")[1];
-		form_data  = {
+	$(document).on("click",".add-hotel",function(e){
+		e.preventDefault();
+		let form_data  = {
 				ajax: "1",
-				tour_id: my_tour
+				stay: $(this).data('stay')
 		};
 		$.ajax({
 			type: "get",
-			url: base_url + "hotel/create",
+			url: base_url + "hotel/create/" + $(this).data('tour_id'),
 			data: form_data,
 			success: function(data){
 				show_popup("Adding a Hotel",data,"auto");
@@ -17,15 +17,14 @@ $(document).ready(function(){
 		
 	});
 	
-	$(".edit-hotel").on("click",function(){
-		my_hotel = this.id.split("_")[1];
-		form_data = {
-			ajax: "1",
-			id: my_hotel
+	$(document).on("click",".edit-hotel",function(e){
+		e.preventDefault();
+		let form_data = {
+			'ajax': 1
 		};
 		$.ajax({
 			type: "get",
-			url: base_url + "hotel/edit",
+			url: $(this).attr('href'),
 			data: form_data,
 			success: function(data){
 				show_popup("Editing a Hotel",data,"580px");

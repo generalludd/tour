@@ -18,6 +18,7 @@
 		"envelope" => "div",
 		"type" => "number",
 		"required" => TRUE,
+		'default'=> $stay,
 	]); ?>
 	<div class="input-block row">
 
