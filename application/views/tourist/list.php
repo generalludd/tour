@@ -73,15 +73,15 @@ $buttons[] = [
 				<?php endforeach; ?>
 				<br/>
 				<?php if ($payer->merge_id): ?>
-					<span class="button edit select-letter"
+					<a href="<?php print base_url('letter/select/' . $payer->payer_id . '/' . $payer->tour_id); ?>"
+						class="button edit select-letter"
 								data-payer_id="<?php print $payer->payer_id;?>"
-								data-tour_id="<?php print $payer->tour_id;?>"
-								id="<?php print sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id); ?>">Edit Letter</span>
+								data-tour_id="<?php print $payer->tour_id;?>">Edit Letter</a>
 				<?php else: ?>
-					<span class="button new select-letter"
+					<a 	<a href="<?php print base_url('letter/select/' . $payer->payer_id . '/' . $payer->tour_id); ?>"
+								 class="button new select-letter"
 								data-payer_id="<?php print $payer->payer_id;?>"
-								data-tour_id="<?php print $payer->tour_id;?>"
-								id="<?php print sprintf("select-letter_%s_%s", $payer->payer_id, $payer->tour_id); ?>">Send Letter</span>
+								data-tour_id="<?php print $payer->tour_id;?>">Send Letter</a>
 				<?php endif; ?>
 			<td>
 				<a

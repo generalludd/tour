@@ -381,18 +381,14 @@ $(document).ready(function () {
 
 	});
 
-	$(".select-letter").on("click", function () {
-
-		let my_payer =  $(this).data("payer_id");
-		let my_tour =$(this).data("tour_id");
+	$(document).on("click", ".select-letter", function (e) {
+		e.preventDefault();
 		let form_data = {
-			payer_id: my_payer,
-			tour_id: my_tour,
 			ajax: 1
 		};
 		$.ajax({
 			type: "get",
-			url: base_url + "letter/select",
+			url: $(this).attr("href"),
 			data: form_data,
 			success: function (data) {
 				show_popup("Select Letter", data, "auto");

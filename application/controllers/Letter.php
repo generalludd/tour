@@ -13,14 +13,19 @@ class Letter extends MY_Controller
         $this->load->model("payer_model", "payer");
     }
 
-    function select ()
+    function select ($payer_id, $tour_id)
     {
-        $payer_id = $this->input->get("payer_id");
-        $tour_id = $this->input->get("tour_id");
         $data["payer_id"] = $payer_id;
         $data["tour_id"] = $tour_id;
         $data["letters"] = $this->letter->get_for_tour($tour_id);
-        $this->load->view("letter/select", $data);
+        $data['target'] = 'letter/select';
+        $data['title'] = 'Select a letter';
+        if($this->input->get('ajax')) {
+					$this->load->view($data['target'], $data);
+				}
+        else{
+        	$this->load->view('page/index', $data);
+				}
     }
 
     function view ()
