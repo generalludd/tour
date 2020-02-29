@@ -33,15 +33,15 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(".delete-hotel").on("click", function(){
-		my_id = this.id.split("_");
-		my_hotel = my_id[1];
-		my_tour = my_id[2];
-		decision = confirm("This will completely delete this hotel from the database including all related contacts. Are you sure you want to continue? This cannot be undone!");
+	$(document).on("click",".delete-hotel", function(){
+		console.log('here');
+		let my_hotel = $(this).data("hotel_id");
+		let my_tour = $(this).data("tour_id");
+		let decision = confirm("This will completely delete this hotel from the database including all related contacts. Are you sure you want to continue? This cannot be undone!");
 		if(decision){
-			final_decision = confirm("You have decided to permanently delete this hotel from the database. Be sure to update all other hotel records to fill the gap this leaves! This cannot be undone. Are you sure?");
+			let final_decision = confirm("You have decided to permanently delete this hotel from the database. Be sure to update all other hotel records to fill the gap this leaves! This cannot be undone. Are you sure?");
 			if(final_decision){
-					form_data = {
+					let form_data = {
 							id: my_hotel,
 							ajax: 1
 					};

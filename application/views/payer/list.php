@@ -62,7 +62,8 @@
 			<td><?php echo $payer->is_cancelled==1?0:format_money($payer->amt_due);?></td>
 			<td><span
 				class="button edit edit-payer"
-				id="edit-payer_<?php print $payer->payer_id;?>_<?php print $payer->tour_id;?>">
+				data-payer_id="<?php print $payer->payer_id;?>"
+				data-tour_id="<?php print $payer->tour_id;?>">
 					Edit</span></td>
 		</tr>
 		<?php if(get_value($payer, "note",FALSE)): ?>
