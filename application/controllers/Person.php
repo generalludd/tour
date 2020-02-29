@@ -196,9 +196,9 @@ class Person extends MY_Controller {
 		}
 	}
 
-	function add_housemate() {
+	function add_housemate($address_id) {
 		$data["person"] = (object) [];
-		$data["person"]->address_id = $this->input->post("address_id");
+		$data["person"]->address_id = $address_id;
 		$this->load->model("variable_model", "variable");
 		$shirt_sizes = $this->variable->get_pairs("shirt_size");
 		$data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, [
@@ -206,8 +206,16 @@ class Person extends MY_Controller {
 			"name",
 		], TRUE);
 		$data["action"] = "insert";
-		$this->load->view("person/edit", $data);
+		$data['target'] = 'person/edit';
+		$data['title'] = 'Add a housemate';
+		if($this->input->get('ajax')) {
+			$this->load->view("person/edit", $data);
+		}
+		else{
+			$this->load->view('page/index', $data);
+		}
 	}
+
 
 	function insert() {
 		$person_id = $this->person->insert(FALSE);

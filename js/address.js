@@ -17,18 +17,18 @@ $(document).ready(function(){
 		
 	});
 	
-	$(".edit-address").on("click",function(){
-		my_address = this.id.split("_")[1];
-		my_person = this.id.split("_")[2];
-		form_data = {
-				address_id: my_address,
-				person_id: my_person,
+	$(".edit-address").on("click",function(e){
+		e.preventDefault();
+
+		let form_data = {
+				address_id: $(this).data('address_id'),
+				person_id: $(this).data('person_id'),
 				ajax: "1"
 		};
 	
 		$.ajax({
 			type: "get",
-			url: base_url + "address/edit",
+			url: $(this).attr('href'),
 			data: form_data,
 			success: function(data){
 				show_popup("Edit Address", data, "auto");

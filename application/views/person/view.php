@@ -142,7 +142,7 @@ $restore_button[] = [
 
 			$edit_buttons[] = [
 				"text" => "Edit",
-				"type" => "span",
+				'href'=> base_url('address/edit/' . $person->address_id . '/' . $person->id),
 				"class" => "button small edit edit-address",
 				"id" => sprintf("edit-address_%s_%s", $person->address_id, $person->id),
 			];
@@ -177,8 +177,8 @@ $restore_button[] = [
 				<?php print create_button_bar([
 					[
 						"text" => "Add Housemate",
-						"type" => "span",
 						"class" => "button small new add-housemate",
+						'href'=> base_url('person/add_housemate/' . $person->address->id),
 						"id" => sprintf("add-housemate_%s_%s", $person->id, $person->address->id),
 					],
 				]); ?>
