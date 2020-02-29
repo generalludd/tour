@@ -39,28 +39,28 @@ class Room extends MY_Controller {
 
 
 	function edit_value() {
-		$data["name"] = $this->input->get("field");
-		$value = $this->input->get("value");
-		$data["value"] = $value;
+		$data['name'] = $this->input->get('field');
+		$value = $this->input->get('value');
+		$data['value'] = $value;
 		if (is_array($value)) {
-			$data["value"] = implode(",", $value);
+			$data['value'] = implode(',', $value);
 		}
-		$data["id"] = $this->input->get("id");
-		$data["size"] = strlen($data["value"]) + 5;
-		$data["type"] = $this->input->get("type");
-		$data["category"] = $this->input->get("category");
+		$data['id'] = $this->input->get('id');
+		$data['size'] = strlen($data['value']) + 5;
+		$data['type'] = $this->input->get('type');
+		$data['category'] = $this->input->get('category');
 
-		switch ($data["type"]) {
-			case "dropdown":
-				$output = $this->_get_dropdown($data["category"],
-					$data["value"], $data["name"]);
+		switch ($data['type']) {
+			case 'dropdown':
+				$output = $this->_get_dropdown($data['category'],
+					$data['value'], $data['name']);
 				break;
-			case "multiselect":
-				$output = $this->_get_multiselect($data["category"],
-					$data["value"], $data["name"]);
+			case 'multiselect':
+				$output = $this->_get_multiselect($data['category'],
+					$data['value'], $data['name']);
 				break;
-			case "textarea":
-				$output = form_textarea($data, $data["value"]);
+			case 'textarea':
+				$output = form_textarea($data, $data['value']);
 				break;
 			default:
 				$output = form_input($data);
@@ -70,20 +70,20 @@ class Room extends MY_Controller {
 	}
 
 	function update_value() {
-		$id = $this->input->post("id");
-		$value = $this->input->post("value");
+		$id = $this->input->post('id');
+		$value = $this->input->post('value');
 		if (is_array($value)) {
-			$value = implode(",", $value);
+			$value = implode(',', $value);
 		}
 		$values = [
-			$this->input->post("field") => $value,
+			$this->input->post('field') => $value,
 		];
 		$this->room->update($id, $values);
 		echo $value;
 	}
 
 	function delete() {
-		$id = $this->input->post("id");
+		$id = $this->input->post('id');
 		if ($this->room->delete($id)) {
 			$output = TRUE;
 		}
@@ -94,18 +94,18 @@ class Room extends MY_Controller {
 	}
 
 	function _get_dropdown($category, $value, $field) {
-		$this->load->model("variable_model", "variable");
+		$this->load->model('variable_model', 'variable');
 		$categories = $this->variable->get_pairs($category,
 			[
-				"field" => "value",
-				"direction" => "ASC",
+				'field' => 'value',
+				'direction' => 'ASC',
 			]);
 		$pairs = get_keyed_pairs($categories,
 			[
-				"value",
-				"name",
+				'value',
+				'name',
 			]);
-		return form_dropdown($field, $pairs, $value, "class='live-field'");
+		return form_dropdown($field, $pairs, $value, 'class="live-field"');
 	}
 
 }

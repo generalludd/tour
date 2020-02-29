@@ -1,22 +1,17 @@
 $(document).ready(function(){
-	$(document).on("click",".add-roommate",function(){
-		my_room = $("#room").val();
-		if(!my_room){
-		my_room = this.id.split("_")[1];
-		}
-		my_tour = $("#tour_id").val();
-		my_stay = $("#stay").val();
-		form_data = {
-				stay: my_stay,
-				tour_id: my_tour,
-				room: my_room,
+	$(document).on("click",".add-roommate",function(e){
+		e.preventDefault();
+		let my_room = $(this).data('room_id');
+
+		let form_data = {
+
 				ajax: 1
 		};
-		
+		console.log(form_data);
 		
 		$.ajax({
 			type: "get",
-			url: base_url + "roommate/get_roomless_menu",
+			url: $(this).attr('href'),
 			data: form_data,
 			success: function(data){
 				$("#room_" + my_room + " table.list tbody").append("<tr><td>" + data + "</td></tr>");
@@ -45,15 +40,13 @@ $(document).ready(function(){
 	
 	$(document).on("blur",".insert-placeholder",function(e){
 		e.preventDefault();
-		me = this;
-		my_id = me.id.split("_");
-		my_room = $(me).parents(".room-row").attr("id").split("_")[1];
-		
-		form_data = {
+		let me = this;
+		let my_room = $(me).parents(".room-row").attr("id").split("_")[1];
+		let form_data = {
 				room_id: my_room,
-				tour_id: my_id[1],
-				stay: my_id[2],
-				person_id: my_id[3],
+				tour_id: $(this).data('tour_id'),
+				stay: $(this).data('stay'),
+				person_id:$(this).data('person_id'),
 				placeholder: $(me).val(),
 				ajax: 1
 		};
