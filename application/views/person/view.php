@@ -50,9 +50,8 @@ $move_button[] = [
 ];
 $phone_button[] = [
 	"text" => "Add Phone",
-	"type" => "span",
 	"class" => "button small new add-phone",
-	"id" => sprintf("add-phone_%s", $person->id),
+	'href'=> base_url('phone/create/' . $person->id),
 ];
 $restore_button[] = [
 	"text" => "Restore Record",
@@ -144,7 +143,6 @@ $restore_button[] = [
 				"text" => "Edit",
 				'href'=> base_url('address/edit/' . $person->address_id . '/' . $person->id),
 				"class" => "button small edit edit-address",
-				"id" => sprintf("edit-address_%s_%s", $person->address_id, $person->id),
 			];
 			$edit_buttons[] = [
 				'text'=>'Delete',
