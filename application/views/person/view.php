@@ -19,6 +19,12 @@ $buttons[] = [
 	"href" => site_url("/tourist/view_for_tourist/$person->id"),
 	"class" => "button show-tours-for-tourist",
 ];
+$buttons[] = [
+	'text' => 'Export vCard',
+	'title'=> sprintf('Export a universal address book card for ', $person->first_name),
+	'href' => base_url('person/vcard/' . $person->id),
+	'class' => 'button export',
+];
 $nav_buttons[] = [
 	"text" => "<- Previous Record",
 	"class" => "button navigation previous-person-record",

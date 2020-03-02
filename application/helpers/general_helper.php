@@ -207,6 +207,9 @@ function format_address($address, $format = "postal") {
 	elseif ($format == "inline") {
 		$output = sprintf("%s, %s", $street, $locality);
 	}
+	elseif($format = 'vcard'){
+		$output = sprintf('%s\n%s',$street, $locality);
+	}
 	return $output;
 }
 
