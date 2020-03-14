@@ -16,6 +16,11 @@ foreach ($tourists as $tourist) :
                         "text" => "Delete",
                         "type" => "span",
                         "class" => "button delete delete-tourist",
+                        'data'=>[
+                        	'person_id'=>$tourist->person_id,
+													'tour_id' =>$tourist->tour_id,
+													'payer_id'=>$tourist->payer_id,
+												],
                         "id" => sprintf("delete-tourist_%s_%s", $tourist->person_id, $tourist->tour_id)
                 ));
 

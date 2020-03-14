@@ -1,22 +1,17 @@
 $(document).ready(function(){
-	$("html").on("click",".add-roommate",function(){
-		my_room = $("#room").val();
-		if(!my_room){
-		my_room = this.id.split("_")[1];
-		}
-		my_tour = $("#tour_id").val();
-		my_stay = $("#stay").val();
-		form_data = {
-				stay: my_stay,
-				tour_id: my_tour,
-				room: my_room,
+	$(document).on("click",".add-roommate",function(e){
+		e.preventDefault();
+		let my_room = $(this).data('room_id');
+
+		let form_data = {
+
 				ajax: 1
 		};
-		
+		console.log(form_data);
 		
 		$.ajax({
 			type: "get",
-			url: base_url + "roommate/get_roomless_menu",
+			url: $(this).attr('href'),
 			data: form_data,
 			success: function(data){
 				$("#room_" + my_room + " table.list tbody").append("<tr><td>" + data + "</td></tr>");
@@ -26,7 +21,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$("html").on("click",".add-placeholder",function(e){
+	$(document).on("click",".add-placeholder",function(e){
 		e.preventDefault();
 		me = this;
 		my_url = $(me).attr("href");
@@ -43,17 +38,15 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("html").on("blur",".insert-placeholder",function(e){
+	$(document).on("blur",".insert-placeholder",function(e){
 		e.preventDefault();
-		me = this;
-		my_id = me.id.split("_");
-		my_room = $(me).parents(".room-row").attr("id").split("_")[1];
-		
-		form_data = {
+		let me = this;
+		let my_room = $(me).parents(".room-row").attr("id").split("_")[1];
+		let form_data = {
 				room_id: my_room,
-				tour_id: my_id[1],
-				stay: my_id[2],
-				person_id: my_id[3],
+				tour_id: $(this).data('tour_id'),
+				stay: $(this).data('stay'),
+				person_id:$(this).data('person_id'),
 				placeholder: $(me).val(),
 				ajax: 1
 		};
@@ -67,18 +60,15 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("html").on("click",".add-room", function(){
-		my_id = this.id.split("_");
-		my_tour = my_id[1];
-		my_stay = my_id[2];
-		form_data = {
-				stay: my_stay,
-				tour_id: my_tour,
-				ajax: 1
+	$(document).on("click",".add-room", function(e){
+		e.preventDefault();
+		let my_href = $(this).attr('href');
+		let form_data = {
+			ajax: 1
 		};
 		$.ajax({
 			type: "get",
-			url: base_url + "room/create",
+			url: my_href,
 			data: form_data,
 			success: function(data){
 				$("#roommate-list-block").append(data);
@@ -87,7 +77,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("html").on("change",".roommates #person_id",function(){
+	$(document).on("change",".roommates #person_id",function(){
 		my_tour = $("#tour_id").val();
 		my_stay = $("#stay").val();
 		my_room = $(this).parents("div.room-row").attr("id").split("_")[1];
@@ -109,7 +99,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("html").on("click",".delete-roommate",function(){
+	$(document).on("click",".delete-roommate",function(){
 		question = confirm("Are you sure you want to delete this roommate? This cannot be undone!"); 
 	if(question){
 		my_id = this.id.split("_");
@@ -137,7 +127,7 @@ $(document).ready(function(){
 	}
 	});
 	
-	$("html").on("click",".duplicate-previous-stay",function(){
+	$(document).on("click",".duplicate-previous-stay",function(){
 		my_id = this.id.split("_");
 		form_data = {
 				tour_id: my_id[1],
@@ -154,7 +144,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$("html").on("click",".delete-room",function(){
+	$(document).on("click",".delete-room",function(){
 		question = confirm("are you sure you want to delete this room? This cannot be undone!");
 		if(question){
 			my_id = this.id.split("_")[1];

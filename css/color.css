@@ -16,8 +16,6 @@ backgrounds: #C7D7E9
 
 #notice, #alert {
 	color: #468847;
-	background-color: #dff0d8;
-	border-color: #d6e9c6;
 	padding: 8px 35px 8px 14px;
 	margin-bottom: 20px;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -84,7 +82,7 @@ div.error a {
 div.error-text {
 	color: #000;
 	background-color: #FFA500;
-	box-shadow-color: #F00;
+	box-shadow: #F00;
 }
 
 div.login-title {
@@ -112,7 +110,6 @@ div.list {
 	border: none;
 	color: #ffffff;
 	background: #489310;
-	background: linear-gradient(top, #67b021 0, #489310 100%);
 }
 
 .button:hover, submit:hover {
@@ -120,7 +117,6 @@ div.list {
 	color: #000;
 	border: none;
 	background: #67b021;
-	background: linear-gradient(top, #489310 0, #67b021 100%);
 }
 
 .button.help {
@@ -150,13 +146,11 @@ a.button {
 .button.edit {
 	border: none;
 	background-color: #0077bd;
-	background: linear-gradient(top, #63ACE4 0, #0077bd 100%);
 	color: #fff;
 }
 
 .button.edit:hover {
 	background-color: #63ACE4;
-	background: linear-gradient(top, #0077bd 0, #63ACE4 100%);
 }
 
 .button.new, a.button.new {
@@ -168,7 +162,6 @@ a.button {
 .button.new:hover, .button.new.active {
 	border: 1px solid #ddd000;
 	background-color: #dff110;
-	background: linear-gradient(top, #dff110 0, #eeff11 100%);
 	color: #000;
 }
 
@@ -180,13 +173,11 @@ a.button {
 /* #C9192D */
 .button.delete {
 	background-color: #c9192d;
-	background: linear-gradient(top, #DB5F3A 0, #c9192d 100%);
 	color: white;
 }
 
 .button.delete:hover {
 	background-color: #db5f3a;
-	background: linear-gradient(top, #c9192d 0, #DB5F3A 100%);
 	color: white;
 }
 
@@ -195,8 +186,7 @@ a.button {
 }
 
 .button.export {
-	background-color: #CF46CC;
-	background: linear-gradient(top, #CF46CC 0, #8C2D8B 100%);
+	background-color: #ff7b00;
 }
 
 /* #CAD6E9 */

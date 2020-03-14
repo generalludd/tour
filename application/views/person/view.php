@@ -19,6 +19,12 @@ $buttons[] = [
 	"href" => site_url("/tourist/view_for_tourist/$person->id"),
 	"class" => "button show-tours-for-tourist",
 ];
+$buttons[] = [
+	'text' => 'Export vCard',
+	'title'=> sprintf('Export a universal address book card for ', $person->first_name),
+	'href' => base_url('person/vcard/' . $person->id),
+	'class' => 'button export',
+];
 $nav_buttons[] = [
 	"text" => "<- Previous Record",
 	"class" => "button navigation previous-person-record",
@@ -50,9 +56,8 @@ $move_button[] = [
 ];
 $phone_button[] = [
 	"text" => "Add Phone",
-	"type" => "span",
 	"class" => "button small new add-phone",
-	"id" => sprintf("add-phone_%s", $person->id),
+	'href'=> base_url('phone/create/' . $person->id),
 ];
 $restore_button[] = [
 	"text" => "Restore Record",
@@ -142,9 +147,8 @@ $restore_button[] = [
 
 			$edit_buttons[] = [
 				"text" => "Edit",
-				"type" => "span",
+				'href'=> base_url('address/edit/' . $person->address_id . '/' . $person->id),
 				"class" => "button small edit edit-address",
-				"id" => sprintf("edit-address_%s_%s", $person->address_id, $person->id),
 			];
 			$edit_buttons[] = [
 				'text'=>'Delete',
@@ -177,8 +181,8 @@ $restore_button[] = [
 				<?php print create_button_bar([
 					[
 						"text" => "Add Housemate",
-						"type" => "span",
 						"class" => "button small new add-housemate",
+						'href'=> base_url('person/add_housemate/' . $person->address->id),
 						"id" => sprintf("add-housemate_%s_%s", $person->id, $person->address->id),
 					],
 				]); ?>

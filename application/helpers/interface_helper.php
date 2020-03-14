@@ -325,8 +325,9 @@ function create_input ($object, $name, $label, $options = array())
     if (array_key_exists("label_class", $options)) {
         $label_class = $options["label_class"];
     }
+	$default_value = array_key_exists('default',$options)?$options['default']:'';
 
-    $value = get_value($object, $name, "");
+    $value = get_value($object, $name, $default_value);
 
     $envelope = "p";
     if (array_key_exists("envelope", $options)) {

@@ -150,16 +150,14 @@ $(document).ready(function(){
 	});
 	
 	
-	$(".add-housemate").on("click", function(){
-		my_person = this.id.split("_")[1];
-		my_address = this.id.split("_")[2];
-		form_data = {
-				address_id: my_address,
+	$(document).on("click",".add-housemate", function(e){
+		e.preventDefault();
+		let form_data = {
 				ajax: "1"
 		};
 		$.ajax({
-			type:"post",
-			url: base_url + "person/add_housemate",
+			type:"get",
+			url: $(this).attr('href'),
 			data: form_data,
 			success: function(data){
 				show_popup("Adding a Housemate", data, "auto");

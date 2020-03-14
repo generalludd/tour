@@ -43,22 +43,22 @@ class Hotel extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
-    function create ()
+    function create ($tour_id)
     {
-        $tour_id = $this->input->get("tour_id");
-        $this->load->model("tour_model", "tour");
-        $tour_list = $this->tour->get_all(TRUE, "tour_name,id");
-        $tour = $this->tour->get($tour_id, "id, tour_name");
-        $data["tour"] = $tour;
+        $this->load->model('tour_model', 'tour');
+        $tour_list = $this->tour->get_all(TRUE, 'tour_name,id');
+        $tour = $this->tour->get($tour_id, 'id, tour_name');
+        $data['tour'] = $tour;
 
-        $data["tour_list"] = get_keyed_pairs($tour_list, array(
-                "id",
-                "tour_name"
+        $data['tour_list'] = get_keyed_pairs($tour_list, array(
+                'id',
+                'tour_name'
         ), TRUE);
-        $data["hotel"] = NULL;
-        $data["action"] = "insert";
-        if ($this->input->get("ajax")) {
-            $this->load->view("hotel/edit", $data);
+        $data['hotel'] = NULL;
+        $data['action'] = 'insert';
+        $data['stay'] = $this->input->get('stay');
+        if ($this->input->get('ajax')) {
+            $this->load->view('hotel/edit', $data);
         }
     }
 
@@ -68,9 +68,8 @@ class Hotel extends MY_Controller
         redirect("hotel/view/$id");
     }
 
-    function edit ()
+    function edit ($hotel_id)
     {
-        $hotel_id = $this->input->get("id");
         $hotel = $this->hotel->get($hotel_id);
         $this->load->model("tour_model", "tour");
         $tour_list = $this->tour->get_all(FALSE, "tour_name,id");
@@ -83,9 +82,12 @@ class Hotel extends MY_Controller
         ), TRUE);
         $data["hotel"] = $hotel;
         $data["action"] = "update";
+        $data['target'] = 'hotel/edit';
         if ($this->input->get("ajax")) {
             $this->load->view("hotel/edit", $data);
-        }
+        }else{
+        	$this->load->view('page/index', $data);
+				}
     }
 
     function update ()
