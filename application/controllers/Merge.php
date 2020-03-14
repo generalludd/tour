@@ -92,7 +92,7 @@ class Merge extends MY_Controller
         $field = $this->input->post("field");
         $value = $value = trim($this->input->post("value"));
         if (strstr($field, "date")) {
-            $value = format_date($value, "mysql");
+            $value = date('Y-m-d', strtotime($value));
         }
         $values = array(
                 $this->input->post("field") => $value

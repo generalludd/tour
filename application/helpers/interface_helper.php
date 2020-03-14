@@ -255,13 +255,16 @@ $title = sprintf("title='%s'", $options["title"]);
 
 
 /**
- * create a displayed field easily on complex forms for AJAX-ready in-place editing.
+ * create a displayed field easily on complex forms for AJAX-ready in-place
+ * editing.
  *
  * @param string $field_name
  * @param string $value
  * @param string $label
  * @param array $options
- *        	(envelope, class, attributes)
+ *          (envelope, class, attributes)
+ *
+ * @return string
  */
 function edit_field($field_name, $value, $label, $table, $id, $options = array()) {
     $envelope = "p";

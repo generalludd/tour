@@ -31,7 +31,7 @@ Payment Deadline: <?php print format_date($tour->due_date);?>
 <div
 	class="grouping block merge-date"
 	id="merge">
-<?php print edit_field("sent_date", format_date(get_value($merge, "sent_date",date("m-d-Y"))), NULL, "merge",get_value($merge,"id"), array("class"=>"date", "editable"=>TRUE,"size"=>"26ex" ,"title"=>"Click to edit the date"));?>
+<?php print edit_field("sent_date",  date('F j, Y', strtotime(get_value($merge, "sent_date"))), NULL, "merge",get_value($merge,"id"), array("class"=>"date", "editable"=>TRUE,"size"=>"26ex" ,"title"=>"Click to edit the date"));?>
 <?php print edit_field("salutation", $salutation, NULL, "merge",get_value($merge,"id"),array("format"=>"text","editable"=>TRUE, "title"=>"Click to edit the salutation"));?>
 </div>
 <div class="block">
