@@ -17,7 +17,8 @@ body {
 }
 
 .printed-content {
-	padding-top: .25in;
+	padding-top: 1in;
+	-moz-padding-start: .25in;
 }
 
 .title {
