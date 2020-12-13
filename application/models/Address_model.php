@@ -68,8 +68,6 @@ class Address_model extends CI_Model {
 		$this->db->from("address");
 		$this->db->order_by("person.address_id", "ASC");
 		$this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
-		$this->db->select("DISTINCT(`address`.`id`)");
-
 		$this->db->select("address.address, address.city, address.state,address.zip,address.informal_salutation,address.formal_salutation, person.address_id");
 		$this->db->select("person.first_name,person.last_name,person.email");
 		$this->db->join("person", "person.address_id=address.id");
@@ -83,7 +81,6 @@ class Address_model extends CI_Model {
 			$this->db->join("tourist", "tourist.person_id = person.id");
 			$this->db->where("tourist.tour_id", $tour_id);
 		}
-		$this->db->order_by("address_id");
 		$this->db->group_by("address_id");
 		return $this->db->get()->result();
 	}
