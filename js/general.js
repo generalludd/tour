@@ -113,7 +113,7 @@ $(document).ready(function(){
 	});
 
 	
-	$(document).on("click",".create.dialog, .edit.dialog",function(e){
+	$(document).on("click",".create.dialog, .edit.dialog, .view.dialog",function(e){
 		e.preventDefault();
 		let redirect_url = $(location).attr("href");
 		let url = $(this).attr("href");
@@ -125,7 +125,7 @@ $(document).ready(function(){
 			data: form_data,
 			url: url,
 			success: function(data){
-				show_popup('Edit Person',data,400);
+				show_popup('Edit',data,600);
 				$("#redirect_url").val(redirect_url);
 			}
 		});
