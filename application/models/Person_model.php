@@ -134,8 +134,8 @@ class Person_model extends CI_Model {
 				$order_by = [$order_by];
 			}
 			foreach ($order_by as $order) {
-				[$field, $direction] = explode(',',$order);
-				$this->db->order_by($field, $direction);
+				$values = explode(',',$order);
+				$this->db->order_by($values[0], $values[1]);
 			}
 		}
 		else {
