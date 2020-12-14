@@ -275,7 +275,6 @@ class Person_model extends CI_Model {
 	function get_initials(): array {
 		$this->db->from('person');
 		$this->db->select('DISTINCT LEFT(last_name,1) AS initial', FALSE);
-		$this->db->select('last_name');
 		$this->db->order_by('last_name');
 		$result = $this->db->get()->result();
 		return $result;
