@@ -9,12 +9,14 @@ $veterans_only = "";
 $non_veterans = "";
 $email_only = "";
 $show_disabled = "";
+$order_by = NULL;
 if ($filters) {
     $initial = array_key_exists("initial", $filters) ? $filters["initial"] : FALSE;
     $veterans_only = array_key_exists("veterans_only", $filters) ? "checked" : "";
     $non_veterans = array_key_exists("non_veterans",$filters) ? "checked":"";
     $email_only = array_key_exists("email_only", $filters) ? "checked" : "";
     $show_disabled = array_key_exists("show_disabled", $filters) ? "checked" : "";
+    $order_by = array_key_exists('order_by',$filters)? 'checked':'';
 }
 ?>
 <form
@@ -59,6 +61,10 @@ if ($filters) {
 			id="show_disabled"
 			value="1"
 			<?php print $show_disabled;?> />
+	</p>
+	<p>
+		<label for "order_by">Order by</label>
+		<?php print form_dropdown('order_by',$order_by_options, $order_by); ?>
 	</p>
 	<p>
 		<input
