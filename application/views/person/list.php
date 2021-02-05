@@ -21,7 +21,7 @@ $buttons [] = [
 ];
 
 // $filters = get_cookie("person_filter");
-// if($filters): $filters = unserialize($options); ?>
+// if($fiolters): $filters = unserialize($options); ?>
 <?php if (!empty($filters)): ?>
 	<fieldset>
 		<legend>Filters</legend>
@@ -59,8 +59,7 @@ $buttons [] = [
 <table class="list" id="person-list">
 	<thead>
 	<tr>
-		<th>First Name</th>
-		<th>Last Name</th>
+		<th>Name</th>
 		<th>Email</th>
 		<th>Shirt Size</th>
 		<th>Is Vet?</th>
@@ -71,11 +70,8 @@ $buttons [] = [
 	<?php foreach ($people as $person): ?>
 		<?php $disabled = $person->status == 0 ? "highlight" : ""; ?>
 		<tr class="<?php print $disabled; ?>">
-			<td>
-				<?php print $person->first_name; ?>
-			</td>
-			<td>
-				<?php print $person->last_name; ?>
+			<td><a href="<?php print site_url('person/view/' . $person->id); ?>" title="View <?php print $person->first_name; ?>'s details.">
+				<?php print $person->first_name . ' ' . $person->last_name; ?></a>
 			</td>
 			<td><?php print $person->email; ?></td>
 			<td><?php print $person->shirt_size; ?></td>
@@ -83,7 +79,7 @@ $buttons [] = [
 			<td><?php print $person->status ? 'Yes' : 'No'; ?></td>
 
 			<td>
-				<a href="<?php print site_url("person/view/$person->id"); ?>"
+				<a href="<?php print site_url('person/view/' . $person->id); ?>"  title="View <?php print $person->first_name; ?>'s details."
 				   class="button small">View</a>
 			</td>
 			<td>
