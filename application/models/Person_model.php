@@ -256,13 +256,13 @@ class Person_model extends CI_Model
         return $output;
     }
 
-    function get_initials ()
-    {
-        $this->db->select("DISTINCT LEFT(last_name,1) AS initial", FALSE);
-        $this->db->order_by("last_name");
-        $this->db->from("person");
-        return $this->db->get()->result();
-    }
+	function get_initials(): array {
+		$this->db->from('person');
+		$this->db->select('DISTINCT LEFT(last_name,1) AS initial,last_name', FALSE);
+		$this->db->order_by('last_name');
+		$result = $this->db->get()->result();
+		return $result;
+	}
 
     function get_by_letter ($letter)
     {
