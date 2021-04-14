@@ -355,7 +355,7 @@ function create_input ($object, $name, $label, $options = array())
     if (array_key_exists("type", $options)) {
         $type = $options["type"];
         if($type=="date"){
-        	$type="text";
+        	$type="date";
         }
     }
     $checked = "";
