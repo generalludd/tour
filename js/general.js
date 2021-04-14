@@ -4,6 +4,11 @@ $(document).ready(function(){
 		$("#alert").attr("id","notice").html("Move the file backup file from your downloads folder to your backups folder.").fadeOut(5000);
 		
 	});
+	// trim all inputs on blur
+	$(document).on('blur','input', function(){
+		let input_value =  $(this).val();
+		$(this).val(input_value.trim());
+	})
 
 	$(document).on("click", '.delete-action', function(e){
 		let my_controller = $(this).data('controller');
