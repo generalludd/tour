@@ -202,6 +202,7 @@ class Person extends MY_Controller {
 			"value",
 			"name",
 		], TRUE);
+		// we get the tour count because if a person has not been on any tours, they can be deleted, otherwise they can only be marked as inactive.
 		$this->load->model("tourist_model", "tourist");
 		$data["tour_count"] = count($this->tourist->get($id));
 		$data["target"] = "person/edit";

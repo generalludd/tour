@@ -67,7 +67,7 @@ if (!$first_name) {
 								 data-controller="person"
 								 data-form="person-editor"
 								 title="This person has been on tours, they will be disabled instead of deleted"
-								 value="Delete"/>
+								 value="Disable"/>
 				<?php endif; ?>
 			<?php endif; ?>
 		</p>
