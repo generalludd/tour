@@ -33,33 +33,16 @@ function burn_cookie($name) {
  */
 function format_date($date, $format = "standard") {
 	if ($date) {
-		// $format=mysql//yyyy-mm-dd
-		// $format=standard//mm/dd/yyyy
-		$date = str_replace("/", "-", $date);
 		switch ($format) {
 			case "mysql":
-				$parts = explode("-", $date);
-				$month = $parts[0];
-				$day = $parts[1];
-				$year = $parts[2];
-				$date = "$year-$month-$day";
+				$date = date('Y-m-d', strtotime($date));
 				break;
 			case "standard":
-				$parts = explode("-", $date);
-				$year = $parts[0];
-				$month = $parts[1];
-				$day = $parts[2];
-				$date = "$month/$day/$year";
+				$date = date('m/d/Y',strtotime($date));
 				break;
 			case "no-year":
-				$parts = explode("-", $date);
-				$year = $parts[0];
-				$month = $parts[1];
-				$day = $parts[2];
-				$date = "$month/$day";
+				$date = date('m/d',strtotime($date));
 				break;
-			default:
-				$date = $date;
 		}
 	}
 	return $date;
@@ -96,9 +79,9 @@ function prepare_variables($object, $variables) {
 		$my_variable = trim($variables[$i]);
 		if ($object->input->post($my_variable)) {
 			$my_value = trim($object->input->post($my_variable));
-			if (strpos($my_variable, "date")) {
+			/*if (strpos($my_variable, "date")) {
 				$my_value = trim(format_date($my_value, "mysql"));
-			}
+			}*/
 			if (strpos($my_variable, "price") || strpos($my_variable, "room") || strpos($my_variable, "rate")) {
 				$my_value = trim(format_money($my_value, "int"));
 			}
