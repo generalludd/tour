@@ -30,6 +30,11 @@ $buttons[] = [
 	"href" => site_url("tourist/view_all/$tour->id?export=TRUE"),
 	"class" => "button export export-tourists",
 ];
+$buttons['print'] = [
+		'text' => 'Print',
+		'href' => 'javascript:print();',
+		'class' => ['button', 'export'],
+];
 ?>
 <h2><?php print $tour->tour_name; ?></h2>
 <?php print create_button_bar($buttons); ?>
