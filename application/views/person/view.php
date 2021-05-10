@@ -123,14 +123,9 @@ $restore_button[] = [
 		</div>
 		<div class="field-set">
 			<label for="is_veteran">Is Veteran: </label>
-			<input type="checkbox" value="1" id="is_veteran"
-				   name="is_veteran" <?php print get_value($person, "is_veteran", FALSE) ? "checked" : ""; ?>/>
-			<span class="ajax-info" id="is_veteran-ajax-response"></span>
+			<?php print !empty($person->is_veteran) ? 'Yes' : 'No'; ?>
 		</div>
-		<div
-				id="phone"
-				class="grouping phone-grouping">
-
+		<div id="phone" class="grouping phone-grouping">
 			<?php if (get_value($person, "phones", FALSE)) : ?>
 				<p>
 					<label>Phones</label>
