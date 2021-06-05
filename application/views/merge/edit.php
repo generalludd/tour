@@ -14,6 +14,7 @@ $salutation = $tourists;
 }
 
 ?>
+<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 
 <section class="non-printing">
 	<div class="alert" style="padding:1em; text-align: center;">
