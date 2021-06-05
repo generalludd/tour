@@ -3,8 +3,7 @@
 // edit.php Chris Dart Mar 14, 2014 9:40:39 PM chrisdart@cerebratorium.com
 
 ?>
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script type="text/javascript" src="<?php print base_url("js/editor.js");?>"></script>
+
 <h4>Letter Template</h4>
 <p>
 For <a href="<?php print site_url("tour/view/$tour->id");?>"><?php print $tour->tour_name;?></a><br/>
@@ -37,3 +36,5 @@ Payment Deadline: <?php print format_date($tour->due_date);?>
 </p>
 <input type="submit" name="submit" class="button new" value="<?php print ucfirst($action);?>"/>
 </form>
+<script src="https://cdn.tiny.cloud/1/m6zaqx2src68wkjb9b6cbfbh2yi50jw73zjahdnheu4i694i/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script type="text/javascript" src="<?php print base_url("js/editor.js");?>"></script>
