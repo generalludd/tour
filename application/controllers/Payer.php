@@ -60,9 +60,9 @@ class Payer extends MY_Controller {
 		if (empty($payer_id)) {
 			$payer_id = $this->input->get("payer_id");
 		}
-		var_dump($payer_id);
-		$data["payer_id"] = $payer_id;
 
+		$data["payer_id"] = $payer_id;
+		var_dump($data);
 		if (empty($tour_id)) {
 			$tour_id = $this->input->get("tour_id");
 		}
