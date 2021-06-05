@@ -14,6 +14,7 @@ $salutation = $tourists;
 }
 
 ?>
+<script src="https://cdn.tiny.cloud/1/m6zaqx2src68wkjb9b6cbfbh2yi50jw73zjahdnheu4i694i/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <section class="non-printing">
 	<div class="alert" style="padding:1em; text-align: center;">
