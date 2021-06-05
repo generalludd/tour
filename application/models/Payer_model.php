@@ -69,9 +69,8 @@ class Payer_model extends CI_Model
                 'tour.tour_name,tour.full_price, tour.banquet_price, tour.early_price, tour.regular_price,tour.single_room, tour.triple_room, tour.quad_room');
         $this->db->select('person.first_name, person.last_name');
         $this->db->select('payer.*');
-        $this->db->select_sum('payment.amount');
+        //$this->db->select_sum('payment.amount');
         $result = $this->db->get()->row();
-        var_dump($result);
         $this->session->set_flashdata('notice',$this->db->last_query());
         return $result;
     }
