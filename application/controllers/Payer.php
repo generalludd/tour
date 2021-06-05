@@ -55,6 +55,7 @@ class Payer extends MY_Controller {
 	 * @param string $tour_id
 	 */
 	function edit($payer_id = FALSE, $tour_id = FALSE, $ajax = FALSE) {
+		var_dump($payer_id);
 		$this->load->model("variable_model", "variable");
 		if (!$payer_id) {
 			$payer_id = $this->input->get("payer_id");

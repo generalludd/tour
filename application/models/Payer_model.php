@@ -71,6 +71,7 @@ class Payer_model extends CI_Model
         $this->db->select("payer.*");
         $this->db->select_sum("payment.amount");
         $result = $this->db->get()->row();
+        $this->session->set_flashdata('notice',$this->db->last_query());
         return $result;
     }
 
@@ -111,10 +112,10 @@ class Payer_model extends CI_Model
     /**
      * Get the number room types for a given tour (single, double, triple, quad)
      *
-     * @param unknown $tour_id
-     * @return unknown
+     * @param int $tour_id
+     * @return object
      */
-    function get_room_types ($tour_id)
+    function get_room_types (int $tour_id)
     {
         $this->db->select("count(room_size) as count, room_size");
         $this->db->from("payer");
