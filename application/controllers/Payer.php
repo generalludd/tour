@@ -67,7 +67,6 @@ class Payer extends MY_Controller {
 			$tour_id = $this->input->get("tour_id");
 		}
 		$data["tour_id"] = $tour_id;
-		var_dump($data);
 		$data["room_sizes"] = get_keyed_pairs($this->variable->get_pairs("room_size"), [
 			"value",
 			"name",

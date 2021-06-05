@@ -71,7 +71,6 @@ class Payer_model extends CI_Model
         $this->db->select('payer.*');
         $this->db->select_sum('payment.amount');
         $result = $this->db->get()->row();
-        $this->session->set_flashdata('notice',$this->db->last_query());
         return $result;
     }
 

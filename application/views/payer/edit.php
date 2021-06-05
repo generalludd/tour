@@ -41,11 +41,13 @@ $amt_due = $total_cost - $payer->amt_paid;
 			type="hidden"
 			id="tourist_count"
 			name="tourist_count"
-			value="<?php print $tourist_count; ?>"/> <input
+			value="<?php print $tourist_count; ?>"/>
+		<input
 			type="hidden"
 			id="room_rate"
 			name="room_rate"
-			value="<?php print $room_rate; ?>"/> <input
+			value="<?php print $room_rate; ?>"/>
+		<input
 			type="hidden"
 			id="tour_price"
 			name="tour_price"
