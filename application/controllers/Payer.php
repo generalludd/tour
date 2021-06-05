@@ -58,7 +58,7 @@ class Payer extends MY_Controller {
 
 		$this->load->model("variable_model", "variable");
 		if (empty($payer_id)) {
-			$payer_id = $this->input->get("payer_id");
+			$payer_id = (int) $this->input->get("payer_id");
 		}
 
 		$data["payer_id"] = $payer_id;
