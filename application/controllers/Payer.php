@@ -58,16 +58,16 @@ class Payer extends MY_Controller {
 
 		$this->load->model("variable_model", "variable");
 		if (empty($payer_id)) {
-			$payer_id = $this->input->get("payer_id");
+			$payer_id = (int) $this->input->get("payer_id");
 		}
 
 		$data["payer_id"] = $payer_id;
-		var_dump($data);
+
 		if (empty($tour_id)) {
 			$tour_id = $this->input->get("tour_id");
 		}
 		$data["tour_id"] = $tour_id;
-
+		var_dump($data);
 		$data["room_sizes"] = get_keyed_pairs($this->variable->get_pairs("room_size"), [
 			"value",
 			"name",
@@ -77,7 +77,6 @@ class Payer extends MY_Controller {
 			"name",
 		]);
 		$payer = $this->payer->get_for_tour($payer_id, $tour_id);
-		var_dump($payer);
 		$payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
 		$data['amount'] = $this->payment->get_total($tour_id, $payer->payer_id);
 		$data["payer"] = $payer;
