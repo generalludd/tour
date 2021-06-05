@@ -75,6 +75,7 @@ class Payer extends MY_Controller {
 			"name",
 		]);
 		$payer = $this->payer->get_for_tour($payer_id, $tour_id);
+		var_dump($payer);
 		$payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
 		$data['amount'] = $this->payment->get_total($tour_id, $payer->payer_id);
 		$data["payer"] = $payer;
