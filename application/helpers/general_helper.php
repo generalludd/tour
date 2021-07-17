@@ -71,7 +71,8 @@ function format_timestamp($timestamp, $format = "standard") {
  * @param string $format
  */
 function format_time($time, $format = "standard") {
-	return trim($time);
+
+	return date('g:i A', strtotime(trim($time)));
 }
 
 function prepare_variables($object, $variables) {

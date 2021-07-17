@@ -18,7 +18,7 @@
 		"envelope" => "div",
 		"type" => "number",
 		"required" => TRUE,
-		'default'=> $stay,
+		'default'=> $hotel->stay,
 	]); ?>
 	<div class="input-block row">
 

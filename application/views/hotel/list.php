@@ -51,9 +51,9 @@ $buttons[] = array(
 				href="<?php print site_url("hotel/view/$hotel->id");?>"
 				title="View hotel details"><?php print $hotel->hotel_name;?></a></td>
 			<td>
-			<span
-				class="button edit edit-hotel"
-				id="<?php print sprintf("edit-hotel_%s",$hotel->id);?>">Edit Hotel</span></td>
+			<a
+				class="button edit dialog"
+				href="<?php print site_url('/hotel/edit/' . $hotel->id);?>">Edit Hotel</a></td>
 			<td>
 			<a
 				href="<?php print site_url("roommate/view_for_tour/?tour_id=$tour->id&stay=$hotel->stay");?>"
