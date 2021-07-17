@@ -350,10 +350,6 @@ function create_input($object, $name, $label, $options = []) {
 		$format = $options["format"];
 	}
 	if ($format) {
-		if ($format == "date") {
-			$value = format_date($value);
-		}
-
 		if ($format == "money") {
 			$value = format_money($value);
 		}
