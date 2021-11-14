@@ -21,7 +21,7 @@ class Tour extends MY_Controller
         $id = $this->uri->segment(3);
         $data["tour"] = $this->tour->get($id);
         $this->load->model("letter_model","letter");
-       $data["letters"] = $this->letter->get_for_tour($id);
+        $data["letters"] = $this->letter->get_for_tour($id);
         $data["title"] = sprintf("Tour Data: %s", $data["tour"]->tour_name);
         $data["target"] = "tour/view";
         $this->load->view("page/index", $data);
@@ -115,20 +115,20 @@ class Tour extends MY_Controller
         $data["id"] = $id;
         $tours = $this->tour->get_all(TRUE);
         $data["tours"] = $tours;
+        $tour_list = [];
         foreach ($tours as $tour) {
             $tour_list[] = $tour->id;
         }
         $tourist_tours = $this->tourist->get($id, $tour_list);
 
-        $data["query"] = $this->db->last_query();
         $data['target'] = 'tour/select';
         $data['title'] = 'Select a Tour';
         if($this->input->get('ajax')) {
-					$this->load->view('page/modal', $data);
-				}
-        else{
+			$this->load->view('page/modal', $data);
+		}
+        else {
         	$this->load->view('page/index', $data);
-				}
+		}
     }
 
     function show_payers ()
