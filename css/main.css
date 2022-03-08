@@ -262,23 +262,16 @@ tr.row-break td {
 }
 
 input[type="number"] {
-	width: 10ex;
+	width: 3em;
 }
 
- input.datefield {
-	width: 14ex;
-}
-
-input[type="date"] {
-	width: 10em;
-}
 
 input[type="tel"] {
-	width: 16ex;
+	width: 7em;
 }
 
 input[type="time"] {
-	width: 14ex;
+	width: 7em;
 }
 
 .unread {
@@ -864,14 +857,6 @@ fieldset.field-group {
 
 #flags {
 	width: 150px;
-}
-
-input.money {
-	
-}
-
-input.date {
-	width: 12ex;
 }
 
 body.person #content {

@@ -38,7 +38,6 @@ class Auth extends CI_Controller
 			$password =  $this->input->post("password");
 			$result = $this->auth_model->validate($username, $password);
 			if($result){
-				$this->auth_model->log($result->id, "login");
 				//required session items for authenticated session
 				$data["username"] = $username;
 				$data["role"] = $result->role;
@@ -68,10 +67,6 @@ class Auth extends CI_Controller
 	function logout()
 	{
 
-		//make sure someone is logged in before logging the logout
-		if($this->session->userdata("user_id")){
-			$this->auth_model->log($this->session->userdata("user_id"),"logout");
-		}
 		//destroy the session anyway.
 		$this->session->sess_destroy();
 		redirect("/");

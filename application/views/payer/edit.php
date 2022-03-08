@@ -32,19 +32,22 @@ $amt_due = $total_cost - $payer->amt_paid;
 			type="hidden"
 			id="payer_id"
 			name="payer_id"
-			value="<?php print $payer->payer_id; ?>"/> <input
+			value="<?php print $payer_id; ?>"/> <input
 			type="hidden"
 			id="tour_id"
 			name="tour_id"
-			value="<?php print $tour_id; ?>"/> <input
+			value="<?php print $tour_id; ?>"/>
+		<input
 			type="hidden"
 			id="tourist_count"
 			name="tourist_count"
-			value="<?php print $tourist_count; ?>"/> <input
+			value="<?php print $tourist_count; ?>"/>
+		<input
 			type="hidden"
 			id="room_rate"
 			name="room_rate"
-			value="<?php print $room_rate; ?>"/> <input
+			value="<?php print $room_rate; ?>"/>
+		<input
 			type="hidden"
 			id="tour_price"
 			name="tour_price"
@@ -121,9 +124,9 @@ $amt_due = $total_cost - $payer->amt_paid;
 					"class" => "button delete delete-payer",
 					'data' => [
 						'tour_id' => $tour_id,
-						'payer_id' => $payer->payer_id,
+						'payer_id' => $payer_id,
 					],
-					"id" => sprintf("delete-payer_%s_%s", $payer->payer_id, $tour_id),
+					"id" => sprintf("delete-payer_%s_%s", $payer_id, $tour_id),
 				]; ?>
 
 			<?php endif; ?>
@@ -140,8 +143,8 @@ $amt_due = $total_cost - $payer->amt_paid;
 		<?php
 
 		$payment_data["payments"] = $payer->payments;
-		$payment_data["tour_id"] = $payer->tour_id;
-		$payment_data["payer_id"] = $payer->payer_id;
+		$payment_data["tour_id"] = $tour_id;
+		$payment_data["payer_id"] = $payer_id;
 
 		$this->load->view("payment/list", $payment_data);
 		$this->load->view("payment/reimbursement", $payment_data);

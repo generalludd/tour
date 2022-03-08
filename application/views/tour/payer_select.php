@@ -6,13 +6,12 @@
 <input type="hidden" name="person_id" id="person_id"
 	   value="<?php print $id; ?>"/>
 <div id="tourist-selector">
+	<?php if (!empty($title)): ?>
+<div class="alert"><?php print $title; ?></div>
+	<?php endif; ?>
 	<?php if (count($tours) >= 1): ?>
 		<div style="width:60ex">
-			Choose "payer" if the person is paying for the tour.<br/>Choose
-			"tourist"
-			if someone else is paying<br/>The payer must already have been added
-			as a
-			payer to the selected tour.
+			Select the tour to add this person as a payer.
 		</div>
 		<table class="list">
 			<thead>
@@ -20,7 +19,6 @@
 				<th>Tour</th>
 				<th>Start</th>
 				<th>End</th>
-				<th></th>
 				<th></th>
 			</tr>
 			</thead>
@@ -33,13 +31,6 @@
 					<td><?php print date('m/d/Y', strtotime($tour->start_date)); ?></td>
 					<td>
 						<?php print date('m/d/Y', strtotime($tour->end_date)); ?></td>
-					</td>
-					<td>
-						<?php print create_button([
-								'text' => 'Select as Tourist',
-								'class' => 'button select-as-tourist',
-								'href' => base_url('payer/select_payer/' . $tour->id . '/' . $id),
-						]); ?>
 					</td>
 					<td>
 						<?php print create_button([
@@ -61,12 +52,4 @@
 			This person has already been signed up for all the available
 			tours</p>
 	<?php endif; ?>
-	<?php $buttons[] = [
-			'text' => 'Join Past Tour',
-			'href' => base_url('tour/show_missed_tours/' . $id),
-			'class' => 'button new mini  select-tour',
-			'title' => 'Add to a tour that happened in the past',
-	];
-	print create_button_bar($buttons);
-	?>
 </div>

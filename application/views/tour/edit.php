@@ -7,11 +7,11 @@
 <div class="block tour-info" id="tour">
 <?php print create_input($tour, "tour_name", "Tour Name");?>
 
-<?php print create_input($tour, "start_date","Start Date", array("type"=>"date","format"=>"date", "class"=>"date datefield" ));?>
+<?php print create_input($tour, "start_date","Start Date", array("type"=>"date","class"=>"date" ));?>
 
-<?php print create_input($tour, "end_date", "End Date", array("type"=>"date","format"=> "date", "class"=>"date datefield") );?>
+<?php print create_input($tour, "end_date", "End Date", array("type"=>"date", "class"=>"date") );?>
 
-<?php print create_input($tour, "due_date","Due Date", array("type"=>"date","format" => "date", "class"=>"date datefield") );?>
+<?php print create_input($tour, "due_date","Due Date", array("type"=>"date", "class"=>"date") );?>
 
 <?php print create_input($tour, "full_price","Pay in Full $", array("type" => "number", "class"=>"money") );?>
 

@@ -42,7 +42,13 @@ class Person extends MY_Controller {
 		$data["person"] = $person;
 		$data["title"] = sprintf("Person Record: %s %s", $data["person"]->first_name, $data["person"]->last_name);
 		$data["target"] = "person/view";
-		$this->load->view("page/index", $data);
+		$data['ajax'] = FALSE;
+		$target = 'page/index';
+		if($this->input->get('ajax')){
+			$data['ajax'] = TRUE;
+			$target = $data['target'];
+		}
+		$this->load->view($target, $data);
 	}
 
 	/**
@@ -86,6 +92,9 @@ class Person extends MY_Controller {
 		if ($this->input->get("show_disabled")) {
 			$filters["show_disabled"] = TRUE;
 		}
+		if ($this->input->get('order_by')) {
+			$filters['order_by'] = $this->input->get('order_by');
+		}
 		// get the list of letters for each of the first initials of last names
 		// in the people table
 		$data["initials"] = $this->person->get_initials();
@@ -106,7 +115,7 @@ class Person extends MY_Controller {
 		$name = $this->input->get("name");
 		$tour_id = FALSE;
 		if ($tour_id = $this->input->get("tour_id")) {
-//
+			//
 		}
 		$payer_id = FALSE;
 		if ($payer_id = $this->input->get("payer_id")) {
@@ -139,43 +148,43 @@ class Person extends MY_Controller {
 	 */
 	function remove_address(int $person_id, int $address_id) {
 		//if this is a post request
-		if($this->input->post('person_id') == $person_id && $this->input->post('address_id') == $address_id && $this->input->post('delete')) {
+		if ($this->input->post('person_id') == $person_id && $this->input->post('address_id') == $address_id && $this->input->post('delete')) {
 			//actually delete the address relationship.
 			$housemates = $this->person->get_housemates($address_id, $person_id);
 			$person = $this->person->get($person_id);
 			//remove the address link from the person's record.
-			$this->person->update($person_id, ['address_id'=>NULL]);
-			$message[] = sprintf('Removed the address %s from %s %s\'s record.' , format_address($this->address->get($address_id), 'inline') , $person->first_name , $person->last_name);
-			if(empty($housemates)){
+			$this->person->update($person_id, ['address_id' => NULL]);
+			$message[] = sprintf('Removed the address %s from %s %s\'s record.', format_address($this->address->get($address_id), 'inline'), $person->first_name, $person->last_name);
+			if (empty($housemates)) {
 				//only one person at this address, delete the address.
 				$this->address->delete($address_id);
 				$message[] = sprintf('The address has also been deleted from the database since %s %s was the only person at the address', $person->first_name, $person->last_name);
 			}
-			else{
-				foreach($housemates as $housemate){
+			else {
+				foreach ($housemates as $housemate) {
 					$names[] = $housemate->first_name . ' ' . $housemate->last_name;
 				}
 				$message[] = sprintf('The address was not deleted from the database because it is still in use by %s', implode(', ', $names));
 			}
 			$this->session->set_flashdata('notice', implode(' ', $message));
-			redirect('person/view/'. $person_id);
+			redirect('person/view/' . $person_id);
 		}
-		else{
-				//show the delete dialog
-				$person = $this->person->get($person_id);
-				$address = $this->address->get($address_id);
-				$data = [
-					'person' => $person,
-					'address' => $address,
-					'title' => 'Remove person from address',
-					'target' => 'address/remove',
-				];
-				if ($this->input->get('ajax')) {
-					$this->load->view('page/modal', $data);
-				}
-				else {
-					$this->load->view('page/index', $data);
-				}
+		else {
+			//show the delete dialog
+			$person = $this->person->get($person_id);
+			$address = $this->address->get($address_id);
+			$data = [
+				'person' => $person,
+				'address' => $address,
+				'title' => 'Remove person from address',
+				'target' => 'address/remove',
+			];
+			if ($this->input->get('ajax')) {
+				$this->load->view('page/modal', $data);
+			}
+			else {
+				$this->load->view('page/index', $data);
+			}
 		}
 	}
 
@@ -193,6 +202,7 @@ class Person extends MY_Controller {
 			"value",
 			"name",
 		], TRUE);
+		// we get the tour count because if a person has not been on any tours, they can be deleted, otherwise they can only be marked as inactive.
 		$this->load->model("tourist_model", "tourist");
 		$data["tour_count"] = count($this->tourist->get($id));
 		$data["target"] = "person/edit";
@@ -245,10 +255,10 @@ class Person extends MY_Controller {
 		$data["action"] = "insert";
 		$data['target'] = 'person/edit';
 		$data['title'] = 'Add a housemate';
-		if($this->input->get('ajax')) {
+		if ($this->input->get('ajax')) {
 			$this->load->view("person/edit", $data);
 		}
-		else{
+		else {
 			$this->load->view('page/index', $data);
 		}
 	}
@@ -290,6 +300,12 @@ class Person extends MY_Controller {
 			"initial",
 			"initial",
 		], TRUE);
+		$data['order_by_options'] = [
+			NULL => '- No Sort - ',
+			'person.email,ASC' => 'Email (A-Z)',
+			'person.email,DESC' => 'Email (Z-A)',
+			'person.shirt_size,ASC' => 'Shirt Size',
+		];
 		$this->load->view("person/filter", $data);
 	}
 
@@ -318,9 +334,10 @@ class Person extends MY_Controller {
 
 	/**
 	 * generate and export a vcard for the given person
+	 *
 	 * @param $id
 	 */
-	function vcard($id){
+	function vcard($id) {
 		$person = $this->person->get($id);
 		$phones = $this->phone->get_for_person($id);
 		$person->phones = $phones;
@@ -328,9 +345,9 @@ class Person extends MY_Controller {
 		$data['person'] = $person;
 		$this->load->helper('download');
 		$vcard = $this->load->view('address/vcard', $data, TRUE);
-		$date_stamp = date ( "Y-m-d_H-i-s" );
-		$file_name = sprintf ( "%s-%s_%s.vcf", $person->first_name, $person->last_name, $date_stamp );
-		force_download ( $file_name, $vcard, 'text/x-vcard' );
+		$date_stamp = date("Y-m-d_H-i-s");
+		$file_name = sprintf("%s-%s_%s.vcf", $person->first_name, $person->last_name, $date_stamp);
+		force_download($file_name, $vcard, 'text/x-vcard');
 	}
 
 	/**
@@ -346,7 +363,7 @@ class Person extends MY_Controller {
 			$this->person->delete($id);
 		}
 		if ($disable) {
-			$this->session->set_flashdata('notice', sprintf('%s\'s record has been disabled. It could not be deleted because is connected to at least one tour.',  person_link($person)));
+			$this->session->set_flashdata('notice', sprintf('%s\'s record has been disabled. It could not be deleted because is connected to at least one tour.', person_link($person)));
 		}
 		else {
 			$this->session->set_flashdata('notice', sprintf('%s %s, their phone numbers and other information have been completely from the database because they have never been on a tour.', $person->first_name, $person->last_name));
@@ -357,7 +374,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function disable(){
+	function disable() {
 		$this->delete(TRUE);
 
 	}

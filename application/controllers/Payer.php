@@ -55,17 +55,18 @@ class Payer extends MY_Controller {
 	 * @param string $tour_id
 	 */
 	function edit($payer_id = FALSE, $tour_id = FALSE, $ajax = FALSE) {
+
 		$this->load->model("variable_model", "variable");
-		if (!$payer_id) {
-			$payer_id = $this->input->get("payer_id");
+		if (empty($payer_id)) {
+			$payer_id = (int) $this->input->get("payer_id");
 		}
+
 		$data["payer_id"] = $payer_id;
 
-		if (!$tour_id) {
+		if (empty($tour_id)) {
 			$tour_id = $this->input->get("tour_id");
 		}
 		$data["tour_id"] = $tour_id;
-
 		$data["room_sizes"] = get_keyed_pairs($this->variable->get_pairs("room_size"), [
 			"value",
 			"name",

@@ -9,7 +9,7 @@ For <a href="<?php print site_url("tourist/view_all/$tour->id");?>"><?php print 
 <?php print format_date($tour->start_date, "standard");?> to <?php print format_date($tour->end_date);?><br/>
 Payment Deadline: <?php print format_date($tour->due_date);?>
 </p>
-<div class="block"><?php print format_date($letter->creation_date, "standard");?></div>
+<div class="block"><?php print date('F j, Y',strtotime($letter->creation_date));?></div>
 <div class="block">
 <?php print $letter->body;?>
 </div>

@@ -54,9 +54,7 @@ class Tour_model extends MY_Model
             if ($this->input->post($my_variable)) {
                 $my_value = $this->input->post($my_variable);
 
-                if (in_array($my_variable, $dates)) {
-                    $my_value = format_date($my_value, "mysql");
-                } else if (in_array($my_variable, $money)) {
+                if (in_array($my_variable, $money)) {
                     $my_value = format_money($my_value, "int");
                 }
 
