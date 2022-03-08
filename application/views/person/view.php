@@ -15,6 +15,12 @@ $buttons[] = [
 		"id" => sprintf("join-tour_%s", $person->id),
 ];
 $buttons[] = [
+		'text' => 'Join Past Tour',
+		'href' => base_url('tour/show_missed_tours/' . $person->id),
+		'class' => 'button new mini  select-tour',
+		'description' => 'Add to a tour that happened in the past',
+];
+$buttons[] = [
 		"text" => sprintf("Tour History", $person->first_name),
 		"href" => site_url("/tourist/view_for_tourist/$person->id"),
 		"class" => "button show-tours-for-tourist",

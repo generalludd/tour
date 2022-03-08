@@ -11,11 +11,7 @@
 	<?php endif; ?>
 	<?php if (count($tours) >= 1): ?>
 		<div style="width:60ex">
-			Choose "payer" if the person is paying for the tour.<br/>Choose
-			"tourist"
-			if someone else is paying<br/>The payer must already have been added
-			as a
-			payer to the selected tour.
+			Select the tour to add this person as a payer.
 		</div>
 		<table class="list">
 			<thead>
@@ -23,7 +19,6 @@
 				<th>Tour</th>
 				<th>Start</th>
 				<th>End</th>
-				<th></th>
 				<th></th>
 			</tr>
 			</thead>
@@ -36,13 +31,6 @@
 					<td><?php print date('m/d/Y', strtotime($tour->start_date)); ?></td>
 					<td>
 						<?php print date('m/d/Y', strtotime($tour->end_date)); ?></td>
-					</td>
-					<td>
-						<?php print create_button([
-								'text' => 'Select as Tourist',
-								'class' => 'button select-as-tourist',
-								'href' => base_url('payer/select_payer/' . $tour->id . '/' . $id),
-						]); ?>
 					</td>
 					<td>
 						<?php print create_button([
