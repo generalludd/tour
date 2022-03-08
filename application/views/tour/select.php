@@ -6,9 +6,6 @@
 <input type="hidden" name="person_id" id="person_id"
 	   value="<?php print $id; ?>"/>
 <div id="tourist-selector">
-	<?php if (!empty($title)): ?>
-<div class="alert"><?php print $title; ?></div>
-	<?php endif; ?>
 	<?php if (count($tours) >= 1): ?>
 		<div style="width:60ex">
 			Choose "payer" if the person is paying for the tour.<br/>Choose
@@ -64,4 +61,12 @@
 			This person has already been signed up for all the available
 			tours</p>
 	<?php endif; ?>
+	<?php $buttons[] = [
+			'text' => 'Join Past Tour',
+			'href' => base_url('tour/show_missed_tours/' . $id),
+			'class' => 'button new mini  select-tour',
+			'title' => 'Add to a tour that happened in the past',
+	];
+	print create_button_bar($buttons);
+	?>
 </div>
