@@ -131,6 +131,22 @@ class Tour extends MY_Controller
 				}
     }
 
+		function show_missed_tours($person_id){
+			$this->load->model("tourist_model", "tourist");
+			$data = [];
+			$data['id'] = $person_id;
+			$data['tours'] = $this->tourist->get_missing_tours($person_id, 3);
+			$data['target'] = 'tour/payer_select';
+			$data['title'] = 'Add to a Past Tour';
+			if($this->input->get('ajax')) {
+				$this->load->view('page/modal', $data);
+			}
+			else{
+				$this->load->view('page/index', $data);
+			}
+
+		}
+
     function show_payers ()
     {
         $tour_id = $this->uri->segment(3);
