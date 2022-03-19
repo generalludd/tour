@@ -121,17 +121,8 @@ function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, $a
 
 function get_value($object, $item, $default = NULL) {
 	$output = $default;
-
-	if ($default) {
-		$output = $default;
-	}
-	if ($object) {
-
-		$var_list = get_object_vars($object);
-		$var_keys = array_keys($var_list);
-		if (in_array($item, $var_keys)) {
-			$output = $object->$item;
-		}
+	if ($object instanceof stdClass && !empty($object->{$item})) {
+		$output = $object->{$item};
 	}
 	return $output;
 }
