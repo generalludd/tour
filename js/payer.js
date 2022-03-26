@@ -276,7 +276,7 @@ $(document).ready(function () {
 			url: my_url,
 			data: form_data,
 			success: function (data) {
-				$("#popup").html(data);
+				show_popup("Who is Paying?", data, "auto");
 			}
 		});
 	});
