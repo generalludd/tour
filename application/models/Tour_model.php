@@ -73,15 +73,15 @@ class Tour_model extends MY_Model
         return $this->db->get()->row();
     }
 
-    function get_all ($current_only = FALSE, $fields = "*")
-    {
+    function get_all ($current_only = FALSE, $fields = "*"): array {
         $this->db->from("tour");
         $this->db->select($fields);
         $this->db->order_by("tour.start_date", "DESC");
         if ($current_only) {
             $this->db->where("tour.start_date > CURDATE()", NULL, FALSE);
         }
-        return $this->db->get()->result();
+        $results = $this->db->get()->result();
+				return $this->keyed($results,'id');
     }
 
     function get_value ($id, $field)
