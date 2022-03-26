@@ -96,8 +96,7 @@ $(document).ready(function () {
 
 	$(document).on('keyup', '#tourist-dropdown', function (event) {
 		let person_search = this.value;
-		$(this).delay(300);
-		if (person_search.length > 4) {
+		if (person_search.length > 6) {
 			let search_words = person_search.split(' ');
 			let my_url = $(this).data('url');
 			let my_name = search_words.join('%') + "%";
