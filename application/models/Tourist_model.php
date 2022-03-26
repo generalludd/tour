@@ -65,6 +65,25 @@ class Tourist_model extends CI_Model {
 		return $result;
 	}
 
+	/**
+	 * @param int $tour_id
+	 * @param array $people
+	 *
+	 */
+	function remove_existing_tourists(int $tour_id, array &$people) {
+		foreach($people as $id => $person) {
+			$this->db->from('tourist');
+			$this->db->select('tourist.tour_id');
+			$this->db->where('tourist.tour_id', $tour_id);
+			$this->db->where('tourist.person_id', $id);
+			$count = $this->db->get()->num_rows();
+			if ($count > 0) {
+				// If they're already a tourist, remove them from the list;
+				unset($people[$id]);
+			}
+		}
+	}
+
 
 	function get_for_payer($payer_id, $tour_id) {
 		$this->db->from("tourist");
