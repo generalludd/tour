@@ -159,31 +159,24 @@ class Person_model extends CI_Model
 
     function find_people ($name, $options = array())
     {
-        $this->db->where("CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%'", NULL, FALSE);
-        $this->db->where("status", 1);
-        $this->db->order_by("first_name", "ASC");
-        $this->db->order_by("last_name", "ASC");
-        $this->db->from("person");
-        if (array_key_exists("tour_id", $options)) {
+        $this->db->where('CONCAT(`first_name`,\' \', `last_name`) LIKE "%' . $name .'"', NULL, FALSE);
+        $this->db->where('status', 1);
+        $this->db->order_by('first_name', 'ASC');
+        $this->db->order_by('last_name', 'ASC');
+        $this->db->from('person');
+        if (array_key_exists('select', $options)) {
+            $this->db->select($options['select']);
         }
-        if (array_key_exists("payer_id", $options)) {
+        if (array_key_exists('has_address', $options)) {
+            $this->db->where('`address_id` IS NOT NULL', NULL, FALSE);
         }
-        if (array_key_exists("select", $options)) {
-            $this->db->select($options["select"]);
-        }
-        if (array_key_exists("has_address", $options)) {
-            $this->db->where("`address_id` IS NOT NULL", NULL, FALSE);
-        }
-        // The following are deprectated steps a vain attempt at selecting
-        // tourists not already added to a tour.
-        /*
-         * if ($payer_id) { $this->db->where("person.id != '$payer_id'", NULL,
-         * FALSE); } if ($tour_id) { $this->db->join("tourist",
-         * "tourist.person_id = person.id");
-         * $this->db->where_not_in("tourist.tour_id", $tour_id); }
-         */
-        $result = $this->db->get()->result();
-        return $result;
+			$results =  $this->db->get()->result();
+				$output = [];
+				// This step produces an associative array of person.id => person objects.
+				foreach($results as $result ){
+					$output[$result->id] = $result;
+				}
+				return $output;
     }
 
     function get_housemates ($address_id, $person_id)
