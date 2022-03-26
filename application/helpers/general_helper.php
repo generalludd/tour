@@ -179,23 +179,17 @@ function get_value($object, $item, $default = NULL) {
  * Accepts an integer and a value (either "standard" or "int") depending on
  * whether the desired output is currency with $ or a number stripped of $ and extras.
  *
- * @param int $int
+ * @param int|null $int $int
  * @param string $format
  *
  * @return string
  */
-function format_money(int $int = 0, string $format = "standard"):string {
-	$output = 0;
-
-	if ($int != 0) {
-		if ($format == "int") {
-			$output = str_replace("\$", "", $int);
-		}
-		else {
-			$output = sprintf("$%s", number_format($int, 2));
-		}
+function format_money(int $int = NULL, string $format = "standard"):string {
+	if($format == 'int'){
+		$int = round($int,0);
 	}
-	return $output;
+	$fmt = new NumberFormatter( 'en_US', NumberFormatter::CURRENCY );
+	return $fmt->formatCurrency($int, 'USD');
 }
 
 /**
