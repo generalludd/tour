@@ -4,7 +4,7 @@
 
 ?>
 <input type="hidden" name="person_id" id="person_id" value="<?php print $person_id;?>"/>
-<input type="search" name="find_housemate" id="find_housemate" value="find housemates"/>
+<input type="search" name="find_housemate" id="find_housemate" value="" placeholder="find housemates"/>
 
 <div id="housemate-list">
 </div>
