@@ -95,23 +95,22 @@ $(document).ready(function () {
 
 
 	$(document).on('keyup', '#tourist-dropdown', function (event) {
-		var person_search = this.value;
-		console.log(person_search);
-		if (person_search.length > 6 && person_search != "find person") {
+		let person_search = this.value;
+		$(this).delay(300);
+		if (person_search.length > 4) {
 			let search_words = person_search.split(' ');
+			let my_url = $(this).data('url');
 			let my_name = search_words.join('%') + "%";
 			let my_tour = $(this).data("tour_id");
-			console.log(my_tour);
 			let my_payer = $(this).data("payer_id");
-			console.log(my_payer);
-			var form_data = {
+			let form_data = {
 				ajax: 1,
 				name: my_name,
 				tour_id: my_tour,
 				payer_id: my_payer
 			};
 			$.ajax({
-				url: base_url + "tourist/find_by_name",
+				url: my_url,
 				type: 'GET',
 				data: form_data,
 				success: function (data) {
@@ -202,7 +201,7 @@ $(document).ready(function () {
 
 
 	$(document).on("click", ".delete-tourist", function () {
-		question = confirm("Are you sure you want to remove this person from this list? This cannot be undone");
+		let question = confirm("Are you sure you want to remove this person from this list? This cannot be undone");
 		if (question) {
 			let my_person = $(this).data('person_id');
 			let my_tour = $(this).data('tour_id');
