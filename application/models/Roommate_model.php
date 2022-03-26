@@ -57,19 +57,22 @@ class Roommate_Model extends CI_Model
 
     function get_for_room ($room_id)
     {
-        $this->db->from("roommate");
-        $this->db->where("room_id", $room_id);
-        $this->db->join("person", "roommate.person_id=person.id","left");
-        $this->db->join("tourist","tourist.person_id=person.id","left");
-        $this->db->select(
-                "roommate.room_id, roommate.tour_id, roommate.person_id, roommate.placeholder");
-        $this->db->select(
-                "CONCAT(person.first_name,' ',person.last_name) as person_name",
-                false);
-        $this->db->select("tourist.payer_id");
-        $this->db->group_by("roommate.person_id");
-        $result = $this->db->get()->result();
-        return $result;
+			$this->db->from("roommate");
+			$this->db->where("room_id", $room_id);
+			$this->db->join("person", "roommate.person_id=person.id", "left");
+			$this->db->join("tourist", "tourist.person_id=person.id", "left");
+			$this->db->select(
+				"roommate.room_id, roommate.tour_id, roommate.person_id, roommate.placeholder");
+			$this->db->select(
+				"CONCAT(person.first_name,' ',person.last_name) as person_name",
+				FALSE);
+			$this->db->select("tourist.payer_id");
+			$roommates =  $this->db->get()->result();
+			$output = [];
+			foreach($roommates as $roommate){
+				$output[$roommate->person_id] = $roommate;
+			}
+			return $output;
     }
 
     function get_roomless ($tour_id, $stay)

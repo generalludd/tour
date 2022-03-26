@@ -260,16 +260,21 @@ class Person_model extends CI_Model
 		$this->db->from('person');
 		$this->db->select('last_name', FALSE);
 		$this->db->order_by('last_name');
-		$result = $this->db->get()->result();
-		return $result;
+		$results = $this->db->get()->result();
+		$rows = [];
+		foreach($results as $result){
+			$initial = substr($result->last_name, 0,1);
+			$rows[$initial] = (object)['initial'=> $initial];
+		}
+		return $rows;
 	}
 
     function get_by_letter ($letter)
     {
-        $this->db->where("last_name LIKE '$letter%'", NULL, FALSE);
-        $this->db->from("person");
-        $this->db->order_by("last_name");
-        $this->db->order_by("first_name");
+        $this->db->where('last_name LIKE "$letter%"', NULL, FALSE);
+        $this->db->from('person');
+        $this->db->order_by('last_name');
+        $this->db->order_by('first_name');
         $result = $this->db->get()->result();
         return $result;
     }
@@ -277,40 +282,40 @@ class Person_model extends CI_Model
     /**
      * Remove a person from the list of searchable individuals
      *
-     * @param unknown $id
+     * @param int $id
      */
     function disable ($id)
     {
-        $this->db->where("id", $id);
-        $this->db->update("person", array(
-                "status" => 0
+        $this->db->where('id', $id);
+        $this->db->update('person', array(
+                'status' => 0
         ));
     }
 
     function restore ($id)
     {
-        $this->db->where("id", $id);
-        $this->db->update("person", array(
-                "status" => 1
+        $this->db->where('id', $id);
+        $this->db->update('person', array(
+                'status' => 1
         ));
     }
 
     function delete ($id)
     {
-        $this->load->model("tourist_model", "tourist");
+        $this->load->model('tourist_model', 'tourist');
         if (count($this->tourist->get($id)) == 0) {
-            $address_id = $this->get($id, "address_id")->address_id;
+            $address_id = $this->get($id, 'address_id')->address_id;
             if ($address_id) {
                 $housemates = count($this->get_housemates($address_id, $id));
                 if ($housemates == 0) {
-                    $this->load->model("address_model", "address");
+                    $this->load->model('address_model', 'address');
                     $this->address->delete($address_id);
                 }
             }
-            $this->load->model("phone_model", "phone");
+            $this->load->model('phone_model', 'phone');
             $this->phone->delete_for_person($id);
-            $this->db->where("id", $id);
-            $this->db->delete("person");
+            $this->db->where('id', $id);
+            $this->db->delete('person');
         } else {
             $this->disable($id);
         }

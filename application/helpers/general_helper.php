@@ -71,7 +71,8 @@ function format_timestamp($timestamp, $format = "standard") {
  * @param string $format
  */
 function format_time($time, $format = "standard") {
-	return trim($time);
+
+	return date('g:i A', strtotime(trim($time)));
 }
 
 function prepare_variables($object, $variables) {
@@ -101,7 +102,7 @@ function prepare_variables($object, $variables) {
 function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, $alternate = []) {
 	$output = FALSE;
 	if ($initial_blank) {
-		$output[] = "";
+		$output[] = '';
 	}
 	if (!empty($alternate)) {
 		$output[$alternate['name']] = $alternate['value'];
@@ -110,10 +111,10 @@ function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, $a
 	foreach ($list as $item) {
 		$key_name = $pairs[0];
 		$key_value = $pairs[1];
-		$output[$item->$key_name] = $item->$key_value;
+		$output[$item->{$key_name}] = $item->{$key_value};
 	}
 	if ($other) {
-		$output["other"] = "Other...";
+		$output['other'] = 'Other...';
 	}
 	return $output;
 }
