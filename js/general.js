@@ -116,11 +116,13 @@ $(document).ready(function () {
 
 	$(document).on("click", ".create.dialog, .edit.dialog, .view.dialog", function (e) {
 		e.preventDefault();
+
 		let redirect_url = $(location).attr("href");
 		let url = $(this).attr("href");
 		let form_data = {
 			ajax: 1
 		};
+
 		$.ajax({
 			type: "get",
 			data: form_data,
