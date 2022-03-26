@@ -296,9 +296,9 @@ class Person extends MY_Controller {
 	 *
 	 */
 	function show_filter() {
-		$data["initials"] = get_keyed_pairs($this->person->get_initials(), [
-			"initial",
-			"initial",
+		$data['initials'] = get_keyed_pairs($this->person->get_initials(), [
+			'initial',
+			'initial',
 		], TRUE);
 		$data['order_by_options'] = [
 			NULL => '- No Sort - ',
@@ -306,7 +306,7 @@ class Person extends MY_Controller {
 			'person.email,DESC' => 'Email (Z-A)',
 			'person.shirt_size,ASC' => 'Shirt Size',
 		];
-		$this->load->view("person/filter", $data);
+		$this->load->view('person/filter', $data);
 	}
 
 	/**

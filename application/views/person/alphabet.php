@@ -5,17 +5,17 @@ $previous_letter = NULL;
 $buttons = [];
 if(!empty($initials)) {
 	foreach ($initials as $initial) {
-		$letter = ucfirst(substr($initial->last_name,0,1));
-		$active = "";
+		$letter = $initial->initial;
+		$active = '';
 		if ($letter != $previous_letter) {
-			if ($this->input->get("intial") == $letter) {
-				$active = "active";
+			if ($this->input->get('initial') == $letter) {
+				$active = 'active';
 			}
 
 			$buttons[] = [
-				"text" => $letter,
-				"href" => site_url("person?initial=$letter"),
-				"class" => "button letter $active"
+				'text' => $letter,
+				'href' => site_url('person?initial='. $letter),
+				'class' => 'button letter $active'
 			];
 		}
 		$previous_letter = $letter;

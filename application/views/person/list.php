@@ -9,15 +9,15 @@ $buttons [] = [
 		'class' => 'button new create-person',
 ];
 $buttons [] = [
-		"text" => "Filter Results",
-		"href" => base_url('person/show_filter'),
-		"class" => "button dialog view",
+		'text' => 'Filter Results',
+		'href' => base_url('person/show_filter'),
+		'class' => 'button dialog view',
 ];
 
 $buttons [] = [
-		"text" => "Export Records",
-		"href" => site_url("/person/export"),
-		"class" => "button export export-people-records",
+		'text' => 'Export Records',
+		'href' => site_url('/person/export'),
+		'class' => 'button export export-people-records',
 ];
 
 // $filters = get_cookie("person_filter");
@@ -33,14 +33,14 @@ $buttons [] = [
 				?>
 				<?php
 
-				if ($name == "initial") :
-					$name = "Limited to the Letter: " . $filters [$name];
+				if ($name == 'initial') :
+					$name = 'Limited to the Letter: ' . $filters [$name];
 				elseif ($name == 'order_by'):
 					[$identifier,$direction] = explode(',',$filters[$name]);
 					[$table, $field] = explode('.', $identifier);
 					$name = sprintf('Sorted by: %s, %sending', ucfirst(str_replace('_',' ', $field)) , ucfirst(strtolower($direction)) );
 				else :
-					$name = str_replace("_", " ", $name);
+					$name = str_replace('_', ' ', $name);
 					$name = ucwords($name);
 				endif;
 				?>
@@ -68,7 +68,7 @@ $buttons [] = [
 	</tr>
 	</thead>
 	<?php foreach ($people as $person): ?>
-		<?php $disabled = $person->status == 0 ? "highlight" : ""; ?>
+		<?php $disabled = $person->status == 0 ? 'highlight' : ''; ?>
 		<tr class="<?php print $disabled; ?>">
 			<td><a href="<?php print site_url('person/view/' . $person->id); ?>" title="View <?php print $person->first_name; ?>'s details.">
 				<?php print $person->first_name . ' ' . $person->last_name; ?></a>
