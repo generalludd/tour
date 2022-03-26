@@ -12,6 +12,7 @@ On the landing page there should be no issues.
 * Clicking on "Filter Results" should not result in an error
 * Filters should produce expected results on the resulting form
   * Example: Showing only veterans should result in a list where every record should have a "Yes" in the Is Vet column. 
+  * 
 ### Adding and editing individuals
 * Add a new person should not result in errors
 * Editing the person should also not result in errors.
@@ -40,8 +41,51 @@ On the landing page there should be no issues.
 #### Adding tourists and payers. 
 * Find a person in the find people field 
 * Click on Join Tour
-* Should show a list of available tours
+* Should show a list of available tours that the person has not been on yet. 
 * Add as payer should show a page with payment options
-* Add as tourist should result in a pop-up dialog 
+* Add as tourist should result in a pop-up dialog with existing payers (or nothing if there are no payers).  
+* When clicking on existing payers, it should show the tour list with the person's name added under the existing payer
+* When clicking on Tour History, it should not show an error and should show an accurate list of tours the person has been on past and present. 
+
+#### Adding Payments
+* Go to the tour page and edit a payment
+* Add a payment that is almost the amount of the total
+* Go back to the tour list
+* Check the subtotals and amount due for the person you edited.
+* Test out reimbursements and changes to room selection sizes to be sure that the total due is correctly calculated
+
+#### Creating Welcome Letters
+* Go to the tour page
+* Click on "Letter Templates"
+* Add a new letter template with a name such as "Welcome Letter"
+* Go back to the tour page and click on "Send Letter" next to one of the participants
+* You should see a page with the content of the template.
+* You should be able to edit the template from this page.
+* You should be able to click on the date and the name fields to change the date and salutation for this letter.
+* You should be able to add an additional note.
+* The bottom of the letter should show the details of the person's tour including payments, amount due, tourists on the ticket, and other details. 
+* If you print preview, it should show a letter with proper margins. 
+
+
+
+# Hotels
+* Go to a tour and click "Hotels"
+* Click "Add Hotel"
+* Add a hotel and enter 1 as the stay and click save.
+* Click "Roomates"
+* Click "Add Room"
+* Click on "Double" and change to "Single"
+* Tab out of the field
+* Click on "Add Roommate"
+* You should have a list of available roommates.
+* Click "Add Room"
+* click "Add Roommate"
+* The list should not include the person in the first room.
+* Refresh the page to be sure the roommate list and room sizes stick. 
+* Click "Add Stay (Hotel)"
+* Create a new hotel.
+* Click "Roommates"
+* Click "Duplicate from Previous stay
+* Choose print: the output should be reasonably formatted without any buttons or errors. 
 
 
