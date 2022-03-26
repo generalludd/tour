@@ -2,13 +2,14 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // payer.php Chris Dart Dec 14, 2013 6:32:48 PM chrisdart@cerebratorium.com
+
 $tourist_count = count($tourists);
 $total_cost = ($tour_price - $payer->discount + $room_rate) * $tourist_count;
 $amt_due = $total_cost - $payer->amt_paid;
 ?>
 <div class="block header">
 	<h4>
-		Payer: <?php print sprintf("%s %s", $payer->first_name, $payer->last_name); ?></h4>
+		Payer: <?php print person_link($payer, 'payer_id'); ?></h4>
 	<?php if ($action == "update"): ?>
 		<h5>
 			Tour: <a
@@ -176,6 +177,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 					name="tourist-dropdown"
 					data-payer_id="<?php print $payer_id; ?>"
 					data-tour_id="<?php print $tour_id; ?>"
+					data-url="<?php print base_url('tourist/find_by_name');?>"
 					placeholder="Find a tourist"
 					value=""/>
 			</div>
