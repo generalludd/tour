@@ -66,8 +66,12 @@ class Tourist_model extends CI_Model {
 	}
 
 	/**
+	 * Removes rows from the array of $people who are already tourists on $tour_id.
+	 *
 	 * @param int $tour_id
 	 * @param array $people
+	 *   Expects an associative array of person objects with the person_id as the
+	 *   row identifier.
 	 *
 	 */
 	function remove_existing_tourists(int $tour_id, array &$people) {
