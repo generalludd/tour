@@ -94,50 +94,6 @@ $(document).ready(function () {
 	});
 
 
-	$(document).on('keyup', '#tourist-dropdown', function (event) {
-		let person_search = this.value;
-		if (person_search.length > 6) {
-			let search_words = person_search.split(' ');
-			let my_url = $(this).data('url');
-			let my_name = search_words.join('%') + "%";
-			let my_tour = $(this).data("tour_id");
-			let my_payer = $(this).data("payer_id");
-			let form_data = {
-				ajax: 1,
-				name: my_name,
-				tour_id: my_tour,
-				payer_id: my_payer
-			};
-			$.ajax({
-				url: my_url,
-				type: 'GET',
-				data: form_data,
-				success: function (data) {
-					//remove the search_list because we don't want to have a ton of them.
-					if (data.length > 0) {
-						$("#search_list").css({"z-index": 10000}).html(data).position({
-							my: "left top",
-							at: "left bottom",
-							of: $("#tourist-dropdown"),
-							collision: "fit"
-						}).show();
-					}
-				}
-			});
-		} else {
-			$("#search_list").hide();
-			$("#search_list").css({"left": 0, "top": 0});
-
-
-		}
-	});// end person_search.keyup
-
-
-	$(document).on('blur', '#tourist-dropdown',function (event) {
-		//$("#search_list").fadeOut();
-	});
-
-
 	/*
 	 * "target" in this scriptlet identifies the format of the output from tourist/insert
 	 * in this case payer returns a list of tourists for a given payer.

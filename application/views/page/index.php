@@ -56,7 +56,7 @@ $this->load->view($target);
 <!-- end content -->
 <div id="sidebar"></div>
 <!-- end sidebar --></div>
-<div id='search_list'></div>
+<div id='search-list'></div>
 <div id="footer"><?php $this->load->view('page/footer');?></div>
 </div>
 </body>

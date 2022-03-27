@@ -83,26 +83,6 @@ class Payer_model extends CI_Model
         return $result;
     }
 
-	/**
-	 * Removes payers from a list of $person objects based on if they are in a given tour.
-	 *
-	 * @param int $tour_id
-	 * @param array $people
-	 *   Each row must be identified by a person_id.
-	 */
-	function remove_existing_payers(int $tour_id, array &$people) {
-		foreach($people as $key => $person) {
-			$this->db->from('payer');
-			$this->db->select('payer.tour_id');
-			$this->db->where('payer.tour_id', $tour_id);
-			$this->db->where('payer.payer_id', $person->id);
-			$row_count = $this->db->get()->num_rows();
-			if ($row_count > 0) {
-				unset($people[$key]);
-			}
-		}
-	}
-
     function get_payers ($tour_id, $options = array())
     {
         $this->db->where("payer.tour_id", $tour_id);

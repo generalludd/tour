@@ -203,25 +203,16 @@ class Tourist extends MY_Controller {
 		echo $this->input->post('value');
 	}
 
-	function find_by_name() {
+	function find_by_name($tour_id, $payer_id) {
 		$this->load->model('person_model', 'person');
 		$this->load->model('payer_model', 'payer');
 		$name = $this->input->get('name');
-		$tour_id = 'NULL';
-		if ($this->input->get('tour_id')) {
-			$tour_id = $this->input->get('tour_id');
-		}
-		$payer_id = NULL;
-		if ($this->input->get('payer_id')) {
-			$payer_id = $this->input->get('payer_id');
-		}
 		$data ['payer_id'] = $payer_id;
 		$data ['tour_id'] = $tour_id;
 		$target = 'tourist/mini_list';
 		$people = $this->person->find_people($name);
 		// Filter the results on people not on the tour.
 		$this->tourist->remove_existing_tourists($tour_id, $people);
-		$this->payer->remove_existing_payers($tour_id, $people);
 		$data['people'] = $people;
 		$this->load->view($target, $data);
 	}

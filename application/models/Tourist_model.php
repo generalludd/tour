@@ -79,7 +79,7 @@ class Tourist_model extends MY_Model {
 	 *   row identifier.
 	 *
 	 */
-	function remove_existing_tourists(int $tour_id, array &$people) {
+	function remove_existing_tourists(string $tour_id, array &$people) {
 		foreach($people as $id => $person) {
 			$this->db->from('tourist');
 			$this->db->select('tourist.tour_id');

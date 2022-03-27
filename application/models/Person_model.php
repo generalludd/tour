@@ -159,18 +159,18 @@ class Person_model extends CI_Model
 
     function find_people ($name, $options = array())
     {
-        $this->db->where('CONCAT(`first_name`,\' \', `last_name`) LIKE "%' . $name .'"', NULL, FALSE);
-        $this->db->where('status', 1);
-        $this->db->order_by('first_name', 'ASC');
-        $this->db->order_by('last_name', 'ASC');
-        $this->db->from('person');
+		$query = 	$this->db->from('person')
+				->where ( "(CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%')" )
+				->where('status', 1)
+				->order_by('first_name', 'ASC')
+				->order_by('last_name', 'ASC');
         if (array_key_exists('select', $options)) {
-            $this->db->select($options['select']);
+          $query->select($options['select']);
         }
         if (array_key_exists('has_address', $options)) {
-            $this->db->where('`address_id` IS NOT NULL', NULL, FALSE);
+            $query->where('`address_id` IS NOT NULL', NULL, FALSE);
         }
-			$results =  $this->db->get()->result();
+			$results =  $query->get()->result();
 				$output = [];
 				// This step produces an associative array of person.id => person objects.
 				foreach($results as $result ){

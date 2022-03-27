@@ -51,55 +51,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
-	$('#find_housemate').on('keyup', function(event) {
-		var find_housemate = $("#find_housemate").val();
-		if (find_housemate.length > 2 && find_housemate != "find housemates") {
-			search_words = find_housemate.split(' ');
-			my_name = search_words.join('%');
-			my_person = $("#person_id").val();
-			var form_data = {
-				ajax: 1,
-				person_id: my_person,
-				name: my_name
-			};
-			$.ajax({
-				url: base_url + "person/find_for_address",
-				type: 'GET',
-				data: form_data,
-				success: function(data){
-					//remove the search_list because we don't want to have a ton of them. 
 
-					$("#housemate-list").css({"z-index": 1000}).html(data).position({
-						my: "left top",
-						at: "left bottom",
-						of: $("#find_housemate"), 
-						collision: "fit"
-					}).show();
-			}
-			});
-		}else{
-			$("#housemate-list").hide();
-        	$("#housemate-list").css({"left": 0, "top": 0});
-
-
-		}
-	});// end stuSearch.keyup
-	
-
-	$('#find_housemate').on('focus', function(event) {
-		$('#find_housemate').val('').css( {
-			color : 'black'
-		});
-	});
-	
-	
-	$('#find_housemate').on('blur', function(event) {
-		
-		$("#search_list").fadeOut();
-		$('#find_housemate').css({color:'#666'}).val('find housemates');
-		//$("#search_list").remove();
-	});
 	
 	$(".select-housemate").on("click",function(){
 		my_person = $("#person_id").val();

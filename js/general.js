@@ -23,6 +23,44 @@ $(document).ready(function () {
 		}
 		$('#' + my_form).attr('action', base_url + '/' + my_controller + '/' + my_action).submit();
 	});
+	$(document).on('keyup','.person-search', function(event) {
+		let search_value = this.value;
+		let field_id = $(this).attr('id');
+		let my_url = $(this).data('url');
+		let my_target = $(this).data('target');
+		if (search_value.length > 3) {
+			let my_name = search_value.replace(' ','%',);
+			let form_data = {
+				ajax: 1,
+				name: my_name
+			};
+			$.ajax({
+				url: my_url,
+				type: 'GET',
+				data: form_data,
+				success: function(data){
+					$(my_target).css({"z-index": 1000}).html(data).position({
+						my: "left top",
+						at: "left bottom",
+						of: $("#"+ field_id),
+						collision: "fit"
+					}).show();
+				}
+			});
+		}else{
+			$(my_target).hide();
+			$(my_target).css({"left": 0, "top": 0});
+
+
+		}
+	});//
+
+
+	$(document).on('blur', '.person-search',function(event) {
+		let my_target = $(this).data('target');
+		$(this).val('');
+		$(my_target).fadeOut();
+	});
 
 	$(document).on("click", ".field-envelope .edit-field", function () {
 		let me = $(this);
