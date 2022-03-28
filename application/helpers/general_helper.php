@@ -179,12 +179,12 @@ function get_value($object, $item, $default = NULL) {
  * Accepts an integer and a value (either "standard" or "int") depending on
  * whether the desired output is currency with $ or a number stripped of $ and extras.
  *
- * @param int|null $int $int
+ * @param float|null $int $int
  * @param string $format
  *
  * @return string
  */
-function format_money(int $int = NULL, string $format = "standard"):string {
+function format_money(float $int = NULL, string $format = "standard"):string {
 	if($format == 'int'){
 		$int = round($int,0);
 	}

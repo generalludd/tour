@@ -200,15 +200,15 @@ function create_button_bar($buttons, $options = NULL) {
  * @param string $label
  * @param array $options (envelope, class, attributes)
  */
-function create_field($field_name, $value, $label, $options = []) {
-	$envelope = "p";
-	if (array_key_exists("envelope", $options)) {
-		$envelope = $options["envelope"];
+function create_field(string $field_name, string $value, string $label, array $options = []) {
+	$envelope = 'p';
+	if (array_key_exists('envelope', $options)) {
+		$envelope = $options['envelope'];
 	}
 
 	$id = sprintf("id='%s'", $field_name);
-	if (array_key_exists("id", $options)) {
-		$id = sprintf("id='%s_%s'", $field_name, $options["id"]);
+	if (array_key_exists('id', $options)) {
+		$id = sprintf("id='%s_%s'", $field_name, $options['id']);
 	}
 
 	/*
@@ -223,38 +223,38 @@ function create_field($field_name, $value, $label, $options = []) {
 		$value = "&nbsp;";
 	}
 
-	$classes[] = "field";
+	$classes[] = 'field';
 
 	/* add additional classes to the actual field */
-	if (array_key_exists("editable", $options)) {
-		$classes[] = "edit-field";
+	if (array_key_exists('editable', $options)) {
+		$classes[] = 'edit-field';
 	}
 
-	if (array_key_exists("class", $options)) {
-		$classes[] = $options["class"];
+	if (array_key_exists('class', $options)) {
+		$classes[] = $options['class'];
 	}
-	$field_class = implode(" ", $classes);
-	$format = "";
-	if (array_key_exists("format", $options)) {
-		$format = sprintf("format='%s'", $options["format"]);
-		if ($options["format"] == "url" && $value != "&nbsp;") {
+	$field_class = implode(' ', $classes);
+	$format = '';
+	if (array_key_exists('format', $options)) {
+		$format = sprintf("format='%s'", $options['format']);
+		if ($options['format'] == 'url' && $value != '&nbsp;') {
 			$value = sprintf("<a href='%s' target='_blank'>%s</a>", $value, $value);
 		}
-		elseif ($options["format"] == "email" && $value != "&nbsp;") {
+		elseif ($options['format'] == 'email' && $value != '&nbsp;') {
 			$value = sprintf("<a href='mailto:%s'>%s</a>", $value, $value);
 		}
 	}
 	$title = "";
-	if (array_key_exists("title", $options)) {
-		$title = sprintf("title='%s'", $options["title"]);
+	if (array_key_exists('title', $options)) {
+		$title = sprintf("title='%s'", $options['title']);
 	}
 	/*
 	 * Attributes are non-standard html attributes that are used by javascript
 	 * these can include the type of input to be generated
 	 */
-	$attributes = "";
-	if (array_key_exists("attributes", $options)) {
-		$attributes = $options["attributes"];
+	$attributes = '';
+	if (array_key_exists('attributes', $options)) {
+		$attributes = $options['attributes'];
 	}
 
 	$output[] = sprintf("<span class='%s' %s %s %s %s>%s</span></%s>", $field_class, $title, $attributes, $format, $id, $value, $envelope);
@@ -332,7 +332,7 @@ function create_input($object, $name, $label, $options = []) {
 	if (array_key_exists("label_class", $options)) {
 		$label_class = $options["label_class"];
 	}
-	$default_value = array_key_exists('default', $options) ? $options['default'] : '';
+	$default_value = array_key_exists('default', $options) ? $options['default'] : NULL;
 
 	$value = get_value($object, $name, $default_value);
 
