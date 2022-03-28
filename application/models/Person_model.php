@@ -268,7 +268,7 @@ class Person_model extends CI_Model
 		$results = $this->db->get()->result();
 		$rows = [];
 		foreach($results as $result){
-			$initial = substr($result->last_name, 0,1);
+			$initial = strtoupper(substr($result->last_name, 0,1));
 			$rows[$initial] = (object)['initial'=> $initial];
 		}
 		return $rows;
