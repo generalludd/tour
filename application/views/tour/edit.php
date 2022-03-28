@@ -7,67 +7,107 @@
 	<input type="hidden" value="<?php print get_value($tour, "id"); ?>"
 		   name="id" id="id"/>
 	<div class="block tour-info" id="tour">
-		<?php print create_input($tour, 'tour_name', 'Tour Name'); ?>
-
-		<?php print create_input($tour, 'start_date', 'Start Date', [
-				'type' => 'date',
-				'class' => 'date',
+		<?php $this->load->view('elements/input-field', [
+				'label' => 'Tour Name',
+				'value' => get_value($tour, 'tour_name'),
+				'id' => 'tour_name',
+				'size' => 25,
 		]); ?>
 
-		<?php print create_input($tour, 'end_date', 'End Date', [
-				'type' => 'date',
-				'class' => 'date',
-		]); ?>
+		<?php $dates = [
+				'start_date' => [
+						'id' => 'start_date',
+						'label' => 'Start Date',
+						'type' => 'date',
+						'value' => get_value($tour, 'start_date'),
+				],
+				'end_date' => [
+						'id' => 'end_date',
+						'label' => 'End Date',
+						'type' => 'date',
+						'value' => get_value($tour, 'end_date'),
+				],
+				'due_date' => [
+						'id' => 'due_date',
+						'label' => 'Due Date',
+						'type' => 'date',
+						'value' => get_value($tour, 'due_date'),
+				],
+		];
+		foreach ($dates as $date) {
+			$this->load->view('elements/input-field', $date);
+		}
+		?>
 
-		<?php print create_input($tour, 'due_date', 'Due Date', [
-				'type' => 'date',
-				'class' => 'date',
-		]); ?>
+		<?php $fees = [
+				'full_price' => [
+						'id' => 'full_price',
+						'value' => get_value($tour, 'full_price', 0),
+						'label' => 'Pay in Full $',
+						'type' => 'numeric',
+						'size' => 7,
+				],
+				'regular_price' => [
+						'id' => 'regular_price',
+						'value' => get_value($tour, 'regular_price', 0),
+						'label' => 'Regular Price $',
+						'type' => 'number',
+						'size' => 7,
 
-		<?php print create_input($tour, 'full_price', 'Pay in Full $', [
-				'type' => 'number',
-				'format' => 'money',
-			'required' => TRUE,
-				'default' => 0,
+				],
+				'banquet_price' => [
+						'id' => 'banquet_price',
+						'value' => get_value($tour, 'banquet_price', 0),
+						'label' => 'Banquet Price $',
+						'type' => 'number',
+						'size' => 7,
 
-		]); ?>
+				],
+				'early_price' => [
+						'id' => 'early_price',
+						'value' => get_value($tour, 'early_price', 0),
+						'label' => 'Early Bird Price $',
+						'type' => 'number',
+						'size' => 7,
 
-		<?php print create_input($tour, 'banquet_price', 'Veterans Price $', [
-				'type' => 'number',
-				'format' => 'money',
-				'default' => 0,
+				],
 
-		]); ?>
+		];
+		foreach ($fees as $fee) {
+			$this->load->view('elements/input-field', $fee);
+		}
+		?>
 
-		<?php print create_input($tour, 'early_price', 'Early Price $', [
-				'type' => 'number',
-				'format' => 'money',
-				'default' => 0,
 
-		]); ?>
-		<?php print create_input($tour, 'regular_price', 'Regular Price $', [
-				'type' => 'number',
-				'class' => 'money',
-				'default' => 0,
-				'required'=> TRUE,
-		]); ?>
-		<?php print create_input($tour, 'single_room', 'Single Room Adjustment $', [
-				'type' => 'number',
-				'format' => 'money',
-				'default' => 0,
+		<?php $rooms = [
+				'single_room' => [
+						'id' => 'single_room',
+						'label' => 'Single Room Surcharge',
+						'value' => get_value($tour, 'single_room', 0),
+						'size' => 5,
+						'type' => 'number',
+				],
+				'triple_roomm' => [
+						'id' => 'triple_room',
+						'label' => 'Triple Room Discount (-)',
+						'value' => get_value($tour, 'triple_room', 0),
+						'size' => 5,
+						'type' => 'number',
 
-		]); ?>
-		<?php print create_input($tour, 'triple_room', 'Triple Room Adjustment (include a ' - ') $', [
-				'type' => 'number',
-				'format' => 'money',
-				'default' => 0,
+				],
+				'quad_room' => [
+						'id' => 'quad_room',
+						'label' => 'Quad Room Discount (-)',
+						'value' => get_value($tour, 'quad_room', 0),
+						'size' => 5,
+						'type' => 'number',
 
-		]); ?>
-		<?php print create_input($tour, 'quad_room', 'Quad Room Adjustment (include a ' - ') $', [
-				'type' => 'number',
-				'format' => 'money',
-			'default' => 0,
-		]); ?>
+				],
+		];
+		foreach ($rooms as $room) {
+			$this->load->view('elements/input-field', $room);
+		}
+		?>
 	</div>
 	<div class='button-box'>
 		<ul class='button-list'>

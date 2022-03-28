@@ -43,9 +43,8 @@ class Tour extends MY_Controller
         $this->load->view("tour/edit", $data);
     }
 
-    function edit ()
+    function edit ($id)
     {
-        $id = $this->input->get("id");
         $data["tour"] = $this->tour->get($id);
         $data["action"] = "update";
         $this->load->view("tour/edit", $data);
