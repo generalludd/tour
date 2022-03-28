@@ -36,8 +36,20 @@ class Person_model extends CI_Model
             $this->db->select($fields);
         }
 
-        $result = $this->db->get()->row();
-        return $result;
+
+        $person = $this->db->get()->row();
+				$this->load->model('phone_model','phone');
+				$person->phones = $this->phone->get_for_person($id);
+				if(!empty($person->address_id)) {
+					$this->load->model('address_model', 'address');
+					$person->address = $this->address->get($person->address_id);
+					$person->housemates = $this->get_housemates($person->address_id, $person->id);
+				}
+				else {
+					$person->address = NULL;
+				}
+
+			return $person;
     }
 
     /**
@@ -168,7 +180,7 @@ class Person_model extends CI_Model
           $query->select($options['select']);
         }
         if (array_key_exists('has_address', $options)) {
-            $query->where('`address_id` IS NOT NULL', NULL, FALSE);
+            $query->where('address_id !=', NULL);
         }
 			$results =  $query->get()->result();
 				$output = [];

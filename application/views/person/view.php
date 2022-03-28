@@ -38,18 +38,7 @@ $nav_buttons[] = [
 		"href" => site_url("person/view_next/$person->id"),
 ];
 
-$address_buttons["select_housemate"] = [
-		"text" => "Select Housemate",
-		"type" => "span",
-		"class" => "button small edit change-housemate",
-		"id" => sprintf("change-housemate_%s", get_value($person, "id", $id)),
-];
-$address_buttons["add_address"] = [
-		"text" => "Add Address",
-		"type" => "span",
-		"class" => "button small new add-address",
-		"id" => sprintf("add-address_%s", get_value($person, "id", $id)),
-];
+
 $move_button[] = [
 		"text" => "Move",
 		"type" => "span",
@@ -139,55 +128,6 @@ $restore_button[] = [
 	<fieldset
 			class="grouping block address-info"
 			id="address">
-		<!--<h5>Address</h5>-->
-		<?php if (isset($person->address)): ?>
-			<label>Address:</label><br/>
-			<?php print format_address($person->address, "inline"); ?>&nbsp;<?php
-
-			$edit_buttons[] = [
-					"text" => "Edit",
-					'href' => base_url('address/edit/' . $person->address_id . '/' . $person->id),
-					"class" => "button small edit edit-address",
-			];
-			$edit_buttons[] = [
-					'text' => 'Delete',
-					'class' => 'button small delete',
-					'data' => [
-							'address_id' => $person->address_id,
-							'person_id' => $person->id,
-					],
-					'href' => base_url('person/remove_address/' . $person->id . '/' . $person->address_id),
-			];
-			print create_button_bar($edit_buttons); ?>
-			<?php print create_field("informal_salutation", $person->address->informal_salutation, "Informal Salutation"); ?>
-			<?php print create_field("formal_salutation", $person->address->formal_salutation, "Formal Salutation"); ?>
-			<div class="block housemate-info"
-				 id="housemate">
-				<?php if (count($person->housemates) > 0): ?>
-					<p>
-						<label>Housemates</label>
-					</p>
-					<table class="block">
-						<?php foreach ($person->housemates as $housemate): ?>
-							<tr>
-								<td><a
-											href="<?php print site_url("person/view/$housemate->id"); ?>"><?php print sprintf("%s %s", $housemate->first_name, $housemate->last_name); ?></a>
-								</td>
-							</tr>
-						<?php endforeach; ?>
-					</table>
-				<?php endif; ?>
-				<?php print create_button_bar([
-						[
-								"text" => "Add Housemate",
-								"class" => "button small new add-housemate",
-								'href' => base_url('person/add_housemate/' . $person->address->id),
-								"id" => sprintf("add-housemate_%s_%s", $person->id, $person->address->id),
-						],
-				]); ?>
-			</div>
-		<?php else: ?>
-			<?php print create_button_bar($address_buttons); ?>
-		<?php endif; ?>
+		<?php $this->load->view('address/view',['person' => $person]);?>
 	</fieldset>
 </div>

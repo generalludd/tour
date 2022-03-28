@@ -11,6 +11,7 @@ $(document).ready(function () {
 	})
 
 	$(document).on("click", '.delete-action', function (e) {
+		e.preventDefault();
 		let my_controller = $(this).data('controller');
 		let my_id = $(this).data('id');
 		let my_action = $(this).data('action');
@@ -151,11 +152,10 @@ $(document).ready(function () {
 
 	});
 
-
-	$(document).on("click", ".create.dialog, .edit.dialog, .view.dialog", function (e) {
+	$(".dialog").click("click", function (e) {
 		e.preventDefault();
-
 		let redirect_url = $(location).attr("href");
+		console.log(redirect_url);
 		let url = $(this).attr("href");
 		let form_data = {
 			ajax: 1
@@ -171,6 +171,7 @@ $(document).ready(function () {
 			}
 		});
 	});
+
 });
 
 /* set up floating button bars for working with long lists*/

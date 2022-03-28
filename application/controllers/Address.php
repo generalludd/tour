@@ -81,9 +81,11 @@ class Address extends My_Controller {
 
 	function find_housemate() {
 		$data["person_id"] = $this->input->get("person_id");
-
+$data['target'] = "address/find_housemate";
 		if ($this->input->get("ajax") == 1) {
-			$this->load->view("address/find_housemate", $data);
+			$this->load->view($data['target'], $data);
+		}else{
+			$this->load->view('page/index',$data);
 		}
 	}
 

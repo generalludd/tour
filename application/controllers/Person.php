@@ -34,10 +34,6 @@ class Person extends MY_Controller {
 		// $data["person"] = array();
 
 		$person = $this->person->get($id);
-		$phones = $this->phone->get_for_person($id);
-		$person->phones = $phones;
-		$person->address = $this->address->get($person->address_id);
-		$person->housemates = $this->person->get_housemates($person->address_id, $person->id);
 		$data["id"] = $id;
 		$data["person"] = $person;
 		$data["title"] = sprintf("Person Record: %s %s", $data["person"]->first_name, $data["person"]->last_name);
@@ -113,19 +109,9 @@ class Person extends MY_Controller {
 	 */
 	function find_by_name() {
 		$name = $this->input->get("name");
-		$tour_id = FALSE;
-		if ($tour_id = $this->input->get("tour_id")) {
-			//
-		}
-		$payer_id = FALSE;
-		if ($payer_id = $this->input->get("payer_id")) {
-		}
-		$data["payer_id"] = $payer_id;
-		$data["tour_id"] = $tour_id;
 		$target = "person/mini_list";
 		$data["people"] = $this->person->find_people($name, [
-			"payer_id" => $payer_id,
-			"tour_id" => $tour_id,
+			'has_address' => FALSE,
 		]);
 		$this->load->view($target, $data);
 	}
@@ -133,11 +119,12 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function find_for_address() {
+	function find_for_address($person_id) {
 		$name = $this->input->get("name");
 		$data["people"] = $this->person->find_people($name, [
 			"has_address" => TRUE,
 		]);
+		$data['person_id'] = $person_id;
 		$target = "address/mini_list";
 		$this->load->view($target, $data);
 	}
@@ -285,11 +272,20 @@ class Person extends MY_Controller {
 	 *
 	 */
 	function update_value() {
-		$id = $this->input->post("id");
+		$id = $this->input->post('id');
 		$values = [
-			$this->input->post("field") => trim($this->input->post("value")),
+			$this->input->post('field') => trim($this->input->post('value')),
 		];
 		$this->person->update($id, $values);
+		if(!empty($target = $this->input->post('target'))){
+				$person = $this->person->get($id);
+				if($this->input->post('ajax')){
+					echo $this->load->view($target, ['person'=>$person], TRUE);
+				}
+				else {
+					$this->load->view('page/index', ['person'=>$person,'target'=>$target]);
+				}
+		}
 	}
 
 	/**

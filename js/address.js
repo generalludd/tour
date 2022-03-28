@@ -1,13 +1,14 @@
 $(document).ready(function(){
-	$(".add-address").on("click",function(){
-		my_id = this.id.split("_")[1];
-		form_data = {
-				id: my_id,
+	$(document).on("click",".add-address", function(e){
+		e.preventDefault();
+		let my_url = $(this).attr("href");
+		let form_data = {
+				id: $(this).data("person_id"),
 				ajax: 1
 		};
 		$.ajax({
 			type: "get",
-			url: base_url + "address/create",
+			url: my_url,
 			data: form_data,
 			success: function(data){
 				show_popup("Add Address", data, "auto");
@@ -17,7 +18,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$(".edit-address").on("click",function(e){
+	$(document).on("click",".edit-address",function(e){
 		e.preventDefault();
 
 		let form_data = {
@@ -35,39 +36,26 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
-	$(".change-housemate").on("click",function(){
-		my_id = this.id.split("_")[1];
-		form_data = {
-				person_id: my_id,
-				ajax: 1
-		};
-		$.ajax({
-			type: "get",
-			url: base_url + "address/find_housemate",
-			data: form_data,
-			success: function(data){
-				show_popup("Select a New Housemate", data, "auto");
-			}
-		});
-	});
 
 	
-	$(".select-housemate").on("click",function(){
-		my_person = $("#person_id").val();
-		my_address = this.id.split("_")[1];
-		form_data = {
-				id: my_person,
+	$(document).on("click",".select-housemate",function(e){
+		e.preventDefault();
+		let my_url = $(this).attr('href');
+		let person_id = $(this).data('person_id');
+		let address_id = $(this).data('address_id');
+		let form_data = {
+				id: person_id,
 				field: "address_id",
-				value: my_address,
-				ajax: 1
+				value: address_id,
+				ajax: 1,
+			target: 'address/view',
 		};
 		$.ajax({
 			type: "post",
-			url: base_url + "person/update_value",
+			url:  my_url,
 			data: form_data,
-			success: function(){
-				window.location = base_url + "person/view/" + my_person;
+			success: function(data){
+				$("#address").html(data);
 			}
 		});
 	});
