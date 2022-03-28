@@ -200,7 +200,7 @@ function create_button_bar($buttons, $options = NULL) {
  * @param string $label
  * @param array $options (envelope, class, attributes)
  */
-function create_field(string $field_name, string $value, string $label, array $options = []) {
+function create_field(string $field_name, string $value = NULL, string $label, array $options = []) {
 	$envelope = 'p';
 	if (array_key_exists('envelope', $options)) {
 		$envelope = $options['envelope'];
