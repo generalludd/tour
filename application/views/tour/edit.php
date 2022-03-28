@@ -42,14 +42,14 @@
 		<?php $fees = [
 				'full_price' => [
 						'id' => 'full_price',
-						'value' => get_value($tour, 'full_price', 0),
+						'value' => get_value($tour, 'full_price'),
 						'label' => 'Pay in Full $',
 						'type' => 'numeric',
 						'size' => 7,
 				],
 				'regular_price' => [
 						'id' => 'regular_price',
-						'value' => get_value($tour, 'regular_price', 0),
+						'value' => get_value($tour, 'regular_price'),
 						'label' => 'Regular Price $',
 						'type' => 'number',
 						'size' => 7,
@@ -57,7 +57,7 @@
 				],
 				'banquet_price' => [
 						'id' => 'banquet_price',
-						'value' => get_value($tour, 'banquet_price', 0),
+						'value' => get_value($tour, 'banquet_price'),
 						'label' => 'Banquet Price $',
 						'type' => 'number',
 						'size' => 7,
@@ -65,7 +65,7 @@
 				],
 				'early_price' => [
 						'id' => 'early_price',
-						'value' => get_value($tour, 'early_price', 0),
+						'value' => get_value($tour, 'early_price'),
 						'label' => 'Early Bird Price $',
 						'type' => 'number',
 						'size' => 7,
@@ -83,14 +83,14 @@
 				'single_room' => [
 						'id' => 'single_room',
 						'label' => 'Single Room Surcharge',
-						'value' => get_value($tour, 'single_room', 0),
+						'value' => get_value($tour, 'single_room'),
 						'size' => 5,
 						'type' => 'number',
 				],
 				'triple_roomm' => [
 						'id' => 'triple_room',
 						'label' => 'Triple Room Discount (-)',
-						'value' => get_value($tour, 'triple_room', 0),
+						'value' => get_value($tour, 'triple_room'),
 						'size' => 5,
 						'type' => 'number',
 
@@ -98,7 +98,7 @@
 				'quad_room' => [
 						'id' => 'quad_room',
 						'label' => 'Quad Room Discount (-)',
-						'value' => get_value($tour, 'quad_room', 0),
+						'value' => get_value($tour, 'quad_room'),
 						'size' => 5,
 						'type' => 'number',
 

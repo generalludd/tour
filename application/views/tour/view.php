@@ -47,6 +47,12 @@ $fields = [
 				'label' => 'Full Price',
 				'required' => TRUE,
 		],
+		'regular_price' => [
+				'id' => 'regular_price',
+				'value' => format_money(get_value($tour, 'regular_price', NULL)),
+				'label' => 'Regular Price',
+				'required' => TRUE,
+		],
 		'banquet_price' => [
 				'id' => 'banquet_price',
 				'value' => format_money(get_value($tour, 'banquet_price', NULL)),
@@ -57,12 +63,7 @@ $fields = [
 				'value' => format_money(get_value($tour, 'early_price', NULL)),
 				'label' => 'Early Bird Price',
 		],
-		'regular_price' => [
-				'id' => 'regular_price',
-				'value' => format_money(get_value($tour, 'regular_price', NULL)),
-				'label' => 'Regular Price',
-				'required' => TRUE,
-		],
+
 		'single_room' => [
 				'id' => 'single_room',
 				'value' => format_money(get_value($tour, 'single_room', NULL)),
