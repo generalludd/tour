@@ -94,12 +94,11 @@ $restore_button[] = [
 		<div class='field-set'>
 			<?php print create_field("last_name", get_value($person, "last_name"), "Last Name", ["envelope" => "div"]); ?>
 		</div>
-		<div class='field-set'>
-			<?php print create_field("email", get_value($person, "email"), "Email", [
-					"envelope" => "div",
-					"format" => "email",
-			]); ?>
-		</div>
+		<?php $this->load->view('elements/field-item', ['id' => 'email',
+			'label' => 'Email',
+			'value' => get_value($person,'email'),
+			'type' => 'email',
+		]);?>
 		<div class='field-set'>
 			<?php print create_field("shirt_size", get_value($person, "shirt_size"), "Shirt Size", [
 					"envelope" => "div",

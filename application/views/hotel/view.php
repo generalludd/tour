@@ -22,7 +22,18 @@ $buttons [] = [
 			 value="<?php print get_value($hotel, "id"); ?>"/>
 <div class="grouping block hotel-info" id="hotel">
 	<div class="column">
-		<?php print create_field("hotel_name", get_value($hotel, "hotel_name"), "Hotel Name", ["envelope" => "div"]); ?>
+		<?php $fields = [
+				'hotel_name' => [
+						'id' => 'hotel_name',
+					'value' => get_value($hotel, 'hotel_name'),
+					'label'=> 'Hotel Name',
+					'size' => 25,
+					'field_wrapper' => 'div',
+				],
+
+		];
+		$this->load->view('elements/field-item', $fields);
+		?>
 		<?php print create_field("address", get_value($hotel, "address"), "Address", [
 			"class" => "textarea",
 			"envelope" => "div",
