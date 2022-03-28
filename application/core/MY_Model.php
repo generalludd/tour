@@ -41,4 +41,21 @@ class MY_Model extends CI_Model
     		$this->session->set_flashdata($element, $last_query);
     	//}
     }
+
+	/**
+	 * Take an array of database results and return an array where each row is
+	 *   identified by the object key.
+	 *
+	 * @param array $results
+	 * @param string $key
+	 *
+	 * @return array
+	 */
+		function keyed(array $results, string $key = 'id'):array{
+			$output = [];
+			foreach($results as $result){
+				$output[$result->{$key}] = $result;
+			}
+			return $output;
+		}
 }

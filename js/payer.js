@@ -94,52 +94,6 @@ $(document).ready(function () {
 	});
 
 
-	$(document).on('keyup', '#tourist-dropdown', function (event) {
-		var person_search = this.value;
-		console.log(person_search);
-		if (person_search.length > 6 && person_search != "find person") {
-			let search_words = person_search.split(' ');
-			let my_name = search_words.join('%') + "%";
-			let my_tour = $(this).data("tour_id");
-			console.log(my_tour);
-			let my_payer = $(this).data("payer_id");
-			console.log(my_payer);
-			var form_data = {
-				ajax: 1,
-				name: my_name,
-				tour_id: my_tour,
-				payer_id: my_payer
-			};
-			$.ajax({
-				url: base_url + "tourist/find_by_name",
-				type: 'GET',
-				data: form_data,
-				success: function (data) {
-					//remove the search_list because we don't want to have a ton of them.
-					if (data.length > 0) {
-						$("#search_list").css({"z-index": 10000}).html(data).position({
-							my: "left top",
-							at: "left bottom",
-							of: $("#tourist-dropdown"),
-							collision: "fit"
-						}).show();
-					}
-				}
-			});
-		} else {
-			$("#search_list").hide();
-			$("#search_list").css({"left": 0, "top": 0});
-
-
-		}
-	});// end person_search.keyup
-
-
-	$(document).on('blur', '#tourist-dropdown',function (event) {
-		//$("#search_list").fadeOut();
-	});
-
-
 	/*
 	 * "target" in this scriptlet identifies the format of the output from tourist/insert
 	 * in this case payer returns a list of tourists for a given payer.
@@ -202,7 +156,7 @@ $(document).ready(function () {
 
 
 	$(document).on("click", ".delete-tourist", function () {
-		question = confirm("Are you sure you want to remove this person from this list? This cannot be undone");
+		let question = confirm("Are you sure you want to remove this person from this list? This cannot be undone");
 		if (question) {
 			let my_person = $(this).data('person_id');
 			let my_tour = $(this).data('tour_id');
@@ -277,7 +231,7 @@ $(document).ready(function () {
 			url: my_url,
 			data: form_data,
 			success: function (data) {
-				$("#popup").html(data);
+				show_popup("Who is Paying?", data, "auto");
 			}
 		});
 	});

@@ -19,10 +19,9 @@ if($this->uri->segment(1) == ""){
 <?php if(!$print): ?>
 <div id='header'>
 
-<div id='page-title'>Ball Park Tours</div>
-<div id='navigation'>
+<div id='page-title'>Ball Park Tours </div><div id='utility'><?php $this->load->view('page/utility');?></div>
+	<div id='navigation'>
 <?php  $this->load->view('page/navigation'); ?>
-<div id='utility'><?php $this->load->view('page/utility');?></div>
 
 </div>
 </div>
@@ -56,7 +55,7 @@ $this->load->view($target);
 <!-- end content -->
 <div id="sidebar"></div>
 <!-- end sidebar --></div>
-<div id='search_list'></div>
+<div id='search-list'></div>
 <div id="footer"><?php $this->load->view('page/footer');?></div>
 </div>
 </body>

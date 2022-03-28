@@ -6,33 +6,31 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <table class="list" id="payer-tourist-list">
 	<tbody>
- <?php
+	<?php
+if(!empty($tourists) && is_array($tourists)):
+	foreach ($tourists as $tourist) :
+		$button = "";
+		if ($tourist->payer_id != $tourist->person_id) :
+			$button = create_button(
+					[
+							"text" => "Delete",
+							"type" => "span",
+							"class" => "button delete delete-tourist",
+							'data' => [
+									'person_id' => $tourist->person_id,
+									'tour_id' => $tourist->tour_id,
+									'payer_id' => $tourist->payer_id,
+							],
+					]);
 
-foreach ($tourists as $tourist) :
-    $button = "";
-    if ($tourist->payer_id != $tourist->person_id) :
-        $button = create_button(
-                array(
-                        "text" => "Delete",
-                        "type" => "span",
-                        "class" => "button delete delete-tourist",
-                        'data'=>[
-                        	'person_id'=>$tourist->person_id,
-													'tour_id' =>$tourist->tour_id,
-													'payer_id'=>$tourist->payer_id,
-												],
-                        "id" => sprintf("delete-tourist_%s_%s", $tourist->person_id, $tourist->tour_id)
-                ));
-
- endif;
-    ?>
-<tr>
-			<td><?php print sprintf("%s %s", $tourist->first_name, $tourist->last_name);?>
-</td>
-			<td><?php print $button;?></td>
+		endif;
+		?>
+		<tr>
+			<td><?php print person_link($tourist, 'person_id'); ?>
+			</td>
+			<td><?php print $button; ?></td>
 		</tr>
-
-
-<?php endforeach; ?>
-</tbody>
+	<?php endforeach; ?>
+	<?php endif; ?>
+	</tbody>
 </table>

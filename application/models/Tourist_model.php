@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // tourist_model.php Chris Dart Dec 14, 2013 4:00:34 PM
 // chrisdart@cerebratorium.com
-class Tourist_model extends CI_Model {
+class Tourist_model extends MY_Model {
 
 	var $tour_id;
 
@@ -15,37 +15,42 @@ class Tourist_model extends CI_Model {
 	/**
 	 * get all the tours for a given person.
 	 * $tours is a simple array of tour ids This is used to limit the results
-	 * to selected tour(s).
+	 * to selected tour(s). Since both payers and tourists show up as person_id in
+	 * the table, this will identify every tour for that person.
 	 *
 	 * @param int $person_id
 	 * @param array $tours
 	 *
 	 * @return mixed
 	 */
-	function get(int $person_id, $tours = []) {
+	function get(int $person_id, array $tours = []): array {
 		$this->db->from("tourist");
 		$this->db->where("person_id", $person_id);
 		if (!empty($tours)) {
-			$this->db->where_not_in("tour_id", $tours);
+			$this->db->where_in("tour_id", $tours);
 		}
 		$result = $this->db->get()->result();
 		return $result;
 	}
 
-	function get_missing_tours($person_id, $limit = NULL) {
-		$this->db->from('tour');
-		$this->db->join('tourist', 'tourist.tour_id = tour.id', 'LEFT');
-		if ($limit) {
-			$this->db->limit($limit);
+	/**
+	 * Get all the tours to which a person has not attended.
+	 *
+	 * @param int $person_id
+	 * @param bool $current
+	 *
+	 * @return mixed
+	 */
+	function get_missing_tours(int $person_id, bool $current = TRUE): array {
+		$this->load->model('tour_model', 'tour');
+		$tours = $this->tour->get_all($current);
+		foreach($tours as  $key => $tour) {
+			if(!empty( $this->get($person_id, [$key]))){
+				unset($tours[$key]);
+			}
 		}
-		$this->db->where('tourist.person_id !=', $person_id);
-		$this->db->or_where('tourist.payer_id !=', $person_id);
-		$this->db->group_by('tour.id');
 
-		$this->db->order_by('tour.start_date', 'DESC');
-		$result = $this->db->get()->result();
-		$this->session->set_flashdata($this->db->last_query());
-		return $result;
+		return $tours;
 	}
 
 	function get_by_tour($tour_id) {
@@ -63,6 +68,29 @@ class Tourist_model extends CI_Model {
 		$this->db->order_by("tourist.payer_id, tourist.person_id,person.last_name, person.first_name");
 		$result = $this->db->get()->result();
 		return $result;
+	}
+
+	/**
+	 * Removes rows from the array of $people who are already tourists on $tour_id.
+	 *
+	 * @param int $tour_id
+	 * @param array $people
+	 *   Expects an associative array of person objects with the person_id as the
+	 *   row identifier.
+	 *
+	 */
+	function remove_existing_tourists(string $tour_id, array &$people) {
+		foreach($people as $id => $person) {
+			$this->db->from('tourist');
+			$this->db->select('tourist.tour_id');
+			$this->db->where('tourist.tour_id', $tour_id);
+			$this->db->where('tourist.person_id', $id);
+			$count = $this->db->get()->num_rows();
+			if ($count > 0) {
+				// If they're already a tourist, remove them from the list;
+				unset($people[$id]);
+			}
+		}
 	}
 
 

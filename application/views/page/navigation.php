@@ -10,9 +10,18 @@ $buttons [] = array (
 		"href" => site_url ( "" ),
 		"title" => "Home" 
 );
+$search_data = [
+	'field_name' => 'person-search',
+	'placeholder' => 'Find People',
+	'data' => [
+		'url' => base_url('person/find_by_name'),
+		'target' => '#search-list'
+	]
+];
+$search_field = $this->load->view('person/search-field', $search_data, TRUE);
 $buttons [] = array (
 		"selection" => "search",
-		"text" => '<input type="text" id="person_search" name="person_search" size="20" value="find people" />',
+		"text" => $search_field,
 		"type" => "pass-through" 
 );
 

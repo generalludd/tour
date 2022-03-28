@@ -36,8 +36,20 @@ class Person_model extends CI_Model
             $this->db->select($fields);
         }
 
-        $result = $this->db->get()->row();
-        return $result;
+
+        $person = $this->db->get()->row();
+				$this->load->model('phone_model','phone');
+				$person->phones = $this->phone->get_for_person($id);
+				if(!empty($person->address_id)) {
+					$this->load->model('address_model', 'address');
+					$person->address = $this->address->get($person->address_id);
+					$person->housemates = $this->get_housemates($person->address_id, $person->id);
+				}
+				else {
+					$person->address = NULL;
+				}
+
+			return $person;
     }
 
     /**
@@ -159,31 +171,24 @@ class Person_model extends CI_Model
 
     function find_people ($name, $options = array())
     {
-        $this->db->where("CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%'", NULL, FALSE);
-        $this->db->where("status", 1);
-        $this->db->order_by("first_name", "ASC");
-        $this->db->order_by("last_name", "ASC");
-        $this->db->from("person");
-        if (array_key_exists("tour_id", $options)) {
+		$query = 	$this->db->from('person')
+				->where ( "(CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%')" )
+				->where('status', 1)
+				->order_by('first_name', 'ASC')
+				->order_by('last_name', 'ASC');
+        if (array_key_exists('select', $options)) {
+          $query->select($options['select']);
         }
-        if (array_key_exists("payer_id", $options)) {
+        if (array_key_exists('has_address', $options)) {
+            $query->where('address_id !=', NULL);
         }
-        if (array_key_exists("select", $options)) {
-            $this->db->select($options["select"]);
-        }
-        if (array_key_exists("has_address", $options)) {
-            $this->db->where("`address_id` IS NOT NULL", NULL, FALSE);
-        }
-        // The following are deprectated steps a vain attempt at selecting
-        // tourists not already added to a tour.
-        /*
-         * if ($payer_id) { $this->db->where("person.id != '$payer_id'", NULL,
-         * FALSE); } if ($tour_id) { $this->db->join("tourist",
-         * "tourist.person_id = person.id");
-         * $this->db->where_not_in("tourist.tour_id", $tour_id); }
-         */
-        $result = $this->db->get()->result();
-        return $result;
+			$results =  $query->get()->result();
+				$output = [];
+				// This step produces an associative array of person.id => person objects.
+				foreach($results as $result ){
+					$output[$result->id] = $result;
+				}
+				return $output;
     }
 
     function get_housemates ($address_id, $person_id)
@@ -263,7 +268,7 @@ class Person_model extends CI_Model
 		$results = $this->db->get()->result();
 		$rows = [];
 		foreach($results as $result){
-			$initial = substr($result->last_name, 0,1);
+			$initial = strtoupper(substr($result->last_name, 0,1));
 			$rows[$initial] = (object)['initial'=> $initial];
 		}
 		return $rows;

@@ -258,7 +258,6 @@ tr.row-break td {
 	border: 1px solid transparent;
 	padding: 7px 3px;
 	font-size: 1.1em;
-	color: #999;
 }
 
 input[type="number"] {
@@ -584,7 +583,7 @@ a.button {
 	padding-bottom: 5px;
 }
 
-#search_list {
+#search-list {
 	position: absolute;
 	display: none;
 	z-index: 1000;

@@ -55,10 +55,14 @@ class Tour_model extends MY_Model
                 $my_value = $this->input->post($my_variable);
 
                 if (in_array($my_variable, $money)) {
-                    $my_value = format_money($my_value, "int");
-                }
+									$this->{$my_variable} = $my_value;
 
-                $this->$my_variable = $my_value;
+                }
+								if(in_array($my_variable, $dates)){
+									$this->{$my_variable} = date('Y-m-d', strtotime($my_value));
+								}
+
+                $this->{$my_variable} = $my_value;
             }
         }
     }
@@ -73,15 +77,15 @@ class Tour_model extends MY_Model
         return $this->db->get()->row();
     }
 
-    function get_all ($current_only = FALSE, $fields = "*")
-    {
+    function get_all ($current_only = FALSE, $fields = "*"): array {
         $this->db->from("tour");
         $this->db->select($fields);
         $this->db->order_by("tour.start_date", "DESC");
         if ($current_only) {
             $this->db->where("tour.start_date > CURDATE()", NULL, FALSE);
         }
-        return $this->db->get()->result();
+        $results = $this->db->get()->result();
+				return $this->keyed($results,'id');
     }
 
     function get_value ($id, $field)

@@ -43,9 +43,8 @@ class Tour extends MY_Controller
         $this->load->view("tour/edit", $data);
     }
 
-    function edit ()
+    function edit ($id)
     {
-        $id = $this->input->get("id");
         $data["tour"] = $this->tour->get($id);
         $data["action"] = "update";
         $this->load->view("tour/edit", $data);
@@ -113,14 +112,9 @@ class Tour extends MY_Controller
     {
         $this->load->model("tourist_model", "tourist");
         $data["id"] = $id;
-        $tours = $this->tour->get_all(TRUE);
-        $data["tours"] = $tours;
-        $tour_list = [];
-        foreach ($tours as $tour) {
-            $tour_list[] = $tour->id;
-        }
-        $tourist_tours = $this->tourist->get($id, $tour_list);
+				$tours = $this->tourist->get_missing_tours($id, TRUE);
 
+				$data['tours'] = $tours;
         $data['target'] = 'tour/select';
         $data['title'] = 'Select a Tour';
         if($this->input->get('ajax')) {

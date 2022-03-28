@@ -11,6 +11,7 @@ $(document).ready(function () {
 	})
 
 	$(document).on("click", '.delete-action', function (e) {
+		e.preventDefault();
 		let my_controller = $(this).data('controller');
 		let my_id = $(this).data('id');
 		let my_action = $(this).data('action');
@@ -22,6 +23,44 @@ $(document).ready(function () {
 			}
 		}
 		$('#' + my_form).attr('action', base_url + '/' + my_controller + '/' + my_action).submit();
+	});
+	$(document).on('keyup','.person-search', function(event) {
+		let search_value = this.value;
+		let field_id = $(this).attr('id');
+		let my_url = $(this).data('url');
+		let my_target = $(this).data('target');
+		if (search_value.length > 3) {
+			let my_name = search_value.replace(' ','%',);
+			let form_data = {
+				ajax: 1,
+				name: my_name
+			};
+			$.ajax({
+				url: my_url,
+				type: 'GET',
+				data: form_data,
+				success: function(data){
+					$(my_target).css({"z-index": 1000}).html(data).position({
+						my: "left top",
+						at: "left bottom",
+						of: $("#"+ field_id),
+						collision: "fit"
+					}).show();
+				}
+			});
+		}else{
+			$(my_target).hide();
+			$(my_target).css({"left": 0, "top": 0});
+
+
+		}
+	});//
+
+
+	$(document).on('blur', '.person-search',function(event) {
+		let my_target = $(this).data('target');
+		$(this).val('');
+		$(my_target).fadeOut();
 	});
 
 	$(document).on("click", ".field-envelope .edit-field", function () {
@@ -113,14 +152,15 @@ $(document).ready(function () {
 
 	});
 
-
-	$(document).on("click", ".create.dialog, .edit.dialog, .view.dialog", function (e) {
+	$(".dialog").click("click", function (e) {
 		e.preventDefault();
 		let redirect_url = $(location).attr("href");
+		console.log(redirect_url);
 		let url = $(this).attr("href");
 		let form_data = {
 			ajax: 1
 		};
+
 		$.ajax({
 			type: "get",
 			data: form_data,
@@ -131,6 +171,7 @@ $(document).ready(function () {
 			}
 		});
 	});
+
 });
 
 /* set up floating button bars for working with long lists*/

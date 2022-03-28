@@ -3,10 +3,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 // general_helper.php Chris Dart Dec 10, 2013 9:54:14 PM
 // chrisdart@cerebratorium.com
+/**
+ * @return false|string
+ */
 function mysql_timestamp() {
 	return date('Y-m-d H:i:s');
 }
 
+/**
+ * @param $name
+ * @param $value
+ *
+ * @return void
+ */
 function bake_cookie($name, $value) {
 	if (is_array($value)) {
 		$value = serialize($value);
@@ -18,6 +27,11 @@ function bake_cookie($name, $value) {
 	]);
 }
 
+/**
+ * @param $name
+ *
+ * @return void
+ */
 function burn_cookie($name) {
 	set_cookie([
 		"name" => $name,
@@ -30,6 +44,12 @@ function burn_cookie($name) {
  * @function format_date @params $date date string @params $format string
  * description: this shouldn't be in this file, but I didn't want to create a
  * new file with general formatting tools yet.
+ */
+/**
+ * @param $date
+ * @param $format
+ *
+ * @return false|mixed|string
  */
 function format_date($date, $format = "standard") {
 	if ($date) {
@@ -48,6 +68,12 @@ function format_date($date, $format = "standard") {
 	return $date;
 }
 
+/**
+ * @param $timestamp
+ * @param $format
+ *
+ * @return false|string
+ */
 function format_timestamp($timestamp, $format = "standard") {
 	switch ($format) {
 		case "standard":
@@ -75,6 +101,12 @@ function format_time($time, $format = "standard") {
 	return date('g:i A', strtotime(trim($time)));
 }
 
+/**
+ * @param $object
+ * @param $variables
+ *
+ * @return void
+ */
 function prepare_variables($object, $variables) {
 	for ($i = 0; $i < count($variables); $i++) {
 		$my_variable = trim($variables[$i]);
@@ -99,6 +131,15 @@ function prepare_variables($object, $variables) {
  * string or array, and "select" comma-delimited string @returns an array of
  * key-value pairs reflecting a Database primary key and human-meaningful string
  */
+/**
+ * @param $list
+ * @param $pairs
+ * @param $initial_blank
+ * @param $other
+ * @param $alternate
+ *
+ * @return false
+ */
 function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, $alternate = []) {
 	$output = FALSE;
 	if ($initial_blank) {
@@ -119,6 +160,13 @@ function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, $a
 	return $output;
 }
 
+/**
+ * @param $object
+ * @param $item
+ * @param $default
+ *
+ * @return mixed|null
+ */
 function get_value($object, $item, $default = NULL) {
 	$output = $default;
 	if ($object instanceof stdClass && !empty($object->{$item})) {
@@ -129,28 +177,26 @@ function get_value($object, $item, $default = NULL) {
 
 /**
  * Accepts an integer and a value (either "standard" or "int") depending on
- * whether
- * the desired output is currency with $ or a number stripped of $ and extras.
+ * whether the desired output is currency with $ or a number stripped of $ and extras.
  *
- * @param number $int
+ * @param float|null $int $int
  * @param string $format
  *
- * @return Ambigous <number, mixed, string>
+ * @return string
  */
-function format_money($int = 0, $format = "standard") {
-	$output = 0;
-
-	if ($int != 0) {
-		if ($format == "int") {
-			$output = str_replace("\$", "", $int);
-		}
-		else {
-			$output = sprintf("$%s", number_format($int, 2));
-		}
+function format_money(float $int = NULL, string $format = "standard"):string {
+	if($format == 'int'){
+		$int = round($int,0);
 	}
-	return $output;
+	$fmt = new NumberFormatter( 'en_US', NumberFormatter::CURRENCY );
+	return $fmt->formatCurrency($int, 'USD');
 }
 
+/**
+ * @param $email
+ *
+ * @return string
+ */
 function format_email($email) {
 	$output = "";
 	if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -159,6 +205,11 @@ function format_email($email) {
 	return $output;
 }
 
+/**
+ * @param $field
+ *
+ * @return string
+ */
 function format_field_name($field) {
 	$field = str_replace("_", " ", $field);
 	$field = ucwords($field);
@@ -233,11 +284,25 @@ function get_first_missing_number($list, $field) {
 	return $output;
 }
 
+/**
+ * @param $price
+ * @param $rate
+ * @param $ticket_count
+ * @param $discount
+ * @param $amt_paid
+ *
+ * @return float|int
+ */
 function get_amt_due($price, $rate, $ticket_count, $discount, $amt_paid) {
 	$total = $price * $ticket_count + ($rate - $discount - $amt_paid);
 	return $total;
 }
 
+/**
+ * @param $payer
+ *
+ * @return int|mixed
+ */
 function get_tour_price($payer) {
 	if ($payer->is_comp == 1) {
 		$tour_price = 0;
@@ -260,10 +325,15 @@ function get_tour_price($payer) {
 				$tour_price = 0;
 				break;
 		}
-		return $tour_price;
 	}
+	return $tour_price;
 }
 
+/**
+ * @param $payer
+ *
+ * @return int|mixed
+ */
 function get_room_rate($payer) {
 	switch ($payer->room_size) {
 		case "single_room":
@@ -285,6 +355,11 @@ function get_room_rate($payer) {
 	return $room_rate;
 }
 
+/**
+ * @param $contact
+ *
+ * @return string
+ */
 function format_contact($contact) {
 	$name = [];
 	$contact_info = [];
@@ -339,6 +414,12 @@ function grammatical_implode($glue, $list, $conjunction = "and") {
 	return $output;
 }
 
+/**
+ * @param $people
+ * @param $format
+ *
+ * @return array|string
+ */
 function format_salutation($people, $format = "informal") {
 	$first_names = [];
 	$last_names = [];
@@ -380,27 +461,29 @@ function format_salutation($people, $format = "informal") {
  * @param array $array array to be sorted
  * @param array $order array representing the order of the list
  *
- * @return restorted array
+ * @return array
  */
-function array_custom_sort($array, $order) {
+function array_custom_sort(array $array, array $order): array {
 	foreach ($array as $key => $value) {
 		$new_array[$key] = [
-			"rank" => array_search($key, $order),
-			"key" => $key,
-			"value" => $value,
+			'rank' => array_search($key, $order),
+			'key' => $key,
+			'value' => $value,
 		];
 	}
 	array_multisort($new_array);
 	return $new_array;
 }
 
-function get_room_size($room_size) {
+/**
+ * @param string $room_size
+ *
+ * @return int
+ */
+function get_room_size(string $room_size): int {
 	switch ($room_size) {
 		case "single_room":
 			$size = 1;
-			break;
-		case "double_room":
-			$size = 2;
 			break;
 		case "triple_room":
 			$size = 3;
@@ -408,6 +491,7 @@ function get_room_size($room_size) {
 		case "quad_room":
 			$size = 4;
 			break;
+		case "double_room":
 		default:
 			$size = 2;
 			break;
@@ -415,7 +499,14 @@ function get_room_size($room_size) {
 	return $size;
 }
 
-function create_link($path, $text, $options = []) {
+/**
+ * @param string $path
+ * @param string $text
+ * @param array $options
+ *
+ * @return string
+ */
+function create_link(string $path, string $text, array $options = []): string {
 	$values = [
 		'href="' . base_url($path) . '"',
 	];
@@ -425,15 +516,25 @@ function create_link($path, $text, $options = []) {
 		}
 	}
 
-	return sprintf('<a %s>%s</a>', implode(' ', $values), $text);
+	return '<a ' . implode(' ', $values) . '>' . $text . '</a>';
 }
 
-function person_link($person) {
+/**
+ * Link to the person based on an object that has an attribute $id that
+ *   represents a person.id.
+ * @param \stdClass $person
+ *  An object that must contain an attribute that points to a person entity.
+ * @param string $id
+ *  This is the attribute of $person that relates to a person entity.
+ *
+ * @return string
+ */
+function person_link(stdClass $person, string $id = 'id'): string {
 	$text = $person->first_name . ' ' . $person->last_name;
 	$title = sprintf('View %s\'s record', $text);
 	$options = [
 		'title' => $title,
 	];
-	$path = 'person/view/' . $person->id;
+	$path = 'person/view/' . $person->{$id};
 	return create_link($path, $text, $options);
 }
