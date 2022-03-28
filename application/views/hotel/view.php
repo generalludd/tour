@@ -3,23 +3,23 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 
 // view.php Chris Dart Dec 29, 2013 10:17:41 PM chrisdart@cerebratorium.com
 $buttons [] = [
-		"text" => "Edit",
-		"href" => base_url('hotel/edit/' . $hotel->id),
-		"class" => "button edit edit-hotel",
+		'text' => 'Edit',
+		'href' => base_url('hotel/edit/' . $hotel->id),
+		'class' => 'button edit edit-hotel',
 		'data' => [
 				'hotel' => $hotel->id,
 		],
 ];
 $buttons [] = [
-		"text" => "Roommates",
-		"href" => site_url(sprintf("roommate/view_for_tour/?tour_id=%s&stay=%s", get_value($hotel, "tour_id"), get_value($hotel, "stay"))),
+		'text' => 'Roommates',
+		'href' => site_url('roommate/view_for_tour/' . $hotel->tour_id . '/' .  $hotel->stay),
 ];
 ?>
 <h3>Information for Hotel <?php print $hotel->hotel_name; ?></h3>
 <?php print create_button_bar($buttons); ?>
 
 <input type="hidden" id="id" name="id"
-	   value="<?php print get_value($hotel, "id"); ?>"/>
+	   value="<?php print get_value($hotel, 'id'); ?>"/>
 <div class="grouping block hotel-info" id="hotel">
 	<div class="column">
 		<?php $hotel_name = [

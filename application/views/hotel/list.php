@@ -56,7 +56,7 @@ $buttons[] = array(
 				href="<?php print site_url('/hotel/edit/' . $hotel->id);?>">Edit Hotel</a></td>
 			<td>
 			<a
-				href="<?php print site_url("roommate/view_for_tour/?tour_id=$tour->id&stay=$hotel->stay");?>"
+				href="<?php print site_url('roommate/view_for_tour/' . $tour->id . '/' . $hotel->stay);?>"
 				class="button view-roommates"
 				title="Show all roommates for this hotel">Roommates</a></td>
 			<td><?php print format_date($hotel->arrival_date);?>,
