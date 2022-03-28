@@ -34,12 +34,12 @@ class Payer_model extends CI_Model
         );
         for ($i = 0; $i < count($variables); $i ++) {
             $my_variable = $variables[$i];
-            if ($this->input->post($my_variable)) {
+            if ($my_value = $this->input->post($my_variable)) {
                 if ($my_variable == "discount" || $my_variable == "amt_paid") {
-                    $this->$my_variable = format_money(
-                            $this->input->post($my_variable), "int");
+                    $this->{$my_variable} = floatval($my_value);
+
                 }
-                $this->$my_variable = $this->input->post($my_variable);
+                $this->{$my_variable} = $this->input->post($my_variable);
             }
         }
     }

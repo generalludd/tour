@@ -55,10 +55,14 @@ class Tour_model extends MY_Model
                 $my_value = $this->input->post($my_variable);
 
                 if (in_array($my_variable, $money)) {
-                    $my_value = format_money($my_value, "int");
-                }
+									$this->{$my_variable} = $my_value;
 
-                $this->$my_variable = $my_value;
+                }
+								if(in_array($my_variable, $dates)){
+									$this->{$my_variable} = date('Y-m-d', strtotime($my_value));
+								}
+
+                $this->{$my_variable} = $my_value;
             }
         }
     }
