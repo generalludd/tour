@@ -34,17 +34,14 @@ class Contact extends MY_Controller
     {
         $hotel_id = $this->input->post('hotel_id');
         $this->contact->insert();
-        redirect('hotel/view/$hotel_id');
+        redirect('hotel/view/' .$hotel_id);
     }
 
-    function edit ()
+    function edit ($id)
     {
-        $id = $this->input->get('id');
-
         $contact = $this->contact->get($id);
         $data['hotel_id'] = $contact->hotel_id;
         $data['contact'] = $contact;
-        $data['hotel_name'] = $contact->hotel_name;
         $data['action'] = 'update';
         $this->load->view('contact/edit', $data);
     }
@@ -54,7 +51,7 @@ class Contact extends MY_Controller
         $id = $this->input->post('id');
         $this->contact->update($id);
         $hotel_id = $this->input->post('hotel_id');
-        redirect('hotel/view/$hotel_id');
+        redirect('hotel/view/'. $hotel_id);
     }
 
     function delete ()
@@ -62,6 +59,6 @@ class Contact extends MY_Controller
         $id = $this->input->post('id');
         $hotel_id = $this->input->post('hotel_id');
         $this->contact->delete($id);
-        redirect('hotel/view/$hotel_id');
+        redirect('hotel/view/'. $hotel_id);
     }
 }

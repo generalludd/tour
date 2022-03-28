@@ -39,10 +39,7 @@ class Contact_model extends CI_Model
     {
         $this->db->where("contact.id", $id);
         $this->db->from("contact");
-        $this->db->join("hotel", "contact.hotel_id=hotel.id");
-        $this->db->select("contact.*,hotel.hotel_name");
-        $result = $this->db->get()->row();
-        return $result;
+			return $this->db->get()->row();
     }
 
     function insert ()
