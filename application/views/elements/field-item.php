@@ -1,28 +1,28 @@
 <?php
-if(empty($id)){
+if (empty($id)) {
 	return FALSE;
 }
 
-if(!empty($class)){
-	if(!is_array($class)){
-		$classes = explode(' ', $class);
-	}
+if (!empty($classes)) {
+	$classes = implode(' ', $classes);
 }
 else {
-	$classes = ['field-envelope'];
+	$classes = 'field-envelope';
 }
-if(empty($wrapper)){
-	$wrapper= 'p';
+if (empty($wrapper)) {
+	$wrapper = 'p';
 }
-if(empty($field_wrapper)){
+if (empty($field_wrapper)) {
 	$field_wrapper = 'span';
 }
-if(empty($required)){
+if (empty($required)) {
 	$required = '';
 }
 ?>
 
-<<?php print $wrapper;?> class="<?php print implode(' ', $classes);?>" data-target-id="<?php print $id; ?>">
-	<label for="<?php print $id; ?>"><?php print $label;?></label>
-	<<?php print $field_wrapper; ?> class="field" id="<?php print $id; ?> <?php print $required; ?>"><?php print $value; ?></<?php print $field_wrapper; ?>>
-</<?php print $wrapper;?>>
+<<?php print $wrapper; ?> class="field-envelope" data-target-id="<?php print $id; ?>">
+<?php if ($wrapper != 'td'): ?>
+	<label for="<?php print $id; ?>"><?php print $label; ?></label>
+<?php endif; ?>
+<<?php print $field_wrapper; ?> class="<?php print $classes; ?>" id="<?php print $id; ?> <?php print $required; ?>"><?php print $value; ?></<?php print $field_wrapper; ?>>
+</<?php print $wrapper; ?>>

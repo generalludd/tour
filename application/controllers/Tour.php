@@ -12,14 +12,25 @@ class Tour extends MY_Controller {
 	function index() {
 		$this->view_all();
 	}
-
+/** @deprecated  */
 	function view($id) {
-		$data["tour"] = $this->tour->get($id);
-		$this->load->model("letter_model", "letter");
-		$data["letters"] = $this->letter->get_for_tour($id);
-		$data["title"] = sprintf("Tour Data: %s", $data["tour"]->tour_name);
-		$data["target"] = "tour/view";
-		$this->load->view("page/index", $data);
+		redirect('tourist/view_all/' . $id);
+	}
+
+	function letters($id){
+		$tour = $this->tour->get($id);
+		$this->load->model('letter_model', 'letter');
+		$data['letters'] = $this->letter->get_for_tour($id);
+		$data['tour_id'] = $id;
+		$data['title'] = 'Letters for ' . $tour->tour_name;
+		$data['target'] = 'letter/list';
+		if($this->input->get('ajax')){
+			$this->load->view($data['target'], $data);
+		}
+		else {
+			$this->load->view('page/index', $data);
+		}
+
 	}
 
 	function view_all() {

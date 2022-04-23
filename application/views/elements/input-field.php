@@ -11,6 +11,7 @@ if(empty($attributes)){
 if(empty($attributes['type'])){
 	$attributes['type'] = 'text';
 }
+
 if(empty($label)){
 	$label = ucwords(str_replace('_',' ', $id));
 }
@@ -18,10 +19,13 @@ foreach($attributes as $key=>$value){
 	$attribute_values[] = $key .'="'. $value. '"';
 }
 ?>
-
-<<?php print $wrapper;?> class="input-block">
+<?php if($attributes['type'] != 'hidden'): ?>
+	<<?php print $wrapper;?> class="input-block">
 <label for="<?php print $id; ?>>">
 	<?php print $label; ?>
 </label>
+<?php endif; ?>
 <input name="<?php print $id; ?>" id="<?php print $id; ?>" <?php print implode(' ', $attribute_values);?>/>
+<?php if($attributes['type'] != 'hidden'):?>
 </<?php print $wrapper;?>>
+<?php endif;
