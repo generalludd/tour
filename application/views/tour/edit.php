@@ -100,24 +100,33 @@
 				'single_room' => [
 						'id' => 'single_room',
 						'label' => 'Single Room Surcharge',
-						'attributes' => ['value' => get_value($tour, 'single_room'),
-						'size' => 5,
-						'type' => 'number','class' => 'currency',]
+						'attributes' => [
+								'value' => get_value($tour, 'single_room'),
+								'size' => 5,
+								'type' => 'number',
+								'class' => 'currency',
+						],
 				],
 				'triple_roomm' => [
 						'id' => 'triple_room',
 						'label' => 'Triple Room Discount (-)',
-						'attributes' => ['value' => get_value($tour, 'triple_room'),
-						'size' => 5,
-						'type' => 'number','class' => 'currency',]
+						'attributes' => [
+								'value' => get_value($tour, 'triple_room'),
+								'size' => 5,
+								'type' => 'number',
+								'class' => 'currency',
+						],
 
 				],
 				'quad_room' => [
 						'id' => 'quad_room',
 						'label' => 'Quad Room Discount (-)',
-						'attributes' => ['value' => get_value($tour, 'quad_room'),
-						'size' => 5,
-						'type' => 'number','class' => 'currency',]
+						'attributes' => [
+								'value' => get_value($tour, 'quad_room'),
+								'size' => 5,
+								'type' => 'number',
+								'class' => 'currency',
+						],
 				],
 		];
 		foreach ($rooms as $room) {
@@ -125,11 +134,7 @@
 		}
 		?>
 	</div>
-	<div class='button-box'>
-		<ul class='button-list'>
-			<li><input type="submit" name="save" id="save"
-					   value="<?php print $action; ?>"/>
-			</li>
-		</ul>
-	</div>
+	<input type="submit" name="save" id="save"
+		   value="<?php print ucwords($action); ?>"/>
+
 </form>

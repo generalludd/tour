@@ -22,9 +22,11 @@ class Tour extends MY_Controller {
 		$this->load->model('letter_model', 'letter');
 		$data['letters'] = $this->letter->get_for_tour($id);
 		$data['tour_id'] = $id;
+		$data['tour'] = $tour;
 		$data['title'] = 'Letters for ' . $tour->tour_name;
 		$data['target'] = 'letter/list';
 		if($this->input->get('ajax')){
+			$data['ajax'] = '1';
 			$this->load->view($data['target'], $data);
 		}
 		else {

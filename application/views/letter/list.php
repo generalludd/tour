@@ -7,7 +7,7 @@ $buttons['add_letter'] = [
 		'href' => site_url('letter/create/' . $tour_id),
 ];
 ?>
-<h4>List of Letter Templates</h4>
+<h4>List of Letter Templates<?php print !empty($ajax)?' for ' . $tour->tour_name:'';?> </h4>
 
 <?php if ($letters): ?>
 
