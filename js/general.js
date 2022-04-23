@@ -4,6 +4,13 @@ $(document).ready(function () {
 		$("#alert").attr("id", "notice").html("Move the file backup file from your downloads folder to your backups folder.").fadeOut(5000);
 
 	});
+
+	$(document).on('mouseover','.detail-hover', function(){
+		revealBlock($(this));
+	});
+	$(document).on('mouseout', '.detail-hover', function(){
+		hideBlock($(this));
+	});
 	// trim all inputs on blur
 	$(document).on('blur', 'input', function () {
 		let input_value = $(this).val();
@@ -150,7 +157,10 @@ $(document).ready(function () {
 			});
 		}
 
+
+
 	});
+
 
 	$(".dialog").click("click", function (e) {
 		e.preventDefault();
@@ -408,4 +418,15 @@ function show_modal(me) {
 			$("#my_dialog").modal("show");
 		}
 	});
+}
+
+
+function revealBlock(element) {
+	let target = element.data('target_id');
+	console.log(target);
+	$("#" + target).show('500');
+}
+function hideBlock(element) {
+	let target = element.data('target_id');
+	$("#" + target).hide(500);
 }

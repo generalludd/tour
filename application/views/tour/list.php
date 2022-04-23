@@ -68,7 +68,7 @@ foreach ($tours as $tour) {
 				href="<?php print site_url("/tourist/view_all/$tour->id");?>">Tourists</a></td>
 				<td><a
 				class="button show-letters small"
-				href="<?php print site_url("/tour/view/$tour->id");?>">Letter Templates</a></td>
+				href="<?php print site_url("/tour/letters/$tour->id");?>">Letter Templates</a></td>
 		</tr>
 <?php
 endif;
