@@ -63,12 +63,21 @@ $amt_due = $total_cost - $payer->amt_paid;
 			<?php $is_canceled = get_value($payer, 'is_cancelled') == 1; ?>
 			<?php print form_checkbox('is_cancelled', '1', $is_canceled); ?>
 		</p>
-		<p>
-			<label for="payment_type">Payment Type</label>
-			<?php print form_dropdown('payment_type', $payment_types, get_value($payer, 'payment_type'), 'class="change_payment_type"'); ?>
-			&nbsp;$<span
-					id="tour_price_display"><?php print $tour_price; ?></span>
-		</p>
+		<?php $payment_select = [
+				'id' => 'payment_type',
+				'attributes' => [
+						'required' => TRUE,
+				],
+				'options' => $payment_types,
+				'selected' => get_value($payer, 'payment_type'),
+				'classes' => ['change_payment_type'],
+				'label' => 'Payment Type',
+				'wrapper' => 'p',
+				'suffix' => '$<span
+					id="tour_price_display">' . $tour_price . '</span>',
+		];
+		$this->load->view('elements/select-field', $payment_select);
+		?>
 		<p>
 			<label for="room_size">Room Size</label>
 			<?php print form_dropdown('room_size', $room_sizes, get_value($payer, 'room_size'), 'class="change_room_size"'); ?>
@@ -179,13 +188,13 @@ $amt_due = $total_cost - $payer->amt_paid;
 				<?php $field_data = [
 						'field_name' => 'search-tourists',
 						'data' => [
-								'url' => base_url('tourist/find_by_name/'. $tour_id . '/' . $payer_id),
+								'url' => base_url('tourist/find_by_name/' . $tour_id . '/' . $payer_id),
 								'target' => '#search-list',
 						],
-					'placeholder' => 'Search for Tourists',
+						'placeholder' => 'Search for Tourists',
 
 				];
-				 $this->load->view('person/search-field', $field_data);
+				$this->load->view('person/search-field', $field_data);
 				?>
 
 			</div>

@@ -11,9 +11,9 @@ $total_cancels = 0;
 $total_tourists = 0;
 $shirt_count = [];
 $buttons[] = [
-	"text" => "Tour Details",
-	"href" => site_url("tour/view/$tour->id"),
-	"class" => "button show-tour",
+	'text' => 'Edit Tour Details',
+	'href' => site_url('tour/edit/' . $tour->id),
+	'class' => 'button edit dialog show-tour',
 ];
 $buttons[] = [
 	"text" => "Hotels and Roommates",

@@ -134,13 +134,13 @@ function prepare_variables($object, $variables) {
 /**
  * @param $list
  * @param $pairs
- * @param $initial_blank
- * @param $other
- * @param $alternate
+ * @param null $initial_blank
+ * @param null $other
+ * @param array $alternate
  *
- * @return false
+ * @return array
  */
-function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, $alternate = []) {
+function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, $alternate = []): array {
 	$output = FALSE;
 	if ($initial_blank) {
 		$output[] = '';

@@ -71,10 +71,8 @@ class Payer extends MY_Controller {
 			"value",
 			"name",
 		]);
-		$data["payment_types"] = get_keyed_pairs($this->variable->get_pairs("payment_type"), [
-			"value",
-			"name",
-		]);
+		$this->load->model('tour_model','tour');
+		$data['payment_types'] = $this->tour->get_payment_types($tour_id);
 		$payer = $this->payer->get_for_tour($payer_id, $tour_id);
 		$payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
 		$data['amount'] = $this->payment->get_total($tour_id, $payer->payer_id);
