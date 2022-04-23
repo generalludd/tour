@@ -34,8 +34,7 @@ class Tourist extends MY_Controller {
 	function view() {
 	}
 
-	function view_all() {
-		$tour_id = $this->uri->segment(3);
+	function view_all($tour_id) {
 		$export = FALSE;
 		if ($this->input->get('export')) {
 			$export = TRUE;
@@ -110,7 +109,7 @@ class Tourist extends MY_Controller {
 		}
 		$data ['tour'] = $tour;
 		$data ['payers'] = $payers;
-		$data ['title'] = 'Tourist List: $tour->tour_name';
+		$data ['title'] = 'Tourist List: ' .  $tour->tour_name;
 		if ($export) {
 			$this->load->view($data ['target'], $data);
 		}

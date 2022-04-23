@@ -77,19 +77,27 @@ class Tour_model extends MY_Model {
 	}
 
 	function get($id, $fields = FALSE) {
-		$this->db->from("tour");
-		$this->db->where("id", $id);
+		$this->db->from("tour")
+			->where("id", $id);
 		if ($fields) {
 			$this->db->select($fields);
 		}
-		return $this->db->get()->row();
+		$tour =  $this->db->get()->row();
+		$this->load->model('payer_model','payer');
+
+		$tour->tourists = $this->payer->get_payers($id);
+		return $tour;
 	}
 
-	function get_all($current_only = FALSE, $fields = "*"): array {
+	function get_all($archived = TRUE, $fields = "*"): array {
 		$this->db->from("tour");
 		$this->db->select($fields);
 		$this->db->order_by("tour.start_date", "DESC");
-		if ($current_only) {
+		if ($archived) {
+			$this->db->where("tour.start_date < CURDATE()", NULL, FALSE);
+		}
+		else{
+			$this->db->where('tour.status', 1);
 			$this->db->where("tour.start_date > CURDATE()", NULL, FALSE);
 		}
 		$results = $this->db->get()->result();
@@ -139,6 +147,11 @@ class Tour_model extends MY_Model {
 			}
 		}
 		return $payment_types;
+		}
+
+		function delete($id){
+		$this->db->where('id' , $id)
+			->update('tour',['status'=>0]);
 		}
 
 }

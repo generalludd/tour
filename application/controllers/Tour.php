@@ -36,9 +36,16 @@ class Tour extends MY_Controller {
 	}
 
 	function view_all() {
-		$data["tours"] = $this->tour->get_all();
+		$archived = $this->input->get('archived');
+		$data['archived'] = $archived?0:1;
+		$data["tours"] = $this->tour->get_all($archived);
 		$data["for_tourist"] = FALSE;
-		$data["title"] = "Showing All Tours";
+		if($archived){
+			$data['title'] = 'Previous Tours';
+		}
+		else {
+			$data["title"] = "Current Tours";
+		}
 		$data["target"] = "tour/list";
 		$this->load->view("page/index", $data);
 	}
@@ -82,6 +89,30 @@ class Tour extends MY_Controller {
 		];
 		$this->tour->update($id, $values);
 		echo $this->input->post("value");
+	}
+
+	function delete(){
+		// If we have an id in the header then we are asking if we're going to delete the tour.
+		if($this->input->get('tour_id')){
+			$tour = $this->tour->get($this->input->get('tour_id'));
+			$data['entity_name'] = $tour->tour_name;
+			$data['entity_id'] = $tour->id;
+			$data['action'] = 'tour/delete';
+			$data['target'] = 'dialogs/delete';
+			$data['title'] = 'Delete ' . $tour->tour_name;
+			if($this->input->get('ajax')){
+				$this->load->view($data['target'], $data);
+			}
+			else {
+				$this->load->view('page/index', $data);
+			}
+		} else {
+			$id = $this->input->post('entity_id');
+			$tour = $this->tour->get($id);
+			$this->tour->delete($id);
+			$this->session->set_flashdata('alert', $tour->tour_name . ' has been disabled.');
+			redirect('tour/view_all');
+		}
 	}
 
 	function get_value() {

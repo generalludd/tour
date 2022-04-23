@@ -13,9 +13,7 @@ $shirt_count = [];
 $buttons[] = [
 		'text' => 'Edit Tour Details',
 		'href' => site_url('tour/edit/' . $tour->id),
-		'class' => 'button edit dialog detail-hover',
-	'data' =>[
-			'target_id' => 'tour-details'  ],
+		'class' => 'button edit dialog',
 ];
 $buttons[] = [
 		'text' => 'Hotels and Roommates',
@@ -41,9 +39,6 @@ $buttons['print'] = [
 <h2><?php print $tour->tour_name; ?></h2>
 <div class="block">
 	<?php print create_button_bar($buttons); ?>
-</div>
-<div id="tour-details" class="details-block">
-	<?php $this->load->view('tour/view', $tour->id); ?>
 </div>
 
 <div class="block">

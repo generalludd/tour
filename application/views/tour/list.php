@@ -9,11 +9,24 @@ if (empty($for_tourist)) {
 			'class' => ['button', 'new', 'dialog'],
 			'id' => 'tour',
 	];
+	$buttons['show_tours'] = [
+			'href' => base_url('tour/view_all?archived=' . $archived),
+			'class' => ['button'],
+			'id' => 'tour',
+	];
+	if(empty($archived)) {
+		$buttons['show_tours']['text'] = 'Show Current Tours';
+
+	}else{
+		$buttons['show_tours']['text'] = 'Show Past Tours';
+
+	}
 	print create_button_bar($buttons);
 }
 ?>
 <?php if (count($tours) > 0): ?>
 	<table class="list">
+		<caption><?php print $title; ?></caption>
 		<thead>
 		<tr>
 			<th>Tour</th>

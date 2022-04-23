@@ -136,5 +136,9 @@
 	</div>
 	<input type="submit" name="save" id="save"
 		   value="<?php print ucwords($action); ?>"/>
+	<?php if (count($tour->tourists) === 0): ?>
+		<a href="<?php print base_url('tour/delete?tour_id=' . $tour->id); ?>"
+		   class="delete-tour delete button dialog">Delete</a>
+	<?php endif; ?>
 
 </form>

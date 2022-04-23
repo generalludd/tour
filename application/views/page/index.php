@@ -19,7 +19,7 @@ if($this->uri->segment(1) == ""){
 <?php if(!$print): ?>
 <div id='header'>
 
-<div id='page-title'>Ball Park Tours </div><div id='utility'><?php $this->load->view('page/utility');?></div>
+<div id='page-title'>Ball Park Tours<?php print !empty($title)? ': ' . $title:''?></div><div id='utility'><?php $this->load->view('page/utility');?></div>
 	<div id='navigation'>
 <?php  $this->load->view('page/navigation'); ?>
 
