@@ -215,7 +215,7 @@ div.entry, div.list {
 	width: 70%;
 }
 
-.button,  #browser_warning, .notice, .warning, input[type="submit"], input[type="text"] {
+.button,  #browser_warning, .notice, .warning, input[type="submit"] ,.person-search {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -252,18 +252,20 @@ tr.row-break td {
 	cursor: pointer;
 }
 
+
+
+input[type="text"], input[type="email"], input[type="number"], textarea {
+	border: 1px solid gray;
+	border-radius: .25rem;
+	padding: .25rem;
+}
+
 input[type="text"].person-search {
-	height: 18px;
+	height: 100%;
 	padding: 7px 3px;
 	font-size: 1.1em;
+	border-color: transparent;
 }
-
-input[type="text"] {
-	border: 1px solid transparent;
-	padding: 7px;
-	height: 35px;
-}
-
 
 input[type="number"] {
 	width: 5em;
@@ -331,14 +333,6 @@ input[type="time"] {
 
 }
 
-#utility .button-box {
-	/*font-size: .8em;*/
-
-}
-
-.button-box.float {
-
-}
 
 textarea {
 	font-size: 1em;
@@ -362,13 +356,19 @@ legend {
 
 /* header page layout elements */
 #header {
-	padding: 0;
-	position: relative;
-	height: 70px;
+	display: flex;
+	flex-flow: column;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid gray;
+}
+
+#super-header {
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 #page-title {
-	float: left;
 	font-size: 1.3em;
 	font-weight: bold;
 	padding-bottom: .7em;
@@ -402,16 +402,9 @@ legend {
 
 /* end header page layout elements */ /*main div layout elements */
 #main {
-	width: 95%;
 	position: relative;
 	padding: 0 2em 2em 2em;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 2.5em;
-}
-
-#content {
-
+	margin-top: 1rem;
 }
 
 /* end div layout elements */
@@ -529,19 +522,6 @@ a.button {
 	text-decoration: none;
 }
 
-.button-box {
-	height: 25px;
-}
-
-#content .button-box {
-	padding: .5em 0;
-	height: 1.5em;
-}
-
-.button-box .delete {
-	/*margin-top: -5px;*/
-
-}
 
 .button-bar {
 	margin-top: 5px;
@@ -674,38 +654,8 @@ fieldset.advanced div.advanced {
 	font-size: 1.2em;
 }
 
-.search_fieldset .button-box {
-	display: block;
-	float: right;
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-}
 
-.button-box {
-	/*margin-top: .5em;
-	padding-bottom: .5em;*/
-
-}
-
-ul.buttons {
-	list-style: none;
-	margin-left: -38px;
-}
-
-ul.buttons li {
-	display: inline;
-}
-
-.login .button-box {
-	width: 90%;
-	text-align: center;
-	margin: 0 auto;
-	position: relative;
-	height: 100%;
-}
-
-.login ul.button-list li {
+.login div.button-list .button-item {
 	margin: 0 .5em;
 }
 

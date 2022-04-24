@@ -392,3 +392,11 @@ function create_dropdown($name, $values, $options = []) {
 	if (array_key_exists("envelope", $options)) {
 	}
 }
+
+function get_page_title(string $title = NULL): string {
+	$output = 'Ball Park Tours';
+	if(!empty($title)){
+		$output .= ': ' . $title;
+	}
+	return $output;
+}
