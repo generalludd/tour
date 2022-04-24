@@ -3,6 +3,16 @@ if (empty($id)) {
 	return FALSE;
 }
 
+if(empty($label)) {
+	$label = ucwords(str_replace('_', ' ', $id));
+}
+
+$wrapper_class = ['field-envelope'];
+if(!empty($wrapper_classes)){
+	$wrapper_class = array_merge($wrapper_class, $wrapper_classes);
+}
+
+
 if (!empty($classes)) {
 	$classes = implode(' ', $classes);
 }
@@ -20,7 +30,7 @@ if (empty($required)) {
 }
 ?>
 
-<<?php print $wrapper; ?> class="field-envelope" data-target-id="<?php print $id; ?>">
+<<?php print $wrapper; ?> class="<?php print implode(' ', $wrapper_class);?>" data-target-id="<?php print $id; ?>">
 <?php if ($wrapper != 'td'): ?>
 	<label for="<?php print $id; ?>"><?php print $label; ?></label>
 <?php endif; ?>

@@ -15,9 +15,8 @@ class Contact extends MY_Controller
 
     function create ($hotel_id)
     {
-        $data['contact'] = NULL;
+        $data['contact'] = (object)['hotel_id' => $hotel_id];
         $data['hotel_name'] = $this->hotel->get($hotel_id)->hotel_name;
-        $data['hotel_id'] = $hotel_id;
         $data['action'] = 'insert';
         $data['target'] = 'contact/edit';
         $data['title'] = 'Add a contact to ' . $this->hotel->get($hotel_id)->hotel_name;
@@ -34,7 +33,7 @@ class Contact extends MY_Controller
     {
         $hotel_id = $this->input->post('hotel_id');
         $this->contact->insert();
-        redirect('hotel/view/$hotel_id');
+        redirect('hotel/view/' . $hotel_id);
     }
 
     function edit ()
@@ -59,9 +58,29 @@ class Contact extends MY_Controller
 
     function delete ()
     {
-        $id = $this->input->post('id');
-        $hotel_id = $this->input->post('hotel_id');
-        $this->contact->delete($id);
-        redirect('hotel/view/$hotel_id');
+			if($this->input->get('contact_id')){
+				$data['identifiers'] = [
+					'contact_id' => $this->input->get('contact_id'),
+					'hotel_id' => $this->input->get('hotel_id'),
+				];
+				$data['entity'] = 'Contact';
+				$data['message'] = 'Are you sure you want to delete this contact?';
+				$data['action'] = 'contact/delete';
+				$data['target'] = 'dialogs/delete';
+				$data['title'] = 'Delete a contact';
+				if($this->input->get('ajax')){
+					$this->load->view($data['target'], $data);
+				}
+				else {
+					$this->load->view('page/index', $data);
+				}
+			}
+			else {
+				$id = $this->input->post('contact_id');
+				$hotel_id = $this->input->post('hotel_id');
+				$this->contact->delete($id);
+				$this->session->set_flashdata('alert', 'The contact was successfully deleted');
+				redirect('hotel/view/' . $hotel_id);
+			}
     }
 }

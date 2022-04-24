@@ -215,7 +215,7 @@ div.entry, div.list {
 	width: 70%;
 }
 
-.button,  #browser_warning, .notice, .warning, input[type="submit"] ,.person-search {
+.button, #browser_warning, .notice, .warning, input[type="submit"], .person-search {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -253,8 +253,7 @@ tr.row-break td {
 }
 
 
-
-input[type="text"], input[type="email"], input[type="number"], textarea {
+input[type="text"], input[type="email"], input[type="number"], input[type="tel"], input[type="url"], input[type="date"], input[type="time"], textarea {
 	border: 1px solid gray;
 	border-radius: .25rem;
 	padding: .25rem;
@@ -363,7 +362,7 @@ legend {
 }
 
 #super-header {
-	display:flex;
+	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 }
@@ -387,7 +386,6 @@ legend {
 /*	min-width: 700px;*/
 /*	margin-bottom: .5em;*/
 /*}*/
-
 
 
 #utility {
@@ -495,6 +493,19 @@ label {
 .footnote {
 	font-size: .8em;
 	vertical-align: super;
+}
+
+.input-block.vertical {
+	display: flex;
+	flex-direction: column;
+}
+
+.input-block.horizontal {
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+}
+.input-block.horizontal label:after {
+	content: ":"
 }
 
 .ui-accordion-content {
@@ -811,6 +822,10 @@ div.housemate-info {
 
 .grouping div.field-envelope {
 	padding: 5px 0;
+}
+
+.field-envelope.horizontal label:after {
+	content: ':';
 }
 
 #footer {

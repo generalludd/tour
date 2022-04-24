@@ -49,7 +49,7 @@ $(document).ready(function(){
 						url: base_url + "hotel/delete",
 						data: form_data,
 						success: function(data){
-							window.location.href = base_url + "hotel/view_all/" + my_tour;
+							window.location.href = base_url + "hotel/view_for_tour/" + my_tour;
 						}
 					});
 			}
