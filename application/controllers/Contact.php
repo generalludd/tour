@@ -34,7 +34,7 @@ class Contact extends MY_Controller
     {
         $hotel_id = $this->input->post('hotel_id');
         $this->contact->insert();
-        redirect('hotel/view/$hotel_id');
+        redirect('hotel/view/' . $hotel_id);
     }
 
     function edit ()

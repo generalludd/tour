@@ -1,18 +1,20 @@
 <?php
 defined('BASEPATH') or exit ('No direct script access allowed');
-
+if (empty($hotel)) {
+	return FALSE;
+}
 // view.php Chris Dart Dec 29, 2013 10:17:41 PM chrisdart@cerebratorium.com
 $buttons [] = [
-	"text" => "Edit",
-	"href" => base_url('hotel/edit/' . $hotel->id),
-	"class" => "button edit edit-hotel",
-	'data' => [
-		'hotel' => $hotel->id,
-	],
+		'text' => 'Edit',
+		'href' => base_url('hotel/edit/' . $hotel->id),
+		'class' => 'button edit edit-hotel',
+		'data' => [
+				'hotel' => $hotel->id,
+		],
 ];
 $buttons [] = [
-	"text" => "Roommates",
-	"href" => site_url(sprintf("roommate/view_for_tour/?tour_id=%s&stay=%s", get_value($hotel, "tour_id"), get_value($hotel, "stay"))),
+		'text' => 'Roommates',
+		'href' => site_url(sprintf('roommate/view_for_tour/?tour_id=%s&stay=%s', get_value($hotel, 'tour_id'), get_value($hotel, 'stay'))),
 ];
 ?>
 <h3>Information for Hotel <?php print $hotel->hotel_name; ?></h3>
@@ -20,105 +22,107 @@ $buttons [] = [
 
 <input type="hidden" id="id" name="id"
 			 value="<?php print get_value($hotel, "id"); ?>"/>
-<div class="grouping block hotel-info" id="hotel">
-	<div class="column">
-		<?php print create_field("hotel_name", get_value($hotel, "hotel_name"), "Hotel Name", ["envelope" => "div"]); ?>
-		<?php print create_field("address", get_value($hotel, "address"), "Address", [
-			"class" => "textarea",
-			"envelope" => "div",
-		]); ?>
+<div class="triptych hotel-info" id="hotel">
+	<div class="info">
+	<fieldset>
+		<legend>Contact Info</legend>
+		<?php
+		$contact_info = [
+				'hotel_name' => [
+						'value' => get_value($hotel, 'hotel_name'),
+				],
+				'address' => [
+						'value' => get_value($hotel, 'address'),
+				],
+				'phone' => [
+						'value' => get_value($hotel, 'phone'),
+				],
+				'fax' => [
+						'value' => get_value($hotel, 'fax'),
+				],
+				'email' => [
+						'value' => get_value($hotel, 'email'),
+				],
+				'website' => [
+						'value' => get_value($hotel, 'url'),
+				],
+		];
+		foreach ($contact_info as $key => $info) {
+			if (!empty($info['value'])) {
+				$info['wrapper'] = 'div';
+				$info['id'] = $key;
+				$info['wrapper_classes'] = ['horizontal'];
+				$this->load->view('elements/field-item', $info);
+			}
 
-		<?php print create_field("phone", get_value($hotel, "phone"), "Phone", [
-			"envelope" => "div",
-			"format" => "tel",
-			"type" => "tel",
-		]); ?>
-		<?php print create_field("fax", get_value($hotel, "fax"), "Fax", [
-			"envelope" => "div",
-			"format" => "tel",
-			"type" => "tel",
-		]); ?>
-		<?php print create_field("email", get_value($hotel, "email"), "Email", [
-			"envelope" => "div",
-			"format" => "email",
-			"type" => "email",
-		]); ?>
-		<?php print create_field("url", get_value($hotel, "url"), "Website", [
-			"envelope" => "div",
-			"format" => "url",
-			"type" => "url",
-		]); ?>
+		}
+
+		?>
+	</fieldset>
+
+		<fieldset>
+			<legend>Contacts</legend>
 		<?php print create_button([
-			"text" => "Add Contact",
-			"href" => base_url('contact/create/' . $hotel->id),
-			"class" => "button new small add-contact",
+				'text' => 'Add Contact',
+				'href' => base_url('contact/create/' . $hotel->id),
+				'class' => 'button new small add-contact',
 		]); ?>
 
 		<?php if (!empty($contacts)): ?>
-			<h4>Contacts</h4>
-			<?php foreach ($contacts as $contact): ?>
-				<div class="contact-row row">
-					<div class="contact-info">
-						<?php print format_contact([
-							"name" => get_value($contact, "contact", FALSE),
-							"position" => get_value($contact, "position", FALSE),
-							"phone" => get_value($contact, "phone", FALSE),
-							"fax" => get_value($contact, "fax", FALSE),
-							"email" => get_value($contact, "email", FALSE),
-						]); ?>
-					</div>
-					<?php print create_button([
-						"text" => "Edit Contact",
-						"type" => "span",
-						"class" => "button edit float-right small edit-contact",
-						"id" => sprintf("edit-contact_%s", $contact->id),
-					]); ?>
-				</div>
-			<?php endforeach; ?>
+
+			<?php $this->load->view('contact/list', ['contacts'=> $contacts]);?>
 
 		<?php endif; ?>
+	</fieldset>
 	</div>
-	<div class="column">
+	<fieldset>
+		<legend>Tour Info</legend>
 		<div class="field-envelope" id="field-tour_id">
 			<label>Tour Name:&nbsp;</label>
 			<a class="field" id="tour_name"
 				 href="<?php print site_url("tour/view/$hotel->tour_id"); ?>"><?php print $hotel->tour_name; ?></a>
 		</div>
-		<?php print create_field("stay", get_value($hotel, "stay"), "Stay", [
-			"envelope" => "div",
-			"format" => "number",
-			"type",
-			"number",
-		]); ?>
-		<?php print create_field("arrival_date", format_date(get_value($hotel, "arrival_date")), "Arrival Date", [
-			"envelope" => "div",
-			"format" => "date",
-			"type" => "date",
-		]); ?>
-		<?php print create_field("arrival_time", get_value($hotel, "arrival_time"), "Arrival Time", [
-			"envelope" => "div",
-			"format" => "time",
-			"type" => "time",
-		]); ?>
-		<?php print create_field("departure_date", format_date(get_value($hotel, "departure_date")), "Departure Date", [
-			"envelope" => "div",
-			"format" => "date",
-			"type" => "date",
-		]); ?>
-		<?php print create_field("departure_time", get_value($hotel, "departure_time"), "Departure Time", [
-			"envelope" => "div",
-			"format" => "time",
-			"type" => "time",
-		]); ?>
-	</div>
-	<div class="column">
-		<p>
-			<strong>Room Type Count:</strong>
-		</p>
-		<?php foreach ($room_types as $room_type => $count): ?>
-			<div>
-				<?php printf("%ss: %s", format_field_name($room_type), $count); ?>
-			</div>
-		<?php endforeach; ?>
-	</div>
+		<?php
+		$tour_info = [
+				'stay' => [
+						'value' => get_value($hotel, 'stay'),
+				],
+				'arrival' => [
+						'value' => format_datetime(get_value($hotel, 'arrival_date'), get_value($hotel, 'arrival_time')),
+
+				],
+				'departure' => [
+						'value' => format_datetime(get_value($hotel, 'departure_date'), get_value($hotel, 'departure_time')),
+				],
+		];
+
+		foreach ($tour_info as $key => $info) {
+			if (!empty($info['value'])) {
+				$info['wrapper'] = 'div';
+				$info['id'] = $key;
+				$info['wrapper_classes'] = ['horizontal'];
+				$this->load->view('elements/field-item', $info);
+			}
+		}
+
+		?>
+	</fieldset>
+	<?php if (!empty($room_types)): ?>
+		<fieldset>
+			<legend>
+				Room Type Count
+			</legend>
+			<?php foreach ($room_types as $room_type => $count): ?>
+				<div>
+					<?php $this->load->view('elements/field-item', [
+							'id' => $room_type,
+							'wrapper' => 'div',
+							'wrapper_classes' => ['horizontal'],
+							'value' => $count,
+					]);
+					?>
+				</div>
+			<?php endforeach; ?>
+		</fieldset>
+	<?php endif; ?>
 </div>

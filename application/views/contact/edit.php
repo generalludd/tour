@@ -7,19 +7,11 @@ $buttons["submit"] = array(
         "type" => "pass-through",
         "text" => sprintf("<input type='submit' name='submit' class='button' value='%s'/>", ucfirst($action))
 );
-if ($action == "update") {
-    $buttons["delete"] = array(
-            "text" => "Delete",
-            "type" => "span",
-            "class" => "button delete delete-contact",
-            "id" => sprintf("delete-contact_%s_%s", $contact->id, $contact->hotel_id)
-    );
-}
 ?>
 <form
 	name="contact-editor"
 	id="contact-editor"
-	action="<?php print site_url("contact/$action");?>"
+	action="<?php print site_url('contact/' .$action);?>'
 	method="post">
 	<input
 		type="hidden"

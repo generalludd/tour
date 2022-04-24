@@ -82,10 +82,12 @@ class Tour_model extends MY_Model {
 		if ($fields) {
 			$this->db->select($fields);
 		}
-		$tour =  $this->db->get()->row();
-		$this->load->model('payer_model','payer');
+		$tour = $this->db->get()->row();
+		$this->load->model('payer_model', 'payer');
 
 		$tour->tourists = $this->payer->get_payers($id);
+		$this->load->model('hotel_model', 'hotel');
+		$tour->hotels = $this->hotel->get_all($id);
 		return $tour;
 	}
 
@@ -96,11 +98,15 @@ class Tour_model extends MY_Model {
 		if ($archived) {
 			$this->db->where("tour.start_date < CURDATE()", NULL, FALSE);
 		}
-		else{
+		else {
 			$this->db->where('tour.status', 1);
 			$this->db->where("tour.start_date > CURDATE()", NULL, FALSE);
 		}
 		$results = $this->db->get()->result();
+		$this->load->model('hotel_model', 'hotel');
+		foreach ($results as $tour) {
+			$tour->hotels = $this->hotel->get_all($tour->id);
+		}
 		return $this->keyed($results, 'id');
 	}
 
@@ -139,24 +145,24 @@ class Tour_model extends MY_Model {
 			->where('id', $tour_id)
 			->select(array_keys($payment_types));
 		$result = $this->db->get()->row();
-		$this->load->model('variable_model','variable');
+		$this->load->model('variable_model', 'variable');
 
-		foreach($payment_types as $value => $name){
-			if(empty($result->{$value})){
+		foreach ($payment_types as $value => $name) {
+			if (empty($result->{$value})) {
 				unset($payment_types[$value]);
 			}
 		}
 		return $payment_types;
-		}
+	}
 
-		function delete($id){
-		$this->db->where('id' , $id)
+	function delete($id) {
+		$this->db->where('id', $id)
 			->delete('tour');
-		}
+	}
 
-		function disable($id) {
-			$this->db->where('id' , $id)
-				->update('tour',['status'=>0]);
-		}
+	function disable($id) {
+		$this->db->where('id', $id)
+			->update('tour', ['status' => 0]);
+	}
 
 }

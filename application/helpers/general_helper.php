@@ -47,21 +47,21 @@ function burn_cookie($name) {
  */
 /**
  * @param $date
- * @param $format
+ * @param string $format
  *
  * @return false|mixed|string
  */
-function format_date($date, $format = "standard") {
+function format_date($date, string $format = "standard") {
 	if ($date) {
 		switch ($format) {
 			case "mysql":
 				$date = date('Y-m-d', strtotime($date));
 				break;
 			case "standard":
-				$date = date('m/d/Y',strtotime($date));
+				$date = date('m/d/Y', strtotime($date));
 				break;
 			case "no-year":
-				$date = date('m/d',strtotime($date));
+				$date = date('m/d', strtotime($date));
 				break;
 		}
 	}
@@ -70,11 +70,12 @@ function format_date($date, $format = "standard") {
 
 /**
  * @param $timestamp
- * @param $format
+ * @param string $format
  *
  * @return false|string
  */
-function format_timestamp($timestamp, $format = "standard") {
+function format_timestamp($timestamp, string $format = "standard") {
+	$output = '';
 	switch ($format) {
 		case "standard":
 			$output = date('m/d/Y, g:i:s A', strtotime($timestamp));
@@ -93,12 +94,29 @@ function format_timestamp($timestamp, $format = "standard") {
  * ideally this will produce a cleaned up version of a time entry.
  * for now it just trims a time entry--which could be any string.
  *
- * @param string $time
+ * @param string|null $time
  * @param string $format
+ *
+ * @return false|string|null
  */
-function format_time($time, $format = "standard") {
+function format_time(string $time = NULL, string $format = "standard") {
+	if (!empty($time)) {
+		return date('g:i A', strtotime(trim($time)));
+	}
+	else {
+		return NULL;
+	}
+}
 
-	return date('g:i A', strtotime(trim($time)));
+function format_datetime(string $date = NULL, string $time = NULL){
+	$output = [];
+	if(!empty($date)){
+		$output[] = format_date($date);
+	}
+	if(!empty($time)){
+		$output[] = format_time($time);
+	}
+	return implode(', ', $output);
 }
 
 /**
@@ -177,18 +195,19 @@ function get_value($object, $item, $default = NULL) {
 
 /**
  * Accepts an integer and a value (either "standard" or "int") depending on
- * whether the desired output is currency with $ or a number stripped of $ and extras.
+ * whether the desired output is currency with $ or a number stripped of $ and
+ * extras.
  *
  * @param float|null $int $int
  * @param string $format
  *
  * @return string
  */
-function format_money(float $int = NULL, string $format = "standard"):string {
-	if($format == 'int'){
-		$int = round($int,0);
+function format_money(float $int = NULL, string $format = "standard"): string {
+	if ($format == 'int') {
+		$int = round($int, 0);
 	}
-	$fmt = new NumberFormatter( 'en_US', NumberFormatter::CURRENCY );
+	$fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
 	return $fmt->formatCurrency($int, 'USD');
 }
 
@@ -233,8 +252,8 @@ function format_address($address, $format = "postal") {
 	elseif ($format == "inline") {
 		$output = sprintf("%s, %s", $street, $locality);
 	}
-	elseif($format = 'vcard'){
-		$output = sprintf('%s\n%s',$street, $locality);
+	elseif ($format = 'vcard') {
+		$output = sprintf('%s\n%s', $street, $locality);
 	}
 	return $output;
 }
@@ -522,6 +541,7 @@ function create_link(string $path, string $text, array $options = []): string {
 /**
  * Link to the person based on an object that has an attribute $id that
  *   represents a person.id.
+ *
  * @param \stdClass $person
  *  An object that must contain an attribute that points to a person entity.
  * @param string $id
