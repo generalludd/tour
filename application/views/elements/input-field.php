@@ -1,22 +1,31 @@
 <?php
-if(empty($label) || empty($id)){
-	return FALSE;
+if (empty($id)){
+	die('Missing ID');
 }
 if(empty($wrapper)){
 	$wrapper = 'p';
 }
-if(empty($type)){
-	$type = 'text';
+if(empty($attributes)){
+	die('Missing attributes');
 }
-if(empty($size)){
-	$size = '60';
+if(empty($attributes['type'])){
+	$attributes['type'] = 'text';
+}
+
+if(empty($label)){
+	$label = ucwords(str_replace('_',' ', $id));
+}
+foreach($attributes as $key=>$value){
+	$attribute_values[] = $key .'="'. $value. '"';
 }
 ?>
-
-<<?php print $wrapper;?> class="input-block">
+<?php if($attributes['type'] != 'hidden'): ?>
+	<<?php print $wrapper;?> class="input-block">
 <label for="<?php print $id; ?>>">
 	<?php print $label; ?>
 </label>
-<input type="<?php print $type; ?>" name="<?php print $id; ?>" id="<?php print $id; ?>"
-						  value="<?php print $value; ?>"  size="<?php print $size; ?>" class="input ">
+<?php endif; ?>
+<input name="<?php print $id; ?>" id="<?php print $id; ?>" <?php print implode(' ', $attribute_values);?>/>
+<?php if($attributes['type'] != 'hidden'):?>
 </<?php print $wrapper;?>>
+<?php endif;

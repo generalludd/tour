@@ -46,7 +46,7 @@ class Hotel extends MY_Controller {
 
 	function create($tour_id) {
 		$this->load->model('tour_model', 'tour');
-		$tour_list = $this->tour->get_all(TRUE, 'tour_name,id');
+		$tour_list = $this->tour->get_all(FALSE, 'tour_name,id');
 		$tour = $this->tour->get($tour_id, 'id, tour_name');
 		$data['tour'] = $tour;
 

@@ -6,9 +6,11 @@ class Payer extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model("payer_model", "payer");
-		$this->load->model("tourist_model", "tourist");
-		$this->load->model("payment_model", "payment");
+		$this->load->model('payer_model', 'payer');
+		$this->load->model('tourist_model', 'tourist');
+		$this->load->model('payment_model', 'payment');
+		$this->load->model('tour_model', 'tour');
+		$this->load->model('person_model', 'person');
 	}
 
 	function view() {
@@ -71,10 +73,8 @@ class Payer extends MY_Controller {
 			"value",
 			"name",
 		]);
-		$data["payment_types"] = get_keyed_pairs($this->variable->get_pairs("payment_type"), [
-			"value",
-			"name",
-		]);
+		$this->load->model('tour_model','tour');
+		$data['payment_types'] = $this->tour->get_payment_types($tour_id);
 		$payer = $this->payer->get_for_tour($payer_id, $tour_id);
 		$payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
 		$data['amount'] = $this->payment->get_total($tour_id, $payer->payer_id);
@@ -110,19 +110,16 @@ class Payer extends MY_Controller {
 	}
 
 	function update() {
-		$payer_id = $this->input->post("payer_id");
-		$tour_id = $this->input->post("tour_id");
+		$payer_id = $this->input->post('payer_id');
+		$tour_id = $this->input->post('tour_id');
 		$this->payer->update($payer_id, $tour_id);
-		if ($this->input->post("is_cancelled") == 1) {
-			$this->load->model("roommate_model", "roommate");
+		if ($this->input->post('is_cancelled') == 1) {
+			$this->load->model('roommate_model', 'roommate');
 			//get everyone on the payer's ticket and delete them from the roommate list for the tour.
-			$tourists = $this->tourist->get_for_payer($payer_id, $tour_id);
-			foreach ($tourists as $tourist) {
-				$deletion = ["tour_id" => $tour_id, "person_id" => $tourist->person_id];
-				$this->roommate->delete($deletion);
-			}
+			$this->roommate->delete_payer($payer_id, $tour_id);
 		}
-		redirect("/tourist/view_all/$tour_id");
+		$this->session->set_flashdata('alert', 'This reservation has been cancelled. All roommate entries have been deleted from all hotel stays');
+		redirect('/tourist/view_all/' .$tour_id);
 	}
 
 	function update_value() {
@@ -162,12 +159,36 @@ class Payer extends MY_Controller {
 	}
 
 	function delete() {
-		$payer_id = $this->input->post("payer_id");
-		$tour_id = $this->input->post("tour_id");
-		$this->payer->delete($payer_id, $tour_id);
-		$this->tourist->delete_payer($payer_id, $tour_id);
-		$this->load->model("roommate_model", "roommate");
-		$this->roommate->delete_payer($payer_id, $tour_id);
+		if( $this->input->get('tour_id') &&  $this->input->get('payer_id')) {
+			$tour_id = $this->input->get('tour_id');
+			$payer_id = $this->input->get('payer_id');
+			$tour = $this->tour->get($tour_id);
+			$payer = $this->person->get($payer_id);
+			$data['identifiers'] = [
+				'tour_id' => $tour_id,
+				'payer_id' => $payer_id,
+			];
+			$data['entity'] = 'payment by ' . $payer->first_name . ' ' . $payer->last_name . ' for ' . $tour->tour_name;
+			$data['action'] ='payer/delete';
+			$data['message'] = 'This is only possible for someone who was accidentally added to a tour and has no rooms or payments associated with their tour.';
+			$data['target'] = 'dialogs/delete';
+			if($this->input->get('ajax')){
+				$this->load->view($data['target'], $data);
+			}
+			else {
+				$this->load->view('page/index', $data);
+			}
+		}
+		else {
+			$payer_id = $this->input->post('payer_id');
+			$tour_id = $this->input->post('tour_id');
+			$this->payer->delete($payer_id, $tour_id);
+			$this->tourist->delete_payer($payer_id, $tour_id);
+			$this->load->model('roommate_model', 'roommate');
+			$this->roommate->delete_payer($payer_id, $tour_id);
+			redirect('tour/view/' . $tour_id);
+		}
+
 	}
 
 }

@@ -123,7 +123,7 @@ div.login-title {
 	box-shadow: 1px 1px 1px #000;
 }
 
-#login_form .login-text,.reset-fields input,.reset-fields label {
+#login_form .login-text, .reset-fields input, .reset-fields label {
 	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
@@ -190,7 +190,7 @@ div.result {
 	padding-left: 2%;
 }
 
-div.entry,div.list {
+div.entry, div.list {
 	width: 60%;
 	text-indent: 2%;
 	height: 2ex;
@@ -215,20 +215,19 @@ div.entry,div.list {
 	width: 70%;
 }
 
-.button,#navigation,#browser_warning,.notice,.warning,input[type="submit"],#navigation input[type="text"]
-	{
+.button, #navigation, #browser_warning, .notice, .warning, input[type="submit"], #navigation input[type="text"] {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	box-shadow: 1px 1px 2px #333;
 }
 
-#navigation .button,.login .button {
+#navigation .button, .login .button {
 	padding: .7em;
 	font-size: 1.1em;
 }
 
-.button,input[type="submit"] {
+.button, input[type="submit"] {
 	text-align: center;
 	/*position: static;*/
 	padding: .2em .4em;
@@ -240,7 +239,7 @@ div.entry,div.list {
 	white-space: nowrap;
 }
 
-td .button,.row .button,.button.small {
+td .button, .row .button, .button.small {
 	font-size: .9em;
 	padding: .1em .5em;
 }
@@ -253,12 +252,18 @@ tr.row-break td {
 	cursor: pointer;
 }
 
-#navigation input[type="text"] {
+input[type="text"].person-search {
 	height: 18px;
-	border: 1px solid transparent;
 	padding: 7px 3px;
 	font-size: 1.1em;
 }
+
+#navigation input[type="text"] {
+	border: 1px solid transparent;
+	padding: 7px;
+	height: 35px;
+}
+
 
 input[type="number"] {
 	width: 5em;
@@ -306,7 +311,7 @@ ul.button-list li .button {
 
 ul.button-list li .button.delete {
 	/*margin-top: -5px;*/
-	
+
 }
 
 .mini-buttons ul.button-list li .button {
@@ -321,16 +326,16 @@ ul.button-list li .button.delete {
 }
 
 .help {
-	
+
 }
 
 #utility .button-box {
 	/*font-size: .8em;*/
-	
+
 }
 
 .button-box.float {
-	
+
 }
 
 textarea {
@@ -340,7 +345,8 @@ textarea {
 .delete {
 	float: right;
 }
-.delete.no-float{
+
+.delete.no-float {
 	float: none;
 }
 
@@ -430,7 +436,7 @@ legend {
 }
 
 #content {
-	
+
 }
 
 /* end div layout elements */
@@ -452,32 +458,22 @@ h1 {
 }
 
 h2 {
-	font-weight: bold;
-	text-transform: uppercase;
 	text-align: left;
 	position: relative;
-	/*border-style: solid;
-	border-width: 1px;*/
 	margin-top: 10px;
 	margin-bottom: 10px;
-	padding: 10px;
+	padding: 10px 10px 10px 0;
 }
 
 h3 {
-	font-size: 1.5em;
 	font-weight: bold;
 	margin: 1em 0;
-	/*border-style: solid;
-	border-width: 1px;*/
 }
 
 h4 {
 	font-weight: bold;
-	text-transform: uppercase;
 	text-align: left;
 	position: relative;
-	/*border-style: solid;
-	border-width: 1px;*/
 	margin: 0;
 }
 
@@ -485,16 +481,12 @@ h5 {
 	font-size: 1em;
 	font-weight: bold;
 	text-align: left;
-	/*border-top-style: solid;
-	border-top-width: 1px;*/
 	margin: 0;
 }
 
-h3,h4,h5 {
+h3, h4, h5 {
 	margin-top: 4px;
 	margin-bottom: 4px;
-	padding: 5px;
-	/*padding-left: 10px;*/
 }
 
 
@@ -573,7 +565,7 @@ a.button {
 
 .button-box .delete {
 	/*margin-top: -5px;*/
-	
+
 }
 
 .button-bar {
@@ -610,13 +602,11 @@ table.list td {
 }
 
 
-
 table.list {
 	border-spacing: 5px 0;
 	padding-bottom: 5px;
 	padding-top: 5px;
 }
-
 
 
 table.list th {
@@ -629,7 +619,7 @@ table.list th {
 }
 
 table.list tbody tr {
-	
+
 }
 
 #popup {
@@ -653,17 +643,16 @@ table.list tfoot tr td {
 }
 
 
-
 table.files {
 	border-spacing: 5px;
 }
 
 table.files th {
-	
+
 }
 
 table.files td {
-	
+
 }
 
 table.files td.file-name {
@@ -678,11 +667,11 @@ td.field input {
 	width: 60px;
 }
 
-a.link,input.link {
+a.link, input.link {
 	text-decoration: underline;
 }
 
-a.link:hover,input.link:hover {
+a.link:hover, input.link:hover {
 	cursor: pointer;
 }
 
@@ -721,7 +710,7 @@ fieldset.advanced div.advanced {
 .button-box {
 	/*margin-top: .5em;
 	padding-bottom: .5em;*/
-	
+
 }
 
 ul.buttons {
@@ -754,8 +743,8 @@ ul.buttons li {
 	display: block;
 }
 
-.color-info,.order-info {
-	
+.color-info, .order-info {
+
 }
 
 fieldset.block label {
@@ -785,6 +774,7 @@ textarea.save-field {
 	float: left;
 	padding-bottom: 10px;
 }
+
 .column-odd {
 	padding-right: 5px;
 }
@@ -796,19 +786,25 @@ textarea.save-field {
 .room-row.column {
 	width: 30%;
 }
-.triptych.column {
-	width: 28%;
+
+.triptych {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
 }
 
-.room-row {
-	/*orphans: 3;
-	widows: 3;*/
+.diptych {
+	display: flex;
+	grid-gap: 1rem;
 }
 
-h3 {
-	/*orphans: 3;
-	widows: 3;*/
+li.diptych {
+	justify-content: flex-start;
 }
+
+li.diptych .delete {
+
+}
+
 
 #search_list td {
 	border: 1px solid #ddd;
@@ -862,14 +858,14 @@ body.person #content {
 	position: relative;
 }
 
-body.person fieldset.grouping,div.grouping {
+body.person fieldset.grouping, div.grouping {
 	float: left;
 	clear: none;
 	min-width: 35ex;
 }
 
 div.grouping {
-	
+
 }
 
 div.person-info {
@@ -885,7 +881,7 @@ div.address-info {
 }
 
 div.housemate-info {
-	
+
 }
 
 .grouping div.field-envelope {
@@ -908,7 +904,7 @@ textarea.editor {
 	height: 15em;
 }
 
-input.note-field,textarea.address-field {
+input.note-field, textarea.address-field {
 	width: 25em;
 }
 
@@ -955,14 +951,6 @@ label.above {
 	width: 3em;
 }
 
-.triptych {
-	float: left;
-	width: 30%;
-	clear: none;
-	min-width:230px;
-}
-
-
 #word-icon {
 	background-position: -380px -20px;
 	background-image: url(../tiny_mce/themes/advanced/img/icons.gif);
@@ -970,7 +958,7 @@ label.above {
 	height: 20px;
 	width: 20px;
 	display: inline-block;
-	
+
 }
 
 .return-slip .row {
@@ -981,7 +969,7 @@ label.above {
 }
 
 .return-slip .row-1 {
-	
+
 }
 
 .return-slip .row-last {
@@ -1005,7 +993,7 @@ label.above {
 	min-width: 13ex;
 }
 
-#payment-list-block tfoot tr td{
+#payment-list-block tfoot tr td {
 	border-top: 3px double #000;
 }
 
@@ -1027,11 +1015,12 @@ label.above {
 	margin: .5em;
 }
 
-#tourist-dropdown-block {
-	width: 90%;
-	margin: 0 auto;
-	position: relative;
-	padding: .5em;
+ul.list {
+	padding: 0;
+}
+
+ul.list li {
+	list-style: none;
 }
 
 #tourist-dropdown {
@@ -1042,3 +1031,32 @@ label.above {
 	padding: .5em;
 }
 
+.quick-look .field-envelope {
+	font-size: 1rem;
+}
+
+.quick-look h2, .quick-look h3, .quick-look h4 {
+	font-size: 1rem;
+	padding: 0;
+	text-transform: none;
+}
+
+.quick-look ul {
+	padding: 0;
+	margin: 0;
+}
+
+.quick-look ul li {
+	list-style: none;
+	display: inline;
+}
+
+.currency:before {
+	content: "$";
+}
+
+.details-block {
+	display: none;
+	background-color: white;
+	width: 50%;
+}

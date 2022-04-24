@@ -23,7 +23,6 @@ var root_url = '<?php print base_url();?>';
 
 <!-- Custom Scripts  -->
 <script type="text/javascript" src="<?php print base_url("js/general.js");?>"></script>
-<script type="text/javascript" src="<?php print base_url('js/tour.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/payer.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/person.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/address.js');?>"></script>
