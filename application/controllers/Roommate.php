@@ -30,10 +30,13 @@ class Roommate extends MY_Controller {
 
 		if ($tour_id && $stay) {
 			$rooms = $this->room->get_for_tour($tour_id, $stay);
-
+			$sizes = [];
 			foreach ($rooms as $room) {
 				$room->roommates = $this->roommate->get_for_room($room->id);
+				$sizes[$room->size][$room->room_id] = $room;
 			}
+			ksort($sizes);
+			$data['sizes'] = $sizes;
 
 			$hotel = $this->hotel->get_by_stay($tour_id, $stay);
 
@@ -41,7 +44,6 @@ class Roommate extends MY_Controller {
 
 			$data ["hotel"] = $hotel;
 			$data ["tour_id"] = $tour_id;
-			$data ["rooms"] = $rooms;
 			$data ["stay"] = $stay;
 
 			$data ["target"] = "roommate/list";
