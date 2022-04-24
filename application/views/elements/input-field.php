@@ -5,6 +5,10 @@ if (empty($id)){
 if(empty($wrapper)){
 	$wrapper = 'p';
 }
+$wrapper_class = ['input-block'];
+if(!empty($wrapper_classes)){
+	$wrapper_class = array_merge($wrapper_classes, $wrapper_class);
+}
 if(empty($attributes)){
 	die('Missing attributes');
 }
@@ -20,7 +24,7 @@ foreach($attributes as $key=>$value){
 }
 ?>
 <?php if($attributes['type'] != 'hidden'): ?>
-	<<?php print $wrapper;?> class="input-block">
+	<<?php print $wrapper;?> class="<?php  print implode(' ', $wrapper_class); ?>">
 <label for="<?php print $id; ?>>">
 	<?php print $label; ?>
 </label>
