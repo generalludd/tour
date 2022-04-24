@@ -215,7 +215,7 @@ div.entry, div.list {
 	width: 70%;
 }
 
-.button, #navigation, #browser_warning, .notice, .warning, input[type="submit"], #navigation input[type="text"] {
+.button,  #browser_warning, .notice, .warning, input[type="submit"] ,.person-search {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -252,18 +252,20 @@ tr.row-break td {
 	cursor: pointer;
 }
 
+
+
+input[type="text"], input[type="email"], input[type="number"], textarea {
+	border: 1px solid gray;
+	border-radius: .25rem;
+	padding: .25rem;
+}
+
 input[type="text"].person-search {
-	height: 18px;
+	height: 100%;
 	padding: 7px 3px;
 	font-size: 1.1em;
+	border-color: transparent;
 }
-
-#navigation input[type="text"] {
-	border: 1px solid transparent;
-	padding: 7px;
-	height: 35px;
-}
-
 
 input[type="number"] {
 	width: 5em;
@@ -293,28 +295,30 @@ input[type="time"] {
 	cursor: pointer;
 }
 
-ul.button-list {
+.button-list {
 	list-style: none;
-	padding-left: 0px;
-	display: inline;
+	padding-left: 0;
+	display: flex;
+	flex-flow: row wrap;
 }
 
-ul.button-list li {
-	display: inline;
+.button-list div.button-item {
+	display: flex;
+	flex-flow: column wrap;
 	padding: .35em 0 .35em .25em;
 }
 
-ul.button-list li .button {
+.button-list div.button-item .button, .button-list div.button-item input {
 	margin: 0 5px;
 	/*font-size: 1.2em;*/
 }
 
-ul.button-list li .button.delete {
+.button-list div.button-item .button.delete {
 	/*margin-top: -5px;*/
 
 }
 
-.mini-buttons ul.button-list li .button {
+.mini-buttons .button-list div.button-item .button {
 	margin: 0 1px;
 }
 
@@ -329,14 +333,6 @@ ul.button-list li .button.delete {
 
 }
 
-#utility .button-box {
-	/*font-size: .8em;*/
-
-}
-
-.button-box.float {
-
-}
 
 textarea {
 	font-size: 1em;
@@ -360,13 +356,19 @@ legend {
 
 /* header page layout elements */
 #header {
-	padding: 0;
-	position: relative;
-	height: 70px;
+	display: flex;
+	flex-flow: column;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid gray;
+}
+
+#super-header {
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 #page-title {
-	float: left;
 	font-size: 1.3em;
 	font-weight: bold;
 	padding-bottom: .7em;
@@ -376,44 +378,17 @@ legend {
 	padding: 1px;
 }
 
-#navigation {
-	position: relative;
-	float: left;
-	width: 95%;
-	padding: .75em 0 0 1em;
-	height: 3em;
-	min-width: 700px;
-	margin-bottom: .5em;
-}
+/*#navigation {*/
+/*	position: relative;*/
+/*	float: left;*/
+/*	width: 95%;*/
+/*	padding: .75em 0 0 1em;*/
+/*	height: 3em;*/
+/*	min-width: 700px;*/
+/*	margin-bottom: .5em;*/
+/*}*/
 
-#navigation ul {
-	padding: 0;
-	margin: 0;
-}
 
-#navigation li {
-	display: inline;
-	margin-left: 0.25em;
-	margin-top: 0.5em;
-	margin-left: 0.25em;
-	/*border-left-width:0.1em;
-	border-left-style:solid;*/
-}
-
-#navigation li:first-child {
-	display: inline;
-	padding-left: 0;
-	margin-left: 0;
-	/*border-left:none;*/
-}
-
-#navigation li a a {
-	text-decoration: none;
-}
-
-#navigation .button-box {
-	float: left;
-}
 
 #utility {
 	float: right;
@@ -427,16 +402,9 @@ legend {
 
 /* end header page layout elements */ /*main div layout elements */
 #main {
-	width: 95%;
 	position: relative;
 	padding: 0 2em 2em 2em;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 2.5em;
-}
-
-#content {
-
+	margin-top: 1rem;
 }
 
 /* end div layout elements */
@@ -554,19 +522,6 @@ a.button {
 	text-decoration: none;
 }
 
-.button-box {
-	height: 25px;
-}
-
-#content .button-box {
-	padding: .5em 0;
-	height: 1.5em;
-}
-
-.button-box .delete {
-	/*margin-top: -5px;*/
-
-}
 
 .button-bar {
 	margin-top: 5px;
@@ -699,38 +654,8 @@ fieldset.advanced div.advanced {
 	font-size: 1.2em;
 }
 
-.search_fieldset .button-box {
-	display: block;
-	float: right;
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-}
 
-.button-box {
-	/*margin-top: .5em;
-	padding-bottom: .5em;*/
-
-}
-
-ul.buttons {
-	list-style: none;
-	margin-left: -38px;
-}
-
-ul.buttons li {
-	display: inline;
-}
-
-.login .button-box {
-	width: 90%;
-	text-align: center;
-	margin: 0 auto;
-	position: relative;
-	height: 100%;
-}
-
-.login ul.button-list li {
+.login div.button-list .button-item {
 	margin: 0 .5em;
 }
 

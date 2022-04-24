@@ -4,9 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // view.php Chris Dart Dec 11, 2013 7:47:55 PM chrisdart@cerebratorium.com
 $buttons[] = [
 		"text" => "Edit Person",
-		"href" => site_url("person/edit/$person->id"),
-		"class" => "button edit dialog",
-		"id" => sprintf("edit-person_%s", $person->id),
+		'title' => 'Edit ' . $person->first_name . '&rsquo;s Record',
+		"href" => site_url('person/edit/' . $person->id),
+		"class" => 'button edit dialog',
 ];
 $buttons[] = [
 		"text" => "Join Tour",
@@ -26,18 +26,6 @@ $buttons[] = [
 		'href' => base_url('person/vcard/' . $person->id),
 		'class' => 'button export',
 ];
-
-$nav_buttons[] = [
-		"text" => "<- Previous Record",
-		"class" => "button navigation previous-person-record",
-		"href" => site_url("person/view_previous/$person->id"),
-];
-$nav_buttons[] = [
-		"text" => "Next Record ->",
-		"class" => "button navigation next-person-record",
-		"href" => site_url("person/view_next/$person->id"),
-];
-
 
 $move_button[] = [
 		"text" => "Move",
@@ -68,16 +56,16 @@ $restore_button[] = [
 
 
 <?php endif; ?>
-<?php if (empty($ajax)): ?>
-	<?php print create_button_bar($nav_buttons); ?>
-<?php endif; ?>
-<h3>Person
-	Record: <?php print sprintf("%s %s", $person->first_name, $person->last_name); ?></h3>
+<?php //if (empty($ajax)): ?>
+<!--	--><?php //print create_button_bar($nav_buttons); ?>
+<?php //endif; ?>
+<!--<h3>Person-->
+<!--	Record: --><?php //print sprintf("%s %s", $person->first_name, $person->last_name); ?><!--</h3>-->
 <?php print create_button_bar($buttons); ?>
 
-<div class="content">
-	<div
-			class="grouping block person-info"
+<div class="diptych">
+	<fieldset
+			class=" block person-info"
 			id="person">
 		<input
 				type="hidden"
@@ -124,10 +112,10 @@ $restore_button[] = [
 			<?php endif; ?>
 			<?php print create_button_bar($phone_button); ?>
 		</div>
-	</div>
+	</fieldset>
 	<fieldset
-			class="grouping block address-info"
+			class=" block address-info"
 			id="address">
-		<?php $this->load->view('address/view',['person' => $person]);?>
+		<?php $this->load->view('address/view', ['person' => $person]); ?>
 	</fieldset>
 </div>

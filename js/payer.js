@@ -139,8 +139,8 @@ $(document).ready(function () {
 				url: base_url + "tourist/delete",
 				data: form_data,
 				success: function (data) {
-					$("#payer-tourist-list").html(data);
-					tourist_count = $("#payer-tourist-list tr").length;
+					$("#payer-tourist-block ul.tourist-list").html(data);
+					let tourist_count = $("#payer-tourist-block ul.tourist-list li").length;
 					$("#tourist_count").val(tourist_count);
 					calculate_cost(1);
 				}
