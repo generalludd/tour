@@ -129,16 +129,19 @@ $amt_due = $total_cost - $payer->amt_paid;
 							'title' => 'Cancel the changes to the above payment data.',
 							'data' => ['tour_id' => $tour_id],
 					]; ?>
-					<?php $buttons[] = [
-							'text' => 'Delete Payer',
-							'title' => 'Completely delete this payer, payment, rooming, and tourist info for this payer',
-							'class' => 'button delete delete-payer',
-							'data' => [
-									'tour_id' => $tour_id,
-									'payer_id' => $payer_id,
-							],
-							'id' => sprintf('delete-payer_%s_%s', $payer_id, $tour_id),
-					]; ?>
+
+					<?php if($amt_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0) ) {
+						$buttons[] = [
+								'text' => 'Delete Payer',
+								'title' => 'Completely delete this payer, payment, rooming, and tourist info for this payer',
+								'class' => 'button delete dialog',
+							'href' => base_url('payer/delete?tour_id=' . $tour_id . '&payer_id=' . $payer_id),
+								'data' => [
+										'tour_id' => $tour_id,
+										'payer_id' => $payer_id,
+								],
+						];
+					} ?>
 
 				<?php endif; ?>
 				<?php print create_button_bar($buttons); ?>

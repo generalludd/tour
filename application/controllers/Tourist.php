@@ -226,13 +226,16 @@ class Tourist extends MY_Controller {
 		$tour_id = $this->input->post('tour_id');
 		$person_id = $this->input->post('person_id');
 		$payer_id = $this->input->post('payer_id');
+		$this->load->model('roommate_model', 'roommate');
+		$this->roommate->delete_tourist($person_id, $tour_id);
+		$this->tourist->delete($person_id, $tour_id);
+		$data['target'] = 'tourist/payer_list';
+		$data ['tourists'] = $this->tourist->get_by_payer($payer_id, $tour_id);
 		if ($this->input->post('ajax') == 1) {
-			$this->tourist->delete($person_id, $tour_id);
-			$this->load->model('roommate_model', 'roommate');
-			$this->roommate->delete_tourist($person_id, $tour_id);
-			$target = 'tourist/payer_list';
-			$data ['tourists'] = $this->tourist->get_by_payer($payer_id, $tour_id);
-			$this->load->view($target, $data);
+			$this->load->view($data['target'], $data);
+		}
+		else {
+			$this->load->view('page/index', $data);
 		}
 	}
 

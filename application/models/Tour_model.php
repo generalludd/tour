@@ -151,7 +151,12 @@ class Tour_model extends MY_Model {
 
 		function delete($id){
 		$this->db->where('id' , $id)
-			->update('tour',['status'=>0]);
+			->delete('tour');
+		}
+
+		function disable($id) {
+			$this->db->where('id' , $id)
+				->update('tour',['status'=>0]);
 		}
 
 }

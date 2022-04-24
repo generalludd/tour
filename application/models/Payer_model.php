@@ -138,8 +138,7 @@ class Payer_model extends CI_Model
                 "payer_id" => $payer_id,
                 "tour_id" => $tour_id
         );
-        $query = "INSERT IGNORE INTO `payer` (`payer_id`, `tour_id`) VALUES('$payer_id', '$tour_id');";
-        $this->db->query($query);
+        $this->db->insert('payer', $insert_array);
     }
 
     function delete ($payer_id, $tour_id)

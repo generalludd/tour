@@ -95,9 +95,12 @@ class Tour extends MY_Controller {
 		// If we have an id in the header then we are asking if we're going to delete the tour.
 		if($this->input->get('tour_id')){
 			$tour = $this->tour->get($this->input->get('tour_id'));
-			$data['entity_name'] = $tour->tour_name;
-			$data['entity_id'] = $tour->id;
+			$data['entity'] = $tour->tour_name;
+			$data['identifiers'] = [
+				'tour_id' => $tour->id
+			];
 			$data['action'] = 'tour/delete';
+			$data['message'] = 'You can only delete a tour for which there are no current participants.';
 			$data['target'] = 'dialogs/delete';
 			$data['title'] = 'Delete ' . $tour->tour_name;
 			if($this->input->get('ajax')){
@@ -107,10 +110,17 @@ class Tour extends MY_Controller {
 				$this->load->view('page/index', $data);
 			}
 		} else {
-			$id = $this->input->post('entity_id');
+			$id = $this->input->post('tour_id');
 			$tour = $this->tour->get($id);
-			$this->tour->delete($id);
-			$this->session->set_flashdata('alert', $tour->tour_name . ' has been disabled.');
+			if(count($tour->tourists) > 0){
+				$this->tour->disable($tour->id);
+				$this->session->set_flashdata('alert', $tour->tour_name . ' has been disabled because there were reservations associated with it.');
+			}
+			else {
+				$this->tour->delete($id);
+				$this->session->set_flashdata('alert', $tour->tour_name . ' has been deleted.');
+
+			}
 			redirect('tour/view_all');
 		}
 	}
@@ -142,10 +152,10 @@ class Tour extends MY_Controller {
 		}
 	}
 
-	function show_current($id) {
+	function show_current($person_id) {
 		$this->load->model("tourist_model", "tourist");
-		$data["id"] = $id;
-		$tours = $this->tourist->get_missing_tours($id, TRUE);
+		$data["id"] = $person_id;
+		$tours = $this->tourist->get_missing_tours($person_id);
 
 		$data['tours'] = $tours;
 		$data['target'] = 'tour/select';
