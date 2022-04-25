@@ -97,6 +97,7 @@ class Person_model extends CI_Model
         if (array_key_exists("include_address", $options)) {
             $include_address = TRUE;
         }
+       
         $this->db->select("person.*");
 
         if ($include_address) {
@@ -110,8 +111,7 @@ class Person_model extends CI_Model
         } else {
             $this->db->from("person");
         }
-        $this->db->order_by("person.last_name", "ASC");
-        $this->db->order_by("person.first_name", "ASC");
+        
         if ($initial) {
             $this->db->where("`person`.`last_name` LIKE '$initial%'", NULL, FALSE);
         }
@@ -133,6 +133,10 @@ class Person_model extends CI_Model
         }
         if (! $show_disabled) {
             $this->db->where("status", 1);
+        }
+        if (!empty($order_by = $options['order_by'])){
+            [$field,$direction] = $values = explode('-', $order_by );
+            $this->db->order_by($field, $direction);
         }
         $this->db->group_by("person.id");
         $result = $this->db->get()->result();

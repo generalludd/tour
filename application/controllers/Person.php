@@ -306,9 +306,9 @@ class Person extends MY_Controller
 		], TRUE);
 		$data['order_by_options'] = [
 			NULL => '- No Sort - ',
-			'person.email,ASC' => 'Email (A-Z)',
-			'person.email,DESC' => 'Email (Z-A)',
-			'person.shirt_size,ASC' => 'Shirt Size',
+			'person.email-ASC' => 'Email (A-Z)',
+			'person.email-DESC' => 'Email (Z-A)',
+			'person.shirt_size-ASC' => 'Shirt Size',
 		];
 		$this->load->view('person/filter', $data);
 	}
