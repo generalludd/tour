@@ -96,6 +96,9 @@ class Person extends MY_Controller
 		if ($this->input->get('order_by')) {
 			$filters['order_by'] = $this->input->get('order_by');
 		}
+		if ($this->input->get('has_shirtsize')) {
+			$filters['has_shirtsize'] = $this->input->get('has_shirtsize');
+		}
 		// get the list of letters for each of the first initials of last names
 		// in the people table
 		$data['initials'] = $this->person->get_initials();
@@ -304,11 +307,16 @@ class Person extends MY_Controller
 			'initial',
 			'initial',
 		], TRUE);
+		$data['shirtsize_choice'] = [
+			'-' => '-None-',
+			'1'=> 'Yes',
+			'0' => 'No',
+		];
 		$data['order_by_options'] = [
 			NULL => '- No Sort - ',
 			'person.email-ASC' => 'Email (A-Z)',
 			'person.email-DESC' => 'Email (Z-A)',
-			'person.shirt_size-ASC' => 'Shirt Size',
+			'person.shirt_size-DESC' => 'Shirt Size',
 		];
 		$this->load->view('person/filter', $data);
 	}
