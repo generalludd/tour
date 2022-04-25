@@ -69,6 +69,8 @@ class Person_model extends CI_Model
      */
     function get_all ($options = array())
     {
+        $query =  $this->db->select("person.*");
+
         $show_disabled = FALSE;
         $veterans_only = FALSE;
         $non_veterans = FALSE;
@@ -76,66 +78,66 @@ class Person_model extends CI_Model
         $initial = FALSE;
         $email_only = FALSE;
         $include_address = FALSE;
+        $has_shirtsize = FALSE;
         if (array_key_exists("veterans_only", $options) && $options["veterans_only"]) {
-            $veterans_only = TRUE;
+        	$query->where("person.is_veteran !=",NULL);
         }
         if (array_key_exists("non_veterans", $options) && $options["non_veterans"]) {
-        	$non_veterans = TRUE;
+        	$query->where("person.is_veteran",NULL);
         }
         if (array_key_exists("show_disabled", $options) && $options["show_disabled"]) {
-            $show_disabled = TRUE;
+
+        }
+        else{
+            $query->where("status", 1);
         }
         if (array_key_exists("tour_id", $options) && $options["tour_id"]) {
             $tour_id = $options["tour_id"];
+            $query->join("tourist", "tourist.person_id = person.id");
+            $query->where("tourist.tour_id", $tour_id);
         }
         if (array_key_exists("initial", $options) && $options["initial"]) {
             $initial = $options["initial"];
+            $query->like('last_name', $initial, 'after');
+
         }
         if (array_key_exists("email_only", $options) && $options["email_only"]) {
             $email_only = $options["email_only"];
+            $query->where('email !=', NULL);
+            $query->select("person.first_name, person.last_name, person.email,person.id,person.status,person.is_veteran");
         }
         if (array_key_exists("include_address", $options)) {
             $include_address = TRUE;
         }
-        $this->db->select("person.*");
+        if (!empty($options['has_shirtsize'])){
+            if($options['has_shirtsize'] === 1){
+                $query->where('shirtsize !=', NULL);
+            }
+            elseif($options['has_shirtsize'] === 0) {
+                $query->where_null('shirtsize');
+            }
+    }
+       
 
         if ($include_address) {
-            $this->db->from("address");
-            $this->db->order_by("person.address_id", "ASC");
-            $this->db->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
-            $this->db->where("`person`.`address_id` IS NOT NULL", NULL, FALSE);
-            $this->db->select("address.address, address.city, address.state,address.zip, person.address_id");
-            $this->db->join("person", "person.address_id=address.id");
-            $this->db->order_by("address.id");
+            $query->from("address");
+            $query->order_by("person.address_id", "ASC");
+            $query->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
+            $query->where("`person`.`address_id` IS NOT NULL", NULL, FALSE);
+            $query->select("address.address, address.city, address.state,address.zip, person.address_id");
+            $query->join("person", "person.address_id=address.id");
+            $query->order_by("address.id");
         } else {
-            $this->db->from("person");
+            $query->from("person");
         }
-        $this->db->order_by("person.last_name", "ASC");
-        $this->db->order_by("person.first_name", "ASC");
-        if ($initial) {
-            $this->db->where("`person`.`last_name` LIKE '$initial%'", NULL, FALSE);
+        
+        if (!empty($options['order_by'])){
+            
+            [$field,$direction] = $values = explode('-', $options['order_by'] );
+            $query->order_by($field, $direction);
         }
-        if ($veterans_only) {
-            $this->db->where("person.is_veteran", 1);
-        }elseif($non_veterans){
-        	$this->db->where("person.is_veteran IS NULL",NULL, FALSE);
-        }
-
-        if ($tour_id) {
-            $this->db->join("tourist", "tourist.person_id = person.id");
-            $this->db->where("tourist.tour_id", $tour_id);
-        }
-        if ($email_only) {
-            $this->db->where("(`person`.`email` IS NOT NULL OR `person`.`email` = '')", NULL, FALSE);
-            //$this->db->or_where("`person`.`email`", "");
-            $this->db->select("person.first_name, person.last_name, person.email,person.id,person.status,person.is_veteran");
-            // $this->db->limit(5);
-        }
-        if (! $show_disabled) {
-            $this->db->where("status", 1);
-        }
-        $this->db->group_by("person.id");
-        $result = $this->db->get()->result();
+        $query->group_by("person.id");
+        $result = $query->get()->result();
         return $result;
     }
 
