@@ -38,7 +38,7 @@ class Person extends MY_Controller
 		$person = $this->person->get($id);
 		$data['id'] = $id;
 		$data['person'] = $person;
-		$data['title'] = $person->title;
+		$data['title'] = $person->first_name . ' ' . $person->last_name;
 		$data['target'] = 'person/view';
 		$data['ajax'] = FALSE;
 		$target = 'page/index';
