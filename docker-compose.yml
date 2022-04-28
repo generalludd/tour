@@ -7,6 +7,11 @@ services:
     volumes:
       - ./:/var/www/html:cached
       - ./flight-deck.yml:/secrets/flight-deck-web.yml
+  environment:
+      MYSQL_USER: 'tours'
+      MYSQL_PASS: 'tours'
+      MYSQL_DB: 'tours'
+      MYSQL_HOST: 'db'
   db:
     image: ten7/flightdeck-db-10.4
     ports:
