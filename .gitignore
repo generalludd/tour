@@ -1,5 +1,6 @@
 /application/logs/*
-/application/secrets.php
+/application/config/secrets.php
+docker-compose.override.yml
 .project
 .settings
 .settings/*
