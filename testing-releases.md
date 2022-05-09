@@ -1,5 +1,20 @@
 # Steps for Testing Releases
 
+## Update your environment
+* Open the project in your IDE (VS Code, PhpStorm)
+* Open a terminal window (In VS Code there's a Terminal menu)
+* type `pwd` in the terminal window. 
+  * type `ls -la` to see what is in the current directory
+  * if there is a directory called `src` then type `cd src`
+  * if there is a `system` and an `application` directory in the list you are already in the right place.
+* Pull the latest code by typing `git pull`
+
+## Start up Docker
+* To start up the container in docker do the following.
+* type `cd ..` in the terminal to move up one directory
+* type `docker-compose up -d` to launch docker
+* wait about 3 minutes and then go to `tours.test` to see if the site has loaded properly.
+
 ## Authentication
 * Users should be able to log in
 * Users should be able to log out
