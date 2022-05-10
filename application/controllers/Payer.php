@@ -117,8 +117,8 @@ class Payer extends MY_Controller {
 			$this->load->model('roommate_model', 'roommate');
 			//get everyone on the payer's ticket and delete them from the roommate list for the tour.
 			$this->roommate->delete_payer($payer_id, $tour_id);
+			$this->session->set_flashdata('alert', 'This reservation has been cancelled. All roommate entries have been deleted from all hotel stays');
 		}
-		$this->session->set_flashdata('alert', 'This reservation has been cancelled. All roommate entries have been deleted from all hotel stays');
 		redirect('/tourist/view_all/' .$tour_id);
 	}
 

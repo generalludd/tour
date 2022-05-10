@@ -14,21 +14,21 @@ class Person_model extends CI_Model
     var $is_veteran;
 
 
-    function prepare_variables()
+    function prepare_variables ()
     {
         $variables = array(
-            "first_name",
-            "last_name",
-            "email",
-            "shirt_size",
-            "is_veteran",
-            "address_id",
-            "note"
+                "first_name",
+                "last_name",
+                "email",
+                "shirt_size",
+                "is_veteran",
+                "address_id",
+                "note"
         );
         prepare_variables($this, $variables);
     }
 
-    function get($id, $fields = false)
+    function get ($id, $fields = false)
     {
         $this->db->where("person.id", $id);
         $this->db->from("person");
@@ -38,19 +38,18 @@ class Person_model extends CI_Model
 
 
         $person = $this->db->get()->row();
-        $this->load->model('phone_model', 'phone');
-        $person->phones = $this->phone->get_for_person($id);
-        if (!empty($person->address_id)) {
-            $this->load->model('address_model', 'address');
-            $person->address = $this->address->get($person->address_id);
-            $person->housemates = $this->get_housemates($person->address_id, $person->id);
-        } else {
-            $person->address = NULL;
-        }
+				$this->load->model('phone_model','phone');
+				$person->phones = $this->phone->get_for_person($id);
+				if(!empty($person->address_id)) {
+					$this->load->model('address_model', 'address');
+					$person->address = $this->address->get($person->address_id);
+					$person->housemates = $this->get_housemates($person->address_id, $person->id);
+				}
+				else {
+					$person->address = NULL;
+				}
 
-        $person->title = $person->first_name . ' ' . $person->last_name;
-
-        return $person;
+			return $person;
     }
 
     /**
@@ -118,7 +117,7 @@ class Person_model extends CI_Model
                 $query->where_null('shirtsize');
             }
     }
-
+       
 
         if ($include_address) {
             $query->from("address");
@@ -131,38 +130,18 @@ class Person_model extends CI_Model
         } else {
             $query->from("person");
         }
-        if ($veterans_only) {
-            $this->db->where("person.is_veteran", 1);
-        } elseif ($non_veterans) {
-            $this->db->where("person.is_veteran IS NULL", NULL, FALSE);
-        }
-
-        if ($tour_id) {
-            $this->db->join("tourist", "tourist.person_id = person.id");
-            $this->db->where("tourist.tour_id", $tour_id);
-
+        
         if (!empty($options['order_by'])){
-
+            
             [$field,$direction] = $values = explode('-', $options['order_by'] );
             $query->order_by($field, $direction);
         }
-        if ($email_only) {
-            $this->db->where("(`person`.`email` IS NOT NULL OR `person`.`email` = '')", NULL, FALSE);
-            //$this->db->or_where("`person`.`email`", "");
-            $this->db->select("person.first_name, person.last_name, person.email,person.id,person.status,person.is_veteran");
-            // $this->db->limit(5);
-        }
-        if (!$show_disabled) {
-            $this->db->where("status", 1);
-        }
-        $this->db->group_by("person.id");
-        $result = $this->db->get()->result();
         $query->group_by("person.id");
         $result = $query->get()->result();
         return $result;
     }
 
-    function insert($include_address = FALSE)
+    function insert ($include_address = FALSE)
     {
         $this->prepare_variables();
         $this->db->insert("person", $this);
@@ -177,7 +156,7 @@ class Person_model extends CI_Model
         return $id;
     }
 
-    function update($id, $values = array())
+    function update ($id, $values = array())
     {
         $this->db->where("id", $id);
         if (empty($values)) {
@@ -185,36 +164,36 @@ class Person_model extends CI_Model
             $this->db->update("person", $this);
         } else {
             $this->db->update("person", $values);
-            if (count($values) == 1) {
+            if ($values == 1) {
                 $keys = array_keys($values);
-                return $this->get($id, $keys);
+                return $this->get_value($id, $keys[0]);
             }
         }
     }
 
-    function find_people($name, $options = array())
+    function find_people ($name, $options = array())
     {
-        $query =     $this->db->from('person')
-            ->where("(CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%')")
-            ->where('status', 1)
-            ->order_by('first_name', 'ASC')
-            ->order_by('last_name', 'ASC');
+		$query = 	$this->db->from('person')
+				->where ( "(CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%')" )
+				->where('status', 1)
+				->order_by('first_name', 'ASC')
+				->order_by('last_name', 'ASC');
         if (array_key_exists('select', $options)) {
-            $query->select($options['select']);
+          $query->select($options['select']);
         }
         if (array_key_exists('has_address', $options)) {
             $query->where('address_id !=', NULL);
         }
-        $results =  $query->get()->result();
-        $output = [];
-        // This step produces an associative array of person.id => person objects.
-        foreach ($results as $result) {
-            $output[$result->id] = $result;
-        }
-        return $output;
+			$results =  $query->get()->result();
+				$output = [];
+				// This step produces an associative array of person.id => person objects.
+				foreach($results as $result ){
+					$output[$result->id] = $result;
+				}
+				return $output;
     }
 
-    function get_housemates($address_id, $person_id)
+    function get_housemates ($address_id, $person_id)
     {
         $this->db->where("person.address_id", $address_id);
         $this->db->where("person.id !=", $person_id);
@@ -231,7 +210,7 @@ class Person_model extends CI_Model
      * @param int $address_id
      * @return array of objects
      */
-    function get_residents($address_id)
+    function get_residents ($address_id)
     {
         $this->db->from("person");
         $this->db->where("address_id", $address_id);
@@ -245,18 +224,17 @@ class Person_model extends CI_Model
      *
      * @param int $id
      */
-    function get_row($id)
+    function get_row ($id)
     {
         $result = $this->db->query(
-            "SELECT row  FROM  (SELECT @rownum:=@rownum+1 row, a.*
+                "SELECT row  FROM  (SELECT @rownum:=@rownum+1 row, a.*
         FROM person a, (SELECT @rownum:=0) r
         ORDER BY last_name, first_name, id) as article_with_rows
-        WHERE id = $id"
-        )->row();
+        WHERE id = $id")->row();
         return $result->row;
     }
 
-    function get_next_person($id)
+    function get_next_person ($id)
     {
         $row = $this->get_row($id);
         if ($row == $this->db->count_all("person")) {
@@ -269,7 +247,7 @@ class Person_model extends CI_Model
         return $output;
     }
 
-    function get_previous_person($id)
+    function get_previous_person ($id)
     {
         $row = $this->get_row($id);
 
@@ -285,21 +263,20 @@ class Person_model extends CI_Model
         return $output;
     }
 
-    function get_initials(): array
-    {
-        $this->db->from('person');
-        $this->db->select('last_name', FALSE);
-        $this->db->order_by('last_name');
-        $results = $this->db->get()->result();
-        $rows = [];
-        foreach ($results as $result) {
-            $initial = strtoupper(substr($result->last_name, 0, 1));
-            $rows[$initial] = (object)['initial' => $initial];
-        }
-        return $rows;
-    }
+	function get_initials(): array {
+		$this->db->from('person');
+		$this->db->select('last_name', FALSE);
+		$this->db->order_by('last_name');
+		$results = $this->db->get()->result();
+		$rows = [];
+		foreach($results as $result){
+			$initial = strtoupper(substr($result->last_name, 0,1));
+			$rows[$initial] = (object)['initial'=> $initial];
+		}
+		return $rows;
+	}
 
-    function get_by_letter($letter)
+    function get_by_letter ($letter)
     {
         $this->db->where('last_name LIKE "$letter%"', NULL, FALSE);
         $this->db->from('person');
@@ -314,23 +291,23 @@ class Person_model extends CI_Model
      *
      * @param int $id
      */
-    function disable($id)
+    function disable ($id)
     {
         $this->db->where('id', $id);
         $this->db->update('person', array(
-            'status' => 0
+                'status' => 0
         ));
     }
 
-    function restore($id)
+    function restore ($id)
     {
         $this->db->where('id', $id);
         $this->db->update('person', array(
-            'status' => 1
+                'status' => 1
         ));
     }
 
-    function delete($id)
+    function delete ($id)
     {
         $this->load->model('tourist_model', 'tourist');
         if (count($this->tourist->get($id)) == 0) {

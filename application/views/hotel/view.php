@@ -14,7 +14,7 @@ $buttons [] = [
 ];
 $buttons [] = [
 		'text' => 'Roommates',
-		'href' => site_url(sprintf('roommate/view_for_tour/?tour_id=%s&stay=%s', get_value($hotel, 'tour_id'), get_value($hotel, 'stay'))),
+		'href' => site_url('roommate/view_for_tour/' .  get_value($hotel, 'tour_id') . '/' .  get_value($hotel, 'stay')),
 ];
 ?>
 <h3>Information for Hotel <?php print $hotel->hotel_name; ?></h3>

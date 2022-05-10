@@ -36,7 +36,7 @@ if ($stay > 1) {
 	$buttons["previous_stay"] = [
 			"text" => "Previous Stay",
 			"class" => "button previous-stay",
-			"href" => site_url("roommate/view_for_tour/?tour_id=$tour_id&stay=$previous_stay"),
+			"href" => site_url('roommate/view_for_tour/' . $tour_id . '/' . $previous_stay),
 	];
 
 
@@ -46,7 +46,7 @@ if ($stay < $last_stay) {
 	$buttons["next_stay"] = [
 			"text" => "Next Stay",
 			"class" => "button next-stay",
-			"href" => site_url("roommate/view_for_tour/?tour_id=$tour_id&stay=$next_stay"),
+			"href" => site_url('roommate/view_for_tour/' . $tour_id . '/' . $next_stay),
 	];
 }
 ?>
@@ -56,7 +56,7 @@ if ($stay < $last_stay) {
 		id="hotel-info"
 		style="clear: both">
 	<label>Hotel:&nbsp;</label><a
-			href="<?php print site_url("hotel/view/$hotel->id"); ?>"><?php print $hotel->hotel_name ?></a><br/>
+			href="<?php print site_url('hotel/view/' . $hotel->id); ?>"><?php print $hotel->hotel_name ?></a><br/>
 	<label>Arrival
 		Date:&nbsp;</label><?php print format_date(get_value($hotel, "arrival_date")); ?>
 	,&nbsp;<?php print get_value($hotel, "arrival_time"); ?><br/>

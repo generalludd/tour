@@ -45,7 +45,7 @@ $buttons[] = [
 	<?php foreach ($tour->hotels as $hotel) : ?>
 		<tr>
 			<td>
-				<a class="view-hotel" href="<?php print site_url("hotel/view/$hotel->id"); ?>"
+				<a class="view-hotel" href="<?php print site_url('hotel/view/' .$hotel->id); ?>"
 					 title="View hotel details"><?php print $hotel->hotel_name; ?></a>
 			</td>
 			<td>
@@ -53,7 +53,7 @@ $buttons[] = [
 																																																	 Hotel</a>
 			</td>
 			<td>
-				<a href="<?php print site_url("roommate/view_for_tour/?tour_id=$tour->id&stay=$hotel->stay"); ?>"
+				<a href="<?php print site_url('roommate/view_for_tour/' . $tour->id . '/' . $hotel->stay); ?>"
 					 class="button view-roommates" title="Show all roommates for this hotel">Roommates</a>
 			</td>
 			<td><?php print format_datetime($hotel->arrival_date, $hotel->arrival_time); ?>
