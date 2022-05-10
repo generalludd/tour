@@ -122,7 +122,7 @@ $(document).ready(function(){
 			url: base_url + "roommate/duplicate",
 			data: form_data,
 			success: function(data){
-				window.location.href = base_url + "roommate/view_for_tour/?tour_id=" + my_id[1] + "&stay=" + my_id[2];
+				window.location.href = base_url + "roommate/view_for_tour/" + my_id[1] + "/" + my_id[2];
 			}
 		});
 		

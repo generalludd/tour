@@ -32,7 +32,7 @@ class Room extends MY_Controller {
 
 		}
 		else {
-			redirect('roommate/view_for_tour/?tour_id=' . $tour_id . '&stay=' . $stay);
+			redirect('roommate/view_for_tour/' . $tour_id . '/' . $stay);
 		}
 
 	}

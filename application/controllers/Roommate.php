@@ -15,9 +15,7 @@ class Roommate extends MY_Controller {
 	function view() {
 	}
 
-	function view_for_tour() {
-		$tour_id = $this->input->get("tour_id");
-		$stay = $this->input->get("stay");
+	function view_for_tour($tour_id, $stay) {
 		$this->load->model("variable_model", "variable");
 		$data ["room_count"] = $this->room->get_room_count($tour_id, $stay);
 		$data ["sizes"] = get_keyed_pairs($this->variable->get_pairs("room_type", [
@@ -75,7 +73,7 @@ class Roommate extends MY_Controller {
 				$this->roommate->insert($data);
 			}
 		}
-		redirect("roommate/view_for_tour/?tour_id=$tour_id&stay=$stay");
+		redirect('roommate/view_for_tour/' . $tour_id. '/' . $stay);
 	}
 
 	function view_for_stay() {

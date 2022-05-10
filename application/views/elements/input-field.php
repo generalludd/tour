@@ -29,6 +29,11 @@ foreach($attributes as $key=>$value){
 	<?php print $label; ?>
 </label>
 <?php endif; ?>
+<?php if($type == 'textarea'):?>
+	<textarea name="<?php print $id; ?>" id="<?php print $id; ?>">
+	<?php print $value; ?>
+</textarea>
+<?php else: ?>
 <input name="<?php print $id; ?>" id="<?php print $id; ?>" <?php print implode(' ', $attribute_values);?>/>
 <?php if($attributes['type'] != 'hidden'):?>
 </<?php print $wrapper;?>>

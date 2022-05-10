@@ -1,6 +1,9 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+if (empty($contact)) {
+	return FALSE;
+}
 
 ?>
 <form name="contact-editor" id="contact-editor" action="<?php print site_url('contact/' . $action); ?>" method="post">

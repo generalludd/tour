@@ -20,8 +20,21 @@ if (isset($person->address)): ?>
 	];
 
 	print create_button_bar($edit_buttons); ?>
-	<?php print create_field("informal_salutation", $person->address->informal_salutation, "Informal Salutation"); ?>
-	<?php print create_field("formal_salutation", $person->address->formal_salutation, "Formal Salutation"); ?>
+<?php $this->load->view('elements/field-item', [
+		'id' => 'informal_salutation',
+		'value' => $person->address->informal_salutation,
+		'label' => 'Informal Salutation',
+		'type' => 'text',
+		'size' => 25,
+	]);
+$this->load->view('elements/field-item', [
+		'id' => 'formal_salutation',
+		'value' => $person->address->formal_salutation,
+		'label' => 'Formal Salutation',
+		'type' => 'text',
+		'size' => 25,
+]);
+?>
 	<div class="block housemate-info"
 			 id="housemate">
 		<?php if (count($person->housemates) > 0): ?>
