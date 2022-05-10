@@ -60,22 +60,6 @@ $(document).ready(function(){
 		});
 	});
 	
-	$(document).on("click",".add-room", function(e){
-		e.preventDefault();
-		let my_href = $(this).attr('href');
-		let form_data = {
-			ajax: 1
-		};
-		$.ajax({
-			type: "get",
-			url: my_href,
-			data: form_data,
-			success: function(data){
-				$("#roommate-list-block").append(data);
-				location.href = "#end-of-list";
-			}
-		});
-	});
 	
 	$(document).on("change",".roommates #person_id",function(){
 		my_tour = $("#tour_id").val();

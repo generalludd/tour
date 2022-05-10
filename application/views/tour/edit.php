@@ -2,36 +2,40 @@
 // view.php Chris Dart Dec 13, 2013 8:55:00 PM chrisdart@cerebratorium.com
 
 ?>
-<form name="tour-editor" action="<?php print site_url("tour/$action"); ?>"
+<form name="tour-editor" action="<?php print site_url('tour/' . $action); ?>"
 	  method="post">
 	<input type="hidden" value="<?php print get_value($tour, "id"); ?>"
 		   name="id" id="id"/>
 	<div class="block tour-info" id="tour">
 		<?php $this->load->view('elements/input-field', [
-				'label' => 'Tour Name',
-				'value' => get_value($tour, 'tour_name'),
 				'id' => 'tour_name',
-				'size' => 25,
+				'attributes' => [
+						'value' => get_value($tour, 'tour_name'),
+						'size' => 25,
+				],
 		]); ?>
 
 		<?php $dates = [
 				'start_date' => [
 						'id' => 'start_date',
-						'label' => 'Start Date',
-						'type' => 'date',
-						'value' => get_value($tour, 'start_date'),
+						'attributes' => [
+								'type' => 'date',
+								'value' => get_value($tour, 'start_date'),
+						],
 				],
 				'end_date' => [
 						'id' => 'end_date',
-						'label' => 'End Date',
-						'type' => 'date',
-						'value' => get_value($tour, 'end_date'),
+						'attributes' => [
+								'type' => 'date',
+								'value' => get_value($tour, 'end_date'),
+						],
 				],
 				'due_date' => [
 						'id' => 'due_date',
-						'label' => 'Due Date',
-						'type' => 'date',
-						'value' => get_value($tour, 'due_date'),
+						'attributes' => [
+								'type' => 'date',
+								'value' => get_value($tour, 'due_date'),
+						],
 				],
 		];
 		foreach ($dates as $date) {
@@ -40,35 +44,48 @@
 		?>
 
 		<?php $fees = [
-				'full_price' => [
-						'id' => 'full_price',
-						'value' => get_value($tour, 'full_price'),
-						'label' => 'Pay in Full $',
-						'type' => 'numeric',
-						'size' => 7,
-				],
+
 				'regular_price' => [
 						'id' => 'regular_price',
-						'value' => get_value($tour, 'regular_price'),
-						'label' => 'Regular Price $',
-						'type' => 'number',
-						'size' => 7,
-
+						'label' => 'Regular Price (Required)',
+						'attributes' => [
+								'required' => 'required',
+								'value' => get_value($tour, 'regular_price'),
+								'type' => 'number',
+								'class' => 'currency',
+								'size' => 7,
+						],
+				],
+				'full_price' => [
+						'id' => 'full_price',
+						'label' => 'Pay in Full $',
+						'attributes' => [
+								'value' => get_value($tour, 'full_price'),
+								'type' => 'numeric',
+								'size' => 7,
+								'class' => 'currency',
+						],
 				],
 				'banquet_price' => [
 						'id' => 'banquet_price',
-						'value' => get_value($tour, 'banquet_price'),
 						'label' => 'Banquet Price $',
-						'type' => 'number',
-						'size' => 7,
+						'attributes' => [
+								'value' => get_value($tour, 'banquet_price'),
+								'type' => 'number',
+								'class' => 'currency',
+								'size' => 7,
+						],
 
 				],
 				'early_price' => [
 						'id' => 'early_price',
-						'value' => get_value($tour, 'early_price'),
-						'label' => 'Early Bird Price $',
-						'type' => 'number',
-						'size' => 7,
+						'attributes' => [
+								'value' => get_value($tour, 'early_price'),
+								'label' => 'Early Bird Price $',
+								'type' => 'number',
+								'class' => 'currency',
+								'size' => 7,
+						],
 
 				],
 
@@ -83,25 +100,33 @@
 				'single_room' => [
 						'id' => 'single_room',
 						'label' => 'Single Room Surcharge',
-						'value' => get_value($tour, 'single_room'),
-						'size' => 5,
-						'type' => 'number',
+						'attributes' => [
+								'value' => get_value($tour, 'single_room'),
+								'size' => 5,
+								'type' => 'number',
+								'class' => 'currency',
+						],
 				],
 				'triple_roomm' => [
 						'id' => 'triple_room',
 						'label' => 'Triple Room Discount (-)',
-						'value' => get_value($tour, 'triple_room'),
-						'size' => 5,
-						'type' => 'number',
+						'attributes' => [
+								'value' => get_value($tour, 'triple_room'),
+								'size' => 5,
+								'type' => 'number',
+								'class' => 'currency',
+						],
 
 				],
 				'quad_room' => [
 						'id' => 'quad_room',
 						'label' => 'Quad Room Discount (-)',
-						'value' => get_value($tour, 'quad_room'),
-						'size' => 5,
-						'type' => 'number',
-
+						'attributes' => [
+								'value' => get_value($tour, 'quad_room'),
+								'size' => 5,
+								'type' => 'number',
+								'class' => 'currency',
+						],
 				],
 		];
 		foreach ($rooms as $room) {
@@ -109,11 +134,11 @@
 		}
 		?>
 	</div>
-	<div class='button-box'>
-		<ul class='button-list'>
-			<li><input type="submit" name="save" id="save"
-					   value="<?php print $action; ?>"/>
-			</li>
-		</ul>
-	</div>
+	<input type="submit" name="save" id="save"
+		   value="<?php print ucwords($action); ?>"/>
+	<?php if (count($tour->tourists) === 0): ?>
+		<a href="<?php print base_url('tour/delete?tour_id=' . $tour->id); ?>"
+		   class="delete-tour delete button dialog">Delete</a>
+	<?php endif; ?>
+
 </form>

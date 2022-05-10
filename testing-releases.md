@@ -76,7 +76,7 @@ On the landing page there should be no issues.
 * The bottom of the letter should show the details of the person's tour including payments, amount due, tourists on the ticket, and other details.
 * If you print preview, it should show a letter with proper margins.
 
-## Hotels
+# Hotels
 
 * Go to a tour and click "Hotels"
 * Click "Add Hotel"

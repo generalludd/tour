@@ -32,17 +32,22 @@ $buttons [] = [
 			foreach ($names as $name) :
 				?>
 				<?php
-
-				if ($name == 'initial') :
+				switch($name){
+					case 'initial':
 					$name = 'Limited to the Letter: ' . $filters [$name];
-				elseif ($name == 'order_by'):
-					[$identifier,$direction] = explode(',',$filters[$name]);
-					[$table, $field] = explode('.', $identifier);
-					$name = sprintf('Sorted by: %s, %sending', ucfirst(str_replace('_',' ', $field)) , ucfirst(strtolower($direction)) );
-				else :
+					break;
+					case 'order_by':
+						[$identifier,$direction] = explode('-',$filters[$name]);
+						[$table, $field] = explode('.', $identifier);
+						$name = sprintf('Sorted by: %s, %sending', ucfirst(str_replace('.',' ', $field)) , ucfirst(strtolower($direction)) );
+						break;
+					default:
 					$name = str_replace('_', ' ', $name);
 					$name = ucwords($name);
-				endif;
+					break;
+
+				}
+			
 				?>
 				<li><?php print $name; ?></li>
 			<?php endforeach; ?>

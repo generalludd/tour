@@ -31,38 +31,38 @@ class Hotel_Model extends CI_Model
     var $address;
 
 
-    function prepare_variables ()
+    function prepare_variables()
     {
         $variables = array(
-                "hotel_name",
-                "tour_id",
-                "stay",
-                "arrival_date",
-                "arrival_time",
-                "departure_date",
-                "departure_time",
-                "phone",
-                "fax",
-                "url",
-                "email",
-                "first_contact",
-                "first_contact_position",
-                "first_contact_phone",
-                "first_contact_email",
-                "second_contact",
-                "second_contact_position",
-                "second_contact_phone",
-                "second_contact_email",
-                "third_contact",
-                "third_contact_position",
-                "third_contact_phone",
-                "third_contact_email",
-                "address"
+            "hotel_name",
+            "tour_id",
+            "stay",
+            "arrival_date",
+            "arrival_time",
+            "departure_date",
+            "departure_time",
+            "phone",
+            "fax",
+            "url",
+            "email",
+            "first_contact",
+            "first_contact_position",
+            "first_contact_phone",
+            "first_contact_email",
+            "second_contact",
+            "second_contact_position",
+            "second_contact_phone",
+            "second_contact_email",
+            "third_contact",
+            "third_contact_position",
+            "third_contact_phone",
+            "third_contact_email",
+            "address"
         );
         prepare_variables($this, $variables);
     }
 
-    function get ($hotel_id, $fields = "hotel.*")
+    function get($hotel_id, $fields = "hotel.*")
     {
         $this->db->from("hotel");
         $this->db->where("hotel.id", $hotel_id);
@@ -72,7 +72,7 @@ class Hotel_Model extends CI_Model
         return $this->db->get()->row();
     }
 
-    function get_by_stay ($tour_id, $stay, $fields = "hotel.*")
+    function get_by_stay($tour_id, $stay, $fields = "hotel.*")
     {
         $this->db->from("hotel");
         $this->db->where("tour_id", $tour_id);
@@ -84,16 +84,22 @@ class Hotel_Model extends CI_Model
         return $result;
     }
 
-    function get_for_tour ($tour_id)
+    function get_all(int $tour_id = NULL)
     {
         $this->db->from("hotel");
-        $this->db->where("tour_id", $tour_id);
+        if (!empty($tour_id)) {
+            $this->db->where('tour_id', $tour_id);
+        }
         $this->db->order_by("arrival_date", "ASC");
-        $result = $this->db->get()->result();
-        return $result;
+        $hotels = $this->db->get()->result();
+        $this->load->model('contact_model', 'contact');
+        foreach ($hotels as $hotel) {
+            $hotel->contacts = $this->contact->get_all($hotel->id);
+        }
+				return $hotels;
     }
 
-    function get_last_stay ($tour_id)
+    function get_last_stay($tour_id)
     {
         $this->db->from("hotel");
         $this->db->where("tour_id", $tour_id);
@@ -104,7 +110,7 @@ class Hotel_Model extends CI_Model
         return $result->stay;
     }
 
-    function insert ()
+    function insert()
     {
         $this->prepare_variables();
         $this->db->insert("hotel", $this);
@@ -112,7 +118,7 @@ class Hotel_Model extends CI_Model
         return $id;
     }
 
-    function update ($id, $values = array())
+    function update($id, $values = array())
     {
         $this->db->where("id", $id);
         if (empty($values)) {
@@ -123,7 +129,7 @@ class Hotel_Model extends CI_Model
         }
     }
 
-    function delete ($id)
+    function delete($id)
     {
         $this->load->model("contact_model", "contact");
         $this->contact->delete_for_hotel($id);

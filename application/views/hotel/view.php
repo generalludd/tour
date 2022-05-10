@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') or exit ('No direct script access allowed');
-
+if (empty($hotel)) {
+	return FALSE;
+}
 // view.php Chris Dart Dec 29, 2013 10:17:41 PM chrisdart@cerebratorium.com
 $buttons [] = [
 		'text' => 'Edit',
@@ -12,139 +14,115 @@ $buttons [] = [
 ];
 $buttons [] = [
 		'text' => 'Roommates',
-		'href' => site_url('roommate/view_for_tour/' . $hotel->tour_id . '/' .  $hotel->stay),
+		'href' => site_url(sprintf('roommate/view_for_tour/?tour_id=%s&stay=%s', get_value($hotel, 'tour_id'), get_value($hotel, 'stay'))),
 ];
 ?>
 <h3>Information for Hotel <?php print $hotel->hotel_name; ?></h3>
 <?php print create_button_bar($buttons); ?>
 
 <input type="hidden" id="id" name="id"
-	   value="<?php print get_value($hotel, 'id'); ?>"/>
-<div class="grouping block hotel-info" id="hotel">
-	<div class="column">
-
-		<?php print create_field("address", get_value($hotel, "address"), "Address", [
-				"class" => "textarea",
-				"envelope" => "div",
-		]); ?>
-		<?php $fields = [
+			 value="<?php print get_value($hotel, "id"); ?>"/>
+<div class="triptych hotel-info" id="hotel">
+	<div class="info">
+	<fieldset>
+		<legend>Contact Info</legend>
+		<?php
+		$contact_info = [
 				'hotel_name' => [
-						'id' => 'hotel_name',
 						'value' => get_value($hotel, 'hotel_name'),
-						'label' => 'Hotel Name',
-						'size' => 25,
-						'wrapper' => 'div',
 				],
-			'address' => [
-					'label' => 'address',
-					'value' => get_value($hotel, 'address'),
-				'wrapper' => 'div',
-],
+				'address' => [
+						'value' => get_value($hotel, 'address'),
+				],
 				'phone' => [
-						'id' => 'phone',
-						'type' => 'tel',
 						'value' => get_value($hotel, 'phone'),
-						'label' => 'Phone',
-						'wrapper' => 'div',
-
 				],
 				'fax' => [
-						'id' => 'fax',
-						'type' => 'tel',
 						'value' => get_value($hotel, 'fax'),
-						'label' => 'Fax',
-						'wrapper' => 'div',
-
 				],
 				'email' => [
-						'id' => 'email',
-						'type' => 'email',
 						'value' => get_value($hotel, 'email'),
-						'label' => 'Email',
-						'wrapper' => 'div',
-
 				],
-				'url' => [
-						'id' => 'url',
-						'type' => 'url',
+				'website' => [
 						'value' => get_value($hotel, 'url'),
-						'label' => 'Website',
-						'wrapper' => 'div',
-
 				],
-
 		];
-		foreach ($fields as $field) {
-			$this->load->view('elements/field-item', $field);
-		}
-		?>
+		foreach ($contact_info as $key => $info) {
+			if (!empty($info['value'])) {
+				$info['wrapper'] = 'div';
+				$info['id'] = $key;
+				$info['wrapper_classes'] = ['horizontal'];
+				$this->load->view('elements/field-item', $info);
+			}
 
+		}
+
+		?>
+	</fieldset>
+
+		<fieldset>
+			<legend>Contacts</legend>
 		<?php print create_button([
 				'text' => 'Add Contact',
 				'href' => base_url('contact/create/' . $hotel->id),
-				'class' => 'button new small dialog',
+				'class' => 'button new small add-contact',
 		]); ?>
 
 		<?php if (!empty($contacts)): ?>
-			<h4>Contacts</h4>
-			<?php foreach ($contacts as $contact): ?>
-				<div class="contact-row row">
-					<?php $this->load->view('contact/view', $contact); ?>
-				</div>
-			<?php endforeach; ?>
+
+			<?php $this->load->view('contact/list', ['contacts'=> $contacts]);?>
 
 		<?php endif; ?>
+	</fieldset>
 	</div>
-	<div class="column">
+	<fieldset>
+		<legend>Tour Info</legend>
 		<div class="field-envelope" id="field-tour_id">
 			<label>Tour Name:&nbsp;</label>
 			<a class="field" id="tour_name"
-			   href="<?php print site_url("tour/view/$hotel->tour_id"); ?>"><?php print $hotel->tour_name; ?></a>
+				 href="<?php print site_url("tour/view/$hotel->tour_id"); ?>"><?php print $hotel->tour_name; ?></a>
 		</div>
-		<?php $fields = [
+		<?php
+		$tour_info = [
 				'stay' => [
-						'id' => 'stay',
-						'label' => 'Stay',
 						'value' => get_value($hotel, 'stay'),
-						'wrapper' => 'div',
 				],
-				'arrival_date' => [
-						'id' => 'arrival_date',
-						'value' => format_date(get_value($hotel, 'arrival_date')),
-						'label' => 'Arrival Date',
-						'wrapper' => 'div',
-				],
-				'arrival_time' => [
-						'id' => 'arrival_time',
-						'value' => get_value($hotel, 'arrival_time'),
-						'label' => 'Arrival Time',
-						'wrapper' => 'div',
-				],
-				'departure_date' => [
-						'id' => 'departure_date',
-						'value' => format_date(get_value($hotel, 'departure_date')),
-						'label' => 'Departure Date',
-						'wrapper' => 'div',
-				],
-				'departure_time' => [
-						'id' => 'departure_time',
-						'value' => get_value($hotel, 'departure_time'),
-						'label' => 'Departure Time',
-						'wrapper' => 'div',
-				],
+				'arrival' => [
+						'value' => format_datetime(get_value($hotel, 'arrival_date'), get_value($hotel, 'arrival_time')),
 
+				],
+				'departure' => [
+						'value' => format_datetime(get_value($hotel, 'departure_date'), get_value($hotel, 'departure_time')),
+				],
 		];
-		?>
 
-	</div>
-	<div class="column">
-		<p>
-			<strong>Room Type Count:</strong>
-		</p>
-		<?php foreach ($room_types as $room_type => $count): ?>
-			<div>
-				<?php print format_field_name($room_type) . ':' . $count; ?>
-			</div>
-		<?php endforeach; ?>
-	</div>
+		foreach ($tour_info as $key => $info) {
+			if (!empty($info['value'])) {
+				$info['wrapper'] = 'div';
+				$info['id'] = $key;
+				$info['wrapper_classes'] = ['horizontal'];
+				$this->load->view('elements/field-item', $info);
+			}
+		}
+
+		?>
+	</fieldset>
+	<?php if (!empty($room_types)): ?>
+		<fieldset>
+			<legend>
+				Room Type Count
+			</legend>
+			<?php foreach ($room_types as $room_type => $count): ?>
+				<div>
+					<?php $this->load->view('elements/field-item', [
+							'id' => $room_type,
+							'wrapper' => 'div',
+							'wrapper_classes' => ['horizontal'],
+							'value' => $count,
+					]);
+					?>
+				</div>
+			<?php endforeach; ?>
+		</fieldset>
+	<?php endif; ?>
 </div>

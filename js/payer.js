@@ -93,39 +93,6 @@ $(document).ready(function () {
 		calculate_cost(1);
 	});
 
-
-	/*
-	 * "target" in this scriptlet identifies the format of the output from tourist/insert
-	 * in this case payer returns a list of tourists for a given payer.
-	 */
-
-	$(document).on("click", ".select_for_tour", function () {
-		let my_person = $(this).data("person_id");
-		let my_payer =  $(this).data("payer_id");
-		let my_tour =  $(this).data("tour_id");
-		$("#search_list").hide();
-
-		let form_data = {
-			person_id: my_person,
-			payer_id: my_payer,
-			tour_id: my_tour,
-			target: "payer",
-			ajax: 1
-		};
-		$.ajax({
-			type: "post",
-			url: base_url + "tourist/insert",
-			data: form_data,
-			success: function (data) {
-				$("#payer-tourist-list").html(data);
-				tourist_count = $("#payer-tourist-list tr").length;
-				$("#tourist_count").val(tourist_count);
-				calculate_cost(1);
-			}
-
-		});
-	});
-
 	/*
 	 * target in this scriptlet identifies the format of the output from tourist/insert
 	 * in this case "tour" will return a confirmation with an option to
@@ -172,8 +139,8 @@ $(document).ready(function () {
 				url: base_url + "tourist/delete",
 				data: form_data,
 				success: function (data) {
-					$("#payer-tourist-list").html(data);
-					tourist_count = $("#payer-tourist-list tr").length;
+					$("#payer-tourist-block ul.tourist-list").html(data);
+					let tourist_count = $("#payer-tourist-block ul.tourist-list li").length;
 					$("#tourist_count").val(tourist_count);
 					calculate_cost(1);
 				}
@@ -256,38 +223,19 @@ $(document).ready(function () {
 		});
 	});
 
-	$(document).on("click",".delete-payer", function () {
-		request = confirm("Only delete a payer if they have been added to the tour by mistake. Check 'Cancelled' at the top of the record if they have dropped out.");
-		if (request) {
-			plea = confirm("Are you really sure? This will remove this payer, all their accompanying tourists, and any roommmate records for the tour they may have. Continue?");
-			if (plea) {
-				let my_payer = $(this).data("payer_id");
-				let my_tour = $(this).data("tour_id");
-				form_data = {
-					tour_id: my_tour,
-					payer_id: my_payer,
-					ajax: 1
-				};
-				$.ajax({
-					type: "post",
-					url: base_url + "payer/delete",
-					data: form_data,
-					success: function () {
-					}
-				});
-				window.location.href = base_url + "tourist/view_all/" + my_tour;
-
-			}
-
-		}
-	});
-
 	$(document).on("click", ".create-new-tourist", function () {
-		tourist_name = $("#tourist-dropdown").val();
-		first_name = tourist_name.split(" ")[0];
-		last_name = tourist_name.split(" ")[1];
-		form_data = {
-			ajax: '1'
+		let tourist_name = $(this).data('name');
+		let first_name = tourist_name.split(" ")[0];
+		let last_name = tourist_name.split(" ")[1];
+		let tour_id = $(this).data("tour_id");
+		let payer_id = $(this).data("payer_id");
+
+		let form_data = {
+			ajax: '1',
+			last_name: last_name,
+			first_name: first_name,
+			tour_id: tour_id,
+			payer_id: payer_id
 		};
 		$.ajax({
 			type: "get",

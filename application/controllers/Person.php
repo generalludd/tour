@@ -6,22 +6,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Class Person
  */
-class Person extends MY_Controller {
+class Person extends MY_Controller
+{
 
 	/**
 	 * Person constructor.
 	 */
-	function __construct() {
+	function __construct()
+	{
 		parent::__construct();
-		$this->load->model("person_model", "person");
-		$this->load->model("phone_model", "phone");
-		$this->load->model("address_model", "address");
+		$this->load->model('person_model', 'person');
+		$this->load->model('phone_model', 'phone');
+		$this->load->model('address_model', 'address');
 	}
 
 	/**
 	 *
 	 */
-	function index() {
+	function index()
+	{
 
 		$this->view_all();
 	}
@@ -29,18 +32,17 @@ class Person extends MY_Controller {
 	/**
 	 * @param $id
 	 */
-	function view($id) {
+	function view($id)
+	{
 		$data = [];
-		// $data["person"] = array();
-
 		$person = $this->person->get($id);
-		$data["id"] = $id;
-		$data["person"] = $person;
-		$data["title"] = sprintf("Person Record: %s %s", $data["person"]->first_name, $data["person"]->last_name);
-		$data["target"] = "person/view";
+		$data['id'] = $id;
+		$data['person'] = $person;
+		$data['title'] = $person->first_name . ' ' . $person->last_name;
+		$data['target'] = 'person/view';
 		$data['ajax'] = FALSE;
 		$target = 'page/index';
-		if($this->input->get('ajax')){
+		if ($this->input->get('ajax')) {
 			$data['ajax'] = TRUE;
 			$target = $data['target'];
 		}
@@ -50,67 +52,74 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function view_next() {
+	function view_next()
+	{
 		$id = $this->uri->segment(3);
 		$next_id = $this->person->get_next_person($id);
-		redirect("person/view/$next_id");
+		redirect('person/view/$next_id');
 	}
 
 	/**
 	 *
 	 */
-	function view_previous() {
+	function view_previous()
+	{
 		$id = $this->uri->segment(3);
 		$next_id = $this->person->get_previous_person($id);
-		redirect("person/view/$next_id");
+		redirect('person/view/$next_id');
 	}
 
 	/**
 	 * @param array $options
 	 */
-	function view_all($options = []) {
-		burn_cookie("person_filter");
+	function view_all($options = [])
+	{
+		burn_cookie('person_filter');
 		$filters = [];
 		$initial = FALSE;
-		if ($this->input->get("initial")) {
-			$initial = $this->input->get("initial");
-			$filters["initial"] = $initial;
+		if ($this->input->get('initial')) {
+			$initial = $this->input->get('initial');
+			$filters['initial'] = $initial;
 		}
-		if ($this->input->get("veterans_only")) {
-			$filters["veterans_only"] = TRUE;
+		if ($this->input->get('veterans_only')) {
+			$filters['veterans_only'] = TRUE;
 		}
-		if ($this->input->get("non_veterans")) {
-			$filters["non_veterans"] = TRUE;
+		if ($this->input->get('non_veterans')) {
+			$filters['non_veterans'] = TRUE;
 		}
-		if ($this->input->get("email_only")) {
-			$filters["email_only"] = TRUE;
+		if ($this->input->get('email_only')) {
+			$filters['email_only'] = TRUE;
 		}
-		if ($this->input->get("show_disabled")) {
-			$filters["show_disabled"] = TRUE;
+		if ($this->input->get('show_disabled')) {
+			$filters['show_disabled'] = TRUE;
 		}
 		if ($this->input->get('order_by')) {
 			$filters['order_by'] = $this->input->get('order_by');
 		}
+		if ($this->input->get('has_shirtsize')) {
+			$filters['has_shirtsize'] = $this->input->get('has_shirtsize');
+		}
 		// get the list of letters for each of the first initials of last names
 		// in the people table
-		$data["initials"] = $this->person->get_initials();
-		$data["people"] = $this->person->get_all($filters);
-		$data["address_count"] = count($this->address->get_all($filters));
-		bake_cookie("person_filters", $filters);
-		$data["filters"] = $filters;
-		$data["title"] = "Address Book";
-		$data["target"] = "person/list";
+		$data['initials'] = $this->person->get_initials();
+		$data['people'] = $this->person->get_all($filters);
+		$data['address_count'] = count($this->address->get_all($filters));
+		bake_cookie('person_filters', $filters);
+		$data['filters'] = $filters;
+		$data['title'] = 'Address Book';
+		$data['target'] = 'person/list';
 
-		$this->load->view("page/index", $data);
+		$this->load->view('page/index', $data);
 	}
 
 	/**
 	 *
 	 */
-	function find_by_name() {
-		$name = $this->input->get("name");
-		$target = "person/mini_list";
-		$data["people"] = $this->person->find_people($name, [
+	function find_by_name()
+	{
+		$name = $this->input->get('name');
+		$target = 'person/mini_list';
+		$data['people'] = $this->person->find_people($name, [
 			'has_address' => FALSE,
 		]);
 		$this->load->view($target, $data);
@@ -119,13 +128,14 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function find_for_address($person_id) {
-		$name = $this->input->get("name");
-		$data["people"] = $this->person->find_people($name, [
-			"has_address" => TRUE,
+	function find_for_address($person_id)
+	{
+		$name = $this->input->get('name');
+		$data['people'] = $this->person->find_people($name, [
+			'has_address' => TRUE,
 		]);
 		$data['person_id'] = $person_id;
-		$target = "address/mini_list";
+		$target = 'address/mini_list';
 		$this->load->view($target, $data);
 	}
 
@@ -133,7 +143,8 @@ class Person extends MY_Controller {
 	 * @param int $person_id
 	 * @param int $address_id
 	 */
-	function remove_address(int $person_id, int $address_id) {
+	function remove_address(int $person_id, int $address_id)
+	{
 		//if this is a post request
 		if ($this->input->post('person_id') == $person_id && $this->input->post('address_id') == $address_id && $this->input->post('delete')) {
 			//actually delete the address relationship.
@@ -146,8 +157,7 @@ class Person extends MY_Controller {
 				//only one person at this address, delete the address.
 				$this->address->delete($address_id);
 				$message[] = sprintf('The address has also been deleted from the database since %s %s was the only person at the address', $person->first_name, $person->last_name);
-			}
-			else {
+			} else {
 				foreach ($housemates as $housemate) {
 					$names[] = $housemate->first_name . ' ' . $housemate->last_name;
 				}
@@ -155,8 +165,7 @@ class Person extends MY_Controller {
 			}
 			$this->session->set_flashdata('notice', implode(' ', $message));
 			redirect('person/view/' . $person_id);
-		}
-		else {
+		} else {
 			//show the delete dialog
 			$person = $this->person->get($person_id);
 			$address = $this->address->get($address_id);
@@ -168,8 +177,7 @@ class Person extends MY_Controller {
 			];
 			if ($this->input->get('ajax')) {
 				$this->load->view('page/modal', $data);
-			}
-			else {
+			} else {
 				$this->load->view('page/index', $data);
 			}
 		}
@@ -178,51 +186,51 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function edit() {
+	function edit()
+	{
 		$id = $this->uri->segment(3);
 		$data = [];
-		$data["person"] = $this->person->get($id);
-		$data["title"] = sprintf("Person Record: %s %s", $data["person"]->first_name, $data["person"]->last_name);
-		$this->load->model("variable_model", "variable");
-		$shirt_sizes = $this->variable->get_pairs("shirt_size");
-		$data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, [
-			"value",
-			"name",
+		$data['person'] = $this->person->get($id);
+		$data['title'] = sprintf('Person Record: %s %s', $data['person']->first_name, $data['person']->last_name);
+		$this->load->model('variable_model', 'variable');
+		$shirt_sizes = $this->variable->get_pairs('shirt_size');
+		$data['shirt_sizes'] = get_keyed_pairs($shirt_sizes, [
+			'value',
+			'name',
 		], TRUE);
 		// we get the tour count because if a person has not been on any tours, they can be deleted, otherwise they can only be marked as inactive.
-		$this->load->model("tourist_model", "tourist");
-		$data["tour_count"] = count($this->tourist->get($id));
-		$data["target"] = "person/edit";
-		$data["action"] = "update";
-		if ($this->input->get("ajax") == 1) {
-			$this->load->view($data["target"], $data);
-		}
-		else {
-			$this->load->view("page/index", $data);
+		$this->load->model('tourist_model', 'tourist');
+		$data['tour_count'] = count($this->tourist->get($id));
+		$data['target'] = 'person/edit';
+		$data['action'] = 'update';
+		if ($this->input->get('ajax') == 1) {
+			$this->load->view($data['target'], $data);
+		} else {
+			$this->load->view('page/index', $data);
 		}
 	}
 
 	/**
 	 *
 	 */
-	function create() {
+	function create()
+	{
 		// create a record in the db and get the insertion id. Then go to the
 		// edit user page with
-		$data["person"] = FALSE;
-		$data["tour_count"] = 0;
-		$this->load->model("variable_model", "variable");
-		$shirt_sizes = $this->variable->get_pairs("shirt_size");
-		$data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, [
-			"value",
-			"name",
+		$data['person'] = FALSE;
+		$data['tour_count'] = 0;
+		$this->load->model('variable_model', 'variable');
+		$shirt_sizes = $this->variable->get_pairs('shirt_size');
+		$data['shirt_sizes'] = get_keyed_pairs($shirt_sizes, [
+			'value',
+			'name',
 		], TRUE);
-		$data["action"] = "insert";
+		$data['action'] = 'insert';
 		$data['target'] = 'person/edit';
 		$data['title'] = 'Add a new person to the person list';
 		if ($this->input->get('ajax')) {
 			$this->load->view('page/modal', $data);
-		}
-		else {
+		} else {
 			$this->load->view('page/index', $data);
 		}
 	}
@@ -230,22 +238,22 @@ class Person extends MY_Controller {
 	/**
 	 * @param $address_id
 	 */
-	function add_housemate($address_id) {
-		$data["person"] = (object) [];
-		$data["person"]->address_id = $address_id;
-		$this->load->model("variable_model", "variable");
-		$shirt_sizes = $this->variable->get_pairs("shirt_size");
-		$data["shirt_sizes"] = get_keyed_pairs($shirt_sizes, [
-			"value",
-			"name",
+	function add_housemate($address_id)
+	{
+		$data['person'] = (object) [];
+		$data['person']->address_id = $address_id;
+		$this->load->model('variable_model', 'variable');
+		$shirt_sizes = $this->variable->get_pairs('shirt_size');
+		$data['shirt_sizes'] = get_keyed_pairs($shirt_sizes, [
+			'value',
+			'name',
 		], TRUE);
-		$data["action"] = "insert";
+		$data['action'] = 'insert';
 		$data['target'] = 'person/edit';
 		$data['title'] = 'Add a housemate';
 		if ($this->input->get('ajax')) {
-			$this->load->view("person/edit", $data);
-		}
-		else {
+			$this->load->view('person/edit', $data);
+		} else {
 			$this->load->view('page/index', $data);
 		}
 	}
@@ -254,53 +262,61 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function insert() {
+	function insert()
+	{
 		$person_id = $this->person->insert(FALSE);
-		redirect("person/view/$person_id");
+		redirect('person/view/$person_id');
 	}
 
 	/**
 	 *
 	 */
-	function update() {
-		$id = $this->input->post("id");
+	function update()
+	{
+		$id = $this->input->post('id');
 		$this->person->update($id);
-		redirect("person/view/$id");
+		redirect('person/view/$id');
 	}
 
 	/**
 	 *
 	 */
-	function update_value() {
+	function update_value()
+	{
 		$id = $this->input->post('id');
 		$values = [
 			$this->input->post('field') => trim($this->input->post('value')),
 		];
 		$this->person->update($id, $values);
-		if(!empty($target = $this->input->post('target'))){
-				$person = $this->person->get($id);
-				if($this->input->post('ajax')){
-					echo $this->load->view($target, ['person'=>$person], TRUE);
-				}
-				else {
-					$this->load->view('page/index', ['person'=>$person,'target'=>$target]);
-				}
+		if (!empty($target = $this->input->post('target'))) {
+			$person = $this->person->get($id);
+			if ($this->input->post('ajax')) {
+				echo $this->load->view($target, ['person' => $person], TRUE);
+			} else {
+				$this->load->view('page/index', ['person' => $person, 'target' => $target]);
+			}
 		}
 	}
 
 	/**
 	 *
 	 */
-	function show_filter() {
+	function show_filter()
+	{
 		$data['initials'] = get_keyed_pairs($this->person->get_initials(), [
 			'initial',
 			'initial',
 		], TRUE);
+		$data['shirtsize_choice'] = [
+			'-' => '-None-',
+			'1'=> 'Yes',
+			'0' => 'No',
+		];
 		$data['order_by_options'] = [
 			NULL => '- No Sort - ',
-			'person.email,ASC' => 'Email (A-Z)',
-			'person.email,DESC' => 'Email (Z-A)',
-			'person.shirt_size,ASC' => 'Shirt Size',
+			'person.email-ASC' => 'Email (A-Z)',
+			'person.email-DESC' => 'Email (Z-A)',
+			'person.shirt_size-DESC' => 'Shirt Size',
 		];
 		$this->load->view('person/filter', $data);
 	}
@@ -308,22 +324,23 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function export() {
-		$options = $this->input->cookie("person_filters");
+	function export()
+	{
+		$options = $this->input->cookie('person_filters');
 		$options = unserialize($options);
 		$this->export_addresses($options);
-
 	}
 
 	/**
 	 * @param null $options
 	 */
-	function export_addresses($options = NULL) {
-		$options["export"] = TRUE;
-		$this->load->model("address_model", "address");
-		$data["addresses"] = $this->address->get_all($options);
+	function export_addresses($options = NULL)
+	{
+		$options['export'] = TRUE;
+		$this->load->model('address_model', 'address');
+		$data['addresses'] = $this->address->get_all($options);
 		$data['target'] = 'Address Export';
-		$data['title'] = "Export of Addresses";
+		$data['title'] = 'Export of Addresses';
 		$this->load->helper('download');
 		$this->load->view('address/export', $data);
 	}
@@ -333,7 +350,8 @@ class Person extends MY_Controller {
 	 *
 	 * @param $id
 	 */
-	function vcard($id) {
+	function vcard($id)
+	{
 		$person = $this->person->get($id);
 		$phones = $this->phone->get_for_person($id);
 		$person->phones = $phones;
@@ -341,8 +359,8 @@ class Person extends MY_Controller {
 		$data['person'] = $person;
 		$this->load->helper('download');
 		$vcard = $this->load->view('address/vcard', $data, TRUE);
-		$date_stamp = date("Y-m-d_H-i-s");
-		$file_name = sprintf("%s-%s_%s.vcf", $person->first_name, $person->last_name, $date_stamp);
+		$date_stamp = date('Y-m-d_H-i-s');
+		$file_name = sprintf('%s-%s_%s.vcf', $person->first_name, $person->last_name, $date_stamp);
 		force_download($file_name, $vcard, 'text/x-vcard');
 	}
 
@@ -352,7 +370,8 @@ class Person extends MY_Controller {
 	 * If a person is in the tourist database they will only be disabled.
 	 * See person_model->delete for more details.
 	 */
-	function delete($disable = FALSE) {
+	function delete($disable = FALSE)
+	{
 		$id = $this->input->post('id');
 		$person = $this->person->get($id);
 		if ($id) {
@@ -360,29 +379,28 @@ class Person extends MY_Controller {
 		}
 		if ($disable) {
 			$this->session->set_flashdata('notice', sprintf('%s\'s record has been disabled. It could not be deleted because is connected to at least one tour.', person_link($person)));
-		}
-		else {
+		} else {
 			$this->session->set_flashdata('notice', sprintf('%s %s, their phone numbers and other information have been completely from the database because they have never been on a tour.', $person->first_name, $person->last_name));
 		}
-		redirect("person/view_all");
+		redirect('person/view_all');
 	}
 
 	/**
 	 *
 	 */
-	function disable() {
+	function disable()
+	{
 		$this->delete(TRUE);
-
 	}
 
 	/**
 	 *
 	 */
-	function restore() {
-		$id = $this->input->post("id");
+	function restore()
+	{
+		$id = $this->input->post('id');
 		if ($id) {
 			$this->person->restore($id);
 		}
 	}
-
 }
