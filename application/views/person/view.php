@@ -76,32 +76,48 @@ $restore_button[] = [
 				id="address_id"
 				name="address_id"
 				value="<?php print get_value($person, "address_id"); ?>"/>
-		<div class='field-set'>
-			<?php print create_field("first_name", get_value($person, "first_name"), "First Name", ["envelope" => "div"]); ?>
-		</div>
-		<div class='field-set'>
-			<?php print create_field("last_name", get_value($person, "last_name"), "Last Name", ["envelope" => "div"]); ?>
-		</div>
-		<?php $this->load->view('elements/field-item', ['id' => 'email',
-			'label' => 'Email',
-			'value' => get_value($person,'email'),
-			'type' => 'email',
-		]);?>
-		<div class='field-set'>
-			<?php print create_field("shirt_size", get_value($person, "shirt_size"), "Shirt Size", [
-					"envelope" => "div",
-					"class" => "dropdown",
-					"attributes" => "menu='shirt_size'",
-			]); ?>
-		</div>
-		<div class='field-set'>
-			<label for="note">Note:</label><br/>
-			<?php print get_value($person, "note"); ?>
-		</div>
-		<div class="field-set">
-			<label for="is_veteran">Is Veteran: </label>
-			<?php print !empty($person->is_veteran) ? 'Yes' : 'No'; ?>
-		</div>
+		<?php $this->load->view('elements/field-item', [
+				'id' => 'first_name',
+				'value' => get_value($person, 'first_name'),
+				'wrapper' => 'div',
+				'wrapper_classes' => ['field-set'],
+		]);
+		?>
+		<?php $this->load->view('elements/field-item', [
+				'id' => 'last_name',
+				'value' => get_value($person, 'last_name'),
+				'wrapper' => 'div',
+				'wrapper_classes' => ['field-set'],
+		]);
+		?>
+		<?php $this->load->view('elements/field-item', [
+				'id' => 'email',
+				'value' => get_value($person, 'email'),
+				'type' => 'email',
+				'wrapper' => 'div',
+				'wrapper_classes' => ['field-set'],
+		]); ?>
+		<?php $this->load->view('elements/field-item', [
+				'id' => 'shirt_size',
+				'value' => get_value($person, 'shirt_size'),
+				'wrapper' => 'div',
+				'wrapper_classes' => ['field-set'],
+		]);
+		?>
+		<?php $this->load->view('elements/field-item', [
+				'id' => 'note',
+				'value' => get_value($person, 'note'),
+				'wrapper' => 'div',
+				'wrapper_classes' => ['field-set'],
+		]);
+		?>
+		<?php $this->load->view('elements/field-item', [
+				'id' => 'is_veteran',
+				'value' => !empty($person->is_veteran) ? 'Yes' : 'No',
+				'wrapper' => 'div',
+				'wrapper_classes' => ['field-set'],
+		]);
+		?>
 		<div id="phone" class="grouping phone-grouping">
 			<?php if (get_value($person, "phones", FALSE)) : ?>
 				<p>

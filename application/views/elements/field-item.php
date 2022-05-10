@@ -32,7 +32,7 @@ if (empty($required)) {
 
 <<?php print $wrapper; ?> class="<?php print implode(' ', $wrapper_class);?>" data-target-id="<?php print $id; ?>">
 <?php if ($wrapper != 'td'): ?>
-	<label for="<?php print $id; ?>"><?php print $label; ?></label>
+	<label for="<?php print $id; ?>"><?php print $label; ?>: </label>
 <?php endif; ?>
 <<?php print $field_wrapper; ?> class="<?php print $classes; ?>" id="<?php print $id; ?> <?php print $required; ?>"><?php print $value; ?></<?php print $field_wrapper; ?>>
 </<?php print $wrapper; ?>>

@@ -753,6 +753,10 @@ li.diptych .delete {
 }
 
 .field-set {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	grid-gap: 1rem;
 	padding: 5px 0;
 }
 
@@ -766,7 +770,7 @@ fieldset.field-group {
 }
 
 .field-group .field-set {
-	float: left;
+
 	padding: 0;
 }
 
@@ -795,14 +799,11 @@ body.person #content {
 }
 
 body.person fieldset.grouping, div.grouping {
-	float: left;
-	clear: none;
+	display: flex;
+	flex-direction: column;
 	min-width: 35ex;
 }
 
-div.grouping {
-
-}
 
 div.person-info {
 	padding: 5px 5px;
