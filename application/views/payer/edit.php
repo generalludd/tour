@@ -2,10 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // payer.php Chris Dart Dec 14, 2013 6:32:48 PM chrisdart@cerebratorium.com
-
-$tourist_count = count($tourists);
-$total_cost = ($tour_price - $payer->discount + $room_rate) * $tourist_count;
-$amt_due = $total_cost - $payer->amt_paid;
+$tourist_count = count($payer->tourists);
 ?>
 <h2>Ticket Details</h2>
 
@@ -32,18 +29,18 @@ $amt_due = $total_cost - $payer->amt_paid;
 				method="post"
 				action="<?php print base_url('index.php/payer/' . $action); ?>">
 			<?php $hidden_fields = [
-					'payer_id',
-					'tour_id',
-					'tourist_count',
-					'room_rate',
-					'tour_price',
+					'payer_id' => $payer->payer_id,
+					'tour_id' => $payer->tour_id,
+					'tourist_count' => count($payer->tourists),
+					'room_rate' => $payer->room_rate,
+					'price' => $payer->price,
 			]; ?>
-			<?php foreach ($hidden_fields as $field): ?>
+			<?php foreach ($hidden_fields as $field => $value): ?>
 				<?php $data = [
 						'id' => $field,
 						'attributes' => [
 								'type' => 'hidden',
-								'value' => ${$field},
+								'value' => $value,
 						],
 				]; ?>
 				<?php $this->load->view('elements/input-field', $data); ?>
@@ -70,7 +67,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 					'label' => 'Payment Type',
 					'wrapper' => 'p',
 					'suffix' => '$<span
-					id="tour_price_display">' . $tour_price . '</span>',
+					id="tour_price_display">' . $payer->price . '</span>',
 			];
 			$this->load->view('elements/select-field', $payment_select);
 			?>
@@ -78,12 +75,12 @@ $amt_due = $total_cost - $payer->amt_paid;
 				<label for="room_size">Room Size</label>
 				<?php print form_dropdown('room_size', $room_sizes, get_value($payer, 'room_size'), 'class="change_room_size"'); ?>
 				&nbsp;$<span
-						id="room_rate_display"><?php print $room_rate; ?></span>
+						id="room_rate_display"><?php print $payer->room_rate; ?></span>
 			</p>
 			<p>
 				<label for="total_cost">Total Cost: </label> &nbsp;$<span
 						class="field"
-						id="total_cost"><?php print $total_cost; ?></span>
+						id="total_cost"><?php print get_payment_due($payer); ?></span>
 			</p>
 			<p>
 				<label for="amt_paid">Amount Paid</label> $<input
@@ -92,7 +89,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 						id="amt_paid"
 						readonly
 						class="edit-payer-amounts money"
-						value="<?php print $amount; ?>"
+						value="<?php print $payer->amt_paid; ?>"
 						readonly/>
 			</p>
 			<p>
@@ -107,7 +104,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 			<p>
 				<label for="amt_due">Amount Due:</label> $<span
 						class="field"
-						id="amt_due"><?php print $total_cost - $amount; ?></span>
+						id="amt_due"><?php print get_payment_due($payer); ?></span>
 			</p>
 			<p>
 				<label for="note">Note</label><br/>
@@ -127,18 +124,18 @@ $amt_due = $total_cost - $payer->amt_paid;
 							'text' => 'Cancel',
 							'class' => 'button cancel cancel-payer-edit',
 							'title' => 'Cancel the changes to the above payment data.',
-							'data' => ['tour_id' => $tour_id],
+							'data' => ['tour_id' => $payer->tour_id],
 					]; ?>
 
-					<?php if($amt_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0) ) {
+					<?php if($payer->amt_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0) ) {
 						$buttons[] = [
 								'text' => 'Delete Payer',
 								'title' => 'Completely delete this payer, payment, rooming, and tourist info for this payer',
 								'class' => 'button delete dialog',
-							'href' => base_url('payer/delete?tour_id=' . $tour_id . '&payer_id=' . $payer_id),
+							'href' => base_url('payer/delete?tour_id=' . $payer->tour_id . '&payer_id=' . $payer->payer_id),
 								'data' => [
-										'tour_id' => $tour_id,
-										'payer_id' => $payer_id,
+										'tour_id' => $payer->tour_id,
+										'payer_id' => $payer->payer_id,
 								],
 						];
 					} ?>
@@ -156,8 +153,8 @@ $amt_due = $total_cost - $payer->amt_paid;
 		<?php
 
 		$payment_data['payments'] = $payer->payments;
-		$payment_data['tour_id'] = $tour_id;
-		$payment_data['payer_id'] = $payer_id;
+		$payment_data['tour_id'] = $payer->tour_id;
+		$payment_data['payer_id'] = $payer->payer_id;
 
 		$this->load->view('payment/list', $payment_data);
 		$this->load->view('payment/reimbursement', $payment_data);
@@ -169,7 +166,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 			id="payer-tourist-block"
 			class="field-box">
 		<legend>Tourists</legend>
-		<?php $this->load->view('tourist/payer_list', $tourists); ?>
+		<?php $this->load->view('tourist/payer_list', ['tourists' => $payer->tourists]); ?>
 		<div id="mini-selector">
 			<p>Type the name of a person <i>already in the address book</i> you
 				want to add to this
@@ -180,7 +177,7 @@ $amt_due = $total_cost - $payer->amt_paid;
 				<?php $field_data = [
 						'field_name' => 'search-tourists',
 						'data' => [
-								'url' => base_url('tourist/find_by_name/' . $tour_id . '/' . $payer_id),
+								'url' => base_url('tourist/find_by_name/' . $payer->tour_id . '/' . $payer->payer_id),
 								'target' => '#search-list',
 						],
 						'placeholder' => 'Search for Tourists',

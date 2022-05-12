@@ -108,6 +108,60 @@ class Payer_model extends CI_Model
         return $result;
     }
 
+		function get_payer_object($payer){
+			$this->load->model('person_model','person');
+			$this->load->model('payment_mode','payment');
+			$payer->person = $this->person->get($payer->payer_id);
+			$payer->tourists = $this->tourist->get_for_payer($payer->payer_id, $payer->tour_id);
+			$payer->payments = $this->payment->get_all($payer->tour_id, $payer->payer_id);
+			$payer->amt_paid = 0;
+			foreach($payer->payments as $payment){
+				$payer->amt_paid += $payment->amount;
+			}
+			switch ($payer->payment_type) {
+				case 'full_price' :
+					$payer->price = $payer->full_price;
+					break;
+				case 'banquet_price' :
+					$payer->price = $payer->banquet_price;
+					break;
+				case 'early_price' :
+					$payer->price = $payer->early_price;
+					break;
+				case 'regular_price' :
+					$payer->price = $payer->regular_price;
+					break;
+				default :
+					$payer->price = 0;
+					break;
+			}
+			if ($payer->price == 0) {
+				$payer->room_rate = 0;
+			}
+			else {
+				switch ($payer->room_size) {
+					case 'single_room' :
+						$payer->room_rate = $payer->single_room;
+						break;
+					case 'triple_room' :
+						$payer->room_rate = $payer->triple_room;
+						break;
+					case 'quad_room' :
+						$payer->room_rate = $payer->quad_room;
+						break;
+					default :
+						$payer->room_rate = 0;
+						break;
+				}
+			}
+			if ($payer->is_comp == 1 || $payer->is_cancelled) {
+				$payer->price = 0;
+				$payer->room_rate = 0;
+			}
+			$payer->amt_due = get_payment_due($payer);
+			return $payer;
+		}
+
     /**
      * Get the number room types for a given tour (single, double, triple, quad)
      *

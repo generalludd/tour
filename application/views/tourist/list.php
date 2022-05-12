@@ -97,15 +97,7 @@ $buttons['print'] = [
                         Payment</a>
                 </td>
                 <td>
-                    <?php if ($payer->phones || $payer->email) : ?>
-                    <?php if (get_value($payer, "email", TRUE)) : ?>
-                    <?php print format_email($payer->email); ?><br />
-                    <?php endif; ?>
-                    <?php foreach ($payer->phones as $phone) : ?>
-                    <?php print sprintf("%s: %s", $phone->phone_type, $phone->phone); ?>
-                    <br />
-                    <?php endforeach; ?>
-                    <?php endif; ?>
+                    <?php $this->load->view('person/contact_card',['person'=> $payer->person]); ?>
                 </td>
                 <?php
 					if ($payer->is_comp == 1) :

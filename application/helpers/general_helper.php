@@ -433,6 +433,12 @@ function grammatical_implode($glue, $list, $conjunction = "and") {
 	return $output;
 }
 
+function get_payment_due($payer){
+		$tourist_count = count($payer->tourists);
+
+		return $payer->price * $tourist_count + ($payer->room_rate - $payer->amt_paid - $payer->discount);
+}
+
 /**
  * @param $people
  * @param $format

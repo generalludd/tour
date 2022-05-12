@@ -13,7 +13,8 @@ class Payer extends MY_Controller {
 		$this->load->model('person_model', 'person');
 	}
 
-	function view() {
+	function view($payer_id = FALSE, $tour_id = FALSE, $ajax = FALSE) {
+		$this->edit($payer_id, $tour_id, $ajax);
 	}
 
 	function create() {
@@ -76,12 +77,10 @@ class Payer extends MY_Controller {
 		$this->load->model('tour_model','tour');
 		$data['payment_types'] = $this->tour->get_payment_types($tour_id);
 		$payer = $this->payer->get_for_tour($payer_id, $tour_id);
-		$payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
-		$data['amount'] = $this->payment->get_total($tour_id, $payer->payer_id);
-		$data["payer"] = $payer;
-		$data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
-		$data["room_rate"] = get_room_rate($payer);
-		$data["tour_price"] = get_tour_price($payer);
+		$payer_object = $this->payer->get_payer_object($payer);
+
+		$data["payer"] = $payer_object;
+
 		$data["target"] = "payer/edit";
 		$data["title"] = "Editing Payer";
 		$data["action"] = "update";

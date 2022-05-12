@@ -42,7 +42,6 @@ class Tourist extends MY_Controller {
 
 		$options = [];
 		if ($export) {
-			$data ['target'] = 'tourist/export';
 			$options ['include_address'] = TRUE;
 			$this->load->helper('download');
 		}
@@ -53,68 +52,17 @@ class Tourist extends MY_Controller {
 		$tour = $this->tour->get($tour_id);
 		$payers = $this->payer->get_payers($tour_id, $options);
 		foreach ($payers as $payer) {
-			$phones = $this->phone->get_for_person($payer->payer_id);
-			$payer->phones = $phones;
-			$tourists = $this->tourist->get_for_payer($payer->payer_id, $tour_id);
-			$payer->tourists = $tourists;
-			$payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
-			switch ($payer->payment_type) {
-				case 'full_price' :
-					$price = $tour->full_price;
-					break;
-				case 'banquet_price' :
-					$price = $tour->banquet_price;
-					break;
-				case 'early_price' :
-					$price = $tour->early_price;
-					break;
-				case 'regular_price' :
-					$price = $tour->regular_price;
-					break;
-				default :
-					$price = 0;
-					break;
-			}
-			if ($price == 0) {
-				$rate = 0;
-			}
-			else {
-				switch ($payer->room_size) {
-					case 'single_room' :
-						$rate = $tour->single_room;
-						break;
-					case 'triple_room' :
-						$rate = $tour->triple_room;
-						break;
-					case 'quad_room' :
-						$rate = $tour->quad_room;
-						break;
-					default :
-						$rate = 0;
-						break;
-				}
-			}
-			if ($payer->is_comp == 1 || $payer->is_cancelled) {
-				$price = 0;
-				$rate = 0;
-			}
-			$payer->price = $price;
-			$payer->room_rate = $rate;
-			$tourist_count = $this->payer->get_tourist_count($payer->payer_id, $payer->tour_id);
-			$payments = $this->payments->get_total($tour_id, $payer->payer_id);
-			$payer->amt_paid = $payments;
-			$payer->amt_due = ($price + $rate) * $tourist_count - ($payer->amt_paid + $payer->discount);
-
-			$payer->tourist_count = $tourist_count;
+			$this->payers[] = $this->payer->get_payer_object($payer);
 		}
 		$data ['tour'] = $tour;
 		$data ['payers'] = $payers;
 		$data ['title'] = 'Tourist List: ' .  $tour->tour_name;
+		$data ['target'] = 'tourist/list';
+
 		if ($export) {
-			$this->load->view($data ['target'], $data);
+			$this->load->view('tourist/export', $data);
 		}
 		else {
-			$data ['target'] = 'tourist/list';
 			$this->load->view('page/index', $data);
 		}
 	}
