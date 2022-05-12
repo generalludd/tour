@@ -266,7 +266,7 @@ class Person extends MY_Controller {
 	function update() {
 		$id = $this->input->post('id');
 		$this->person->update($id);
-		redirect('person/view/$id');
+		redirect('person/view/' . $id);
 	}
 
 	/**

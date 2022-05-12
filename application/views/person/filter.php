@@ -65,7 +65,7 @@ if ($filters) {
 			<?php print $show_disabled;?> />
 	</p>
 	<p>
-		<label for='has_shirtsize'>Has shirtize?:</label>
+		<label for='has_shirtsize'>Has shirt size?:</label>
 		<?php print form_dropdown('has_shirtsize', $shirtsize_choice, $has_shirtsize);?>
 	<p>
 		<label for "order_by">Order by</label>
