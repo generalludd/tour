@@ -29,7 +29,7 @@ $buttons[] = [
 if (get_value($person, "id", FALSE) && $tour_count == 0) {
 	$buttons[] = [
 			'text' => 'Delete',
-			'href' => base_url('person/delete/'),
+			'href' => base_url('person/delete'),
 			'data' => [
 					'id' => $person->id,
 					'redirect' => 'person/view_all',
@@ -41,6 +41,7 @@ else {
 	$buttons[] = [
 			'text' => 'Disable',
 			'title' => 'This person has been on tours so they cannot be deleted.',
+			'href' => base_url('person/disable'),
 			'data' => [
 					'id' => $person->id,
 					'redirect' =>'person/view/' . $person->id,

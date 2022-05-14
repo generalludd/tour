@@ -363,23 +363,17 @@ class Person extends MY_Controller {
 	 */
 	function delete($disable = FALSE) {
 		$id = $this->input->post('id');
-		$person = $this->person->get($id);
 		if ($id) {
 			$this->person->delete($id);
-		}
-		if ($disable) {
-			$this->session->set_flashdata('notice', sprintf('%s\'s record has been disabled. It could not be deleted because is connected to at least one tour.', person_link($person)));
-		}
-		else {
-			$this->session->set_flashdata('notice', sprintf('%s %s, their phone numbers and other information have been completely from the database because they have never been on a tour.', $person->first_name, $person->last_name));
-		}
-		$redirect = $this->input->post('redirect');
-		if($this->input->post('ajax')){
-			echo base_url($redirect);
-		}else{
-			redirect($redirect);
-		}
 
+			$redirect = $this->input->post('redirect');
+			if ($this->input->post('ajax')) {
+				echo base_url($redirect);
+			}
+			else {
+				redirect($redirect);
+			}
+		}
 	}
 
 	/**
