@@ -29,7 +29,7 @@ Once logged in, there should be four buttons in the top right "Refresh Page", "B
 ## Main Navigation
 
 There are 3 buttons and one search field in the main navigation. "Home", "Find People", "Tours", "People"
-![image](https://user-images.githubusercontent.com/571478/168404159-a5a40d19-708e-4f22-b190-1e1e3f195f8c.png)
+![main-navigation](images/navigation.png)
 
 ## Tours
 * Tour list should appear by start date and without error. 
@@ -100,7 +100,7 @@ There are 3 buttons and one search field in the main navigation. "Home", "Find P
 ### Filtering
 * Clicking on a letter to filter on that letter of the alphabet should result in a list with last names starting only with that letter.
 * Clicking on "Filter Results" should not result in an error 
-* ![image](https://user-images.githubusercontent.com/571478/168404077-d069a17b-d18f-4a4b-a124-df631bef2176.png)
+* ![image](images/people-actions.png)
 * Filters should produce expected results on the resulting form
   * Example: Showing only veterans should result in a list where every record should have a "Yes" in the Is Vet column. 
 
@@ -113,7 +113,7 @@ There are 3 buttons and one search field in the main navigation. "Home", "Find P
 #### Click on "Add a New Person" 
 A dialog should pop-up with these fields:
 
-![Add Person](https://user-images.githubusercontent.com/571478/168404638-d871dcb1-c75b-43bc-89ed-e22f2dd20ca8.png)
+![Add Person](images/add-person.png)
 
 * Fill out the fields
 * Click "Insert"
