@@ -58,14 +58,14 @@ if ($stay < $last_stay) {
 	<label>Hotel:&nbsp;</label><a
 			href="<?php print site_url("hotel/view/$hotel->id"); ?>"><?php print $hotel->hotel_name ?></a><br/>
 	<label>Arrival
-		Date:&nbsp;</label><?php print format_date(get_value($hotel, "arrival_date")); ?>
+				 Date:&nbsp;</label><?php print format_date(get_value($hotel, "arrival_date")); ?>
 	,&nbsp;<?php print get_value($hotel, "arrival_time"); ?><br/>
 	<label>Departure
-		Date:&nbsp;</label><?php print format_date(get_value($hotel, "departure_date")); ?>
+				 Date:&nbsp;</label><?php print format_date(get_value($hotel, "departure_date")); ?>
 	,&nbsp;<?php print get_value($hotel, "departure_time"); ?><br/>
 	<?php if (get_value($hotel, "contact", FALSE)): ?>
 		<label>Contact
-			Info: </label><?php print get_value($hotel, "contact"); ?>,&nbsp;
+					 Info: </label><?php print get_value($hotel, "contact"); ?>,&nbsp;
 	<?php endif; ?>
 	<?php if (get_value($hotel, "phone", FALSE)): ?>
 		<label>Phone: </label><?php print get_value($hotel, "phone"); ?>&nbsp;
@@ -89,30 +89,31 @@ if ($stay < $last_stay) {
 		name="stay"
 		value="<?php print $stay; ?>"/>
 <input
-	type="hidden"
-	id="tour_id"
-	name="tour_id"
-	value="<?php print $tour_id; ?>"/>
-<div
-	class="block triptych"
-	id="roommate-list-block">
-	<?php
-	$room_size = ""; ?>
+		type="hidden"
+		id="tour_id"
+		name="tour_id"
+		value="<?php print $tour_id; ?>"/>
+<div class="block triptych" 	id="roommate-list-block">
+	<?php 	$room_size = ""; ?>
+	<?php if (!empty($sizes)): ?>
+		<?php foreach ($sizes as $size => $rooms): ?>
+			<?php if ($room_size != $size): ?>
+				<h4 class='room-size-label'><?php print $size; ?></h4>
+				<?php $room_size = $size; ?>
+			<?php endif; ?>
+			<div class="block triptych" id="roommate-list-block">
+				<?php foreach ($rooms as $room): ?>
+					<div class="roommate-block"
+							 id="roommate-block_<?php print $room->id; ?>">
 
-<?php foreach ($sizes as $size => $rooms): ?>
-	<?php if ($room_size != $size): ?>
-		<h4 class='room-size-label'><?php print $size; ?></h4>
-		<?php $room_size = $size; ?>
+						<?php $this->load->view("room/edit", [
+								'room' => $room,
+								'sizes' => $sizes,
+						]); ?>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		<?php endforeach; ?>
 	<?php endif; ?>
-	<div class="block triptych" id="roommate-list-block">
-		<?php foreach ($rooms as $room): ?>
-			<div class="roommate-block"
-				 id="roommate-block_<?php print $room->id; ?>">
-
-			<?php $this->load->view("room/edit", ['room' => $room, 'sizes' => $sizes]); ?>
-		</div>
-	<?php endforeach; ?>
-
-</div>
-<a id="end-of-list"></a>
+	<a id="end-of-list"></a>
 
