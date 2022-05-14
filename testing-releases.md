@@ -112,7 +112,9 @@ There are 3 buttons and one search field in the main navigation. "Home", "Find P
 
 #### Click on "Add a New Person" 
 A dialog should pop-up with these fields:
+
 ![Add Person](https://user-images.githubusercontent.com/571478/168404638-d871dcb1-c75b-43bc-89ed-e22f2dd20ca8.png)
+
 * Fill out the fields
 * Click "Insert"
 This should load a page with the information you added along with options to add an address and phone numbers. 
