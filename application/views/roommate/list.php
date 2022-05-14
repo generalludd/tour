@@ -89,13 +89,15 @@ if ($stay < $last_stay) {
 		name="stay"
 		value="<?php print $stay; ?>"/>
 <input
-		type="hidden"
-		id="tour_id"
-		name="tour_id"
-		value="<?php print $tour_id; ?>"/>
-
-<?php
-$room_size = ""; ?>
+	type="hidden"
+	id="tour_id"
+	name="tour_id"
+	value="<?php print $tour_id; ?>"/>
+<div
+	class="block triptych"
+	id="roommate-list-block">
+	<?php
+	$room_size = ""; ?>
 
 <?php foreach ($sizes as $size => $rooms): ?>
 	<?php if ($room_size != $size): ?>
@@ -107,13 +109,10 @@ $room_size = ""; ?>
 			<div class="roommate-block"
 				 id="roommate-block_<?php print $room->id; ?>">
 
-				<?php $this->load->view("room/edit", [
-						'room' => $room,
-						'sizes' => $sizes,
-				]); ?>
-			</div>
-		<?php endforeach; ?>
-	</div>
-<?php endforeach; ?>
+			<?php $this->load->view("room/edit", ['room' => $room, 'sizes' => $sizes]); ?>
+		</div>
+	<?php endforeach; ?>
+
+</div>
 <a id="end-of-list"></a>
 
