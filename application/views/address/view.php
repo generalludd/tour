@@ -3,7 +3,6 @@
 if (isset($person->address)): ?>
 	<label>Address:</label><br/>
 	<?php print format_address($person->address, "inline"); ?>&nbsp;<?php
-
 	$edit_buttons[] = [
 		"text" => "Edit",
 		'href' => base_url('address/edit/' . $person->address_id . '/' . $person->id),

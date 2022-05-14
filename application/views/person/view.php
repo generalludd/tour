@@ -26,14 +26,30 @@ $buttons[] = [
 		'href' => base_url('person/vcard/' . $person->id),
 		'class' => 'button export',
 ];
+if (get_value($person, "id", FALSE) && $tour_count == 0) {
+	$buttons[] = [
+			'text' => 'Delete',
+			'href' => base_url('person/delete/'),
+			'data' => [
+					'id' => $person->id,
+					'redirect' => 'person/view_all',
+			],
+			'class' => ['button', 'delete', 'delete-action'],
+	];
+}
+else {
+	$buttons[] = [
+			'text' => 'Disable',
+			'title' => 'This person has been on tours so they cannot be deleted.',
+			'data' => [
+					'id' => $person->id,
+					'redirect' =>'person/view/' . $person->id,
+			],
+			'class' => ['button', 'delete', 'delete-action'],
+	];
+}
 
-$move_button[] = [
-		"text" => "Move",
-		"type" => "span",
-		"title" => "move this person to another address in the database",
-		"class" => "button small edit change-housemate",
-		"id" => sprintf("change-housemate_%s", get_value($person, "id", $id)),
-];
+
 $phone_button[] = [
 		"text" => "Add Phone",
 		"class" => "button small new add-phone",
@@ -46,22 +62,22 @@ $restore_button[] = [
 		"id" => sprintf("restore-person_%s", get_value($person, "id")),
 ];
 ?>
-<?php if (get_value($person, "status") == 0): ?>
-	<div class="notice">
-		This person's record has been disabled which means you deleted it at
-		some point, but, because they were on at least one tour, they could not
-		be permanently deleted from the database.<br/>
-		<?php print create_button_bar($restore_button); ?>
-	</div>
+<h3> <?php print sprintf("%s %s", $person->first_name, $person->last_name); ?></h3>
 
+<div class="content diptych">
+	<fieldset
+			class="person-info"
+			id="person">
+		<?php if (get_value($person, "status") == 0): ?>
+			<div class="notice">
+				This person's record has been disabled which means you deleted it at
+				some point, but, because they were on at least one tour, they could not
+				be permanently deleted from the database.<br/>
+				<?php print create_button_bar($restore_button); ?>
+			</div>
 
-<?php endif; ?>
-<?php //if (empty($ajax)): ?>
-<!--	--><?php //print create_button_bar($nav_buttons); ?>
-<?php //endif; ?>
-<!--<h3>Person-->
-<!--	Record: --><?php //print sprintf("%s %s", $person->first_name, $person->last_name); ?><!--</h3>-->
-<?php print create_button_bar($buttons); ?>
+		<?php endif; ?>
+		<?php print create_button_bar($buttons); ?>
 
 <div class="diptych">
 	<fieldset

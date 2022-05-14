@@ -35,6 +35,8 @@ class Person extends MY_Controller {
 		$data['id'] = $id;
 		$data['person'] = $person;
 		$data['title'] = $person->first_name . ' ' . $person->last_name;
+		$this->load->model("tourist_model", "tourist");
+		$data['tour_count'] = count($this->tourist->get($id));
 		$data['target'] = 'person/view';
 		$data['ajax'] = FALSE;
 		$target = 'page/index';
@@ -51,7 +53,7 @@ class Person extends MY_Controller {
 	function view_next() {
 		$id = $this->uri->segment(3);
 		$next_id = $this->person->get_next_person($id);
-		redirect('person/view/$next_id');
+		redirect('person/view/'. $next_id);
 	}
 
 	/**
@@ -60,7 +62,7 @@ class Person extends MY_Controller {
 	function view_previous() {
 		$id = $this->uri->segment(3);
 		$next_id = $this->person->get_previous_person($id);
-		redirect('person/view/$next_id');
+		redirect('person/view/' . $next_id);
 	}
 
 	/**
@@ -371,7 +373,13 @@ class Person extends MY_Controller {
 		else {
 			$this->session->set_flashdata('notice', sprintf('%s %s, their phone numbers and other information have been completely from the database because they have never been on a tour.', $person->first_name, $person->last_name));
 		}
-		redirect('person/view_all');
+		$redirect = $this->input->post('redirect');
+		if($this->input->post('ajax')){
+			echo base_url($redirect);
+		}else{
+			redirect($redirect);
+		}
+
 	}
 
 	/**
