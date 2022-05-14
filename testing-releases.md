@@ -15,19 +15,41 @@
 * type `docker-compose up -d` to launch docker
 * wait about 3 minutes and then go to `tours.test` to see if the site has loaded properly.
 
-## Authentication
-* Users should be able to log in
-* Users should be able to log out
+## Authentication & Account
+* Users should be able to log in http://tours.test/auth
+
+### Once Logged in...
+* User should be able to change their password while logged in by clicking on "Account Info" in the upper right.
+* Users should be able to log out (top right of screen)
+* Users should be able to add a new user (though this is rarely done)
+
+## Utility
+
+![utility_buttons](https://user-images.githubusercontent.com/571478/168403799-2e36786a-4337-4499-bdca-b85a0c76c9ef.png)
 * Users should be able to download a "Backup"
 
+## Main Navigation
+There are 3 buttons and one search field in the main navigation. 
+![image](https://user-images.githubusercontent.com/571478/168404159-a5a40d19-708e-4f22-b190-1e1e3f195f8c.png)
+"Home" and "People" go to the list of people.
 
 ## People
-On the landing page there should be no issues. 
+* Click on "Home" or "People" to view the addressbook of people. 
+* There should be no errors on the landing page. 
+* There should be a list of people. 
+* In the "Find People" field typing the start of a name like "Julian". You should see a list of people and possible actions (show and join tour). 
+
+### Filtering
 * Clicking on a letter to filter on that letter of the alphabet should result in a list with last names starting only with that letter.
-* Clicking on "Filter Results" should not result in an error
+* Clicking on "Filter Results" should not result in an error 
+* ![image](https://user-images.githubusercontent.com/571478/168404077-d069a17b-d18f-4a4b-a124-df631bef2176.png)
 * Filters should produce expected results on the resulting form
   * Example: Showing only veterans should result in a list where every record should have a "Yes" in the Is Vet column. 
-  * 
+
+### Exporting
+* Exporting records should result in a usable spreadsheet (no columns out of place, same records as shown on the filtered results). 
+
+
 ### Adding and editing individuals
 * Add a new person should not result in errors
 * Editing the person should also not result in errors.
