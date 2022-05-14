@@ -13,7 +13,7 @@ $search_data = [
 ?>
 <input type="hidden" name="person_id" id="person_id"
 	   value="<?php print $person_id; ?>"/>
-<label for="find-housemates">Find an Existing Address by Person</label><br/>
+<label for="find-housemates">Or find an existing address by person</label><br/>
 <?php $this->load->view('person/search-field', $search_data); ?>
 <div id="housemate-list">
 </div>

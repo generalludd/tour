@@ -129,7 +129,7 @@ $restore_button[] = [
 		</div>
 	</fieldset>
 	<fieldset
-			class=" block address-info"
+			class="block address-info"
 			id="address">
 		<?php $this->load->view('address/view', ['person' => $person]); ?>
 	</fieldset>

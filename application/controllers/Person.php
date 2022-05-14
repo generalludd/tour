@@ -179,8 +179,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function edit() {
-		$id = $this->uri->segment(3);
+	function edit($id) {
 		$data = [];
 		$data['person'] = $this->person->get($id);
 		$data['title'] = sprintf('Person Record: %s %s', $data['person']->first_name, $data['person']->last_name);
@@ -257,7 +256,7 @@ class Person extends MY_Controller {
 	 */
 	function insert() {
 		$person_id = $this->person->insert(FALSE);
-		redirect('person/view/$person_id');
+		redirect('person/view/' . $person_id);
 	}
 
 	/**

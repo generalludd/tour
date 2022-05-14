@@ -260,10 +260,14 @@ input[type="text"], input[type="email"], input[type="number"], input[type="tel"]
 }
 
 input[type="text"].person-search {
-	height: 100%;
+	height: auto;
 	padding: 7px 3px;
 	font-size: 1.1em;
 	border-color: transparent;
+}
+
+#navigation input[type="text"].person-search{
+	height: 100%;
 }
 
 input[type="number"] {

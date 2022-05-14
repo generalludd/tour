@@ -52,12 +52,7 @@ $this->load->view('elements/field-item', [
 		<?php endif; ?>
 	</div>
 <?php else: ?>
-<?php $address_buttons['select_housemate'] = [
-			'type' => 'passthrough',
-		'value' => $this->load->view('address/find_housemate', ['person_id'=>$person->id])
-
-	];
-	$address_buttons['add_address'] = [
+	<?php	$address_buttons['add_address'] = [
 			'text' => 'Add Address',
 			'class' => 'button small new add-address',
 			'href' => base_url('address/create'),
@@ -67,4 +62,5 @@ $this->load->view('elements/field-item', [
 			],
 	]?>
 	<?php print create_button_bar($address_buttons); ?>
+<?php  $this->load->view('address/find_housemate', ['person_id'=>$person->id]); ?>
 <?php endif; ?>
