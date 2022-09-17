@@ -207,10 +207,8 @@ function format_money(float $int = NULL, string $format = "standard"): string {
 	if ($format == 'int') {
 		$int = round($int, 0);
 	}
-		$fmt =  NumberFormatter::create('en_US', \NumberFormatter::CURRENCY);
-	return $fmt->formatCurrency($int, 'USD');
-
-
+	$fmt =  NumberFormatter::create('en_US', \NumberFormatter::CURRENCY);
+	return !empty($int)? $fmt->formatCurrency($int, 'USD'): '';
 }
 
 /**
