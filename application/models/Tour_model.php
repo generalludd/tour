@@ -92,15 +92,16 @@ class Tour_model extends MY_Model {
 	}
 
 	function get_all($archived = TRUE, $fields = "*"): array {
+		$now = date('Y-m-d');
 		$this->db->from("tour");
 		$this->db->select($fields);
 		$this->db->order_by("tour.start_date", "DESC");
 		if ($archived) {
-			$this->db->where("tour.start_date < CURDATE()", NULL, FALSE);
+			$this->db->where("tour.start_date <", $now);
 		}
 		else {
 			$this->db->where('tour.status', 1);
-			$this->db->where("tour.start_date > CURDATE()", NULL, FALSE);
+			$this->db->where("tour.start_date >", $now);
 		}
 		$results = $this->db->get()->result();
 		$this->load->model('hotel_model', 'hotel');

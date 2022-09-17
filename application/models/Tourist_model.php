@@ -110,10 +110,14 @@ class Tourist_model extends MY_Model {
 		$this->db->from("tourist");
 		$this->db->join("payer", "tourist.payer_id = payer.payer_id");
 		$this->db->join("tour", "tour.id = tourist.tour_id");
-		$this->db->group_by("tourist.tour_id");
+		//$this->db->group_by("tourist.tour_id");
 		$this->db->order_by("tour.end_date", "DESC");
 		$result = $this->db->get()->result();
-		return $result;
+		$output = [];
+		foreach($result as $item){
+			$output['tourist_id'] = $item;
+		}
+		return $output;
 	}
 
 	function get_shirt_totals($tour_id) {
