@@ -186,8 +186,8 @@ function create_button_bar($buttons, $options = NULL) {
 		$button_list[] = create_button($button);
 	}
 
-	$contents = implode("</li><li>", $button_list);
-	$template = "<ul class='button-list'><li>$contents</li></ul>";
+	$contents = implode("</div><div class='button-item'>", $button_list);
+	$template = "<div class='button-list'><div class='button-item'>$contents</div></div>";
 	$output = "<div class='button-box $class'  $id>$template</div>";
 	return $output;
 }
@@ -391,4 +391,12 @@ function create_checkbox($name, $values, $selections = []) {
 function create_dropdown($name, $values, $options = []) {
 	if (array_key_exists("envelope", $options)) {
 	}
+}
+
+function get_page_title(string $title = NULL): string {
+	$output = 'Ball Park Tours';
+	if(!empty($title)){
+		$output .= ': ' . $title;
+	}
+	return $output;
 }

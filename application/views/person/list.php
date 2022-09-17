@@ -32,17 +32,27 @@ $buttons [] = [
 			foreach ($names as $name) :
 				?>
 				<?php
-
-				if ($name == 'initial') :
+				switch($name){
+					case 'initial':
 					$name = 'Limited to the Letter: ' . $filters [$name];
-				elseif ($name == 'order_by'):
-					[$identifier,$direction] = explode(',',$filters[$name]);
-					[$table, $field] = explode('.', $identifier);
-					$name = sprintf('Sorted by: %s, %sending', ucfirst(str_replace('_',' ', $field)) , ucfirst(strtolower($direction)) );
-				else :
+					break;
+					case 'order_by':
+
+						[$identifier,$direction] = explode('-',$filters[$name]);
+						[$table, $field] = explode('.', $identifier);
+						$field = str_replace('_', ' ', $field);
+						$name = sprintf('Sorted by: %s, %sending', ucwords($field) , ucfirst(strtolower($direction)) );
+						break;
+					case 'has_shirtsize':
+						$name = 'Has Shirt Size';
+						break;
+					default:
 					$name = str_replace('_', ' ', $name);
 					$name = ucwords($name);
-				endif;
+					break;
+
+				}
+			
 				?>
 				<li><?php print $name; ?></li>
 			<?php endforeach; ?>
@@ -71,12 +81,12 @@ $buttons [] = [
 		<?php $disabled = $person->status == 0 ? 'highlight' : ''; ?>
 		<tr class="<?php print $disabled; ?>">
 			<td><a href="<?php print site_url('person/view/' . $person->id); ?>" title="View <?php print $person->first_name; ?>'s details.">
-				<?php print $person->first_name . ' ' . $person->last_name; ?></a>
+				<?php echo $person->first_name . ' ' . $person->last_name; ?></a>
 			</td>
-			<td><?php print $person->email; ?></td>
-			<td><?php print $person->shirt_size; ?></td>
-			<td><?php print $person->is_veteran ? 'Yes' : 'No'; ?></td>
-			<td><?php print $person->status ? 'Yes' : 'No'; ?></td>
+			<td><?php echo $person->email; ?></td>
+			<td><?php echo $person->shirt_size; ?></td>
+			<td><?php echo $person->is_veteran ? 'Yes' : 'No'; ?></td>
+			<td><?php echo $person->status ? 'Yes' : 'No'; ?></td>
 
 			<td>
 				<a href="<?php print site_url('person/view/' . $person->id); ?>"  title="View <?php print $person->first_name; ?>'s details."

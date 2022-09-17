@@ -47,9 +47,4 @@ $buttons [] = array (
 		"title" => "View a List of All People" 
 );
 
-
-
-
-print create_button_bar ( $buttons, array (
-		"id" => "navigation-buttons" 
-) );
+print create_button_bar($buttons,['id'=>'navigation-buttons'] );

@@ -54,26 +54,6 @@ if (!$first_name) {
 					id="submit-person-editor"
 					class="button"
 					value="<?php print ucfirst($action); ?>"/>
-			<?php if ($action == "update"): ?>
-				<?php if (get_value($person, "id", FALSE) && $tour_count == 0): ?>
-					<input type="button"
-						   class="button delete delete-action"
-						   data-id="<?php print $person->id; ?>"
-						   data-action="delete"
-						   data-controller="person"
-						   data-form="person-editor"
-						   value="Delete"/>
-				<?php else: ?>
-					<input type="button"
-						   class="button delete delete-action"
-						   data-id="<?php print $person->id; ?>"
-						   data-action="disable"
-						   data-controller="person"
-						   data-form="person-editor"
-						   title="This person has been on tours, they will be disabled instead of deleted"
-						   value="Disable"/>
-				<?php endif; ?>
-			<?php endif; ?>
 		</p>
 	</form>
 </div>

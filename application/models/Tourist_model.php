@@ -37,13 +37,13 @@ class Tourist_model extends MY_Model {
 	 * Get all the tours to which a person has not attended.
 	 *
 	 * @param int $person_id
-	 * @param bool $current
+	 * @param bool $archived
 	 *
 	 * @return mixed
 	 */
-	function get_missing_tours(int $person_id, bool $current = TRUE): array {
+	function get_missing_tours(int $person_id, bool $archived = FALSE): array {
 		$this->load->model('tour_model', 'tour');
-		$tours = $this->tour->get_all($current);
+		$tours = $this->tour->get_all($archived);
 		foreach($tours as  $key => $tour) {
 			if(!empty( $this->get($person_id, [$key]))){
 				unset($tours[$key]);

@@ -3,7 +3,6 @@
 if (isset($person->address)): ?>
 	<label>Address:</label><br/>
 	<?php print format_address($person->address, "inline"); ?>&nbsp;<?php
-
 	$edit_buttons[] = [
 		"text" => "Edit",
 		'href' => base_url('address/edit/' . $person->address_id . '/' . $person->id),
@@ -20,8 +19,21 @@ if (isset($person->address)): ?>
 	];
 
 	print create_button_bar($edit_buttons); ?>
-	<?php print create_field("informal_salutation", $person->address->informal_salutation, "Informal Salutation"); ?>
-	<?php print create_field("formal_salutation", $person->address->formal_salutation, "Formal Salutation"); ?>
+<?php $this->load->view('elements/field-item', [
+		'id' => 'informal_salutation',
+		'value' => $person->address->informal_salutation,
+		'label' => 'Informal Salutation',
+		'type' => 'text',
+		'size' => 25,
+	]);
+$this->load->view('elements/field-item', [
+		'id' => 'formal_salutation',
+		'value' => $person->address->formal_salutation,
+		'label' => 'Formal Salutation',
+		'type' => 'text',
+		'size' => 25,
+]);
+?>
 	<div class="block housemate-info"
 			 id="housemate">
 		<?php if (count($person->housemates) > 0): ?>
@@ -39,12 +51,7 @@ if (isset($person->address)): ?>
 		<?php endif; ?>
 	</div>
 <?php else: ?>
-<?php $address_buttons['select_housemate'] = [
-			'type' => 'passthrough',
-		'value' => $this->load->view('address/find_housemate', ['person_id'=>$person->id])
-
-	];
-	$address_buttons['add_address'] = [
+	<?php	$address_buttons['add_address'] = [
 			'text' => 'Add Address',
 			'class' => 'button small new add-address',
 			'href' => base_url('address/create'),
@@ -54,4 +61,5 @@ if (isset($person->address)): ?>
 			],
 	]?>
 	<?php print create_button_bar($address_buttons); ?>
+<?php  $this->load->view('address/find_housemate', ['person_id'=>$person->id]); ?>
 <?php endif; ?>

@@ -4,7 +4,7 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 // edit.php Chris Dart May 26, 2014 6:32:43 PM chrisdart@cerebratorium.com
 
 ?>
-<div class="room-row triptych" id="room_<?php print $room->id; ?>">
+<div class="room-row" id="room_<?php print $room->id; ?>">
 	<?php print edit_field("size", get_value($room, "size"), "Room Size", "room", $room->id, [
 		"envelope" => "span",
 		"class" => "dropdown",

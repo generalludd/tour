@@ -4,9 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // view.php Chris Dart Dec 11, 2013 7:47:55 PM chrisdart@cerebratorium.com
 $buttons[] = [
 		"text" => "Edit Person",
-		"href" => site_url("person/edit/$person->id"),
-		"class" => "button edit dialog",
-		"id" => sprintf("edit-person_%s", $person->id),
+		'title' => 'Edit ' . $person->first_name . '&rsquo;s Record',
+		"href" => site_url('person/edit/' . $person->id),
+		"class" => 'button edit dialog',
 ];
 $buttons[] = [
 		"text" => "Join Tour",
@@ -26,108 +26,127 @@ $buttons[] = [
 		'href' => base_url('person/vcard/' . $person->id),
 		'class' => 'button export',
 ];
+if (get_value($person, "id", FALSE) && $tour_count == 0) {
+	$buttons[] = [
+			'text' => 'Delete',
+			'href' => base_url('person/delete'),
+			'data' => [
+					'id' => $person->id,
+					'redirect' => 'person/view_all',
+			],
+			'class' => ['button', 'delete', 'delete-action'],
+	];
+}
+elseif ($person->status == 0) {
+	$buttons[] = [
+			'text' => 'Restore',
+			'title' => 'Restore this person\'s record.',
+			'href' => base_url('person/restore'),
+			'data' => [
+					'id' => $person->id,
+					'redirect' => 'person/view/' . $person->id,
+			],
+			'class' => ['button', 'new', 'dialog'],
+	];
+}
+else {
 
-$nav_buttons[] = [
-		"text" => "<- Previous Record",
-		"class" => "button navigation previous-person-record",
-		"href" => site_url("person/view_previous/$person->id"),
-];
-$nav_buttons[] = [
-		"text" => "Next Record ->",
-		"class" => "button navigation next-person-record",
-		"href" => site_url("person/view_next/$person->id"),
-];
+	$buttons[] = [
+			'text' => 'Disable',
+			'title' => 'This person has been on tours so they cannot be deleted.',
+			'href' => base_url('person/disable'),
+			'data' => [
+					'id' => $person->id,
+					'redirect' => 'person/view/' . $person->id,
+			],
+			'class' => ['button', 'delete', 'delete-action'],
+	];
+}
 
 
-$move_button[] = [
-		"text" => "Move",
-		"type" => "span",
-		"title" => "move this person to another address in the database",
-		"class" => "button small edit change-housemate",
-		"id" => sprintf("change-housemate_%s", get_value($person, "id", $id)),
-];
 $phone_button[] = [
 		"text" => "Add Phone",
 		"class" => "button small new add-phone",
 		'href' => base_url('phone/create/' . $person->id),
 ];
-$restore_button[] = [
-		"text" => "Restore Record",
-		"type" => "span",
-		"class" => "button new restore-person",
-		"id" => sprintf("restore-person_%s", get_value($person, "id")),
-];
 ?>
-<?php if (get_value($person, "status") == 0): ?>
-	<div class="notice">
-		This person's record has been disabled which means you deleted it at
-		some point, but, because they were on at least one tour, they could not
-		be permanently deleted from the database.<br/>
-		<?php print create_button_bar($restore_button); ?>
-	</div>
+<h3> <?php print sprintf("%s %s", $person->first_name, $person->last_name); ?></h3>
 
-
-<?php endif; ?>
-<?php if (empty($ajax)): ?>
-	<?php print create_button_bar($nav_buttons); ?>
-<?php endif; ?>
-<h3>Person
-	Record: <?php print sprintf("%s %s", $person->first_name, $person->last_name); ?></h3>
-<?php print create_button_bar($buttons); ?>
-
-<div class="content">
-	<div
-			class="grouping block person-info"
-			id="person">
-		<input
-				type="hidden"
-				id="id"
-				name="id"
-				value="<?php print get_value($person, "id", $id); ?>"/> <input
-				type="hidden"
-				id="address_id"
-				name="address_id"
-				value="<?php print get_value($person, "address_id"); ?>"/>
-		<div class='field-set'>
-			<?php print create_field("first_name", get_value($person, "first_name"), "First Name", ["envelope" => "div"]); ?>
-		</div>
-		<div class='field-set'>
-			<?php print create_field("last_name", get_value($person, "last_name"), "Last Name", ["envelope" => "div"]); ?>
-		</div>
-		<div class='field-set'>
-			<?php print create_field("email", get_value($person, "email"), "Email", [
-					"envelope" => "div",
-					"format" => "email",
-			]); ?>
-		</div>
-		<div class='field-set'>
-			<?php print create_field("shirt_size", get_value($person, "shirt_size"), "Shirt Size", [
-					"envelope" => "div",
-					"class" => "dropdown",
-					"attributes" => "menu='shirt_size'",
-			]); ?>
-		</div>
-		<div class='field-set'>
-			<label for="note">Note:</label><br/>
-			<?php print get_value($person, "note"); ?>
-		</div>
-		<div class="field-set">
-			<label for="is_veteran">Is Veteran: </label>
-			<?php print !empty($person->is_veteran) ? 'Yes' : 'No'; ?>
-		</div>
-		<div id="phone" class="grouping phone-grouping">
-			<?php if (get_value($person, "phones", FALSE)) : ?>
-				<p>
-					<label>Phones</label>
-				</p>
-				<?php $this->load->view("phone/view", $person->phones); ?>
-			<?php endif; ?>
-			<?php print create_button_bar($phone_button); ?>
-		</div>
-	</div>
+<div class="content ">
 	<fieldset
-			class="grouping block address-info"
-			id="address">
-		<?php $this->load->view('address/view',['person' => $person]);?>
-	</fieldset>
+			class="person-info"
+			id="person">
+
+		<?php print create_button_bar($buttons); ?>
+		<div class="diptych">
+			<fieldset
+					class=" block person-info"
+					id="person">
+				<?php if (get_value($person, "status") == 0): ?>
+					<div>
+						This person's record has been disabled which means you deleted it at
+						some point, but, because they were on at least one tour, they could
+						not
+						be permanently deleted from the database.
+					</div>
+
+				<?php endif; ?>
+				<?php $this->load->view('elements/field-item', [
+						'id' => 'first_name',
+						'value' => get_value($person, 'first_name'),
+						'wrapper' => 'div',
+						'wrapper_classes' => ['field-set'],
+				]);
+				?>
+				<?php $this->load->view('elements/field-item', [
+						'id' => 'last_name',
+						'value' => get_value($person, 'last_name'),
+						'wrapper' => 'div',
+						'wrapper_classes' => ['field-set'],
+				]);
+				?>
+				<?php $this->load->view('elements/field-item', [
+						'id' => 'email',
+						'value' => get_value($person, 'email'),
+						'type' => 'email',
+						'wrapper' => 'div',
+						'wrapper_classes' => ['field-set'],
+				]); ?>
+				<?php $this->load->view('elements/field-item', [
+						'id' => 'shirt_size',
+						'value' => get_value($person, 'shirt_size'),
+						'wrapper' => 'div',
+						'wrapper_classes' => ['field-set'],
+				]);
+				?>
+				<?php $this->load->view('elements/field-item', [
+						'id' => 'note',
+						'value' => get_value($person, 'note'),
+						'wrapper' => 'div',
+						'wrapper_classes' => ['field-set'],
+				]);
+				?>
+				<?php $this->load->view('elements/field-item', [
+						'id' => 'is_veteran',
+						'value' => !empty($person->is_veteran) ? 'Yes' : 'No',
+						'wrapper' => 'div',
+						'wrapper_classes' => ['field-set'],
+				]);
+				?>
+				<div id="phone" class="grouping phone-grouping">
+					<?php if (get_value($person, "phones", FALSE)) : ?>
+						<p>
+							<label>Phones</label>
+						</p>
+						<?php $this->load->view("phone/view", $person->phones); ?>
+					<?php endif; ?>
+					<?php print create_button_bar($phone_button); ?>
+				</div>
+			</fieldset>
+			<fieldset
+					class="block address-info"
+					id="address">
+				<?php $this->load->view('address/view', ['person' => $person]); ?>
+			</fieldset>
+		</div>
 </div>

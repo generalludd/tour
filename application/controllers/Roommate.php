@@ -15,9 +15,7 @@ class Roommate extends MY_Controller {
 	function view() {
 	}
 
-	function view_for_tour() {
-		$tour_id = $this->input->get("tour_id");
-		$stay = $this->input->get("stay");
+	function view_for_tour($tour_id, $stay) {
 		$this->load->model("variable_model", "variable");
 		$data ["room_count"] = $this->room->get_room_count($tour_id, $stay);
 		$data ["sizes"] = get_keyed_pairs($this->variable->get_pairs("room_type", [
@@ -30,10 +28,14 @@ class Roommate extends MY_Controller {
 
 		if ($tour_id && $stay) {
 			$rooms = $this->room->get_for_tour($tour_id, $stay);
-
+			$sizes = [];
 			foreach ($rooms as $room) {
 				$room->roommates = $this->roommate->get_for_room($room->id);
+				$sizes[$room->size][$room->room_id] = $room;
 			}
+			ksort($sizes);
+			$data['sizes'] = $sizes;
+			$data['rooms'] = $rooms;
 
 			$hotel = $this->hotel->get_by_stay($tour_id, $stay);
 
@@ -41,7 +43,6 @@ class Roommate extends MY_Controller {
 
 			$data ["hotel"] = $hotel;
 			$data ["tour_id"] = $tour_id;
-			$data ["rooms"] = $rooms;
 			$data ["stay"] = $stay;
 
 			$data ["target"] = "roommate/list";
@@ -73,7 +74,7 @@ class Roommate extends MY_Controller {
 				$this->roommate->insert($data);
 			}
 		}
-		redirect("roommate/view_for_tour/?tour_id=$tour_id&stay=$stay");
+		redirect('roommate/view_for_tour/'. $tour_id. '/' .$stay);
 	}
 
 	function view_for_stay() {
@@ -100,10 +101,10 @@ class Roommate extends MY_Controller {
 	 * for getting the next placeholder for the tour and stay
 	 * This is for busdrivers and placeholder roommates.
 	 *
-	 * @param unknown $tour_id
-	 * @param unknown $stay
+	 * @param int $tour_id
+	 * @param int $stay
 	 */
-	function add_placeholder($tour_id, $stay) {
+	function add_placeholder(int  $tour_id, int $stay) {
 		$person_id = $this->roommate->get_next_placeholder($tour_id, $stay);
 		echo sprintf('<input type="text" data-tour_id="%s" data-stay="%s" data-person_id="%s" value="" class="insert-placeholder" placeholder="Enter a Placeholder"/>', $tour_id, $stay, $person_id);
 	}
