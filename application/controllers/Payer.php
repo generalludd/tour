@@ -54,10 +54,10 @@ class Payer extends MY_Controller {
 	 * This script can be run via url or called internally such as when it is
 	 * called in $this->insert() function
 	 *
-	 * @param string $payer_id
-	 * @param string $tour_id
+	 * @param false|string $payer_id
+	 * @param string|null $tour_id
 	 */
-	function edit($payer_id = FALSE, $tour_id = FALSE, $ajax = FALSE) {
+	function edit(string $payer_id = NULL, string $tour_id = NULL, $ajax = FALSE) {
 
 		$this->load->model("variable_model", "variable");
 		if (empty($payer_id)) {
