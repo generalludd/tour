@@ -161,7 +161,7 @@ function prepare_variables($object, $variables) {
 function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, $alternate = []): array {
 	$output = FALSE;
 	if ($initial_blank) {
-		$output[] = '';
+		$output = ['' => NULL];
 	}
 	if (!empty($alternate)) {
 		$output[$alternate['name']] = $alternate['value'];
