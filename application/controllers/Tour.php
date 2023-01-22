@@ -53,6 +53,7 @@ class Tour extends MY_Controller {
 	function create() {
 		$data["action"] = "insert";
 		$data["tour"] = NULL;
+		$data['tourists'] = [];
 		$this->load->view("tour/edit", $data);
 	}
 
