@@ -225,13 +225,15 @@ function format_email($email) {
 }
 
 /**
- * @param $field
+ * @param string|null $field
  *
- * @return string
+ * @return string|null
  */
-function format_field_name($field) {
-	$field = str_replace("_", " ", $field);
-	$field = ucwords($field);
+function format_field_name(string $field = NULL): ?string {
+	if(!empty($field)) {
+		$field = str_replace('_', ' ', $field);
+		$field = ucwords($field);
+	}
 	return $field;
 }
 
@@ -266,15 +268,6 @@ function format_address($address, $format = "postal") {
  * @param object value $field
  *
  * @return number while statement and algorithm from
- *
- *
- *
- *
- *
- *
- *
- *
- *
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
 function get_first_missing_number($list, $field) {
