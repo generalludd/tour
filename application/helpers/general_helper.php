@@ -4,9 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // general_helper.php Chris Dart Dec 10, 2013 9:54:14 PM
 // chrisdart@cerebratorium.com
 /**
- * @return false|string
+ * @return string
  */
-function mysql_timestamp() {
+function mysql_timestamp(): string {
 	return date('Y-m-d H:i:s');
 }
 
@@ -16,7 +16,7 @@ function mysql_timestamp() {
  *
  * @return void
  */
-function bake_cookie($name, $value) {
+function bake_cookie($name, $value): void {
 	if (is_array($value)) {
 		$value = serialize($value);
 	}
@@ -32,11 +32,11 @@ function bake_cookie($name, $value) {
  *
  * @return void
  */
-function burn_cookie($name) {
+function burn_cookie($name): void {
 	set_cookie([
-		"name" => $name,
-		"value" => "",
-		"expire" => NULL,
+		'name' => $name,
+		'value' => NULL,
+		'expire' => NULL,
 	]);
 }
 
@@ -51,7 +51,7 @@ function burn_cookie($name) {
  *
  * @return false|mixed|string
  */
-function format_date($date, string $format = "standard") {
+function format_date($date , string $format = 'standard'): mixed {
 	if ($date) {
 		switch ($format) {
 			case "mysql":
@@ -72,9 +72,9 @@ function format_date($date, string $format = "standard") {
  * @param $timestamp
  * @param string $format
  *
- * @return false|string
+ * @return string
  */
-function format_timestamp($timestamp, string $format = "standard") {
+function format_timestamp($timestamp, string $format = 'standard'): string {
 	$output = '';
 	switch ($format) {
 		case "standard":
@@ -92,14 +92,14 @@ function format_timestamp($timestamp, string $format = "standard") {
 
 /**
  * ideally this will produce a cleaned up version of a time entry.
- * for now it just trims a time entry--which could be any string.
+ * for now, it just trims a time entry--which could be any string.
  *
  * @param string|null $time
  * @param string $format
  *
- * @return false|string|null
+ * @return string|null
  */
-function format_time(string $time = NULL, string $format = "standard") {
+function format_time(string $time = NULL, string $format = "standard"): ?string {
 	if (!empty($time)) {
 		return date('g:i A', strtotime(trim($time)));
 	}
