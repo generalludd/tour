@@ -1,7 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 // view.php Chris Dart Dec 13, 2013 8:55:00 PM chrisdart@cerebratorium.com
-
+if(empty($action) || empty($tour)){
+	return;
+}
 ?>
+
 <form name="tour-editor" action="<?php print site_url('tour/' . $action); ?>"
 	  method="post">
 	<input type="hidden" value="<?php print get_value($tour, "id"); ?>"
@@ -79,9 +82,9 @@
 				],
 				'early_price' => [
 						'id' => 'early_price',
+						'label' => 'Early Bird Price $',
 						'attributes' => [
 								'value' => get_value($tour, 'early_price'),
-								'label' => 'Early Bird Price $',
 								'type' => 'number',
 								'class' => 'currency',
 								'size' => 7,
