@@ -1,0 +1,14 @@
+.label-page {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	width: 8.5in;
+	height: 11in;
+	margin: .5in .25in;
+}
+.label {
+	width: 2.625in;
+	height: 1in;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}

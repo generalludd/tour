@@ -1,5 +1,5 @@
 <?php
-
+include APPPATH . 'third_party/fpdf185/fpdf.php';
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // export.php Chris Dart Jan 18, 2014 6:33:46 PM chrisdart@cerebratorium.com
@@ -12,8 +12,10 @@ $file_name = sprintf("tourists_%s.csv",$date_stamp);
 $output = array(
     "Payer,Tourists, Payment Type, Price, Discount, Room Size, Room Rate, Amount Paid, Amount Due, Address, City, State, Zip, Email"
 );
+if(empty($payers)){
+	return FALSE;
+}
 foreach ($payers as $payer) {
-    if($payer->is_cancelled == 0){
         $line["payer"] = sprintf("%s %s", $payer->first_name, $payer->last_name);
         $tourist_list = array();
         foreach ($payer->tourists as $tourist) {
@@ -55,7 +57,6 @@ foreach ($payers as $payer) {
         $line [] = $payer->email;
         $output[] = sprintf("\"%s\"", implode("\",\"", $line));
         $line = NULL;
-    }
 }
 
 $data = implode("\n", $output);
