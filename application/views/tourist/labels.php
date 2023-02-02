@@ -11,10 +11,7 @@ $row_break = 0; ?>
 	<link type="text/css" rel="stylesheet" media="all" href="<?php print site_url('css/labels.css'); ?>">
 </head>
 <body>
-<div class="label-page">
-	<?php foreach ($payers
-
-	as $payer): ?>
+	<?php foreach ($payers as $payer): ?>
 	<div class="label">
 		<div class="payer"><?php print $payer->first_name . ' ' . $payer->last_name; ?></div>
 		<?php $tourists = []; ?>
@@ -34,10 +31,8 @@ $row_break = 0; ?>
 	<?php $page_break++; ?>
 	<?php if ($page_break % 30 === 0): ?>
 </div>
-<div class="page">
+			<div class="page-break"></div>
 	<?php endif; ?>
-	<?php endforeach; ?>
-</div>
-</body>
+	<?php endforeach; ?></body>
 </html>
 

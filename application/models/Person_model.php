@@ -23,20 +23,20 @@ class Person_model extends CI_Model {
 
 	function prepare_variables() {
 		$variables = [
-			"first_name",
-			"last_name",
-			"email",
-			"shirt_size",
-			"is_veteran",
-			"address_id",
-			"note",
+			'first_name',
+			'last_name',
+			'email',
+			'shirt_size',
+			'is_veteran',
+			'address_id',
+			'note',
 		];
 		prepare_variables($this, $variables);
 	}
 
 	function get($id, $fields = FALSE) {
-		$this->db->where("person.id", $id);
-		$this->db->from("person");
+		$this->db->where('person.id', $id);
+		$this->db->from('person');
 		if ($fields) {
 			$this->db->select($fields);
 		}
@@ -74,68 +74,56 @@ class Person_model extends CI_Model {
 	 *
 	 *
 	 */
-	function get_all($options = []) {
-		$query = $this->db->select("person.*");
-
-		$show_disabled = FALSE;
-		$veterans_only = FALSE;
-		$non_veterans = FALSE;
-		$tour_id = FALSE;
-		$initial = FALSE;
-		$email_only = FALSE;
+	function get_all(array $options = []) {
+		$query = $this->db->select('person.*');
 		$include_address = FALSE;
-		$has_shirtsize = FALSE;
-		if (array_key_exists("veterans_only", $options) && $options["veterans_only"]) {
-			$query->where("person.is_veteran !=", NULL);
+		if (array_key_exists('veterans_only', $options) && $options['veterans_only']) {
+			$query->where('person.is_veteran !=', NULL);
 		}
-		if (array_key_exists("non_veterans", $options) && $options["non_veterans"]) {
-			$query->where("person.is_veteran", NULL);
+		if (array_key_exists('non_veterans', $options) && $options['non_veterans']) {
+			$query->where('person.is_veteran', NULL);
 		}
-		if (array_key_exists("show_disabled", $options) && $options["show_disabled"]) {
-
+		if (empty($options['show_disabled'])) {
+			$query->where('status', 1);
 		}
-		else {
-			$query->where("status", 1);
+		if (array_key_exists('tour_id', $options) && $options['tour_id']) {
+			$tour_id = $options['tour_id'];
+			$query->join('tourist', 'tourist.person_id = person.id');
+			$query->where('tourist.tour_id', $tour_id);
 		}
-		if (array_key_exists("tour_id", $options) && $options["tour_id"]) {
-			$tour_id = $options["tour_id"];
-			$query->join("tourist", "tourist.person_id = person.id");
-			$query->where("tourist.tour_id", $tour_id);
-		}
-		if (array_key_exists("initial", $options) && $options["initial"]) {
-			$initial = $options["initial"];
+		if (array_key_exists('initial', $options) && $options['initial']) {
+			$initial = $options['initial'];
 			$query->like('last_name', $initial, 'after');
 
 		}
-		if (array_key_exists("email_only", $options) && $options["email_only"]) {
-			$email_only = $options["email_only"];
+		if (!empty($options['email_only'])) {
 			$query->where('email !=', NULL);
-			$query->select("person.first_name, person.last_name, person.email,person.id,person.status,person.is_veteran");
+			$query->select('person.first_name, person.last_name, person.email,person.id,person.status,person.is_veteran');
 		}
-		if (array_key_exists("include_address", $options)) {
+		if (array_key_exists('include_address', $options)) {
 			$include_address = TRUE;
 		}
 		if (!empty($options['has_shirtsize'])) {
 			if ($options['has_shirtsize'] === 1) {
 				$query->where('shirtsize !=', NULL);
 			}
-			elseif ($options['has_shirtsize'] === 0) {
+			else {
 				$query->where_null('shirtsize');
 			}
 		}
 
 
 		if ($include_address) {
-			$query->from("address");
-			$query->order_by("person.address_id", "ASC");
-			$query->where("`person`.`address_id` = `address`.`id`", NULL, FALSE);
-			$query->where("`person`.`address_id` IS NOT NULL", NULL, FALSE);
-			$query->select("address.address, address.city, address.state,address.zip, person.address_id");
-			$query->join("person", "person.address_id=address.id");
-			$query->order_by("address.id");
+			$query->from('address');
+			$query->order_by('person.address_id', 'ASC');
+			$query->where('`person`.`address_id` = `address`.`id`', NULL, FALSE);
+			$query->where('`person`.`address_id` IS NOT NULL', NULL, FALSE);
+			$query->select('address.address, address.city, address.state,address.zip, person.address_id');
+			$query->join('person', 'person.address_id=address.id');
+			$query->order_by('address.id');
 		}
 		else {
-			$query->from("person");
+			$query->from('person');
 		}
 
 		if (!empty($options['order_by'])) {
@@ -143,33 +131,32 @@ class Person_model extends CI_Model {
 			[$field, $direction] = $values = explode('-', $options['order_by']);
 			$query->order_by($field, $direction);
 		}
-		$query->group_by("person.id");
-		$result = $query->get()->result();
-		return $result;
+		$query->group_by('person.id');
+		return $query->get()->result();
 	}
 
 	function insert($include_address = FALSE) {
 		$this->prepare_variables();
-		$this->db->insert("person", $this);
+		$this->db->insert('person', $this);
 		$id = $this->db->insert_id();
 		if ($include_address) {
-			$this->load->model("address_model");
+			$this->load->model('address_model');
 			$this->address_model->insert_for_user($id);
 
-			$this->load->model("phone_model");
+			$this->load->model('phone_model');
 			$this->phone_model->insert_for_user($id);
 		}
 		return $id;
 	}
 
 	function update($id, $values = []) {
-		$this->db->where("id", $id);
+		$this->db->where('id', $id);
 		if (empty($values)) {
 			$this->prepare_variables();
-			$this->db->update("person", $this);
+			$this->db->update('person', $this);
 		}
 		else {
-			$this->db->update("person", $values);
+			$this->db->update('person', $values);
 			if ($values == 1) {
 				$keys = array_keys($values);
 				return $this->get_value($id, $keys[0]);
@@ -179,12 +166,17 @@ class Person_model extends CI_Model {
 
 	function find_people($name, $options = []) {
 		$query = $this->db->from('person')
-			->where("(CONCAT(`first_name`,' ', `last_name`) LIKE '%$name%')")
 			->where('status', 1)
+			->like('first_name', $name)
+			->or_like('last_name', $name)
 			->order_by('first_name', 'ASC')
 			->order_by('last_name', 'ASC');
 		if (array_key_exists('select', $options)) {
 			$query->select($options['select']);
+			$query->select('status');
+		}
+		else{
+			$query->select('*');
 		}
 		if (array_key_exists('has_address', $options)) {
 			$query->where('address_id !=', NULL);
@@ -193,17 +185,19 @@ class Person_model extends CI_Model {
 		$output = [];
 		// This step produces an associative array of person.id => person objects.
 		foreach ($results as $result) {
-			$output[$result->id] = $result;
+			if($result->status == 1) {
+				$output[$result->id] = $result;
+			}
 		}
 		return $output;
 	}
 
 	function get_housemates($address_id, $person_id) {
-		$this->db->where("person.address_id", $address_id);
-		$this->db->where("person.id !=", $person_id);
-		$this->db->where("status", 1); // only show non-disabled entries
-		$this->db->order_by("person.last_name, person.first_name");
-		$this->db->from("person");
+		$this->db->where('person.address_id', $address_id);
+		$this->db->where('person.id !=', $person_id);
+		$this->db->where('status', 1); // only show non-disabled entries
+		$this->db->order_by('person.last_name, person.first_name');
+		$this->db->from('person');
 		$result = $this->db->get()->result();
 		return $result;
 	}
@@ -216,8 +210,8 @@ class Person_model extends CI_Model {
 	 * @return array of objects
 	 */
 	function get_residents($address_id) {
-		$this->db->from("person");
-		$this->db->where("address_id", $address_id);
+		$this->db->from('person');
+		$this->db->where('address_id', $address_id);
 		$result = $this->db->get()->result();
 		return $result;
 	}
@@ -230,20 +224,20 @@ class Person_model extends CI_Model {
 	 */
 	function get_row($id) {
 		$result = $this->db->query(
-			"SELECT row  FROM  (SELECT @rownum:=@rownum+1 row, a.*
+			'SELECT row  FROM  (SELECT @rownum:=@rownum+1 row, a.*
         FROM person a, (SELECT @rownum:=0) r
         ORDER BY last_name, first_name, id) as article_with_rows
-        WHERE id = $id")->row();
+        WHERE id = $id')->row();
 		return $result->row;
 	}
 
 	function get_next_person($id) {
 		$row = $this->get_row($id);
-		if ($row == $this->db->count_all("person")) {
+		if ($row == $this->db->count_all('person')) {
 			$output = $id;
 		}
 		else {
-			$query = ("SELECT `id` FROM `person` ORDER BY `last_name`,`first_name`, `id` LIMIT $row, 1");
+			$query = ('SELECT `id` FROM `person` ORDER BY `last_name`,`first_name`, `id` LIMIT $row, 1');
 			$result = $this->db->query($query)->row();
 			$output = $result->id;
 		}
@@ -258,7 +252,7 @@ class Person_model extends CI_Model {
 		}
 		else {
 			$row = $row - 2;
-			$query = ("SELECT `id` FROM `person` ORDER BY `last_name`, `first_name`, `id` LIMIT $row, 1");
+			$query = ('SELECT `id` FROM `person` ORDER BY `last_name`, `first_name`, `id` LIMIT $row, 1');
 
 			$result = $this->db->query($query)->row();
 			$output = $result->id;
@@ -284,8 +278,7 @@ class Person_model extends CI_Model {
 		$this->db->from('person');
 		$this->db->order_by('last_name');
 		$this->db->order_by('first_name');
-		$result = $this->db->get()->result();
-		return $result;
+		return $this->db->get()->result();
 	}
 
 	/**

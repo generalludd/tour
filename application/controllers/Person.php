@@ -98,7 +98,7 @@ class Person extends MY_Controller {
 		// in the people table
 		$data['initials'] = $this->person->get_initials();
 		$data['people'] = $this->person->get_all($filters);
-		$data['address_count'] = count($this->address->get_all($filters));
+		$data['address_count'] = count($this->address->get_for_labels($filters));
 		bake_cookie('person_filters', $filters);
 		$data['filters'] = $filters;
 		$data['title'] = 'Address Book';
@@ -324,17 +324,28 @@ class Person extends MY_Controller {
 		$this->export_addresses($options);
 	}
 
+	function get_labels(){
+		$options = $this->input->cookie('person_filters');
+		$options = unserialize($options);
+		$this->load->model('address_model', 'address');
+		$data['addresses'] = $this->address->get_for_labels($options);
+
+		$this->load->view('address/labels', $data);
+
+	}
+
 	/**
 	 * @param null $options
 	 */
 	function export_addresses($options = NULL) {
 		$options['export'] = TRUE;
 		$this->load->model('address_model', 'address');
-		$data['addresses'] = $this->address->get_all($options);
+		$data['addresses'] = $this->address->get_for_labels($options);
 		$data['target'] = 'Address Export';
 		$data['title'] = 'Export of Addresses';
 		$this->load->helper('download');
 		$this->load->view('address/export', $data);
+		redirect();
 	}
 
 	/**
