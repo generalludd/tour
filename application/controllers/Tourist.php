@@ -43,7 +43,7 @@ class Tourist extends MY_Controller {
 		$options = [];
 		if ($export) {
 			$options ['include_address'] = TRUE;
-			//$this->load->helper('download');
+			$this->load->helper('download');
 		}
 		$this->load->model('payment_model', 'payments');
 		$this->load->model('tour_model', 'tour');
@@ -59,7 +59,7 @@ class Tourist extends MY_Controller {
 		$data ['title'] = 'Tourist List: ' . $tour->tour_name;
 		$data ['target'] = 'tourist/list';
 		if ($export) {
-			$this->load->view('tourist/labels', $data);
+			$this->load->view('tourist/export', $data);
 		}
 		else {
 			$this->load->view('page/index', $data);
