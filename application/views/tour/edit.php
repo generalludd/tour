@@ -1,7 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 // view.php Chris Dart Dec 13, 2013 8:55:00 PM chrisdart@cerebratorium.com
-
+if(empty($action) || empty($tour)){
+	return;
+}
 ?>
+
 <form name="tour-editor" action="<?php print site_url('tour/' . $action); ?>"
 	  method="post">
 	<input type="hidden" value="<?php print get_value($tour, "id"); ?>"
@@ -79,9 +82,9 @@
 				],
 				'early_price' => [
 						'id' => 'early_price',
+						'label' => 'Early Bird Price $',
 						'attributes' => [
 								'value' => get_value($tour, 'early_price'),
-								'label' => 'Early Bird Price $',
 								'type' => 'number',
 								'class' => 'currency',
 								'size' => 7,
@@ -136,7 +139,7 @@
 	</div>
 	<input type="submit" name="save" id="save"
 		   value="<?php print ucwords($action); ?>"/>
-	<?php if (count($tour->tourists) === 0): ?>
+	<?php if (!empty($tour->id) && empty($tour->tourists)): ?>
 		<a href="<?php print base_url('tour/delete?tour_id=' . $tour->id); ?>"
 		   class="delete-tour delete button dialog">Delete</a>
 	<?php endif; ?>
