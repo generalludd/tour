@@ -36,62 +36,47 @@ class Address_model extends CI_Model
 	{
 		$this->db->where('id', $address_id);
 		$this->db->from('address');
-		$result = $this->db->get()->row();
-		return $result;
+		return $this->db->get()->row();
+	}
+
+	function get_for_labels(array $options = []){
+		$this->update_salutations();
+		// Get all the people based on the options.
+		$this->load->model('person_model', 'person');
+		$people = $this->person->get_all($options);
+		// Get the unique address id list;
+		$address_ids = [];
+		foreach($people as $person){
+			$address_ids[$person->address_id] = $person->address_id;
+		}
+		// Get the addresses.
+		return $this->db->from('address')
+			->select('address.*')
+			->where('address.address IS NOT NULL', NULL, FALSE)
+			->where('address.city IS NOT NULL',NULL, FALSE)
+			->where('address.state IS NOT NULL',NULL, FALSE)
+			->where('address.zip IS NOT NULL', NULL, FALSE)
+			->where_in('address.id', $address_ids)
+			->order_by('address.zip')
+			->get()->result();
 	}
 
 	function get_all($options = [])
 	{
-		$veterans_only = FALSE;
-		$tour_id = FALSE;
-		if (array_key_exists('export', $options)) {
-			$this->db->distinct('address.id');
-			$this->db->order_by('address.zip');
+		$query = $this->db->from('address')
+		->select('*');
+		if(!empty('missing_salutations')){
+			$query->where('formal_salutation', NULL)
+			->or_where('informal_salutation', NULL);
 		}
-		if (array_key_exists('veterans_only', $options) && $options['veterans_only']) {
-			$veterans_only = 1;
-		}
-		if (!empty($options['non_veterans'])) {
-			$veterans_only = 0;
-		}
-		if (array_key_exists('tour_id', $options) && $options['tour_id']) {
-			$tour_id = $options['tour_id'];
-		}
-		if (array_key_exists('email_only', $options)) {
-			$this->db->where('person.email IS NOT NULL', NULL, FALSE);
-		}
-		if (array_key_exists('initial', $options)) {
-			$this->db->like('person.last_name', $options['initial'], '%');
-		}
-
-		if (!array_key_exists('show_disabled', $options)) {
-			$this->db->where('person.status', 1);
-		}
-		$this->db->from('address');
-		$this->db->where('`person`.`address_id` = `address`.`id`', NULL, FALSE);
-		$this->db->select('address.address, address.city, address.state,address.zip,address.informal_salutation,address.formal_salutation, person.address_id');
-		$this->db->select('person.first_name,person.last_name,person.email');
-		$this->db->join('person', 'person.address_id=address.id');
-
-		if ($veterans_only === 1) {
-			$this->db->where('person.is_veteran', 1);
-		} elseif ($veterans_only === 0) {
-			$this->db->where('person.is_veteran IS NULL', NULL, FALSE);
-		}
-		if ($tour_id) {
-			$this->db->join('tourist', 'tourist.person_id = person.id');
-			$this->db->where('tourist.tour_id', $tour_id);
-		}
-		//$this->db->group_by('address_id');
-		return $this->db->get()->result();
+		return $query->get()->result();
 	}
 
 	function insert()
 	{
 		$this->prepare_variables();
 		$this->db->insert('address', $this);
-		$id = $this->db->insert_id();
-		return $id;
+		return $this->db->insert_id();
 	}
 
 	function update($id, $values = [])
@@ -106,6 +91,16 @@ class Address_model extends CI_Model
 				$keys = array_keys($values);
 				return $this->get($id, $keys);
 			}
+		}
+	}
+
+	function update_salutations(){
+		$addresses = $this->get_all(['missing_salutations' => 1]);
+		foreach ($addresses as $address) {
+			$people = $this->person->get_residents($address->id);
+			$values['formal_salutation'] = format_salutation($people, 'formal');
+			$values['informal_salutation'] = format_salutation($people);
+			$this->update($address->id, $values);
 		}
 	}
 

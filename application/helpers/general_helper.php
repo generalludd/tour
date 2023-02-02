@@ -158,8 +158,8 @@ function prepare_variables($object, $variables) {
  *
  * @return array
  */
-function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, $alternate = []): array {
-	$output = FALSE;
+function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, array $alternate = []): array {
+	$output = [];
 	if ($initial_blank) {
 		$output[] = '';
 	}

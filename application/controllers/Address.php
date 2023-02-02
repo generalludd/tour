@@ -107,19 +107,14 @@ $data['target'] = "address/find_housemate";
 
 	function update_salutations() {
 		$this->load->model("person_model", "person");
-		$addresses = $this->address->get_all();
-		foreach ($addresses as $address) {
-			$people = $this->person->get_residents($address->address_id);
-			$values["formal_salutation"] = format_salutation($people, "formal");
-			$values["informal_salutation"] = format_salutation($people, "informal");
-			$this->address->update($address->address_id, $values);
-		}
+		$this->address->update_salutations();
+		redirect();
 	}
 
 	function export() {
 		$options = $this->input->cookie("person_filters");
 		$options = unserialize($options);
-		$data["addresses"] = $this->address->get_all($options);
+		$data["addresses"] = $this->address->get_for_labels($options);
 		$data['target'] = 'Address Export';
 		$data['title'] = "Export of Addresses";
 		$this->load->helper('download');
