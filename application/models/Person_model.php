@@ -76,6 +76,8 @@ class Person_model extends CI_Model {
 	 */
 	function get_all(array $options = []) {
 		$query = $this->db->select('person.*');
+		$query->order_by('person.last_name')
+			->order_by('person.first_name');
 		$include_address = FALSE;
 		if (array_key_exists('veterans_only', $options) && $options['veterans_only']) {
 			$query->where('person.is_veteran !=', NULL);
@@ -169,8 +171,8 @@ class Person_model extends CI_Model {
 			->where('status', 1)
 			->like('first_name', $name)
 			->or_like('last_name', $name)
-			->order_by('first_name', 'ASC')
-			->order_by('last_name', 'ASC');
+			->order_by('last_name', 'ASC')
+			->order_by('first_name', 'ASC');
 		if (array_key_exists('select', $options)) {
 			$query->select($options['select']);
 			$query->select('status');
