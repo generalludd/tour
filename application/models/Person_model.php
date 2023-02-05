@@ -85,6 +85,7 @@ class Person_model extends CI_Model {
 		if (array_key_exists('non_veterans', $options) && $options['non_veterans']) {
 			$query->where('person.is_veteran', NULL);
 		}
+		// Show only active users by default.
 		if (empty($options['show_disabled'])) {
 			$query->where('status', 1);
 		}
@@ -114,19 +115,7 @@ class Person_model extends CI_Model {
 			}
 		}
 
-
-		if ($include_address) {
-			$query->from('address');
-			$query->order_by('person.address_id', 'ASC');
-			$query->where('`person`.`address_id` = `address`.`id`', NULL, FALSE);
-			$query->where('`person`.`address_id` IS NOT NULL', NULL, FALSE);
-			$query->select('address.address, address.city, address.state,address.zip, person.address_id');
-			$query->join('person', 'person.address_id=address.id');
-			$query->order_by('address.id');
-		}
-		else {
-			$query->from('person');
-		}
+		$query->from('person');
 
 		if (!empty($options['order_by'])) {
 
@@ -134,7 +123,8 @@ class Person_model extends CI_Model {
 			$query->order_by($field, $direction);
 		}
 		$query->group_by('person.id');
-		return $query->get()->result();
+		$result = $query->get()->result();
+		return $result;
 	}
 
 	function insert($include_address = FALSE) {
@@ -177,7 +167,7 @@ class Person_model extends CI_Model {
 			$query->select($options['select']);
 			$query->select('status');
 		}
-		else{
+		else {
 			$query->select('*');
 		}
 		if (array_key_exists('has_address', $options)) {
@@ -187,7 +177,7 @@ class Person_model extends CI_Model {
 		$output = [];
 		// This step produces an associative array of person.id => person objects.
 		foreach ($results as $result) {
-			if($result->status == 1) {
+			if ($result->status == 1) {
 				$output[$result->id] = $result;
 			}
 		}
