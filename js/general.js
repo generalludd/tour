@@ -21,6 +21,7 @@ $(document).ready(function () {
 		e.preventDefault();
 		let my_id = $(this).data('id');
 		let my_redirect = $(this).data('redirect');
+		console.log(my_redirect);
 		let my_url = $(this).attr('href');
 			let do_delete = confirm("Are you sure you want to delete this record? This is permanent!");
 			if (!do_delete) {

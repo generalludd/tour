@@ -29,24 +29,24 @@ $buttons[] = [
 if (get_value($person, "id", FALSE) && $tour_count == 0) {
 	$buttons[] = [
 			'text' => 'Delete',
-			'href' => base_url('person/delete'),
+			'href' => base_url('person/delete?type=delete&id=' . $person->id),
 			'data' => [
 					'id' => $person->id,
 					'redirect' => 'person/view_all',
 			],
-			'class' => ['button', 'delete', 'delete-action'],
+			'class' => ['button', 'delete', 'dialog'],
 	];
 }
 elseif ($person->status == 0) {
 	$buttons[] = [
 			'text' => 'Restore',
 			'title' => 'Restore this person\'s record.',
-			'href' => base_url('person/restore'),
+			'href' => base_url('person/restore?id=' . $person->id),
 			'data' => [
 					'id' => $person->id,
 					'redirect' => 'person/view/' . $person->id,
 			],
-			'class' => ['button', 'new', 'dialog'],
+			'class' => ['button', 'new'],
 	];
 }
 else {
@@ -54,12 +54,12 @@ else {
 	$buttons[] = [
 			'text' => 'Disable',
 			'title' => 'This person has been on tours so they cannot be deleted.',
-			'href' => base_url('person/disable'),
+			'href' => base_url('person/disable?type=disable&id=' . $person->id),
 			'data' => [
 					'id' => $person->id,
 					'redirect' => 'person/view/' . $person->id,
 			],
-			'class' => ['button', 'delete', 'delete-action'],
+			'class' => ['button', 'delete', 'dialog'],
 	];
 }
 

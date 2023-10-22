@@ -53,7 +53,7 @@ class Person extends MY_Controller {
 	function view_next() {
 		$id = $this->uri->segment(3);
 		$next_id = $this->person->get_next_person($id);
-		redirect('person/view/'. $next_id);
+		redirect('person/view/' . $next_id);
 	}
 
 	/**
@@ -324,7 +324,7 @@ class Person extends MY_Controller {
 		$this->export_addresses($options);
 	}
 
-	function get_labels(){
+	function get_labels() {
 		$options = $this->input->cookie('person_filters');
 		$options = unserialize($options);
 		$this->load->model('address_model', 'address');
@@ -372,18 +372,36 @@ class Person extends MY_Controller {
 	 * If a person is in the tourist database they will only be disabled.
 	 * See person_model->delete for more details.
 	 */
-	function delete($disable = FALSE) {
-		$id = $this->input->post('id');
-		if ($id) {
-			$this->person->delete($id);
-
-			$redirect = $this->input->post('redirect');
-			if ($this->input->post('ajax')) {
-				echo base_url($redirect);
+	function delete() {
+		$id = $this->input->get('id');
+		$type = $this->input->get('type');
+		if (!empty($id)) {
+			$person = $this->person->get($id);
+			$data['entity'] = $person->first_name . ' ' . $person->last_name;
+			$data['identifiers'] = [
+				'person_id' => $person->id,
+			];
+			$data['type'] = $type;
+			$data['action'] = 'person/delete';
+			$data['message'] = 'You can only delete a person who has never been on a tour. Those who have been on a tour will be disabled.';
+			$data['target'] = 'dialogs/delete';
+			$data['title'] = $type .  ' ' . $data['entity'];
+			if ($this->input->get('ajax')) {
+				$this->load->view($data['target'], $data);
 			}
 			else {
-				redirect($redirect);
+				$this->load->view('page/index', $data);
 			}
+		}
+		elseif ($id = $this->input->post('person_id')) {
+			$person = $this->person->get($id);
+			$status = $this->person->delete($id);
+			if($status === 'deleted'){
+				$this->session->set_flashdata('notice', sprintf('%s, their phone numbers and other information have been completely from the database because they have never been on a tour.', $person->name));
+			}else {
+				$this->session->set_flashdata('notice', $person->name . ' has been disabled because they have been on trips.');
+			}
+			redirect('person/view_all');
 		}
 	}
 
@@ -398,9 +416,9 @@ class Person extends MY_Controller {
 	 *
 	 */
 	function restore() {
-		$id = $this->input->post('id');
-		if ($id) {
+		if ($id = $this->input->get('id')) {
 			$this->person->restore($id);
+			redirect('person/view/' . $id);
 		}
 	}
 

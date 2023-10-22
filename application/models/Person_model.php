@@ -311,12 +311,12 @@ class Person_model extends CI_Model {
 			$this->phone->delete_for_person($id);
 			$this->db->where('id', $id);
 			$this->db->delete('person');
-			$this->session->set_flashdata('notice', sprintf('%s, their phone numbers and other information have been completely from the database because they have never been on a tour.', $person->name));
-
+			return 'deleted';
 		}
 		else {
 
 			$this->disable($id);
+			return 'disabled';
 		}
 	}
 
