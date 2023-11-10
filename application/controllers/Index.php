@@ -17,5 +17,9 @@ class Index extends MY_Controller
 	   redirect("update");
 	}
 
+	function php(){
+		return phpinfo();
+	}
+
 
 }
