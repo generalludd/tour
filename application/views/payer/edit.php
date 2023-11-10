@@ -87,7 +87,6 @@ $tourist_count = count($payer->tourists);
 						type="number"
 						name="amt_paid"
 						id="amt_paid"
-						readonly
 						class="edit-payer-amounts money"
 						value="<?php print $payer->amt_paid; ?>"
 						readonly/>
@@ -150,6 +149,7 @@ $tourist_count = count($payer->tourists);
 			id="payment-list-block"
 			class="field-box">
 		<legend>Payment Details</legend>
+
 		<?php
 
 		$payment_data['payments'] = $payer->payments;

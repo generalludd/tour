@@ -46,26 +46,29 @@ function burn_cookie($name): void {
  * new file with general formatting tools yet.
  */
 /**
- * @param $date
+ * @param string $date
  * @param string $format
  *
- * @return false|mixed|string
+ * @return string|null
  */
-function format_date($date , string $format = 'standard'): mixed {
-	if ($date) {
-		switch ($format) {
-			case "mysql":
-				$date = date('Y-m-d', strtotime($date));
-				break;
-			case "standard":
-				$date = date('m/d/Y', strtotime($date));
-				break;
-			case "no-year":
-				$date = date('m/d', strtotime($date));
-				break;
-		}
+function format_date(string $date, string $format = 'standard'): ?string {
+	if (empty($date)) {
+		return $date;
 	}
-	return $date;
+
+	$formats = [
+		"mysql" => 'Y-m-d',
+		"standard" => 'm/d/Y',
+		"no-year" => 'm/d',
+	];
+
+	try {
+		$dateTime = new DateTime($date);
+		return $dateTime->format($formats[$format] ?? $formats['standard']);
+	} catch (Exception $e) {
+		// Handle invalid date format
+		return NULL;
+	}
 }
 
 /**
