@@ -156,13 +156,24 @@ class Person_model extends CI_Model {
 		}
 	}
 
-	function find_people($name, $options = []) {
-		$query = $this->db->from('person')
+	function find_people($name, $options = []): array {
+		$query = $this->db->from('person');
+		$query->order_by('last_name', 'ASC')
 			->where('status', 1)
-			->like('first_name', $name)
-			->or_like('last_name', $name)
-			->order_by('last_name', 'ASC')
 			->order_by('first_name', 'ASC');
+		$names = explode(' ', $name);
+		if (count($names) == 1) {
+			$query->like('first_name', $names[0])
+				->or_like('last_name', $names[0]);
+		}
+		elseif (count($names) == 2) {
+			$query->like('first_name', $names[0])
+				->like('last_name', $names[1]);
+		}
+		else {
+			return [];
+		}
+
 		if (array_key_exists('select', $options)) {
 			$query->select($options['select']);
 			$query->select('status');

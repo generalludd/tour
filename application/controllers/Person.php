@@ -111,7 +111,7 @@ class Person extends MY_Controller {
 	 *
 	 */
 	function find_by_name() {
-		$name = $this->input->get('name');
+		$name = $this->input->get('name', TRUE);
 		$target = 'person/mini_list';
 		$data['people'] = $this->person->find_people($name, [
 			'has_address' => FALSE,

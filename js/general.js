@@ -43,12 +43,11 @@ $(document).ready(function () {
 	});
 
 	$(document).on('keyup','.person-search', function(event) {
-		let search_value = this.value;
-		let field_id = $(this).attr('id');
-		let my_url = $(this).data('url');
-		let my_target = $(this).data('target');
-		if (search_value.length > 3) {
-			let my_name = search_value.replace(' ','%',);
+		const my_name = this.value;
+		const field_id = $(this).attr('id');
+		const my_url = $(this).data('url');
+		const my_target = $(this).data('target');
+		if (my_name.length > 3) {
 			let form_data = {
 				ajax: 1,
 				name: my_name
