@@ -149,4 +149,10 @@ $phone_button[] = [
 				<?php $this->load->view('address/view', ['person' => $person]); ?>
 			</fieldset>
 		</div>
+		<div class="tours">
+			<?php if (!empty($tours) && !empty($tour_count)): ?>
+			<fieldset class="person--tour-list">
+				<?php $this->load->view('tourist/tour_list', ['tourists' => $tours]); ?>
+			</fieldset>
+			<?php endif; ?>
 </div>

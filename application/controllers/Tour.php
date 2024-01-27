@@ -184,8 +184,7 @@ class Tour extends MY_Controller {
 
 	}
 
-	function show_payers() {
-		$tour_id = $this->uri->segment(3);
+	function show_payers($tour_id): void {
 		$tour = $this->tour->get($tour_id);
 		$this->load->model("payer_model", "payer");
 		$this->load->model("tourist_model", "tourist");
@@ -196,51 +195,9 @@ class Tour extends MY_Controller {
 			$payer->phones = $phones;
 			$tourists = $this->tourist->get_by_payer($payer->payer_id, $tour_id);
 			$payer->tourists = $tourists;
-
-			$price = 0;
-			switch ($payer->payment_type) {
-				case "full_price":
-					$price = $tour->full_price;
-					break;
-				case "banquet_price":
-					$price = $tour->banquet_price;
-					break;
-				case "early_price":
-					$price = $tour->early_price;
-					break;
-				case "regular_price":
-					$price = $tour->regular_price;
-					break;
-				default:
-					$price = 0;
-					break;
-			}
-			if ($price == 0) {
-				$rate = 0;
-			}
-			else {
-				switch ($payer->room_size) {
-					case "single_room":
-						$rate = $tour->single_room;
-						break;
-					case "triple_room":
-						$rate = $tour->triple_room;
-						break;
-					case "quad_room":
-						$rate = $tour->quad_room;
-						break;
-					default:
-						$rate = 0;
-						break;
-				}
-			}
-			if ($payer->is_comp == 1 || $payer->is_cancelled) {
-				$price = 0;
-				$rate = 0;
-			}
-			$payer->price = $price;
-			$payer->room_rate = $rate;
-			$payer->amt_due = $price - $payer->amt_paid + $payer->discount + $rate;
+			$payer->price = get_tour_price($payer);
+			$payer->room_rate = get_room_rate($payer);
+			$payer->amt_due = get_amount_due($payer);
 
 			$tourist_count = $this->payer->get_tourist_count($payer->payer_id, $payer->tour_id);
 			$payer->tourist_count = $tourist_count;
