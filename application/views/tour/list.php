@@ -71,12 +71,16 @@ if (empty($for_tourist)) {
 			</td>
 			<?php if ($for_tourist) : ?>
 				<td>
-					<?php !empty($tour->start_date) ?? print format_money($tour->amt_paid); ?>
+					<?php if(!empty($tour->start_date) && !empty($tour->amt_due)) : ?>
+						<?php print format_money($tour->amt_due); ?>
+					<?php endif; ?>
 				</td>
 				<td>
+					<?php if(!empty($tour->end_date) && strtotime($tour->end_date) > strtotime('today')) : ?>
 					<a
 						href="<?php print site_url("payer/edit/?payer_id=$tour->payer_id&tour_id=$tour->tour_id"); ?>"
 						class="button edit">Edit Payment</a>
+					<?php endif; ?>
 				</td>
 				<td><a class="button show-tourists mini"
 							 href="<?php print site_url("/tourist/view_all/$tour->id"); ?>">Tourists</a>
