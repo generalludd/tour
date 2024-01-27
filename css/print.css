@@ -21,6 +21,11 @@ body {
 
 }
 
+.grouping.block.merge-date p{
+	margin: 0;
+	padding: 0;
+}
+
 .title {
 	text-transform: uppercase;
 	text-align: center;
