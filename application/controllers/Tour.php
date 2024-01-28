@@ -134,8 +134,8 @@ class Tour extends MY_Controller {
 		}
 		$output = $this->tour->get_value($tour_id, $field);
 
-		if ($format) {
-			switch ($format) {
+		if (!empty($format) ){
+			switch ($format){
 				case "date":
 					$output = format_date($output);
 					break;

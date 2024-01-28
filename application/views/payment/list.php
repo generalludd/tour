@@ -1,5 +1,10 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
-
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+if (empty($tour_id) || empty($payer_id)) {
+	return;
+}
+if (empty($payments)) {
+	$payments = new stdClass();
+}
 // list.php Chris Dart Mar 9, 2014 7:27:03 PM chrisdart@cerebratorium.com
 $total_paid = 0;
 $buttons['add_payment'] = [
@@ -28,7 +33,9 @@ $buttons['add_payment'] = [
 			<?php if ($payment->amount > 0): ?>
 				<tr id="<?php printf("payment-row_%s", $payment->id); ?>">
 					<td>
-						<?php print format_date($payment->receipt_date, "standard"); ?>
+						<?php if (!empty($payment->receipt_date)): ?>
+							<?php print format_date($payment->receipt_date, "standard"); ?>
+						<?php endif; ?>
 					</td>
 					<td>
 						<?php print format_money($payment->amount, "standard"); ?>

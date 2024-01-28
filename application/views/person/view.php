@@ -16,11 +16,6 @@ $buttons[] = [
 ];
 
 $buttons[] = [
-		"text" => sprintf("Tour History", $person->first_name),
-		"href" => site_url("/tourist/view_for_tourist/$person->id"),
-		"class" => "button show-tours-for-tourist",
-];
-$buttons[] = [
 		'text' => 'Export vCard',
 		'title' => sprintf('Export a universal address book card for ', $person->first_name),
 		'href' => base_url('person/vcard/' . $person->id),
