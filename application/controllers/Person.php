@@ -42,6 +42,7 @@ class Person extends MY_Controller {
 		$tourist->person_id = $id;
 		$data ['tourist'] = $tourist;
 		$data ['tours'] = $this->tourist->get_by_tourist($id);
+		$data['duplicates'] = $this->person->get_duplicates($id);
 		$data['target'] = 'person/view';
 		$data['ajax'] = FALSE;
 		$target = 'page/index';
@@ -55,8 +56,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function view_next() {
-		$id = $this->uri->segment(3);
+	function view_next($id): void {
 		$next_id = $this->person->get_next_person($id);
 		redirect('person/view/' . $next_id);
 	}
@@ -64,8 +64,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function view_previous() {
-		$id = $this->uri->segment(3);
+	function view_previous($id): void {
 		$next_id = $this->person->get_previous_person($id);
 		redirect('person/view/' . $next_id);
 	}
@@ -73,7 +72,7 @@ class Person extends MY_Controller {
 	/**
 	 * @param array $options
 	 */
-	function view_all($options = []) {
+	function view_all(array $options = []): void {
 		burn_cookie('person_filter');
 		$filters = [];
 		$initial = FALSE;
@@ -115,7 +114,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function find_by_name() {
+	function find_by_name(): void {
 		$name = $this->input->get('name', TRUE);
 		$target = 'person/mini_list';
 		$data['people'] = $this->person->find_people($name, [
@@ -127,7 +126,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function find_for_address($person_id) {
+	function find_for_address($person_id): void {
 		$name = $this->input->get('name');
 		$data['people'] = $this->person->find_people($name, [
 			'has_address' => TRUE,
@@ -141,7 +140,7 @@ class Person extends MY_Controller {
 	 * @param int $person_id
 	 * @param int $address_id
 	 */
-	function remove_address(int $person_id, int $address_id) {
+	function remove_address(int $person_id, int $address_id): void {
 		//if this is a post request
 		if ($this->input->post('person_id') == $person_id && $this->input->post('address_id') == $address_id && $this->input->post('delete')) {
 			//actually delete the address relationship.
@@ -186,7 +185,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function edit($id) {
+	function edit($id): void {
 		$data = [];
 		$data['person'] = $this->person->get($id);
 		$data['title'] = sprintf('Person Record: %s %s', $data['person']->first_name, $data['person']->last_name);
@@ -212,7 +211,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function create() {
+	function create(): void {
 		// create a record in the db and get the insertion id. Then go to the
 		// edit user page with
 		$data['person'] = FALSE;
@@ -237,7 +236,7 @@ class Person extends MY_Controller {
 	/**
 	 * @param $address_id
 	 */
-	function add_housemate($address_id) {
+	function add_housemate($address_id): void {
 		$data['person'] = (object) [];
 		$data['person']->address_id = $address_id;
 		$this->load->model('variable_model', 'variable');
@@ -261,7 +260,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function insert() {
+	function insert(): void {
 		$person_id = $this->person->insert(FALSE);
 		redirect('person/view/' . $person_id);
 	}
@@ -269,7 +268,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function update() {
+	function update(): void {
 		$id = $this->input->post('id');
 		$this->person->update($id);
 		redirect('person/view/' . $id);
@@ -278,7 +277,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function update_value() {
+	function update_value(): void {
 		$id = $this->input->post('id');
 		$values = [
 			$this->input->post('field') => trim($this->input->post('value')),
@@ -301,7 +300,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function show_filter() {
+	function show_filter(): void {
 		$data['initials'] = get_keyed_pairs($this->person->get_initials(), [
 			'initial',
 			'initial',
@@ -323,13 +322,13 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function export() {
+	function export(): void {
 		$options = $this->input->cookie('person_filters');
 		$options = unserialize($options);
 		$this->export_addresses($options);
 	}
 
-	function get_labels() {
+	function get_labels(): void {
 		$options = $this->input->cookie('person_filters');
 		$options = unserialize($options);
 		$this->load->model('address_model', 'address');
@@ -342,7 +341,7 @@ class Person extends MY_Controller {
 	/**
 	 * @param null $options
 	 */
-	function export_addresses($options = NULL) {
+	function export_addresses($options = NULL): void {
 		$options['export'] = TRUE;
 		$this->load->model('address_model', 'address');
 		$data['addresses'] = $this->address->get_for_labels($options);
@@ -358,7 +357,7 @@ class Person extends MY_Controller {
 	 *
 	 * @param $id
 	 */
-	function vcard($id) {
+	function vcard($id): void {
 		$person = $this->person->get($id);
 		$phones = $this->phone->get_for_person($id);
 		$person->phones = $phones;
@@ -377,7 +376,7 @@ class Person extends MY_Controller {
 	 * If a person is in the tourist database they will only be disabled.
 	 * See person_model->delete for more details.
 	 */
-	function delete() {
+	function delete(): void {
 		$id = $this->input->get('id');
 		$type = $this->input->get('type');
 		if (!empty($id)) {
@@ -420,11 +419,53 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function restore() {
+	function restore(): void {
 		if ($id = $this->input->get('id')) {
 			$this->person->restore($id);
 			redirect('person/view/' . $id);
 		}
+	}
+
+	function start_merge($source_id, $duplicate_id): void {
+		$this->load->model('tourist_model', 'tourist');
+		$source = $this->person->get($source_id);
+		$duplicate = $this->person->get($duplicate_id);
+		$source->tours =   $this->tourist->get_by_tourist($source_id);
+		$duplicate->tours = $this->tourist->get_by_tourist($duplicate_id);
+		// Prepare the phones
+		$phones = [];
+		foreach($duplicate->phones as $phone){
+			$phones[$phone->phone] = $phone;
+		}
+		foreach($source->phones as $phone){
+			if(!array_key_exists($phone->phone, $phones)) {
+				$phones[$phone->phone] = $phone;
+			}
+		}
+		$source->phones = $phones;
+		$data['source'] = $source;
+		$data['duplicate'] = $duplicate;
+		$data['target'] = 'person/merge';
+		$data['title'] = 'Merge Person Records';
+		$this->session->set_flashdata('warning', 'You are about to merge two person records. Please review the information below and make sure you are merging the correct records. This cannot be undone.');
+		$this->load->view('page/index', $data);
+	}
+
+	function do_merge(): void {
+		$source_id = $this->input->post('source_id');
+		$duplicate_id = $this->input->post('duplicate_id');
+		$preferences = [];
+		$emails = $this->input->post('email');
+		$preferences['email'] = reset($emails);
+		$preferences['phones'] = $this->input->post('phone');
+		$addresses = $this->input->post('address');
+		$preferences['address_id'] = reset($addresses);
+		$preferences['is_veteran'] = $this->input->post('is_veteran');
+		$shirt_size = $this->input->post('shirt_size');
+		$preferences['shirt_size'] = reset($shirt_size);
+		$this->person->merge($source_id, $duplicate_id, $preferences);
+		redirect('person/view/' . $source_id);
+
 	}
 
 }

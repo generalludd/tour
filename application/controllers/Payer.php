@@ -41,7 +41,7 @@ class Payer extends MY_Controller {
 		$payer = $this->payer->get_for_tour($payer_id, $tour_id);
 		$payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
 		$data["payer"] = $payer;
-		$data["tourists"] = $this->tourist->get_by_payer($payer_id, $tour_id);
+		$data["tourists"] = $this->tourist->get_for_payer($payer_id, $tour_id);
 		$data["room_rate"] = 0;
 		$data["tour_price"] = 0;
 		$data["target"] = "payer/edit";

@@ -8,6 +8,10 @@ body {
 	padding-top: 0px;
 }
 
+article {
+	gap: 1rem;
+}
+
 #page {
 	margin-left: auto;
 	margin-right: auto;
@@ -745,7 +749,8 @@ textarea.save-field {
 .diptych {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-gap: 1rem;
+	grid-template-rows: auto auto;
+	gap: 1rem;
 }
 
 li.diptych {

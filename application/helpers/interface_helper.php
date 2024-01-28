@@ -52,7 +52,7 @@ if (!defined('BASEPATH')) {
  *         id="er_2532">Edit Record</span></span>
  *
  */
-function create_button($data) {
+function create_button(array $data): bool|string {
 	if (array_key_exists("text", $data)) {
 		$type = "a";
 		$href = "";
@@ -150,7 +150,7 @@ function create_button($data) {
  *         selection, which is passed along to the create_button array.
  *         class, which provides class values for the button bar.
  */
-function create_button_bar($buttons, $options = NULL) {
+function create_button_bar($buttons, $options = NULL): string {
 	$id = "";
 	$selection = "";
 	$class = "mini";
@@ -200,7 +200,7 @@ function create_button_bar($buttons, $options = NULL) {
  * @param string $label
  * @param array $options (envelope, class, attributes)
  */
-function create_field(string $field_name, string $value = NULL, string $label, array $options = []) {
+function create_field(string $field_name, string $value = NULL, string $label, array $options = []): string {
 	$envelope = 'p';
 	if (array_key_exists('envelope', $options)) {
 		$envelope = $options['envelope'];
@@ -274,7 +274,7 @@ function create_field(string $field_name, string $value = NULL, string $label, a
  *
  * @return string
  */
-function edit_field($field_name, $value, $label, $table, $id, $options = []) {
+function edit_field($field_name, $value, $label, $table, $id, $options = []): string {
 	$envelope = "p";
 	if (array_key_exists("envelope", $options)) {
 		$envelope = $options ["envelope"];
@@ -313,7 +313,7 @@ function edit_field($field_name, $value, $label, $table, $id, $options = []) {
 
 }
 
-function create_input($object, $name, $label, $options = []) {
+function create_input($object, $name, $label, $options = []): string {
 	$id = $name;
 	if (array_key_exists("id", $options)) {
 		$id = $options["id"];
@@ -376,7 +376,7 @@ function create_input($object, $name, $label, $options = []) {
  * @param array $values
  * @param array $selections @TODO add id option
  */
-function create_checkbox($name, $values, $selections = []) {
+function create_checkbox(string $name, array $values, array $selections = []): string {
 	$output = [];
 	foreach ($values as $value) {
 		$checked = "";
@@ -388,7 +388,7 @@ function create_checkbox($name, $values, $selections = []) {
 	return implode("\r", $output);
 }
 
-function create_dropdown($name, $values, $options = []) {
+function create_dropdown($name, $values, $options = []): void {
 	if (array_key_exists("envelope", $options)) {
 	}
 }
