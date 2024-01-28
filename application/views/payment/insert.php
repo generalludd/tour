@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
+if(empty($tour_id) || empty($payer_id) || empty($type)){
+	return;
+}
 // edit.php Chris Dart Mar 9, 2014 7:48:24 PM chrisdart@cerebratorium.com
 $buttons['insert_payment'] = [
 	'text' => 'Insert',
@@ -14,7 +16,7 @@ $buttons['insert_payment'] = [
 ];
 ?>
 <tr id="<?php print sprintf("insert-row_%s_%s", $tour_id, $payer_id); ?>">
-	<td><input type="date" class="datefield" name="receipt_date"
+	<td><input type="date" class="datefield" name="receipt_date" value="<?php print date("Y-m-d"); ?>"
 						 id="receipt_date"/>
 	</td>
 	<td><input type="number" name="amount" id="amount" value=""/></td>

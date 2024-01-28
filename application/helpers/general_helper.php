@@ -40,35 +40,19 @@ function burn_cookie($name): void {
 	]);
 }
 
-/*
- * @function format_date @params $date date string @params $format string
- * description: this shouldn't be in this file, but I didn't want to create a
- * new file with general formatting tools yet.
- */
-/**
- * @param string $date
- * @param string $format
- *
- * @return string|null
- */
-function format_date(string $date, string $format = 'standard'): ?string {
+function format_date(string $date, string $format = 'standard' ): ?string {
+	if($format){
+		$format = match ($format) {
+			"mysql" => 'y-m-d',
+			'no_year' => 'm/d',
+			default => 'm/d/Y',
+		};
+	}
 	if (empty($date)) {
-		return $date;
+		return null;
 	}
+	return date($format, strtotime($date));
 
-	$formats = [
-		"mysql" => 'Y-m-d',
-		"standard" => 'm/d/Y',
-		"no-year" => 'm/d',
-	];
-
-	try {
-		$dateTime = new DateTime($date);
-		return $dateTime->format($formats[$format] ?? $formats['standard']);
-	} catch (Exception $e) {
-		// Handle invalid date format
-		return NULL;
-	}
 }
 
 /**
@@ -188,7 +172,7 @@ function get_keyed_pairs($list, $pairs, $initial_blank = NULL, $other = NULL, ar
  *
  * @return mixed|null
  */
-function get_value($object, $item, $default = NULL) {
+function get_value($object, $item, $default = NULL): mixed {
 	$output = $default;
 	if ($object instanceof stdClass && !empty($object->{$item})) {
 		$output = $object->{$item};
@@ -273,7 +257,7 @@ function format_address($address, $format = "postal") {
  * @return number while statement and algorithm from
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
-function get_first_missing_number($list, $field) {
+function get_first_missing_number($list, $field): int {
 	$item_array = [];
 	foreach ($list as $item) {
 		$item_array[] = $item->$field;
@@ -300,46 +284,22 @@ function get_first_missing_number($list, $field) {
 }
 
 /**
- * @param $price
- * @param $rate
- * @param $ticket_count
- * @param $discount
- * @param $amt_paid
- *
- * @return float|int
- */
-function get_amt_due($price, $rate, $ticket_count, $discount, $amt_paid) {
-	$total = $price * $ticket_count + ($rate - $discount - $amt_paid);
-	return $total;
-}
-
-/**
  * @param $payer
  *
- * @return int|mixed
+ * @return int
  */
-function get_tour_price($payer) {
+function get_tour_price($payer): int {
 	if ($payer->is_comp == 1) {
 		$tour_price = 0;
 	}
 	else {
-		switch ($payer->payment_type) {
-			case "full_price":
-				$tour_price = $payer->full_price;
-				break;
-			case "banquet_price":
-				$tour_price = $payer->banquet_price;
-				break;
-			case "early_price":
-				$tour_price = $payer->early_price;
-				break;
-			case "regular_price":
-				$tour_price = $payer->regular_price;
-				break;
-			default:
-				$tour_price = 0;
-				break;
-		}
+		$tour_price = match ($payer->payment_type) {
+			"full_price" => $payer->full_price,
+			"banquet_price" => $payer->banquet_price,
+			"early_price" => $payer->early_price,
+			"regular_price" => $payer->regular_price,
+			default => 0,
+		};
 	}
 	return $tour_price;
 }
@@ -347,27 +307,28 @@ function get_tour_price($payer) {
 /**
  * @param $payer
  *
- * @return int|mixed
+ * @return int
  */
-function get_room_rate($payer) {
-	switch ($payer->room_size) {
-		case "single_room":
-			$room_rate = $payer->single_room;
-			break;
-		case "triple_room":
-			$room_rate = $payer->triple_room;
-			break;
-		case "quad_room":
-			$room_rate = $payer->quad_room;
-			break;
-		default:
-			$room_rate = 0;
-			break;
-	}
-	if ($payer->is_comp == 1) {
+function get_room_rate($payer): int {
+	$room_rate = match ($payer->room_size) {
+		"single_room" => $payer->single_room,
+		"triple_room" => $payer->triple_room,
+		"quad_room" => $payer->quad_room,
+		default => 0,
+	};
+	if ($payer->is_comp == 1 || $payer->is_cancelled) {
 		$room_rate = 0;
 	}
 	return $room_rate;
+}
+
+function get_amount_due($payer, int $tourist_count = NULL){
+	if($tourist_count){
+		return ($payer->price + $payer->rate) * $tourist_count - ($payer->amt_paid + $payer->discount);
+	} else {
+		return $payer->price - $payer->amt_paid + $payer->discount + $payer->room_rate;
+	}
+
 }
 
 /**
@@ -375,7 +336,7 @@ function get_room_rate($payer) {
  *
  * @return string
  */
-function format_contact($contact) {
+function format_contact($contact): string {
 	$name = [];
 	$contact_info = [];
 
@@ -405,7 +366,7 @@ function format_contact($contact) {
  *        (lists less than 3 have no comma, list with 3 or more have commas and
  *        final conjunction)
  */
-function grammatical_implode($glue, $list, $conjunction = "and") {
+function grammatical_implode($glue, $list, $conjunction = "and"): array|string {
 	$adjusted_list = [];
 	$output = $list;
 	if (is_array($list)) {

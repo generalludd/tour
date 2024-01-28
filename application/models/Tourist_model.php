@@ -115,7 +115,7 @@ class Tourist_model extends MY_Model {
 		$result = $this->db->get()->result();
 		$output = [];
 		foreach($result as $item){
-			$output['tourist_id'] = $item;
+			$output[] = $item;
 		}
 		return $output;
 	}

@@ -17,8 +17,13 @@ body {
 }
 
 .printed-content {
-	padding-top: 1in;
+	padding-top: 1.25in;
 
+}
+
+.grouping.block.merge-date p{
+	margin: 0;
+	padding: 0;
 }
 
 .title {

@@ -9,7 +9,7 @@ class Payment extends MY_Controller {
 		$this->load->model("payment_model", "payment");
 	}
 
-	function get_amount_paid() {
+	function get_amount_paid(): void {
 		$tour_id = $this->input->get("tour_id");
 		$payer_id = $this->input->get("payer_id");
 		$this->load->model("payment_model", "payment");
@@ -17,7 +17,7 @@ class Payment extends MY_Controller {
 		print_r($output);
 	}
 
-	function view_list($tour_id = NULL, $payer_id = NULL, $type = "payment") {
+	function view_list($tour_id = NULL, $payer_id = NULL, $type = "payment"): void {
 		if (!$tour_id || !$payer_id) {
 			$tour_id = $this->input->get("tour_id");
 			$payer_id = $this->input->get("payer_id");
@@ -34,7 +34,7 @@ class Payment extends MY_Controller {
 		}
 	}
 
-	function create() {
+	function create(): void {
 		$data["tour_id"] = $this->input->get("tour_id");
 		$data["payer_id"] = $this->input->get("payer_id");
 		$data["type"] = $this->input->get("type");

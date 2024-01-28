@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') or exit ('No direct script access allowed');
 
 // tourist.php Chris Dart Dec 13, 2013 7:53:43 PM chrisdart@cerebratorium.com
@@ -31,8 +32,7 @@ class Tourist extends MY_Controller {
 		];
 	}
 
-	function view() {
-	}
+	function view() {}
 
 	function view_all($tour_id) {
 		$export = FALSE;
@@ -118,7 +118,7 @@ class Tourist extends MY_Controller {
 		$payer_id = $this->input->post('payer_id');
 		$tour_id = $this->input->post('tour_id');
 		$person_id = $this->input->post('person_id');
-		if(empty($person_id)){
+		if (empty($person_id)) {
 			$this->load->model('person_model', 'person');
 			$person_id = $this->person->insert();
 		}
@@ -128,7 +128,6 @@ class Tourist extends MY_Controller {
 		$target = '/payer/edit?payer_id=' . $payer_id . '&tour_id=' . $tour_id;
 		$this->tourist->insert($data);
 		redirect($target);
-
 	}
 
 	/**
@@ -142,8 +141,7 @@ class Tourist extends MY_Controller {
 		$this->insert($payer_id, $tour_id, $person_id);
 	}
 
-	function update() {
-	}
+	function update() {}
 
 	function update_value() {
 		$id = $this->input->post('id');
@@ -169,17 +167,24 @@ class Tourist extends MY_Controller {
 		$this->load->view($target, $data);
 	}
 
-	function delete() {
-		$tour_id = $this->input->post('tour_id');
-		$person_id = $this->input->post('person_id');
-		$payer_id = $this->input->post('payer_id');
+	function delete(): void {
+		$json = file_get_contents('php://input');
+		$input = json_decode($json, TRUE);
+
+		// Access the data like this:
+		$tour_id = $input['tour_id'] ?? NULL;
+		$person_id = $input['person_id'] ?? NULL;
+		$payer_id = $input['payer_id'] ?? NULL;
 		$this->load->model('roommate_model', 'roommate');
 		$this->roommate->delete_tourist($person_id, $tour_id);
 		$this->tourist->delete($person_id, $tour_id);
 		$data['target'] = 'tourist/payer_list';
 		$data ['tourists'] = $this->tourist->get_by_payer($payer_id, $tour_id);
-		if ($this->input->post('ajax') == 1) {
-			$this->load->view($data['target'], $data);
+		if ($input['ajax'] == 1) {
+			$output = ['data' => $this->load->view($data['target'], $data, TRUE)];
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($output));
 		}
 		else {
 			$this->load->view('page/index', $data);
