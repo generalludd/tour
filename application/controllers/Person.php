@@ -29,14 +29,19 @@ class Person extends MY_Controller {
 	/**
 	 * @param $id
 	 */
-	function view($id) {
+	function view($id): void {
+		$this->load->model('tourist_model', 'tourist');
+
 		$data = [];
 		$person = $this->person->get($id);
 		$data['id'] = $id;
 		$data['person'] = $person;
 		$data['title'] = $person->first_name . ' ' . $person->last_name;
-		$this->load->model("tourist_model", "tourist");
 		$data['tour_count'] = count($this->tourist->get($id));
+		$tourist = $person;
+		$tourist->person_id = $id;
+		$data ['tourist'] = $tourist;
+		$data ['tours'] = $this->tourist->get_by_tourist($id);
 		$data['target'] = 'person/view';
 		$data['ajax'] = FALSE;
 		$target = 'page/index';

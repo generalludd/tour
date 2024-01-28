@@ -13,12 +13,13 @@ if(!empty($tourists) && is_array($tourists)):
 			$button = create_button(
 					[
 							"text" => "Delete",
-							"type" => "span",
+							"type" => "button",
 							"class" => "button delete delete-tourist small",
 							'data' => [
 									'person_id' => $tourist->person_id,
 									'tour_id' => $tourist->tour_id,
 									'payer_id' => $tourist->payer_id,
+								'target' => '#payer-tourist-block ul.tourist-list',
 							],
 					]);
 

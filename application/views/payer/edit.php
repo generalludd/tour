@@ -60,6 +60,8 @@ $tourist_count = count($payer->tourists);
 					'id' => 'payment_type',
 					'attributes' => [
 							'required' => TRUE,
+						'data-tour-id' => $payer->tour_id,
+						'data-target' => 'tour_price_display',
 					],
 					'options' => $payment_types,
 					'selected' => get_value($payer, 'payment_type'),
@@ -73,9 +75,22 @@ $tourist_count = count($payer->tourists);
 			?>
 			<p>
 				<label for="room_size">Room Size</label>
-				<?php print form_dropdown('room_size', $room_sizes, get_value($payer, 'room_size'), 'class="change_room_size"'); ?>
-				&nbsp;$<span
-						id="room_rate_display"><?php print $payer->room_rate; ?></span>
+				<?php $room_size_select = [
+					'id' => 'room_size',
+					'attributes' => [
+						'required' => TRUE,
+						'data-tour-id' => $payer->tour_id,
+						'data-target' => 'room_rate_display',
+					],
+					'options' => $room_sizes,
+					'selected' => get_value($payer, 'room_size'),
+					'classes' => ['change_room_size'],
+					'label' => 'Payment Type',
+					'wrapper' => 'p',
+					'suffix' => '$<span
+					id="room_rate_display">' . $payer->room_rate . '</span>',
+				] ?>
+				<?php $this->load->view('elements/select-field', $room_size_select); ?>
 			</p>
 			<p>
 				<label for="total_cost">Total Cost: </label> &nbsp;$<span

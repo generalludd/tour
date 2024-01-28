@@ -68,7 +68,7 @@
 		</tr>
 		<?php if(get_value($payer, "note",FALSE)): ?>
 		<tr>
-		<td colspan="11"><?php print get_value($payer->note);?></td>
+		<td colspan="11"><?php print get_value($payer->note, 'note', FALSE);?></td>
 		</tr>
 		<?php endif;?>
 		<?php endforeach; ?>

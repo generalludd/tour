@@ -266,7 +266,7 @@ input[type="text"].person-search {
 	border-color: transparent;
 }
 
-#navigation input[type="text"].person-search{
+#navigation input[type="text"].person-search {
 	height: 100%;
 }
 
@@ -726,11 +726,21 @@ textarea.save-field {
 .room-row.column {
 	width: 30%;
 }
-
 .triptych {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+	gap: 1rem;
 }
+
+@media (min-width: 1024px) {
+	.triptych {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr;
+	}
+}
+
 
 .diptych {
 	display: grid;

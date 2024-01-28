@@ -16,11 +16,6 @@ $buttons[] = [
 ];
 
 $buttons[] = [
-		"text" => sprintf("Tour History", $person->first_name),
-		"href" => site_url("/tourist/view_for_tourist/$person->id"),
-		"class" => "button show-tours-for-tourist",
-];
-$buttons[] = [
 		'text' => 'Export vCard',
 		'title' => sprintf('Export a universal address book card for ', $person->first_name),
 		'href' => base_url('person/vcard/' . $person->id),
@@ -149,4 +144,10 @@ $phone_button[] = [
 				<?php $this->load->view('address/view', ['person' => $person]); ?>
 			</fieldset>
 		</div>
+		<div class="tours">
+			<?php if (!empty($tours) && !empty($tour_count)): ?>
+			<fieldset class="person--tour-list">
+				<?php $this->load->view('tourist/tour_list', ['tourists' => $tours]); ?>
+			</fieldset>
+			<?php endif; ?>
 </div>
