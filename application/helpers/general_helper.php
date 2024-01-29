@@ -252,12 +252,12 @@ function format_address(object $address, string $format = "postal"): ?string {
  * BUG: only works if only one number is missing from the list;
  *
  * @param array $list
- * @param object $field
+ * @param string $field
  *
  * @return number while statement and algorithm from
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
-function get_first_missing_number(array $list, object $field): int {
+function get_first_missing_number(array $list, string $field): int {
 	$item_array = [];
 	foreach ($list as $item) {
 		$item_array[] = $item->$field;
