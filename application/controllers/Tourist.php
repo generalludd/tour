@@ -133,17 +133,15 @@ class Tourist extends MY_Controller {
 	/**
 	 * Insert a new person and add directly to tour
 	 */
-	function insert_new() {
+	function insert_new(): void {
 		$this->load->model('person_model', 'person');
 		$person_id = $this->person->insert();
 		$payer_id = $this->input->post('payer_id');
 		$tour_id = $this->input->post('tour_id');
-		$this->insert($payer_id, $tour_id, $person_id);
+		$this->db->insert('tourist', ['payer_id' => $payer_id, 'tour_id'=> $tour_id, 'person_id'=> $person_id]);
 	}
 
-	function update() {}
-
-	function update_value() {
+	function update_value(): void {
 		$id = $this->input->post('id');
 		$values = [
 			$this->input->post('field') => $value = trim($this->input->post('value')),
@@ -152,7 +150,7 @@ class Tourist extends MY_Controller {
 		echo $this->input->post('value');
 	}
 
-	function find_by_name($tour_id, $payer_id) {
+	function find_by_name($tour_id, $payer_id): void {
 		$this->load->model('person_model', 'person');
 		$this->load->model('payer_model', 'payer');
 		$name = $this->input->get('name');
@@ -179,7 +177,7 @@ class Tourist extends MY_Controller {
 		$this->roommate->delete_tourist($person_id, $tour_id);
 		$this->tourist->delete($person_id, $tour_id);
 		$data['target'] = 'tourist/payer_list';
-		$data ['tourists'] = $this->tourist->get_by_payer($payer_id, $tour_id);
+		$data ['tourists'] = $this->tourist->get_for_payer($payer_id, $tour_id);
 		if ($input['ajax'] == 1) {
 			$output = ['data' => $this->load->view($data['target'], $data, TRUE)];
 			$this->output

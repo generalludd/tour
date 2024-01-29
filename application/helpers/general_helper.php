@@ -112,7 +112,7 @@ function format_datetime(string $date = NULL, string $time = NULL){
  *
  * @return void
  */
-function prepare_variables($object, $variables) {
+function prepare_variables($object, $variables): void {
 	for ($i = 0; $i < count($variables); $i++) {
 		$my_variable = trim($variables[$i]);
 		if ($object->input->post($my_variable)) {
@@ -203,7 +203,7 @@ function format_money(float $int = NULL, string $format = "standard"): string {
  *
  * @return string
  */
-function format_email($email) {
+function format_email($email): string {
 	$output = "";
 	if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		$output = sprintf("<a href='mailto:%s'>%s</a>", $email, $email);
@@ -231,7 +231,7 @@ function format_field_name(string $field = NULL): ?string {
  *        lines, or
  *        inline
  */
-function format_address($address, $format = "postal") {
+function format_address(object $address, string $format = "postal"): ?string {
 	$output = NULL;
 	$street = $address->address;
 	$locality = sprintf("%s, %s %s", $address->city, $address->state, $address->zip);
@@ -251,13 +251,13 @@ function format_address($address, $format = "postal") {
  * given any list of numbers, find the first opening in the list.
  * BUG: only works if only one number is missing from the list;
  *
- * @param array of objects $list
- * @param object value $field
+ * @param array $list
+ * @param string $field
  *
  * @return number while statement and algorithm from
  *         http://stackoverflow.com/questions/4163164/find-missing-numbers-in-array
  */
-function get_first_missing_number($list, $field): int {
+function get_first_missing_number(array $list, string $field): int {
 	$item_array = [];
 	foreach ($list as $item) {
 		$item_array[] = $item->$field;
@@ -331,6 +331,25 @@ function get_amount_due($payer, int $tourist_count = NULL){
 
 }
 
+function format_person(object $person): string {
+	$output = [];
+	if(!empty($person->first_name)){
+		$output[] = $person->first_name;
+	}
+	if(!empty($person->last_name)){
+		$output[] = $person->last_name;
+	}
+	if(!empty($person->email)){
+		$output[] = format_email($person->email);
+	}
+	if(!empty($person->phone)){
+		$output[] = $person->phone;
+	}
+	if(!empty($person->address)){
+		$output[] = format_address($person->address);
+	}
+	return implode('<br/>', $output);
+}
 /**
  * @param $contact
  *
@@ -340,22 +359,20 @@ function format_contact($contact): string {
 	$name = [];
 	$contact_info = [];
 
-	if (array_key_exists("name", $contact) && $contact["name"]) {
-		$name[] = $contact["name"];
+	if (!empty($contact->name)) {
+		$name[] = $contact->name;
 	}
-	if (array_key_exists("position", $contact) && $contact["position"]) {
-		$name[] = $contact["position"];
+	if (!empty($contact->position)) {
+		$name[] = $contact->position;
 	}
 
-	if (array_key_exists("phone", $contact) && $contact["phone"]) {
-		$contact_info[] = sprintf("Phone: %s", $contact["phone"]);
+	if (!empty($contact->phone)) {
+		$contact_info[] = sprintf("Phone: %s", $contact->phone);
 	}
-	if (array_key_exists("email", $contact) && $contact["email"]) {
-		$contact_info[] = sprintf("<a href='mailto:%s'>%s</a>", $contact["email"], $contact["email"]);
+	if (!empty($contact->email)) {
+		$contact_info[] = format_email($contact->email);
 	}
-	$output = sprintf("%s<br/>%s", implode(", ", $name), implode(", ", $contact_info));
-
-	return $output;
+	return sprintf("%s<br/>%s", implode(", ", $name), implode(", ", $contact_info));
 }
 
 /**

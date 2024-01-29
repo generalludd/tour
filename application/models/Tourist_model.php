@@ -29,8 +29,11 @@ class Tourist_model extends MY_Model {
 		if (!empty($tours)) {
 			$this->db->where_in("tour_id", $tours);
 		}
-		$result = $this->db->get()->result();
-		return $result;
+		return $this->db->get()->result();
+	}
+
+	function get_record(int $tour_id, int $payer_id, int $person_id): ?object {
+		return $this->db->from("tourist")->where("tour_id", $tour_id)->where("payer_id", $payer_id)->where("person_id", $person_id)->get()->row();
 	}
 
 	/**
@@ -79,7 +82,7 @@ class Tourist_model extends MY_Model {
 	 *   row identifier.
 	 *
 	 */
-	function remove_existing_tourists(string $tour_id, array &$people) {
+	function remove_existing_tourists(int $tour_id, array &$people): void {
 		foreach($people as $id => $person) {
 			$this->db->from('tourist');
 			$this->db->select('tourist.tour_id');
@@ -104,7 +107,7 @@ class Tourist_model extends MY_Model {
 		return $result;
 	}
 
-	function get_by_tourist($person_id) {
+	function get_by_tourist($person_id): array {
 		$this->db->where("person_id", $person_id);
 		$this->db->where("payer.tour_id = tour.id", NULL, FALSE);
 		$this->db->from("tourist");
@@ -124,28 +127,24 @@ class Tourist_model extends MY_Model {
 
 	}
 
-	function insert($data = FALSE) {
-		if (is_array($data)) {
-			if (array_key_exists("payer_id", $data) && array_key_exists("tour_id", $data) && array_key_exists("person_id", $data)) {
-				$payer_id = $data["payer_id"];
-				$person_id = $data["person_id"];
-				$tour_id = $data["tour_id"];
+	function insert(array $data): void {
+			if (!empty($data['payer_id']) && !empty($data['tour_id']) && !empty($data['person_id'])) {
+				$this->db->replace('tourist', $data);
 			}
-
-			$query = "INSERT IGNORE INTO `tourist` (`payer_id`, `tour_id`, `person_id`) VALUES('$payer_id', '$tour_id', $person_id);";
-			$this->db->query($query);
-		}
 	}
 
 	/**
 	 * insert the payer as a person for the initial insert for a person/tour key
 	 */
-	function insert_payer($payer_id, $tour_id) {
-		$query = "INSERT IGNORE INTO `tourist` (`payer_id`, `tour_id`, `person_id`) VALUES('$payer_id', '$tour_id', $payer_id);";
-		$this->db->query($query);
+	function insert_payer($payer_id, $tour_id): void {
+		$this->db->replace('tourist', [
+			'payer_id' => $payer_id,
+			'tour_id' => $tour_id,
+			'person_id' => $payer_id,
+		]);
 	}
 
-	function delete($person_id, $tour_id) {
+	function delete($person_id, $tour_id): void {
 		// don't delete the payer here!
 		$this->db->where_not_in("payer_id", $person_id);
 
@@ -155,22 +154,11 @@ class Tourist_model extends MY_Model {
 		]);
 	}
 
-	function delete_payer($payer_id, $tour_id) {
+	function delete_payer($payer_id, $tour_id): void {
 		$this->db->where("payer_id", $payer_id);
 		$this->db->where("tour_id", $tour_id);
 		$this->db->delete("tourist");
 	}
 
-
-	/**
-	 * DEPRECATED
-	 *
-	 * @param int $payer_id
-	 * @param int $tour_id
-	 */
-	function get_by_payer($payer_id, $tour_id) {
-		return $this->get_for_payer($payer_id, $tour_id);
-
-	}
 
 }
