@@ -145,7 +145,7 @@ $phone_button[] = [
 		</div>
 		<div <?php if(!empty($tours) && !empty($duplicates)):?>class="diptych"<?php endif;?>>
 			<div class="tours">
-				<?php if (!empty($tours) && !empty($tour_count)): ?>
+				<?php if (!empty($tours)): ?>
 					<fieldset class="person--tour-list">
 						<legend>Tours</legend>
 						<?php $this->load->view('tourist/tour_list', ['tourists' => $tours]); ?>

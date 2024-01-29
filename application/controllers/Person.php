@@ -32,6 +32,7 @@ class Person extends MY_Controller {
 	function view($id): void {
 		$this->load->model('tourist_model', 'tourist');
 
+
 		$data = [];
 		$person = $this->person->get($id);
 		$data['id'] = $id;
@@ -41,7 +42,15 @@ class Person extends MY_Controller {
 		$tourist = $person;
 		$tourist->person_id = $id;
 		$data ['tourist'] = $tourist;
-		$data ['tours'] = $this->tourist->get_by_tourist($id);
+		$tours= $this->tourist->get_by_tourist($id);
+		if(!empty($tours)) {
+			$this->load->model('payer_model', 'payer');
+			foreach ($tours as $tour) {
+				$tour->amt_due = $this->payer->get_amount_due($tour->payer_id, $tour->tour_id);
+			}
+		}
+		$data['tours'] = $tours;
+
 		$data['duplicates'] = $this->person->get_duplicates($id);
 		$data['target'] = 'person/view';
 		$data['ajax'] = FALSE;
@@ -463,6 +472,8 @@ class Person extends MY_Controller {
 		$preferences['is_veteran'] = $this->input->post('is_veteran');
 		$shirt_size = $this->input->post('shirt_size');
 		$preferences['shirt_size'] = reset($shirt_size);
+		$status = $this->input->post('status');
+		$preferences['status'] = reset($status);
 		$this->person->merge($source_id, $duplicate_id, $preferences);
 		redirect('person/view/' . $source_id);
 

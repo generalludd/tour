@@ -20,8 +20,7 @@ $buttons [] = [
 		'class' => 'button export export-people-records',
 ];
 
-// $filters = get_cookie("person_filter");
-// if($fiolters): $filters = unserialize($options); ?>
+?>
 <?php if (!empty($filters)): ?>
 	<fieldset>
 		<legend>Filters</legend>

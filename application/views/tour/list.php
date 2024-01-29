@@ -1,6 +1,9 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+if(empty($title)){
+	return NULL;
+}
 
 // list.php Chris Dart Dec 14, 2013 3:18:33 PM chrisdart@cerebratorium.com
 if (empty($for_tourist)) {
@@ -26,7 +29,6 @@ if (empty($for_tourist)) {
 ?>
 <?php if (!empty($tours)) : ?>
 	<table class="list">
-		<caption><?php print $title; ?></caption>
 		<thead>
 		<tr>
 			<th>Tour</th>
@@ -71,12 +73,7 @@ if (empty($for_tourist)) {
 			</td>
 			<?php if (!empty($for_tourist)) : ?>
 				<td>
-
-				<?php if (!empty($tour->amt_due)) : ?>
-
-						<?php print format_money($tour->amt_due); ?>
-
-				<?php endif; ?>
+					<?php print format_money($tour->amt_due); ?>
 				</td>
 				<td>
 					<a
@@ -108,7 +105,7 @@ if (empty($for_tourist)) {
 		?>
 		</tbody>
 	</table>
-<?php elseif ($for_tourist) : ?>
+<?php elseif (!empty($for_tourist)) : ?>
 	<p>There are no tours on record for this person. Click on "Join Tour" to add
 		this person to a current tour.</p>
 <?php endif;

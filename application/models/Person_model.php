@@ -300,7 +300,7 @@ class Person_model extends CI_Model {
 		]);
 	}
 
-	function delete($id) {
+	function delete($id): string {
 		$this->load->model('tourist_model', 'tourist');
 		if (count($this->tourist->get($id)) == 0) {
 			$address_id = $this->get($id, 'address_id')->address_id;
@@ -367,6 +367,7 @@ class Person_model extends CI_Model {
 			'email' => $preferences['email'],
 			'shirt_size' => $preferences['shirt_size'],
 			'is_veteran' => $preferences['is_veteran'],
+			'status' => $preferences['status'],
 		]);
 		// Merge the tours
 		if (!empty($duplicate->tours)) {

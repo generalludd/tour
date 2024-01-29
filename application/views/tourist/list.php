@@ -66,7 +66,7 @@ $buttons['print'] = [
                     <?php foreach ($payer->tourists as $tourist) : ?>
                     <?php if ($payer->is_cancelled == 0) : ?>
                     <?php $total_tourists++; ?>
-                    <?php $shirt_count = update_shirt_count($shirt_count, $tourist->shirt_size); ?>
+                    <?php update_shirt_count($shirt_count, $tourist->shirt_size); ?>
                     <?php endif; ?>
 
                     <?php $tourist_name = sprintf("%s %s", $tourist->first_name, $tourist->last_name); ?>
