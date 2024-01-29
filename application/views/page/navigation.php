@@ -35,6 +35,12 @@ $buttons [] = array (
 		"href" => site_url ( "tour" ),
 		"title" => "View the list of all tours" 
 );
+$buttons[] = [
+	'text' => 'Create Tour',
+	'href' => base_url('tour/create'),
+	'class' => ['button', 'new', 'dialog'],
+	'id' => 'tour',
+];
 
 $buttons [] = array (
 		"selection" => "person",
@@ -46,5 +52,11 @@ $buttons [] = array (
 		"href" => site_url ( "person" ),
 		"title" => "View a List of All People" 
 );
+
+$buttons [] = [
+	'text' => 'Add a New Person',
+	'href' => base_url('person/create'),
+	'class' => 'button new create-person',
+];
 
 print create_button_bar($buttons,['id'=>'navigation-buttons'] );

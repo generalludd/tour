@@ -3,7 +3,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // person.php Chris Dart Dec 10, 2013 8:15:47 PM chrisdart@cerebratorium.com
-class Person_model extends CI_Model {
+class Person_model extends MY_Model {
 
 	var $first_name;
 
@@ -78,21 +78,18 @@ class Person_model extends CI_Model {
 		$query->order_by('person.last_name')
 			->order_by('person.first_name');
 		$include_address = FALSE;
-		if (array_key_exists('veterans_only', $options) && $options['veterans_only']) {
-			$query->where('person.is_veteran !=', NULL);
-		}
-		if (array_key_exists('non_veterans', $options) && $options['non_veterans']) {
-			$query->where('person.is_veteran', NULL);
+		if(!empty($options['veterans'])){
+			if($options['veterans'] == 1) {
+				$query->where('is_veteran', 1);
+			}elseif($options['veterans'] == -1) {
+			  $query->where('is_veteran', NULL, FALSE);
+			}
 		}
 		// Show only active users by default.
 		if (empty($options['show_disabled'])) {
 			$query->where('status', 1);
 		}
-		if (array_key_exists('tour_id', $options) && $options['tour_id']) {
-			$tour_id = $options['tour_id'];
-			$query->join('tourist', 'tourist.person_id = person.id');
-			$query->where('tourist.tour_id', $tour_id);
-		}
+
 		if (array_key_exists('initial', $options) && $options['initial']) {
 			$initial = $options['initial'];
 			$query->like('last_name', $initial, 'after');
@@ -120,8 +117,7 @@ class Person_model extends CI_Model {
 			$query->order_by($field, $direction);
 		}
 		$query->group_by('person.id');
-		$result = $query->get()->result();
-		return $result;
+		return $query->get()->result();
 	}
 
 	function insert($include_address = FALSE) {

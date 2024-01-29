@@ -400,3 +400,14 @@ function get_page_title(string $title = NULL): string {
 	}
 	return $output;
 }
+
+/**
+ * @return string[]
+ */
+function veterans_choices(): array {
+	return [
+		'0' => '-Any-',
+		'1' => 'Veterans',
+		'-1' => 'Non-Veterans',
+	];
+}

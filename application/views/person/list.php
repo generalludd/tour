@@ -1,27 +1,10 @@
 <?php
+
 defined('BASEPATH') or exit ('No direct script access allowed');
-
-// list.php Chris Dart Dec 16, 2013 10:32:15 PM chrisdart@cerebratorium.com
 $this->load->view("person/alphabet");
-$buttons [] = [
-		'text' => 'Add a New Person',
-		'href' => base_url('person/create'),
-		'class' => 'button new create-person',
-];
-$buttons [] = [
-		'text' => 'Filter Results',
-		'href' => base_url('person/show_filter'),
-		'class' => 'button dialog view',
-];
-
-$buttons [] = [
-		'text' => 'Export Records',
-		'href' => site_url('/person/export'),
-		'class' => 'button export export-people-records',
-];
 
 ?>
-<?php if (!empty($filters)): ?>
+<?php if (!empty($filters)) : ?>
 	<fieldset>
 		<legend>Filters</legend>
 		<ul>
@@ -31,27 +14,29 @@ $buttons [] = [
 			foreach ($names as $name) :
 				?>
 				<?php
-				switch($name){
+				switch ($name) {
 					case 'initial':
-					$name = 'Limited to the Letter: ' . $filters [$name];
-					break;
+						$name = 'Limited to the Letter: ' . $filters [$name];
+						break;
 					case 'order_by':
-
-						[$identifier,$direction] = explode('-',$filters[$name]);
+						[$identifier, $direction] = explode('-', $filters[$name]);
 						[$table, $field] = explode('.', $identifier);
 						$field = str_replace('_', ' ', $field);
-						$name = sprintf('Sorted by: %s, %sending', ucwords($field) , ucfirst(strtolower($direction)) );
+						$name = sprintf('Sorted by: %s, %sending', ucwords($field), ucfirst(strtolower($direction)));
 						break;
 					case 'has_shirtsize':
 						$name = 'Has Shirt Size';
 						break;
+					case 'veterans':
+						$veterans = veterans_choices();
+						$name = $veterans[$filters[$name]];
+						break;
 					default:
-					$name = str_replace('_', ' ', $name);
-					$name = ucwords($name);
-					break;
-
+						$name = str_replace('_', ' ', $name);
+						$name = ucwords($name);
+						break;
 				}
-			
+
 				?>
 				<li><?php print $name; ?></li>
 			<?php endforeach; ?>
@@ -64,7 +49,27 @@ $buttons [] = [
 	<br/>
 	Total Address Count: <?php print $address_count; ?>
 </p>
-<?php print create_button_bar($buttons); ?>
+<?php
+$buttons [] = [
+	'text' => 'Add a New Person',
+	'href' => base_url('person/create'),
+	'class' => 'button new create-person',
+];
+
+$buttons[] = [
+	'text' => 'Filter Results',
+	'href' => base_url('person/show_filter'),
+	'class' => 'button dialog view',
+];
+
+$buttons [] = [
+	'text' => 'Export Records',
+	'href' => site_url('/person/export'),
+	'class' => 'button export export-people-records',
+];; ?>
+
+<?php print create_button_bar($buttons);
+?>
 <table class="list" id="person-list">
 	<thead>
 	<tr>
@@ -79,25 +84,27 @@ $buttons [] = [
 	<?php foreach ($people as $person): ?>
 		<?php $disabled = $person->status == 0 ? 'highlight' : ''; ?>
 		<tr class="<?php print $disabled; ?>">
-			<td><a href="<?php print site_url('person/view/' . $person->id); ?>" title="View <?php print $person->first_name; ?>'s details.">
-				<?php echo $person->first_name . ' ' . $person->last_name; ?></a>
+			<td><a href="<?php print site_url('person/view/' . $person->id); ?>"
+						 title="View <?php print $person->first_name; ?>'s details.">
+					<?php echo $person->first_name . ' ' . $person->last_name; ?></a>
 			</td>
 			<td><?php echo $person->email; ?></td>
 			<td><?php echo $person->shirt_size; ?></td>
-			<td><?php echo $person->is_veteran ? 'Yes' : 'No'; ?></td>
-			<td><?php echo $person->status ? 'Yes' : 'No'; ?></td>
+			<td><?php echo $person->is_veteran ? '✅' : '🚫'; ?></td>
+			<td><?php echo $person->status ? '✅' : '🚫'; ?></td>
 
 			<td>
-				<a href="<?php print site_url('person/view/' . $person->id); ?>"  title="View <?php print $person->first_name; ?>'s details."
-				   class="button small">View</a>
+				<a href="<?php print site_url('person/view/' . $person->id); ?>"
+					 title="View <?php print $person->first_name; ?>'s details."
+					 class="button small">View</a>
 			</td>
 			<td>
 				<?php
 
 				$button = [
-						'text' => 'Join Tour',
-						'class' => 'button new small select-tour',
-						'href' => base_url('tour/show_current/' . $person->id),
+					'text' => 'Join Tour',
+					'class' => 'button new small select-tour',
+					'href' => base_url('tour/show_current/' . $person->id),
 				];
 				print create_button($button);
 				?>

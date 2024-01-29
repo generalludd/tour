@@ -62,32 +62,19 @@ class Person extends MY_Controller {
 		$this->load->view($target, $data);
 	}
 
-	/**
-	 *
-	 */
-	function view_next($id): void {
-		$next_id = $this->person->get_next_person($id);
-		redirect('person/view/' . $next_id);
-	}
 
 	/**
-	 *
 	 */
-	function view_previous($id): void {
-		$next_id = $this->person->get_previous_person($id);
-		redirect('person/view/' . $next_id);
-	}
-
-	/**
-	 * @param array $options
-	 */
-	function view_all(array $options = []): void {
+	function view_all(): void {
 		burn_cookie('person_filter');
 		$filters = [];
 		$initial = FALSE;
 		if ($this->input->get('initial')) {
 			$initial = $this->input->get('initial');
 			$filters['initial'] = $initial;
+		}
+		if($this->input->get('veterans')){
+			$filters['veterans'] = $this->input->get('veterans');
 		}
 		if ($this->input->get('veterans_only')) {
 			$filters['veterans_only'] = TRUE;
@@ -310,6 +297,7 @@ class Person extends MY_Controller {
 	 *
 	 */
 	function show_filter(): void {
+		$data['filters'] = unserialize($this->input->cookie('person_filters'));
 		$data['initials'] = get_keyed_pairs($this->person->get_initials(), [
 			'initial',
 			'initial',
@@ -478,5 +466,7 @@ class Person extends MY_Controller {
 		redirect('person/view/' . $source_id);
 
 	}
+
+
 
 }
