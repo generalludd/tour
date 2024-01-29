@@ -6,26 +6,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * update a list of shirt sizes by grouping
  *
- * @param unknown $shirt_count
- * @param unknown $shirt_size
- * @return number
+ * @param array $shirt_count
+ * @param string $shirt_size
+ *
  */
-function update_shirt_count ($shirt_count, $shirt_size)
-{
-    if ($shirt_size == NULL || empty($shirt_size)) {
+function update_shirt_count (array &$shirt_count, string $shirt_size): void {
+    if (empty($shirt_size)) {
         $shirt_size = "Unknown";
     }
-    if (array_key_exists($shirt_size, $shirt_count)) {
+    if (!empty($shirt_count[$shirt_size])) {
         $shirt_count[$shirt_size] ++;
     } else {
         $shirt_count[$shirt_size] = 1;
     }
 
-    return $shirt_count;
 }
 
-function sort_shirts ($shirt_list, $format = "inline")
-{
+function sort_shirts ($shirt_list, $format = "inline"): array|string {
     $shirts = array_custom_sort($shirt_list, array(
             "Unknown",
             "S",

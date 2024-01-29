@@ -8,6 +8,10 @@ body {
 	padding-top: 0px;
 }
 
+article {
+	gap: 1rem;
+}
+
 #page {
 	margin-left: auto;
 	margin-right: auto;
@@ -745,7 +749,8 @@ textarea.save-field {
 .diptych {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-gap: 1rem;
+	grid-template-rows: auto auto;
+	gap: 1rem;
 }
 
 li.diptych {
@@ -1015,4 +1020,14 @@ ul.list li {
 	display: none;
 	background-color: white;
 	width: 50%;
+}
+details {
+	border: 1px solid #ccc;
+}
+summary {
+cursor: pointer;
+	padding: 1.25rem 2.5rem 1.25rem 1.5rem;
+
+	list-style-type: none;
+	background: #eee url(/images/down-arrow.svg) 95% 50% no-repeat;
 }

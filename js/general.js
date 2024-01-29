@@ -47,7 +47,7 @@ $(document).ready(function () {
 		const field_id = $(this).attr('id');
 		const my_url = $(this).data('url');
 		const my_target = $(this).data('target');
-		if (my_name.length > 3) {
+		if (my_name.length > 0) {
 			let form_data = {
 				ajax: 1,
 				name: my_name

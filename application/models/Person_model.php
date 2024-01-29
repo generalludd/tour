@@ -1,8 +1,9 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // person.php Chris Dart Dec 10, 2013 8:15:47 PM chrisdart@cerebratorium.com
-class Person_model extends CI_Model {
+class Person_model extends MY_Model {
 
 	var $first_name;
 
@@ -20,8 +21,7 @@ class Person_model extends CI_Model {
 
 	var $is_veteran;
 
-
-	function prepare_variables() {
+	function prepare_variables(): void {
 		$variables = [
 			'first_name',
 			'last_name',
@@ -34,13 +34,12 @@ class Person_model extends CI_Model {
 		prepare_variables($this, $variables);
 	}
 
-	function get($id, $fields = FALSE) {
+	function get($id, $fields = FALSE): ?object {
 		$this->db->where('person.id', $id);
 		$this->db->from('person');
 		if ($fields) {
 			$this->db->select($fields);
 		}
-
 
 		$person = $this->db->get()->row();
 		$this->load->model('phone_model', 'phone');
@@ -74,30 +73,26 @@ class Person_model extends CI_Model {
 	 *
 	 *
 	 */
-	function get_all(array $options = []) {
+	function get_all(array $options = []): array {
 		$query = $this->db->select('person.*');
 		$query->order_by('person.last_name')
 			->order_by('person.first_name');
 		$include_address = FALSE;
-		if (array_key_exists('veterans_only', $options) && $options['veterans_only']) {
-			$query->where('person.is_veteran !=', NULL);
-		}
-		if (array_key_exists('non_veterans', $options) && $options['non_veterans']) {
-			$query->where('person.is_veteran', NULL);
+		if(!empty($options['veterans'])){
+			if($options['veterans'] == 1) {
+				$query->where('is_veteran', 1);
+			}elseif($options['veterans'] == -1) {
+			  $query->where('is_veteran', NULL, FALSE);
+			}
 		}
 		// Show only active users by default.
 		if (empty($options['show_disabled'])) {
 			$query->where('status', 1);
 		}
-		if (array_key_exists('tour_id', $options) && $options['tour_id']) {
-			$tour_id = $options['tour_id'];
-			$query->join('tourist', 'tourist.person_id = person.id');
-			$query->where('tourist.tour_id', $tour_id);
-		}
+
 		if (array_key_exists('initial', $options) && $options['initial']) {
 			$initial = $options['initial'];
 			$query->like('last_name', $initial, 'after');
-
 		}
 		if (!empty($options['email_only'])) {
 			$query->where('email !=', NULL);
@@ -118,13 +113,11 @@ class Person_model extends CI_Model {
 		$query->from('person');
 
 		if (!empty($options['order_by'])) {
-
 			[$field, $direction] = $values = explode('-', $options['order_by']);
 			$query->order_by($field, $direction);
 		}
 		$query->group_by('person.id');
-		$result = $query->get()->result();
-		return $result;
+		return $query->get()->result();
 	}
 
 	function insert($include_address = FALSE) {
@@ -212,11 +205,10 @@ class Person_model extends CI_Model {
 	 *
 	 * @return array of objects
 	 */
-	function get_residents($address_id) {
+	function get_residents($address_id): array {
 		$this->db->from('person');
 		$this->db->where('address_id', $address_id);
-		$result = $this->db->get()->result();
-		return $result;
+		return $this->db->get()->result();
 	}
 
 	/**
@@ -295,7 +287,6 @@ class Person_model extends CI_Model {
 			'status' => 0,
 		]);
 		$this->session->set_flashdata('notice', 'This person\'s record has been disabled. It could not be deleted because is connected to at least one tour.');
-
 	}
 
 	function restore($id) {
@@ -305,9 +296,7 @@ class Person_model extends CI_Model {
 		]);
 	}
 
-	function delete($id) {
-		$person = $this->get($id);
-
+	function delete($id): string {
 		$this->load->model('tourist_model', 'tourist');
 		if (count($this->tourist->get($id)) == 0) {
 			$address_id = $this->get($id, 'address_id')->address_id;
@@ -325,10 +314,98 @@ class Person_model extends CI_Model {
 			return 'deleted';
 		}
 		else {
-
 			$this->disable($id);
 			return 'disabled';
 		}
+	}
+
+	/**
+	 * @param $person_id
+	 *
+	 * @return array
+	 *
+	 * Get a list of people who have the same first and last name as the person.
+	 */
+	function get_duplicates($person_id): array {
+		$person = $this->get($person_id);
+		$this->db->from('person')
+			->select('id')
+			->where('first_name', $person->first_name)
+			->like('last_name', $person->last_name, 'after')
+			->where('id !=', $person_id);
+		$ids = $this->db->get()->result();
+		$output = [];
+		if (!empty($ids)) {
+			foreach ($ids as $id) {
+				$output[] = $this->get($id->id);
+			}
+		}
+		return $output;
+	}
+
+	function merge($source_id, $duplicate_id, array $preferences): void {
+		// get the source person, address and phone.
+		$source = $this->get($source_id);
+		$this->load->model('tourist_model', 'tourist');
+		$source->tours = $this->tourist->get_by_tourist($source_id);
+		$duplicate = $this->get($duplicate_id);
+		$duplicate->tours = $this->tourist->get_by_tourist($duplicate_id);
+		if (!empty($preferences['phones'])) {
+			foreach ($preferences['phones'] as $phone) {
+				$this->db->where('phone_id', $phone)
+					->update('phone_person', ['person_id' => $source->id]);
+			}
+		}
+
+		// Update the addresses.
+		$this->update($source->id, [
+			'address_id' => $preferences['address_id'],
+			'email' => $preferences['email'],
+			'shirt_size' => $preferences['shirt_size'],
+			'is_veteran' => $preferences['is_veteran'],
+			'status' => $preferences['status'],
+		]);
+		// Merge the tours
+		if (!empty($duplicate->tours)) {
+			foreach ($duplicate->tours as $tour) {
+				if ($tour->person_id === $tour->payer_id) {
+					$this->db->where('tour_id', $tour->tour_id)
+						->where('payer_id', $tour->payer_id)
+						->update('payer', ['payer_id' => $source->id]);
+					$this->db->where('tour_id', $tour->tour_id)
+						->where('payer_id', $tour->payer_id)
+						->update('tourist', ['payer_id' => $source->id]);
+				}
+
+				// Update the tourist record.
+				// first check that the new record does not exist:
+				$exists = $this->db->from('tourist')->where('tour_id', $tour->tour_id)
+					->where('person_id', $source->id)
+					->where('payer_id', $tour->payer_id)
+					->get()->row();
+				if(!empty($exists)) {
+					// It already exists, delete the duplicate tour record.
+					$this->db->where('tour_id', $tour->tour_id)
+						->where('person_id', $tour->person_id)
+						->where('payer_id', $tour->payer_id)
+						->delete('tourist');
+				}else {
+					$this->db->where('tour_id', $tour->tour_id)
+						->where('person_id', $tour->person_id)
+						->update('tourist', ['person_id' => $source->id]);
+				}
+
+				// update the payer record
+
+				// Update roommate records.
+				$this->db->where('tour_id', $tour->tour_id)
+					->where('person_id', $tour->person_id)
+					->update('roommate', ['person_id' => $source->id]);
+			}
+		}
+		// finally delete the duplicate;
+		$this->delete($duplicate->id);
+		$this->session->set_flashdata('alert', 'The duplicate record has been merged and deleted.');
 	}
 
 }
