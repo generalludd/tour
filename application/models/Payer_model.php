@@ -240,6 +240,12 @@ class Payer_model extends My_Model {
 	 * @return mixed
 	 */
 	public function getRateValues(int $tour_id, mixed $price_levels) {
+		if(!in_array($price_levels->room_size, ['single_room', 'triple_room', 'quad_room','double_room'])){
+			$price_levels->room_size = 'double_room';
+		}
+		if(empty($price_levels->payment_type)){
+			$price_levels->payment_type = 'full_price';
+		}
 		return $this->db->from('tour')
 			->where('id', $tour_id)
 			->select([$price_levels->payment_type, $price_levels->room_size])

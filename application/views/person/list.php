@@ -1,12 +1,12 @@
 <?php
 
 defined('BASEPATH') or exit ('No direct script access allowed');
-$this->load->view("person/alphabet");
+//$this->load->view("person/alphabet");
 
 ?>
 <?php if (!empty($filters)) : ?>
-	<fieldset>
-		<legend>Filters</legend>
+	<details>
+		<summary>Filters</summary>
 		<ul>
 			<?php
 
@@ -42,7 +42,7 @@ $this->load->view("person/alphabet");
 			<?php endforeach; ?>
 
 		</ul>
-	</fieldset>
+	</details>
 <?php endif; ?>
 <p class="message">
 	Total Person Count: <?php print count($people); ?>

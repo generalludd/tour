@@ -1,7 +1,7 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-if (empty($initials) || empty($shirtsize_choice) || empty($order_by_options) || empty($veterans_choice)) {
+if (empty($initials) || empty($shirtsize_choice) || empty($order_by_options)) {
 	return NULL;
 }
 

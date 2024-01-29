@@ -1021,3 +1021,13 @@ ul.list li {
 	background-color: white;
 	width: 50%;
 }
+details {
+	border: 1px solid #ccc;
+}
+summary {
+cursor: pointer;
+	padding: 1.25rem 2.5rem 1.25rem 1.5rem;
+
+	list-style-type: none;
+	background: #eee url(/images/down-arrow.svg) 95% 50% no-repeat;
+}
