@@ -1,5 +1,5 @@
-/application/config/database.php
-/application/logs/*
+/web/application/config/database.php
+/web/application/logs/*
 .project
 .settings
 .settings/*
