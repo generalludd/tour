@@ -1,4 +1,4 @@
-/web/application/config/database.php
+web/application/config/database.php
 /web/application/logs/*
 .project
 .settings
