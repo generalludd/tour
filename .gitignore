@@ -10,3 +10,6 @@
 /user_guide/*
 .
 /sites/default/settings.php
+/.ddev/docker-compose.phpmyadmin.yaml
+/.ddev/docker-compose.phpmyadmin-norouter.yaml
+/.ddev/commands/host/phpmyadmin
