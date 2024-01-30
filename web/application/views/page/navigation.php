@@ -32,12 +32,12 @@ $buttons [] = array (
 				"button",
 				"show-tours" 
 		),
-		"href" => site_url ( "tour" ),
+		"href" => site_url ( 'tours' ),
 		"title" => "View the list of all tours" 
 );
 //$buttons[] = [
 //	'text' => 'Create Tour',
-//	'href' => base_url('tour/create'),
+//	'href' => base_url('tours/create'),
 //	'class' => ['button', 'new', 'dialog'],
 //	'id' => 'tour',
 //];

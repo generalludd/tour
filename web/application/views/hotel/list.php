@@ -13,7 +13,7 @@ $buttons[] = [
 ];
 $buttons[] = [
 		"text" => "Tour Details",
-		"href" => site_url("tour/view/$tour->id"),
+		"href" => site_url("tours/view/$tour->id"),
 		"class" => "button tour-details",
 ];
 
@@ -25,7 +25,7 @@ $buttons[] = [
 
 ?>
 <h3>
-	Hotels for Tour: <a href="<?php print site_url("tour/view/$tour->id"); ?>"
+	Hotels for Tour: <a href="<?php print site_url("tours/view/$tour->id"); ?>"
 											title="View tour details"><?php print $tour->tour_name; ?></a>
 </h3>
 <?php print create_button_bar($buttons); ?>

@@ -50,7 +50,7 @@ if ($stay < $last_stay) {
 	];
 }
 ?>
-<h3><?php print sprintf("Roommates for Tour: <a href='%s'>%s</a>, Stay: %s", site_url("tour/view/$tour_id"), $hotel->tour_name, $stay); ?></h3>
+<h3><?php print sprintf("Roommates for Tour: <a href='%s'>%s</a>, Stay: %s", site_url("tours/view/$tour_id"), $hotel->tour_name, $stay); ?></h3>
 <div
 		class="block hotel-info info-block"
 		id="hotel-info"

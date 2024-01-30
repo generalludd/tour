@@ -62,7 +62,7 @@
 	<?php endif; ?>
 	<?php $buttons[] = [
 			'text' => 'Join Past Tour',
-			'href' => base_url('tour/show_missed_tours/' . $id),
+			'href' => base_url('tours/show_missed_tours/' . $id),
 			'class' => 'button new mini  select-tour',
 			'title' => 'Add to a tour that happened in the past',
 	];

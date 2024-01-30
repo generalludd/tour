@@ -3,7 +3,7 @@
 // list.php Chris Dart Dec 28, 2013 4:47:05 PM chrisdart@cerebratorium.com
 ?>
 <h2><?php print $tour->tour_name;?></h2>
-<?php $buttons[] = array("text"=> "Tour Details", "href" => site_url("tour/edit/$tour->id"), "class"=>"button mini show-tour");?>
+<?php $buttons[] = array("text"=> "Tour Details", "href" => site_url("tours/edit/$tour->id"), "class"=>"button mini show-tour");?>
 <?php print create_button_bar($buttons);?>
 <table class="list">
 	<thead>
