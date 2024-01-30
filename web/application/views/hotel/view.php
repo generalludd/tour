@@ -80,7 +80,7 @@ $buttons [] = [
 		<div class="field-envelope" id="field-tour_id">
 			<label>Tour Name:&nbsp;</label>
 			<a class="field" id="tour_name"
-				 href="<?php print site_url("tour/view/$hotel->tour_id"); ?>"><?php print $hotel->tour_name; ?></a>
+				 href="<?php print site_url("tours/view/$hotel->tour_id"); ?>"><?php print $hotel->tour_name; ?></a>
 		</div>
 		<?php
 		$tour_info = [

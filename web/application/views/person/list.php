@@ -104,7 +104,7 @@ $buttons [] = [
 				$button = [
 					'text' => 'Join Tour',
 					'class' => 'button new small select-tour',
-					'href' => base_url('tour/show_current/' . $person->id),
+					'href' => base_url('tours/show_current/' . $person->id),
 				];
 				print create_button($button);
 				?>

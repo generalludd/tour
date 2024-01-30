@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // tour.php Chris Dart Dec 13, 2013 7:53:18 PM chrisdart@cerebratorium.com
-class Tour extends MY_Controller {
+class Tours extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
@@ -99,7 +99,7 @@ class Tour extends MY_Controller {
 			$data['identifiers'] = [
 				'tour_id' => $tour->id
 			];
-			$data['action'] = 'tour/delete';
+			$data['action'] = 'tours/delete';
 			$data['message'] = 'You can only delete a tour for which there are no current participants.';
 			$data['target'] = 'dialogs/delete';
 			$data['title'] = 'Delete ' . $tour->tour_name;
@@ -121,7 +121,7 @@ class Tour extends MY_Controller {
 				$this->session->set_flashdata('alert', $tour->tour_name . ' has been deleted.');
 
 			}
-			redirect('tour/view_all');
+			redirect('tours/view_all');
 		}
 	}
 

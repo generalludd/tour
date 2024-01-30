@@ -7,7 +7,7 @@
 
 <h4>Letter Template</h4>
 <p>
-For <a href="<?php print site_url("tour/view/$tour->id");?>"><?php print $tour->tour_name;?></a><br/>
+For <a href="<?php print site_url("tours/view/$tour->id");?>"><?php print $tour->tour_name;?></a><br/>
 <?php print format_date($tour->start_date, "standard");?> to <?php print format_date($tour->end_date);?><br/>
 Payment Deadline: <?php print format_date($tour->due_date);?>
 </p>

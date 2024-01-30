@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			ajax: 1,
 		};
 		let query = new URLSearchParams(form_data).toString();
-		fetch(base_url + 'tour/get_value?' + query)
+		fetch(base_url + 'tours/get_value?' + query)
 			.then(response => response.json())
 			.then(data => {
 				output = data;

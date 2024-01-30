@@ -160,7 +160,7 @@ $(document).ready(function () {
 				url: base_url + "letter/delete",
 				data: form_data,
 				success: function (data) {
-					window.location.href = base_url + "tour/view/" + my_id[2];
+					window.location.href = base_url + "tours/view/" + my_id[2];
 
 
 				}

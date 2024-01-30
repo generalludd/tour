@@ -12,7 +12,7 @@ $total_tourists = 0;
 $shirt_count = [];
 $buttons[] = [
 	'text' => 'Edit Tour Details',
-	'href' => site_url('tour/edit/' . $tour->id),
+	'href' => site_url('tours/edit/' . $tour->id),
 	'class' => 'button edit dialog',
 ];
 $buttons[] = [
@@ -22,7 +22,7 @@ $buttons[] = [
 ];
 $buttons[] = [
 	'text' => 'Letter Templates',
-	'href' => site_url('tour/letters/' . $tour->id),
+	'href' => site_url('tours/letters/' . $tour->id),
 	'class' => 'button dialog edit',
 ];
 $buttons[] = [
