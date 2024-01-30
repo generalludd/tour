@@ -32,7 +32,7 @@ $buttons [] = array (
 				"button",
 				"show-tours" 
 		),
-		"href" => site_url ( "tour" ),
+		"href" => site_url ( 'tours' ),
 		"title" => "View the list of all tours" 
 );
 //$buttons[] = [
