@@ -81,7 +81,7 @@ class Letter extends MY_Controller
     	if($id = $this->input->post("id")){
     		$tour_id = $this->input->post("tour_id");
     		$this->letter->delete($id);
-    		redirect("tour/view/$tour_id");
+    		redirect("tours/view/$tour_id");
     	}
     }
 }

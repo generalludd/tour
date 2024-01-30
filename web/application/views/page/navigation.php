@@ -37,7 +37,7 @@ $buttons [] = array (
 );
 //$buttons[] = [
 //	'text' => 'Create Tour',
-//	'href' => base_url('tour/create'),
+//	'href' => base_url('tours/create'),
 //	'class' => ['button', 'new', 'dialog'],
 //	'id' => 'tour',
 //];

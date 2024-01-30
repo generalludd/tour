@@ -5,7 +5,7 @@ if(empty($action) || empty($tour)){
 }
 ?>
 
-<form name="tour-editor" action="<?php print site_url('tour/' . $action); ?>"
+<form name="tour-editor" action="<?php print site_url('tours/' . $action); ?>"
 	  method="post">
 	<input type="hidden" value="<?php print get_value($tour, "id"); ?>"
 		   name="id" id="id"/>
@@ -140,7 +140,7 @@ if(empty($action) || empty($tour)){
 	<input type="submit" name="save" id="save"
 		   value="<?php print ucwords($action); ?>"/>
 	<?php if (!empty($tour->id) && empty($tour->tourists)): ?>
-		<a href="<?php print base_url('tour/delete?tour_id=' . $tour->id); ?>"
+		<a href="<?php print base_url('tours/delete?tour_id=' . $tour->id); ?>"
 		   class="delete-tour delete button dialog">Delete</a>
 	<?php endif; ?>
 

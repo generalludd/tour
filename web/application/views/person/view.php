@@ -11,7 +11,7 @@ $buttons[] = [
 ];
 $buttons[] = [
 	"text" => "Join Tour",
-	"href" => base_url('tour/show_current/' . $person->id),
+	"href" => base_url('tours/show_current/' . $person->id),
 	"class" => "button new mini select-tour",
 	"id" => sprintf("join-tour_%s", $person->id),
 ];

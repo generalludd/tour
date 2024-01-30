@@ -9,12 +9,12 @@ if(empty($title)){
 if (empty($for_tourist)) {
 	$buttons[] = [
 		'text' => 'Create Tour',
-		'href' => base_url('tour/create'),
+		'href' => base_url('tours/create'),
 		'class' => ['button', 'new', 'dialog'],
 		'id' => 'tour',
 	];
 	$buttons['show_tours'] = [
-		'href' => base_url('tour/view_all?archived=' . $archived),
+		'href' => base_url('tours/view_all?archived=' . $archived),
 		'class' => ['button'],
 		'id' => 'tour',
 	];
@@ -52,7 +52,7 @@ if (empty($for_tourist)) {
 		<tr class="<?php print $row_class; ?>">
 			<td>
 
-				<a href="<?php print site_url("tour/view/$tour->id"); ?>">
+				<a href="<?php print site_url("tours/view/$tour->id"); ?>">
 					<?php print $tour->tour_name; ?>
 				</a>
 			</td>
@@ -89,7 +89,7 @@ if (empty($for_tourist)) {
 							 href="<?php print site_url("/tourist/view_all/$tour->id"); ?>">Tourists</a>
 				</td>
 				<td><a class="button show-letters small dialog"
-							 href="<?php print site_url("/tour/letters/$tour->id"); ?>">Letter
+							 href="<?php print site_url("/tours/letters/$tour->id"); ?>">Letter
 						Templates</a></td>
 				</tr>
 			<?php
