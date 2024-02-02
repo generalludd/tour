@@ -75,14 +75,10 @@ td:last-child {
 }
 
 .button {
-	-border-radius: 3px;
-	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	text-align: center;
 	position: static;
-	padding: .15em;
-	padding-right: .25em;
-	padding-left: .25em;
+	padding: .15em .25em;
 	border-style: solid;
 	border-width: 1px;
 	cursor: pointer;
