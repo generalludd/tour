@@ -14,7 +14,7 @@
 
 	</div>
 <?php endif; ?>
-<?php if (BACKUP_STATUS > 5): ?>
+<?php if (BACKUP_STATUS > BACKUP_THRESHOLD): ?>
 	<div class="message warning">
 		<div class="content">
 			It has been over <?php echo round(BACKUP_STATUS / 60 / 60 / 24, 0); ?>

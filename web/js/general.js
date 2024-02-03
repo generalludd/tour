@@ -9,30 +9,6 @@ $(document).ready(function () {
 	});
 	// trim all inputs on blur
 
-	$(document).on("click", '.delete-action', function (e) {
-		e.preventDefault();
-		let my_id = $(this).data('id');
-		let my_redirect = $(this).data('redirect');
-		console.log(my_redirect);
-		let my_url = $(this).attr('href');
-			let do_delete = confirm("Are you sure you want to delete this record? This is permanent!");
-			if (!do_delete) {
-				return false;
-			}
-			let form_data = {
-				id: my_id,
-				redirect: my_redirect,
-				ajax: 1,
-			}
-			$.ajax({
-				url: my_url,
-				method: 'POST',
-				data: form_data,
-				success: function (data){
-					window.location.href = data;
-				}
-			})
-	});
 
 	$(document).on('keyup','.person-search', function(event) {
 		const my_name = this.value;
