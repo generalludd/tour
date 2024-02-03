@@ -17,6 +17,7 @@
 var base_url = '<?php print base_url("index.php") . "/";?>';
 var root_url = '<?php print base_url();?>';
 </script>
+<script type="text/javascript" src="<?php print base_url('js/utility.js');?>"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

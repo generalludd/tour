@@ -1,0 +1,13 @@
+
+.message {
+	display: flex;
+	transition: all 5000ms ease-out;
+	justify-content: space-between;
+
+	.close {
+		cursor: pointer;
+		width: 1rem;
+		height: 1rem;
+
+	}
+}
