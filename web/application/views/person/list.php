@@ -1,7 +1,7 @@
 <?php
 
 defined('BASEPATH') or exit ('No direct script access allowed');
-//$this->load->view("person/alphabet");
+$this->load->view("person/alphabet");
 
 ?>
 <?php if (!empty($filters)) : ?>
