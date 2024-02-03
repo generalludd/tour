@@ -9,7 +9,7 @@ if (!defined('BASEPATH')) {
  *
  * @param array $data
  *
- * @return string boolean array
+ * @return bool|string boolean array
  *         required:
  *         "text" key for the button text
  *         optional:
@@ -50,7 +50,6 @@ if (!defined('BASEPATH')) {
  *         );
  *         returns:<span id="edit-record-span"><span class="button edit-record"
  *         id="er_2532">Edit Record</span></span>
- *
  */
 function create_button(array $data): bool|string {
 	if (array_key_exists("text", $data)) {
@@ -138,57 +137,78 @@ function create_button(array $data): bool|string {
 		return FALSE;
 	}
 }
+function get_button_bar_object(array $buttons, array $options = []): object {
+	$button_bar = new stdClass();
+	$button_bar->classes = ['button-list'];
+	if ($options) {
+		if (!empty($options["id"])) {
+			$button_bar->id = $options["id"];
+		}
 
+		if (!empty($options["selection"])) {
+			$button_bar->selection = $options["selection"];
+		}
+
+		if (!empty($options["class"])) {
+			if(!is_array($options["class"])){
+				$options["class"] = [$options["class"]];
+			}
+			$button_bar->classes = array_merge($button_bar->classes,$options["class"]);
+		}
+	}
+	$button_bar->buttons = [];
+
+	// the "selection" option indicates the page in the interface. Currently as
+	// indicated by the uri->segment(1)
+	foreach ($buttons as $button) {
+		if (array_key_exists("selection", $button) && !empty($button_bar->selection)) {
+			if ($button["selection"] == $button_bar->selection) {
+
+				if (!empty($button["class"])) {
+					if(!is_array($button["class"])){
+						$button["class"] = [$button["class"]];
+					}
+					$button["class"][]= "active";
+				}
+				else {
+					$button["class"][] = "button";
+				}
+			}
+		}
+		$button_bar->buttons[] = $button;
+	}
+	$button_bar->options = $options;
+	return $button_bar;
+}
 /**
  *
- * @param compound array $buttons
+ * @param array $buttons
  * @param array $options
  *
- * @return string Using the create_button function aove, this accepts an array
+ * @return string
+ *
+ * Using the create_button function, this accepts an array
  *         of button arrays
  *         and an optional array including id,
  *         selection, which is passed along to the create_button array.
  *         class, which provides class values for the button bar.
  */
-function create_button_bar($buttons, $options = NULL): string {
-	$id = "";
-	$selection = "";
-	$class = "mini";
-	if ($options) {
-		if (array_key_exists("id", $options)) {
-			$id = sprintf("id='%s'", $options["id"]);
-		}
-
-		if (array_key_exists("selection", $options)) {
-			$selection = $options["selection"];
-		}
-
-		if (array_key_exists("class", $options)) {
-			$class = $options["class"];
-		}
+function create_button_bar(array $buttons, array $options = []): string {
+	$button_bar = get_button_bar_object($buttons, $options);
+	$classes = implode(' ', $button_bar->classes);
+	$id = '';
+	if(!empty($button_bar->id)){
+		$id = 'id="' . $button_bar->id . '"';
 	}
-	$button_list = [];
-
-	// the "selection" option indicates the page in the interface. Currently as
-	// indicated by the uri->segment(1)
-	foreach ($buttons as $button) {
-		if (array_key_exists("selection", $button)) {
-			if ($button["selection"] == $selection) {
-
-				if (array_key_exists("class", $button)) {
-					$button["class"] .= " active";
-				}
-				else {
-					$button["class"] = "button active";
-				}
-			}
-		}
-		$button_list[] = create_button($button);
+	$output_buttons = [];
+	foreach($button_bar->buttons as $button){
+		$output_buttons[] = create_button($button);
 	}
-
-	$contents = implode("</div><div class='button-item'>", $button_list);
-	$template = "<div class='button-list'><div class='button-item'>$contents</div></div>";
-	$output = "<div class='button-box $class'  $id>$template</div>";
+	$rendered_buttons = '<div class="button-item">';
+	$rendered_buttons .= implode("</div><div class='button-item'>", $output_buttons);
+	$rendered_buttons .= '</div>';
+	$template = "<div class='$classes'>$rendered_buttons</div>";
+	$output = "<div class='button-box' $id >$template</div>";
 	return $output;
 }
 

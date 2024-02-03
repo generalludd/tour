@@ -224,38 +224,16 @@ div.entry, div.list {
 	box-shadow: 1px 1px 2px #333;
 }
 
-#navigation .button, .login .button {
-	padding: .7em;
-	font-size: 1.1em;
-}
 
-.button, input[type="submit"] {
-	text-align: center;
-	/*position: static;*/
-	padding: .2em .4em;
-	border: 1px solid black;
-	cursor: pointer;
-	/*font-size: 1.1em;*/
-	font-weight: normal;
-	font-size: inherit;
-	white-space: nowrap;
-}
 
-td .button, .row .button, .button.small {
-	font-size: .9em;
-	padding: .1em .5em;
-}
 
 tr.row-break td {
 	border-top: solid 1px black !important;
 }
 
-.button:hover {
-	cursor: pointer;
-}
 
 
-input[type="text"], input[type="email"], input[type="number"], input[type="tel"], input[type="url"], input[type="date"], input[type="time"], textarea {
+input:not[type="submit"], textarea {
 	border: 1px solid gray;
 	border-radius: .25rem;
 	padding: .25rem;
@@ -300,39 +278,7 @@ input[type="time"] {
 	cursor: pointer;
 }
 
-.button-list {
-	list-style: none;
-	padding-left: 0;
-	display: flex;
-	flex-flow: row wrap;
-}
 
-.button-list div.button-item {
-	display: flex;
-	flex-flow: column wrap;
-	padding: .35em 0 .35em .25em;
-}
-
-.button-list div.button-item .button, .button-list div.button-item input {
-	margin: 0 5px;
-	/*font-size: 1.2em;*/
-}
-
-.button-list div.button-item .button.delete {
-	/*margin-top: -5px;*/
-
-}
-
-.mini-buttons .button-list div.button-item .button {
-	margin: 0 1px;
-}
-
-.button.letter {
-	padding-left: .5em;
-	padding-right: .5em;
-	margin-left: .2em !important;
-	margin-right: .2em !important;
-}
 
 .help {
 
@@ -383,15 +329,6 @@ legend {
 	padding: 1px;
 }
 
-/*#navigation {*/
-/*	position: relative;*/
-/*	float: left;*/
-/*	width: 95%;*/
-/*	padding: .75em 0 0 1em;*/
-/*	height: 3em;*/
-/*	min-width: 700px;*/
-/*	margin-bottom: .5em;*/
-/*}*/
 
 
 #utility {
@@ -404,7 +341,8 @@ legend {
 	margin: 0em;
 }
 
-/* end header page layout elements */ /*main div layout elements */
+/* end header page layout elements */
+/*main div layout elements */
 #main {
 	position: relative;
 	padding: 0 2em 2em 2em;
@@ -510,22 +448,13 @@ label {
 	display: grid;
 	grid-template-rows: 1fr 1fr;
 }
+
 .input-block.horizontal label:after {
 	content: ":"
 }
 
 
-a.button {
-	text-decoration: none;
-}
 
-
-.button-bar {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-}
 
 #search-list {
 	position: absolute;
@@ -652,10 +581,6 @@ fieldset.advanced div.advanced {
 }
 
 
-.login div.button-list .button-item {
-	margin: 0 .5em;
-}
-
 #feedback-editor {
 	width: 30em;
 }
@@ -708,6 +633,7 @@ textarea.save-field {
 .room-row.column {
 	width: 30%;
 }
+
 .triptych {
 	display: grid;
 	grid-template-columns: 1fr;
@@ -874,13 +800,9 @@ label.above {
 	display: block;
 	padding-top: 1em;
 	padding-bottom: .5em;
-	/*float: left;*/
 }
 
-.contact-row .button.edit {
-	display: block;
-	float: left;
-}
+
 
 .address-street-field {
 	width: 14em;
@@ -888,44 +810,6 @@ label.above {
 
 .address-state-field {
 	width: 3em;
-}
-
-#word-icon {
-	background-position: -380px -20px;
-	background-image: url(../tiny_mce/themes/advanced/img/icons.gif);
-	background-repeat: no-repeat;
-	height: 20px;
-	width: 20px;
-	display: inline-block;
-
-}
-
-.return-slip .row {
-	height: 28px;
-	border-bottom: 1px solid #000;
-	width: 100%;
-	padding-top: 20px;
-}
-
-.return-slip .row-1 {
-
-}
-
-.return-slip .row-last {
-	border-bottom: 1px solid #000;
-}
-
-.return-slip .column {
-	width: auto;
-	padding-right: 1em;
-}
-
-.return-slip .special-request-block {
-	width: 60%;
-}
-
-.return-slip .payment-block {
-	float: right;
 }
 
 #payment-list-block tr td:first-child {
@@ -999,11 +883,13 @@ ul.list li {
 	background-color: white;
 	width: 50%;
 }
+
 details {
 	border: 1px solid #ccc;
 }
+
 summary {
-cursor: pointer;
+	cursor: pointer;
 	padding: 1.25rem 2.5rem 1.25rem 1.5rem;
 
 	list-style-type: none;

@@ -1,0 +1,98 @@
+// add link classes to <a> except a.button except not links with class .button
+
+a, a:hover, a:link, a:visited {
+	&:not(.button) {
+		color: #489310;
+		text-decoration: underline;
+	}
+
+}
+
+
+.button, input[type="submit"] {
+	text-align: center;
+	padding: .2em .4em;
+	cursor: pointer;
+	font-weight: normal;
+	font-size: inherit;
+	white-space: nowrap;
+}
+
+
+.button{
+	text-decoration: none;
+	background-color: #67b021;
+	color: #fff;
+	&:hover , &.active{
+		cursor: pointer;
+		color: #ffffff;
+		background: #489310;
+	}
+
+	// Modifier classes for .button
+	&.small {
+		font-size: .9em;
+		padding: .1em .5em;
+	}
+
+	&.edit {
+		border: none;
+		background-color: #0077bd;
+
+		&:hover {
+			background-color: #63ACE4;
+		}
+	}
+
+	&.new {
+		background-color: #eff110;
+		color: #000;
+
+		&:hover, &.active {
+			background-color: #dff110;
+		}
+	}
+
+	&.delete {
+		background-color: #c9192d;
+		&:hover {
+			background-color: #db5f3a;
+		}
+	}
+
+	&.export {
+		background-color: #ff7b00;
+
+		&:hover, &.active {
+			background-color: #fc851b;
+		}
+	}
+
+}
+.button-bar {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: flex;
+	flex-flow: row wrap;
+	gap: .5rem;
+}
+
+.button-list {
+	list-style: none;
+	padding-left: 0;
+	display: flex;
+	flex-flow: row wrap;
+	gap: 1rem;
+
+	div.button-item {
+		display: flex;
+		flex-flow: column wrap;
+	}
+}
+
+
+#navigation .button-list .button-item .button{
+	padding: 1rem;
+}

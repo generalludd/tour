@@ -9,37 +9,45 @@ $(document).ready(function () {
 	});
 	// trim all inputs on blur
 
+	document.addEventListener('keyup', function (event) {
+		const element = event.target;
+		if(element.classList.contains('person-search')) {
+			const my_name = element.value;
+			const field_id = element.id;
+			const my_url = element.dataset.url;
+			const my_target = element.dataset.target;
+			if (my_name.length > 0) {
+				let form_data = {
+					ajax: 1,
+					name: my_name
+				};
+				// Convert the ajax below to XMLHttpRequest
+				const xhr = new XMLHttpRequest();
+				xhr.open('GET', my_url + '?ajax=1&name=' + my_name, true);
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === 4 && xhr.status === 200) {
+						const data = xhr.responseText;
+						const targetElement = document.getElementById(my_target);
+						targetElement.style.zIndex = "1000";
+						targetElement.innerHTML = data;
+						const fieldElement = document.getElementById(field_id);
+						const sourceRect = fieldElement.getBoundingClientRect();
+						console.log(targetElement.style);
+						targetElement.style.top = sourceRect.bottom.toString() + "px"
+						targetElement.style.left = sourceRect.left.toString() + "px"
+						// position the targetElement to the bottom of the fieldElement
 
-	$(document).on('keyup','.person-search', function(event) {
-		const my_name = this.value;
-		const field_id = $(this).attr('id');
-		const my_url = $(this).data('url');
-		const my_target = $(this).data('target');
-		if (my_name.length > 0) {
-			let form_data = {
-				ajax: 1,
-				name: my_name
-			};
-			$.ajax({
-				url: my_url,
-				type: 'GET',
-				data: form_data,
-				success: function(data){
-					$(my_target).css({"z-index": 1000}).html(data).position({
-						my: "left top",
-						at: "left bottom",
-						of: $("#"+ field_id),
-						collision: "fit"
-					}).show();
-				}
-			});
-		}else{
-			$(my_target).hide();
-			$(my_target).css({"left": 0, "top": 0});
-
-
+						targetElement.style.display = "block";
+					}
+				};
+				xhr.send();
+			} else {
+				const targetElement = document.querySelector(my_target);
+				targetElement.style.display = "none";
+			}
 		}
-	});//
+	});
+
 
 
 	$(document).on('blur', '.person-search',function(event) {
@@ -386,3 +394,56 @@ function hideBlock(element) {
 	let target = element.data('target_id');
 	$("#" + target).hide(500);
 }
+	function positionElement(element, settings) {
+		const { my, at, of, collision } = settings;
+		const myArr = my.split(" ");
+		const atArr = at.split(" ");
+		const atX = atArr[0];
+		const atY = atArr[1];
+		const myX = myArr[0];
+		const myY = myArr[1];
+		const collisionArr = collision.split(" ");
+		const collisionX = collisionArr[0];
+		const collisionY = collisionArr[1];
+
+		const targetRect = of.getBoundingClientRect();
+		const elementRect = element.getBoundingClientRect();
+		const offsetX = targetRect.left;
+		const offsetY = targetRect.top;
+		let left, top;
+
+		if (myX === "left") {
+			left = offsetX;
+		} else if (myX === "center") {
+			left = offsetX + (targetRect.width - elementRect.width) / 2;
+		} else if (myX === "right") {
+			left = offsetX + targetRect.width - elementRect.width;
+		}
+
+		if (myY === "top") {
+			top = offsetY;
+		} else if (myY === "center") {
+			top = offsetY + (targetRect.height - elementRect.height) / 2;
+		} else if (myY === "bottom") {
+			top = offsetY + targetRect.height - elementRect.height;
+		}
+
+		if (collisionX === "fit") {
+			if (left < offsetX) {
+				left = offsetX;
+			} else if (left + elementRect.width > offsetX + targetRect.width) {
+				left = offsetX + targetRect.width - elementRect.width;
+			}
+		}
+
+		if (collisionY === "fit") {
+			if (top < offsetY) {
+				top = offsetY;
+			} else if (top + elementRect.height > offsetY + targetRect.height) {
+				top = offsetY + targetRect.height - elementRect.height;
+			}
+		}
+
+		element.style.left = left + "px";
+		element.style.top = top + "px";
+	}

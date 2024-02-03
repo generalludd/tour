@@ -17,8 +17,8 @@ if (isset($person->address)): ?>
 		],
 		'href' => base_url('person/remove_address/' . $person->id . '/' . $person->address_id),
 	];
-
-	print create_button_bar($edit_buttons); ?>
+$this->load->view('elements/button-bar', ['data' => get_button_bar_object($edit_buttons)]);
+ ?>
 <?php $this->load->view('elements/field-item', [
 		'id' => 'informal_salutation',
 		'value' => $person->address->informal_salutation,
@@ -60,6 +60,6 @@ $this->load->view('elements/field-item', [
 					'target' => 'address/view',
 			],
 	]?>
-	<?php print create_button_bar($address_buttons); ?>
+	<?php $this->load->view('elements/button-bar', ['data' => get_button_bar_object($address_buttons)]); ?>
 <?php  $this->load->view('address/find_housemate', ['person_id'=>$person->id]); ?>
 <?php endif; ?>

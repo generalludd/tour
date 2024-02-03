@@ -32,6 +32,8 @@ if(empty($target)){
 			</div>
 			<div id="navigation">
 				<?php $this->load->view('page/navigation'); ?>
+				<div id='search-list'></div>
+
 			</div>
 		</div>
 	<?php endif; ?>
@@ -40,7 +42,6 @@ if(empty($target)){
 			<?php $this->load->view('page/messages'); ?>
 			<?php $this->load->view($target); ?>
 		</div>
-	<div id='search-list'></div>
 	<div id="footer"><?php $this->load->view('page/footer'); ?></div>
 </div>
 </body>

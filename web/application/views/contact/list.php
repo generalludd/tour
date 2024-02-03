@@ -1,4 +1,8 @@
 <?php
+
+if(empty($contacts)){
+	return NULL;
+}
 $fields = [
 		'contact',
 		'position',
@@ -22,7 +26,7 @@ foreach ($contacts as $contact): ?>
 
 			<?php endforeach; ?>
 		</div>
-		<?php print create_button_bar([
+		<?php $object = get_button_bar_object([
 				[
 						'text' => 'Edit Contact',
 						'href' => base_url('contact/edit', $contact->id),
@@ -35,5 +39,6 @@ foreach ($contacts as $contact): ?>
 						'href' => base_url('contact/delete?contact_id=' . $contact->id . '&hotel_id=' . $contact->hotel_id),
 				],
 		]); ?>
+		<?php $this->load->view('elements/button-bar', ['data' => $object]); ?>
 	</div>
 <?php endforeach;

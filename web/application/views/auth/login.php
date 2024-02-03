@@ -49,8 +49,7 @@ $buttons[] = array("text"=>"Forgot Password?", "href"=>site_url("auth/start_rese
 					name="password" id="password" class="login-text" />
 			</p>
 		</div>
-					<?php print create_button_bar($buttons);?>
-
+		<?php $this->load->view('elements/button-bar', ['data' => get_button_bar_object($buttons)]); ?>
 	</form>
 </div>
 

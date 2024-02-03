@@ -9,12 +9,12 @@
 			<td><?php print sprintf('%s %s', $person->first_name, $person->last_name); ?></td>
 			<td>
 				<a href="<?php print site_url('person/view/' . $person->id); ?>"
-					 class="button mini">Show</a>
+					 class="button small">Show</a>
 			</td>
 			<td>
 				<?php print create_button([
 					'text' => 'Join Tour',
-					'class' => 'button new mini select-tour',
+					'class' => 'button small select-tour add',
 					'href' => base_url('tours/show_current/' . $person->id),
 				]); ?>
 			</td>
