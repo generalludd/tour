@@ -1,0 +1,47 @@
+{
+  "name": "theme",
+  "version": "1.0.0",
+  "description": "Theme for BPT",
+  "main": "index.js",
+  "scripts": {
+		"format": "prettier --write \"source/js/**/*.js\" \"source/scss/**/*.scss\"",
+		"compile-sass-prod": "./node_modules/.bin/gulp sassProd",
+		"compile-sass-dev": "./node_modules/.bin/gulp sassDev",
+		"watch:theme": "./node_modules/.bin/gulp sassWatch",
+		"build:theme-css": "rimraf css && npm run compile-sass-dev",
+		"build:theme-js": "npx babel source/js -d js",
+		"build:theme": "npm run build:theme-css && npm run build:theme-js",
+		"build-all:dev": "npm run build:theme-css && npm run build:theme-js"
+	},
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+		"@babel/cli": "^7.17.6",
+		"@babel/core": "^7.17.5",
+		"babel-loader": "^8.2.3",
+		"babel-plugin-drupal-behaviors": "^0.1.1",
+		"fancy-log": "^1.3.3",
+		"file-loader": "^6.2.0",
+		"gulp": "^4.0.0",
+		"gulp-autoprefixer": "^6.0.0",
+		"gulp-concat": "^2.6.1",
+		"gulp-cssnano": "^2.1.3",
+		"gulp-prettier": "^4.0.0",
+		"gulp-sass": "^5.0.0",
+		"gulp-sass-glob": "^1.1.0",
+		"gulp-sourcemaps": "^2.6.4",
+		"gulp-watch": "^5.0.1",
+		"mini-css-extract-plugin": "^2.5.3",
+		"prettier": "^2.5.1",
+		"rimraf": "^3.0.2",
+		"sass": "^1.47.0",
+		"sass-loader": "^12.6.0",
+		"sass-resources-loader": "^2.2.4"
+	},
+	"browserslist": [
+		"defaults"
+	],
+	"dependencies": {
+		"@babel/preset-env": "^7.22.15"
+	}
+}
