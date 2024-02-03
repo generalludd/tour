@@ -13,3 +13,4 @@
 /.ddev/docker-compose.phpmyadmin-norouter.yaml
 /.ddev/commands/host/phpmyadmin
 /web/application/config/database.local.php
+/web/sites/default/settings.php
