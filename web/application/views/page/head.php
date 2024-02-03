@@ -11,6 +11,8 @@
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/main.css') . "?" . date("u");?>" />
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/color.css'). "?" . date("u")?>"/>
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/popup.css'). "?" . date("u")?>" />
+<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/messages.css'). "?" . date("u")?>" />
+
 <link type="text/css" rel="stylesheet" media="print" href="<?php print base_url('css/print.css')?>" />
 <!-- jquery scripts -->
 <script type="text/javascript">

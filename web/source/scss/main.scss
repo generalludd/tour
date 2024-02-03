@@ -219,9 +219,7 @@ div.entry, div.list {
 	width: 70%;
 }
 
-.button, #browser_warning, .notice, .warning, input[type="submit"], .person-search {
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+.button, input[type="submit"], .person-search {
 	border-radius: 3px;
 	box-shadow: 1px 1px 2px #333;
 }
@@ -516,23 +514,6 @@ label {
 	content: ":"
 }
 
-
-.warning {
-	padding: 5px;
-	height: 150px;
-	width: 320px;
-	left: 20px;
-	top: 50px;
-	position: absolute;
-	visibility: hidden;
-}
-
-#browser_warning {
-	font-size: 1.2em;
-	width: 50%;
-	padding: 5px;
-	text-align: center;
-}
 
 a.button {
 	text-decoration: none;

@@ -1,35 +1,48 @@
 
 .message {
 	display: flex;
-	transition: all 5000ms ease-out;
+	flex-direction: row;
 	justify-content: space-between;
+	padding: 1rem;
+	transition: background-color 0.5s ease;
+
+	&.warning {
+		color: black;
+		background: #ff9696;
+
+	}
+
+	&.notice {
+		background: #7af68c;
+	}
+
+	&.alert {
+		background-repeat: repeat;
+		color: #f8d68b;
+	}
+
+	&.error {
+		background: #ffffc4;
+	}
 
 	.close {
 		cursor: pointer;
 		width: 1rem;
 		height: 1rem;
+		background-color: transparent;
+		border: none;
 
+	}
+	&.hidden{
+		display: none;
 	}
 }
 
 
-.warning, .notice, .error {
-	color: black;
-	background: #ff8538;
-}
-.notice {
-	background: #00d9ff;
-}
 
-.alert {
-	background-repeat: repeat;
-	color: #fff;
-}
 
-.error {
-	background: #ff0;
-}
 
-.warning h4, .notice h4 {
-	border-color: black;
-}
+
+
+
+

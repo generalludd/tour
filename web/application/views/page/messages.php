@@ -13,17 +13,15 @@
 		<button class="close">✖</button>
 
 	</div>
-
 <?php endif; ?>
+<?php if (BACKUP_STATUS > 5): ?>
 	<div class="message warning">
 		<div class="content">
 			It has been over <?php echo round(BACKUP_STATUS / 60 / 60 / 24, 0); ?>
 			days
 			since the last backup. You should <a href="<?php echo site_url('backup'); ?>"
-				 class="do-backup">click here to back up now</a>.
+																					 class="do-backup">click here to back up now</a>.
 		</div>
 		<button class="close">✖</button>
 	</div>
-<?php if (BACKUP_STATUS > 5): ?>
-
 <?php endif; ?>

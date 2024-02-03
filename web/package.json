@@ -4,14 +4,12 @@
   "description": "Theme for BPT",
   "main": "index.js",
   "scripts": {
-		"format": "prettier --write \"source/js/**/*.js\" \"source/scss/**/*.scss\"",
+		"format": "prettier --write \"source/scss/**/*.scss\"",
 		"compile-sass-prod": "./node_modules/.bin/gulp sassProd",
 		"compile-sass-dev": "./node_modules/.bin/gulp sassDev",
 		"watch:theme": "./node_modules/.bin/gulp sassWatch",
 		"build:theme-css": "rimraf css && npm run compile-sass-dev",
-		"build:theme-js": "npx babel source/js -d js",
-		"build:theme": "npm run build:theme-css && npm run build:theme-js",
-		"build-all:dev": "npm run build:theme-css && npm run build:theme-js"
+		"build": "npm run build:theme-css"
 	},
   "author": "",
   "license": "ISC",
