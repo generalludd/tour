@@ -11,3 +11,25 @@
 
 	}
 }
+
+
+.warning, .notice, .error {
+	color: black;
+	background: #ff8538;
+}
+.notice {
+	background: #00d9ff;
+}
+
+.alert {
+	background-repeat: repeat;
+	color: #fff;
+}
+
+.error {
+	background: #ff0;
+}
+
+.warning h4, .notice h4 {
+	border-color: black;
+}

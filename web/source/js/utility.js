@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	const messages = document.querySelectorAll('.message');
 	messages.forEach(function (message) {
 		const closeBox = message.querySelector('button.close');
-		console.log('closeBox', closeBox);
 		if (closeBox) {
 			closeBox.addEventListener('click', function (event) {
 

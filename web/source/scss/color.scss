@@ -205,25 +205,6 @@ h2, h3, h4, h5, h6 {
 	color: white;
 }
 
-.warning, .notice, .error {
-	color: black;
-	opacity: .90;
-	filter: Alpha(Opacity =                                 90);
-	background: #ff8538 url(images/warning.png) 50% 50% repeat-x;
-}
-
-.alert {
-	background-repeat: repeat;
-	color: #fff;
-}
-
-.error {
-	background: #ff0;
-}
-
-.warning h4, .notice h4 {
-	border-color: black;
-}
 
 a.link, input.link {
 	color: #489310;

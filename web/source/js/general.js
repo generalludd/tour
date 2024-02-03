@@ -1,21 +1,13 @@
 $(document).ready(function () {
 
-	$(document).on("click", ".hide-backup-warning", function () {
-		$("#alert").attr("id", "notice").html("Move the file backup file from your downloads folder to your backups folder.").fadeOut(5000);
-
-	});
-
-	$(document).on('mouseover','.detail-hover', function(){
-		revealBlock($(this));
-	});
-	$(document).on('mouseout', '.detail-hover', function(){
-		hideBlock($(this));
+	const inputs = document.querySelectorAll('#content input');
+	inputs.forEach(function (input) {
+		input.addEventListener('blur', function () {
+			const value = input.value;
+			input.value = value.trim();
+		});
 	});
 	// trim all inputs on blur
-	$(document).on('blur', 'input', function () {
-		let input_value = $(this).val();
-		$(this).val(input_value.trim());
-	})
 
 	$(document).on("click", '.delete-action', function (e) {
 		e.preventDefault();
