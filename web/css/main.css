@@ -922,33 +922,7 @@ label.above {
 
 }
 
-.return-slip .row {
-	height: 28px;
-	border-bottom: 1px solid #000;
-	width: 100%;
-	padding-top: 20px;
-}
 
-.return-slip .row-1 {
-
-}
-
-.return-slip .row-last {
-	border-bottom: 1px solid #000;
-}
-
-.return-slip .column {
-	width: auto;
-	padding-right: 1em;
-}
-
-.return-slip .special-request-block {
-	width: 60%;
-}
-
-.return-slip .payment-block {
-	float: right;
-}
 
 #payment-list-block tr td:first-child {
 	min-width: 13ex;

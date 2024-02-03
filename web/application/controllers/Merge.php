@@ -31,6 +31,8 @@ class Merge extends MY_Controller {
 
 		$payer->tourist_count = $tourist_count;
 		$data["tour"] = $tour;
+		// Generate a salutation based on the payer->tourists first_name and last_name values.
+		$payer->salutation = $this->payer->getSalutation($payer);
 
 		$merge_id = $this->merge->quick_insert($payer_id, $letter_id);
 		$data["merge"] = $this->merge->get($merge_id);
@@ -40,6 +42,8 @@ class Merge extends MY_Controller {
 		$data["target"] = "merge/edit";
 		$data["title"] = "Preparing a Merge Letter";
 		$data["action"] = "insert";
+		$data['styles'] = ['letter'];
+		$data['scripts'] = ["https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"];
 		$this->load->view("page/index", $data);
 	}
 

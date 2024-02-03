@@ -237,9 +237,9 @@ class Payer_model extends My_Model {
 	 * @param int $tour_id
 	 * @param mixed $price_levels
 	 *
-	 * @return mixed
+	 * @return array
 	 */
-	public function getRateValues(int $tour_id, mixed $price_levels) {
+	public function getRateValues(int $tour_id, mixed $price_levels): array {
 		if(!in_array($price_levels->room_size, ['single_room', 'triple_room', 'quad_room','double_room'])){
 			$price_levels->room_size = 'double_room';
 		}
@@ -250,6 +250,27 @@ class Payer_model extends My_Model {
 			->where('id', $tour_id)
 			->select([$price_levels->payment_type, $price_levels->room_size])
 			->get()->row();
+	}
+
+	/**
+	 * Generates a salutation based on the tourists in the payer's party.
+	 *
+	 * @param object $payer
+	 * @return string
+	 */
+	function getSalutation(object $payer): string {
+		$salutation = "Dear Bleacher Bum";
+
+		// create a salutation based on each tourist first_name and last_name
+		if(!empty($payer->tourists)){
+			$salutation = NULL;
+			$names = [];
+			foreach($payer->tourists as $tourist){
+				$names[] = $tourist->first_name;
+			}
+			$salutation .= implode(", ", $names);;
+		}
+		return $salutation;
 	}
 
 }

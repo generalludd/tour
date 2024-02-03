@@ -57,7 +57,7 @@ class Payer extends MY_Controller {
 	 * @param false|string $payer_id
 	 * @param string|null $tour_id
 	 */
-	function edit(string $payer_id = NULL, string $tour_id = NULL, $ajax = FALSE) {
+	function edit(string $payer_id = NULL, string $tour_id = NULL, $ajax = FALSE): void {
 
 		$this->load->model("variable_model", "variable");
 		if (empty($payer_id)) {
@@ -96,7 +96,7 @@ class Payer extends MY_Controller {
 	 * there is no alternative if this is called without the ajax=1 post query
 	 * variable.
 	 */
-	function insert() {
+	function insert(): void {
 		$payer_id = $this->input->post("payer_id");
 		$tour_id = $this->input->post("tour_id");
 		$this->payer->insert($payer_id, $tour_id);
@@ -108,7 +108,7 @@ class Payer extends MY_Controller {
 		$this->edit($payer_id, $tour_id, $this->input->post('ajax'));
 	}
 
-	function update() {
+	function update(): void {
 		$payer_id = $this->input->post('payer_id');
 		$tour_id = $this->input->post('tour_id');
 		$this->payer->update($payer_id, $tour_id);
@@ -121,7 +121,7 @@ class Payer extends MY_Controller {
 		redirect('/tourist/view_all/' .$tour_id);
 	}
 
-	function update_value() {
+	function update_value(): void {
 		$id = $this->input->post("id");
 		$values = [
 			$this->input->post("field") => $value = trim($this->input->post("value")),
@@ -130,7 +130,7 @@ class Payer extends MY_Controller {
 		echo $this->input->post("value");
 	}
 
-	function select_tourists() {
+	function select_tourists(): void {
 		$data["action"] = "select_tourist";
 		$data["tour_id"] = $this->input->get("tour_id");
 		$data["payer_id"] = $this->input->get("payer_id");
@@ -157,7 +157,7 @@ class Payer extends MY_Controller {
 		}
 	}
 
-	function delete() {
+	function delete(): void {
 		if( $this->input->get('tour_id') &&  $this->input->get('payer_id')) {
 			$tour_id = $this->input->get('tour_id');
 			$payer_id = $this->input->get('payer_id');
@@ -189,5 +189,7 @@ class Payer extends MY_Controller {
 		}
 
 	}
+
+
 
 }

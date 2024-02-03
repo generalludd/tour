@@ -11,6 +11,12 @@
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/main.css') . "?" . date("u");?>" />
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/color.css'). "?" . date("u")?>"/>
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/popup.css'). "?" . date("u")?>" />
+<?php if(!empty($styles)):?>
+<?php foreach($styles as $style):?>
+	<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/' . $style . '.css'). "?" . date("u")?>" />
+
+<?php endforeach; ?>
+<?php endif;?>
 <link type="text/css" rel="stylesheet" media="print" href="<?php print base_url('css/print.css')?>" />
 <!-- jquery scripts -->
 <script type="text/javascript">
@@ -37,3 +43,8 @@ var root_url = '<?php print base_url();?>';
 
 <!-- admin scripts -->
 <script type="text/javascript" src="<?php print base_url('js/password.js');?>"></script>
+<?php if(!empty($scripts)):?>
+<?php foreach($scripts as $script):?>
+	<script type="text/javascript" src="<?php print $script;?>"></script>
+<?php endforeach;?>
+<?php endif;
