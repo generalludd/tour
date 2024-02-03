@@ -1,18 +1,11 @@
-<?php if ($this->session->flashdata('notice')): ?>
-	<div class="message notice">
-		<div class="content"><?php print $this->session->flashdata('notice');
-			?></div>
-		<button class="close">✖</button>
-	</div>
-
-<?php endif; ?>
-<?php if ($this->session->flashdata('alert')): ?>
-	<div class="message alert">
-		<div class="content"><?php print $this->session->flashdata('alert');
-			?></div>
-		<button class="close">✖</button>
-
-	</div>
+<?php $flash = $this->session->flashdata(); ?>
+<?php if (!empty($flash)): ?>
+	<?php foreach ($flash as $key => $message): ?>
+<div class="message <?php print $key;?>">
+	<div class="content"><?php print $message; ?></div>
+	<button class="close">✖</button>
+</div>
+	<?php endforeach; ?>
 <?php endif; ?>
 <?php if (BACKUP_STATUS > BACKUP_THRESHOLD): ?>
 	<div class="message warning">

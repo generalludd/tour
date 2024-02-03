@@ -28,19 +28,18 @@ class Letter extends MY_Controller
 				}
     }
 
-    function view ()
-    {
+    function view (): void {
         $id = $this->uri->segment(3);
         $letter = $this->letter->get($id);
         $data["tour"] = $this->tour->get($letter->tour_id);
         $data["letter"] = $letter;
         $data["target"] = "letter/view";
+				$data['scripts'] = [site_url('js/letter.js')];
         $data["title"] = sprintf("Viewing '%s' Letter for '%s' Tour", $letter->title, $data["tour"]->tour_name);
         $this->load->view("page/index", $data);
     }
 
-    function create ()
-    {
+    function create (): void {
         $data["tour_id"] = $this->uri->segment(3);
         $data["tour"] = $this->tour->get($data["tour_id"]);
         $data["letter"] = NULL;
@@ -50,14 +49,12 @@ class Letter extends MY_Controller
         $this->load->view("page/index", $data);
     }
 
-    function insert ()
-    {
+    function insert (): void {
         $id = $this->letter->insert();
         redirect("letter/view/$id");
     }
 
-    function edit ()
-    {
+    function edit (): void {
         $id = $this->uri->segment(3);
         $letter = $this->letter->get($id);
         $tour = $this->tour->get($letter->tour_id);
@@ -67,21 +64,29 @@ class Letter extends MY_Controller
         $data["target"] = "letter/edit";
         $data["title"] = sprintf("Editing '%s' Letter for %s' Tour", $letter->title, $tour->tour_name);
         $data["action"] = "update";
-        $this->load->view("page/index", $data);
+				$data['scripts'] = [site_url('js/letter.js')];
+
+			$this->load->view("page/index", $data);
     }
 
-    function update ()
-    {
+    function update (): void {
         $id = $this->input->post("id");
         $this->letter->update($id);
-        redirect("letter/view/$id");
+				$this->session->set_flashdata('notice', 'Letter template updated.');
+			var_dump($this->session->flashData());
+
+			redirect("letter/view/$id");
     }
     
-    function delete(){
-    	if($id = $this->input->post("id")){
-    		$tour_id = $this->input->post("tour_id");
+    function delete(): void {
+			$input_stream  = json_decode($this->input->raw_input_stream, true);
+    	if($id = $input_stream['id']){
+    		$tour_id = $input_stream['tour_id'];
     		$this->letter->delete($id);
-    		redirect("tours/view/$tour_id");
+				$this->session->set_flashdata('notice', 'Letter template deleted.');
+				var_dump($this->session->flashData());
+
+				redirect("tours/view/$tour_id");
     	}
     }
 }
