@@ -9,7 +9,6 @@
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/main.css') . "?" . date("u");?>" />
-<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/color.css'). "?" . date("u")?>"/>
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/popup.css'). "?" . date("u")?>" />
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/messages.css'). "?" . date("u")?>" />
 	<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/buttons.css'). "?" . date("u")?>" />
@@ -33,6 +32,7 @@ var root_url = '<?php print base_url();?>';
 
 <!-- Custom Scripts  -->
 <script type="text/javascript" src="<?php print base_url("js/general.js");?>"></script>
+<script type="text/javascript" src="<?php print base_url('js/search.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/payer.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/person.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/address.js');?>"></script>

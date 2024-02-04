@@ -17,10 +17,6 @@ $salutation = $tourists;
 <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 
 <section class="non-printing">
-	<div class="alert" style="padding:1em; text-align: center;">
-	<p>Key formatting will happen during printing.</p>
-	<p>Hover over the date and salutation to edit them.</p>
-	</div>
 	<p>
 		For <a href="<?php print site_url("tourist/view_all/$tour->id");?>"><?php print $tour->tour_name;?></a><br />
 <?php print format_date($tour->start_date, "standard");?> to <?php print format_date($tour->end_date);?><br />

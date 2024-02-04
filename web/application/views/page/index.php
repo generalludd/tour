@@ -32,7 +32,7 @@ if(empty($target)){
 			</div>
 			<div id="navigation">
 				<?php $this->load->view('page/navigation'); ?>
-				<div id='search-list'></div>
+				<div id="search-list" class="hidden"></div>
 
 			</div>
 		</div>

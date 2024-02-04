@@ -4,7 +4,7 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 // room.php Chris Dart Dec 31, 2013 7:17:23 PM chrisdart@cerebratorium.com
 
 ?>
-<div class="room-row column" id="room_<?php print $room_number; ?>">
+<div class="room-row" id="room_<?php print $room_number; ?>">
 	<h4>Room# <?php print $room_number; ?></h4>
 	<div class="roommates-box">
 		<table class="list roommates">

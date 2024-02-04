@@ -21,180 +21,73 @@ article {
 .highlight {
 	padding: 2px;
 	width: 80%;
+	background-color: lightyellow;
 }
 
 .hidden {
 	display: none;
 }
 
-/*
-loggedin style changes the background to make sure users can tell they are logged in.
-
-loggedout indicates the opposite.
-*/
-.loggedout {
-	font-size: 1.5em;
-	text-align: center;
-	margin-top: -45px;
-	padding: 10px;
-	position: fixed;
-	left: 10%;
-	right: 10%;
-	width: auto;
-	border-style: solid;
-	border-width: 1px;
-}
-
 .not-logged-in #main {
-	width: 960px;
-	position: relative;
-	display: block;
-}
-
-.loggedin {
-	position: absolute;
-	right: 10%;
-	float: right;
-	margin-top: -45px;
-	padding: 10px;
-	border-style: solid;
-	border-width: 1px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
 /*Login Form elements*/
-div.login {
-	position: relative;
-	top: 3em;
+.login {
 	padding: 2em 5em;
 	text-align: left;
 	width: 30em;
 	margin: auto;
-	display: block;
 	border-radius: 5px;
 	box-shadow: 4px 4px 11px #000;
 	height: 100%;
+
+	.login-title {
+		font-size: 1.5em;
+		text-align: center;
+		position: relative;
+		border-radius: 5px;
+		padding: 5px;
+		color: black;
+		border: 1px solid #ccc;
+		box-shadow: 2px 2px 4px #aaa;
+	}
+
+
+	form {
+		margin-top: 2em;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
+
+		.login-inputs {
+			display: flex;
+			gap: 1rem;
+			flex-direction: column;
+			justify-content: flex-start;
+
+			input {
+				font-size: 1.2em;
+				padding: .5rem;
+			}
+		}
+
+	}
+
 }
 
-div.login.errors {
-	height: 300px;
-}
-
-#login_form {
-	margin-top: 2em;
-}
-
-div.login-inputs {
-	margin: auto;
-	width: 250px;
-}
-
-.login-inputs input[type="text"], .login-inputs input[type="password"] {
-	font-size: 1.2em;
-}
-
-div.error {
-	text-align: left;
-	margin: 10%;
-	padding: 2em 5em;
-	position: fixed;
-	top: 1%;
-	right: 25%;
-	left: 25%;
-	width: auto;
-	z-index: 1;
-	border-style: solid;
-	border-width: 1px;
-}
-
-div.error a {
-	text-decoration: underline;
-}
-
-div.error-text {
-	padding: 10px;
-	margin: 5px;
-	border-radius: 5px;
-	text-align: center;
-	box-shadow: 1px 1px 1px #f00;
-}
-
-div.login-title {
-	font-size: 1.5em;
-	text-align: center;
-	position: relative;
-	border-radius: 5px;
-	padding: 5px;
-	box-shadow: 1px 1px 1px #000;
-}
-
-#login_form .login-text, .reset-fields input, .reset-fields label {
-	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 5px;
-}
-
-#password-resetter {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 300px;
-}
-
-/* general notices */
-#notice {
-	top: 25%;
-	left: 15%;
-	overflow: auto;
-	float: none;
-	padding: 12px;
-	border-style: solid;
-	border-width: 1px;
-}
-
-.notice {
-	font-size: 1em;
-	font-weight: bold;
-	cursor: pointer;
-	padding: 3px;
-}
-
-.alert {
-	padding: 3px;
-	font-weight: bold;
-}
 
 #new_popup {
 	display: none;
 	visibility: hidden;
 }
 
-/*general display elements */
-.info-box {
-	margin-left: auto;
-	margin-right: auto;
-	width: 950px;
-}
 
-.info-box .content {
-	margin-left: auto;
-	margin-right: auto;
-	width: 950px;
-	padding-top: 1em;
-}
-
-
-div.result {
-	font-size: 1em;
-	position: absolute;
-	left: 200px;
-	max-height: 600px;
-	margin: 2%;
-	padding-right: 2%;
-	padding-left: 2%;
-}
-
-div.entry, div.list {
+div.list {
 	width: 60%;
 	text-indent: 2%;
 	height: 2ex;
@@ -225,12 +118,9 @@ div.entry, div.list {
 }
 
 
-
-
 tr.row-break td {
 	border-top: solid 1px black !important;
 }
-
 
 
 input:not[type="submit"], textarea {
@@ -277,7 +167,6 @@ input[type="time"] {
 	text-align: center;
 	cursor: pointer;
 }
-
 
 
 .help {
@@ -328,7 +217,6 @@ legend {
 #navigation {
 	padding: 1px;
 }
-
 
 
 #utility {
@@ -454,8 +342,6 @@ label {
 }
 
 
-
-
 #search-list {
 	position: absolute;
 	display: none;
@@ -471,56 +357,61 @@ label {
 	overflow: scroll;
 }
 
-table.list caption {
-	font-weight: bold;
-	text-align: left;
-}
-
-table.list td {
-	padding: 5px;
-	border-width: 0px;
-	vertical-align: top;
-}
-
 
 table.list {
 	border-spacing: 5px 0;
 	padding-bottom: 5px;
 	padding-top: 5px;
+
+	&.compressed {
+		font-size: .9em;
+		padding: 0;
+		border-spacing: 0;
+	}
+
+	caption {
+		font-weight: bold;
+		text-align: left;
+	}
+
+	tr {
+		display: flex;
+		flex-direction: row;
+	}
+
+	td {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		gap: 1rem;
+		padding: 5px;
+		border-width: 0px;
+		vertical-align: top;
+	}
+
+	th {
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
+		border-bottom-color: #000;
+		padding: 5px 2ex 5px 5px;
+		text-align: left;
+	}
+
+	tfoot tr {
+		font-weight: bold;
+	}
+
+	tfoot tr td {
+		border-top-style: double;
+		border-top-width: 3px;
+		border-top-color: #000;
+	}
+
 }
 
-
-table.list th {
-	border-bottom-style: solid;
-	border-bottom-width: 1px;
-	border-bottom-color: #000;
-	padding: 5px;
-	padding-right: 2ex;
-	text-align: left;
-}
-
-table.list tbody tr {
-
-}
 
 #popup {
 	font-size: .9em;
-}
-
-table.list.compressed {
-	font-size: .9em;
-	padding: 0;
-	border-spacing: 0;
-}
-
-table.list tfoot tr {
-	font-weight: bold;
-}
-
-table.list tfoot tr td {
-	border-top-style: double;
-	border-top-width: 3px;
-	border-top-color: #000;
 }
 
 
@@ -598,10 +489,18 @@ fieldset.block label {
 	float: left;
 }
 
-.edit-field.field {
-	min-width: 10em;
-	display: block;
+.edit-field {
+	&:hover {
+		cursor: pointer;
+		background-color: yellow;
+	}
+
+	.field {
+		min-width: 10em;
+		display: block;
+	}
 }
+
 
 .roommate .edit-field.field {
 	display: inline;
@@ -614,24 +513,6 @@ fieldset.block label {
 
 textarea.save-field {
 	width: 80%;
-}
-
-.column {
-	width: 45%;
-	float: left;
-	padding-bottom: 10px;
-}
-
-.column-odd {
-	padding-right: 5px;
-}
-
-.column-even {
-	padding-left: 5px;
-}
-
-.room-row.column {
-	width: 30%;
 }
 
 .triptych {
@@ -803,7 +684,6 @@ label.above {
 }
 
 
-
 .address-street-field {
 	width: 14em;
 }
@@ -885,13 +765,22 @@ ul.list li {
 }
 
 details {
+	margin: 1rem 0;
+	background-color: lightblue;
 	border: 1px solid #ccc;
+
+	summary {
+		cursor: pointer;
+		padding: 1.25rem 2.5rem 1.25rem 1.5rem;
+
+		list-style-type: none;
+		background: lightgoldenrodyellow url(/images/arrow-down.svg) 95% 50% no-repeat;
+	}
+
+	&[open] summary {
+		background-image: url(/images/arrow-up.svg);
+		background-color: lightblue;
+	}
 }
 
-summary {
-	cursor: pointer;
-	padding: 1.25rem 2.5rem 1.25rem 1.5rem;
 
-	list-style-type: none;
-	background: #eee url(/images/down-arrow.svg) 95% 50% no-repeat;
-}

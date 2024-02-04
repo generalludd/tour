@@ -3,7 +3,7 @@
 // mini_list.php Chris Dart Dec 16, 2013 7:44:01 PM chrisdart@cerebratorium.com
 
 ?>
-<table>
+<table class="list">
 	<?php foreach ($people as $person): ?>
 		<tr>
 			<td><?php print sprintf('%s %s', $person->first_name, $person->last_name); ?></td>

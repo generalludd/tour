@@ -1,25 +1,76 @@
-$(document).ready(function(){
-	$(document).on("click",".add-roommate",function(e){
-		e.preventDefault();
-		let my_room = $(this).data('room_id');
+document.addEventListener('DOMContentLoaded', function () {
+	// Locate all the buttons with the class .add-roommate and add an event listener to each.
+	const addRoommateButtons = document.querySelectorAll('.add-roommate');
+	addRoommateButtons.forEach(function (button) {
+		button.addEventListener('click', function (event) {
+			event.preventDefault();
+			const myRoom = button.dataset.room_id;
+			const myUrl = button.getAttribute('href');
+			fetch(myUrl, {
+					method: 'GET',
+				}
+			)
+				.then(response => {
 
-		let form_data = {
+					return response.json();
+				})
+				.then(data => {
+					console.log(data);
+					const room = document.getElementById('room_' + myRoom);
+					// append a row to the room's table element
+					const newRow = document.createElement('tr');
+					const newCell = document.createElement('td');
+					newCell.classList.add('new-row');
+					const newSelect = document.createElement('select');
+					newSelect.setAttribute('name', 'person_id');
+					const options = data.roomless;
+					for (const key in options) {
+						const option = document.createElement('option');
+						option.setAttribute('value', key);
+						option.textContent = options[key];
+						newSelect.appendChild(option);
+					}
+					newCell.appendChild(newSelect);
+					// create a link to the data.url
+					const newLink = document.createElement('a');
+					newLink.setAttribute('href', data.url);
+					newLink.textContent = 'Add Placeholder';
+					newLink.classList.add('add-placeholder link add');
+					newCell.appendChild(newLink);
+					newRow.appendChild(newCell);
+					room.querySelector('tbody').appendChild(newRow);
 
-				ajax: 1
-		};
-		console.log(form_data);
-		
-		$.ajax({
-			type: "get",
-			url: $(this).attr('href'),
-			data: form_data,
-			success: function(data){
-				$("#room_" + my_room + " table.list tbody").append("<tr><td>" + data + "</td></tr>");
-			}
-			
+
+					// Process your data here
+				})
+				.catch(error => {
+					console.error('Fetch error:', error);
+				});
 		});
-		
 	});
+});
+ $(document).ready(function(){
+// 	$(document).on("click",".add-roommate",function(e){
+// 		e.preventDefault();
+// 		let my_room = $(this).data('room_id');
+//
+// 		let form_data = {
+//
+// 				ajax: 1
+// 		};
+// 		console.log(form_data);
+//
+// 		$.ajax({
+// 			type: "get",
+// 			url: $(this).attr('href'),
+// 			data: form_data,
+// 			success: function(data){
+// 				$("#room_" + my_room + " table.list tbody").append("<tr><td>" + data + "</td></tr>");
+// 			}
+//
+// 		});
+//
+// 	});
 	
 	$(document).on("click",".add-placeholder",function(e){
 		e.preventDefault();

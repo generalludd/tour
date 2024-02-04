@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') or exit ('No direct script access allowed');
 
 // roommate.php Chris Dart Dec 28, 2013 10:08:58 PM chrisdart@cerebratorium.com
@@ -12,8 +13,7 @@ class Roommate extends MY_Controller {
 		$this->load->model("room_model", "room");
 	}
 
-	function view() {
-	}
+	function view() {}
 
 	function view_for_tour($tour_id, $stay) {
 		$this->load->model("variable_model", "variable");
@@ -74,7 +74,7 @@ class Roommate extends MY_Controller {
 				$this->roommate->insert($data);
 			}
 		}
-		redirect('roommate/view_for_tour/'. $tour_id. '/' .$stay);
+		redirect('roommate/view_for_tour/' . $tour_id . '/' . $stay);
 	}
 
 	function view_for_stay() {
@@ -104,7 +104,7 @@ class Roommate extends MY_Controller {
 	 * @param int $tour_id
 	 * @param int $stay
 	 */
-	function add_placeholder(int  $tour_id, int $stay) {
+	function add_placeholder(int $tour_id, int $stay) {
 		$person_id = $this->roommate->get_next_placeholder($tour_id, $stay);
 		echo sprintf('<input type="text" data-tour_id="%s" data-stay="%s" data-person_id="%s" value="" class="insert-placeholder" placeholder="Enter a Placeholder"/>', $tour_id, $stay, $person_id);
 	}
@@ -177,14 +177,15 @@ class Roommate extends MY_Controller {
 			"id",
 			"person_name",
 		], TRUE);
-		if ($this->input->get('ajax')) {
-			$output = form_dropdown("person_id", $roomless_pairs, FALSE, sprintf("id='person_id' %s", $class ? "class='$class'" : ""));
-			$output .= sprintf(" or <a href='%s' class='add-placeholder link new'>Add Placeholder</a>", site_url("roommate/add_placeholder/$tour_id/$stay/$room_number"));
-			echo $output;
-		}
-		else {
-			return $roomless_pairs;
-		}
+		$output = json_encode([
+			'roomless' => $roomless_pairs,
+			'room_number' => $room_number,
+			'tour_id' => $tour_id,
+			'stay' => $stay,
+			'class' => $class,
+			'url' => site_url("roommate/add_placeholder/$tour_id/$stay"),
+		]);
+		$this->output->set_content_type('application/json')->set_output($output);
 	}
 
 }

@@ -1,9 +1,11 @@
-// add link classes to <a> except a.button except not links with class .button
 
-a, a:hover, a:link, a:visited {
+a, a:link, a:visited {
 	&:not(.button) {
-		color: #489310;
+		color: forestgreen;
 		text-decoration: underline;
+	}
+	&:hover {
+		color: darkgreen;
 	}
 
 }
@@ -16,18 +18,25 @@ a, a:hover, a:link, a:visited {
 	font-weight: normal;
 	font-size: inherit;
 	white-space: nowrap;
+	border:none;
 }
 
 
 .button{
 	text-decoration: none;
-	background-color: #67b021;
-	color: #fff;
+	background-color: forestgreen;
+	color: white;
 	&:hover , &.active{
 		cursor: pointer;
-		color: #ffffff;
-		background: #489310;
 	}
+	&.active{
+		background-color: darkgreen;
+	}
+	&:hover {
+		background-color: lightgreen;
+		color: black;
+	}
+
 
 	// Modifier classes for .button
 	&.small {
@@ -37,34 +46,36 @@ a, a:hover, a:link, a:visited {
 
 	&.edit {
 		border: none;
-		background-color: #0077bd;
+		background-color: navy;
 
 		&:hover {
-			background-color: #63ACE4;
+			background-color: lightblue;
+
 		}
 	}
 
 	&.new {
-		background-color: #eff110;
-		color: #000;
+		background-color: yellow;
+		color: black;
 
 		&:hover, &.active {
-			background-color: #dff110;
+			background-color: lightyellow;
 		}
 	}
 
 	&.delete {
-		background-color: #c9192d;
+		background-color: red;
 		&:hover {
-			background-color: #db5f3a;
+			background-color: darkred;
+			color: white;
 		}
 	}
 
 	&.export {
-		background-color: #ff7b00;
+		background-color: orange;
 
 		&:hover, &.active {
-			background-color: #fc851b;
+			background-color: darkorange;
 		}
 	}
 
@@ -90,6 +101,10 @@ a, a:hover, a:link, a:visited {
 		display: flex;
 		flex-flow: column wrap;
 	}
+}
+
+fieldset > .button-box {
+	margin: 1rem 0;
 }
 
 

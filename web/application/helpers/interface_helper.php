@@ -89,9 +89,7 @@ function create_button(array $data): bool|string {
 
 			if (array_key_exists("class", $data)) {
 				if (!is_array($data["class"])) {
-					$data["class"] = [
-						$data["class"],
-					];
+					$data["class"] = explode(" ", $data["class"]);
 				}
 			}
 			else {
@@ -99,6 +97,7 @@ function create_button(array $data): bool|string {
 					"button",
 				];
 			}
+
 			if (array_key_exists("selection", $data)) {
 				if (preg_match("/" . str_replace("/", "\/", $data["selection"]) . "/", $_SERVER['REQUEST_URI'])) {
 					$data["class"][] = "active";
@@ -127,6 +126,7 @@ function create_button(array $data): bool|string {
 					$button = "<$enc_type $enc_class $enc_id>$button</$enc_type>";
 				}
 			}
+
 		}
 		else {
 			return $data["text"];

@@ -1,7 +1,9 @@
 :root {
-	--messages--status-color: #42a87750;
-	--messages--warning-color: #e0ac0050;
-	--messages--error-color: #e34f4f50;
+	--messages--status-color: lightgreen;
+	--messages--warning-color: lightpink;
+	--messages--error-color: lightyellow;
+	--messages--notice-color: lightblue;
+	--messages--alert-color: lightcoral;
 }
 
 .message {
@@ -13,16 +15,22 @@
 	color: black;
 
 	&.warning {
-		background-color: var(--messages--warning-color);
+		background-color: var(--messages--error-color);
 
 	}
-
-	&.notice {
+	&.status{
 		background-color: var(--messages--status-color);
 	}
 
-	&.alert, &.error{
+	&.notice {
+		background-color: var(--messages--notice-color);
+	}
+
+	&.error{
 		background-color: var(--messages--error-color);
+	}
+	&.alert {
+		background-color: var(--messages--alert-color);
 	}
 
 	.close {

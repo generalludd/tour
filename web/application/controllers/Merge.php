@@ -40,6 +40,8 @@ class Merge extends MY_Controller {
 		$data["target"] = "merge/edit";
 		$data["title"] = "Preparing a Merge Letter";
 		$data["action"] = "insert";
+		$this->session->set_flashdata("notice", "Key formatting will happen during printing. ");
+		$this->session->set_flashdata("alert", "Hover over the date and salutation to edit them. ");
 		$this->load->view("page/index", $data);
 	}
 
