@@ -50,27 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 });
  $(document).ready(function(){
-// 	$(document).on("click",".add-roommate",function(e){
-// 		e.preventDefault();
-// 		let my_room = $(this).data('room_id');
-//
-// 		let form_data = {
-//
-// 				ajax: 1
-// 		};
-// 		console.log(form_data);
-//
-// 		$.ajax({
-// 			type: "get",
-// 			url: $(this).attr('href'),
-// 			data: form_data,
-// 			success: function(data){
-// 				$("#room_" + my_room + " table.list tbody").append("<tr><td>" + data + "</td></tr>");
-// 			}
-//
-// 		});
-//
-// 	});
+
 	
 	$(document).on("click",".add-placeholder",function(e){
 		e.preventDefault();
