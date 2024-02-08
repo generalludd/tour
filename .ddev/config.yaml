@@ -12,7 +12,12 @@ database:
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []
-nodejs_version: "18"
+nodejs_version: "20"
+hooks:
+    post-start:
+        - exec: nvm install 20.10.0
+        - exec: nvm use 20.10.0
+        - exec: nvm alias default 20.10.0
 
 # Key features of DDEV's config.yaml:
 
