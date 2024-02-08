@@ -82,7 +82,7 @@ class Roommate extends MY_Controller {
 		$stay = $this->input->get("stay");
 	}
 
-	function create_room() {
+	function create_room(): void {
 		$tour_id = $this->input->get("tour_id");
 		$stay = $this->input->get("stay");
 		if ($tour_id && $stay) {
@@ -104,21 +104,37 @@ class Roommate extends MY_Controller {
 	 * @param int $tour_id
 	 * @param int $stay
 	 */
-	function add_placeholder(int $tour_id, int $stay) {
+	function add_placeholder(int $tour_id, int $stay): void {
 		$person_id = $this->roommate->get_next_placeholder($tour_id, $stay);
-		echo sprintf('<input type="text" data-tour_id="%s" data-stay="%s" data-person_id="%s" value="" class="insert-placeholder" placeholder="Enter a Placeholder"/>', $tour_id, $stay, $person_id);
+		$output = ['input' => sprintf('<input type="text" data-tour_id="%s" data-stay="%s" data-person_id="%s" value="" class="insert-placeholder" placeholder="Enter a Placeholder"/>', $tour_id, $stay, $person_id)];
+		$output['person_id'] = $person_id;
+		$output['tour_id'] = $tour_id;
+		$output['stay'] = $stay;
+		$output['placeholder'] = 'Enter a placeholder';
+		$output['url'] = site_url("/roommate/insert_placeholder");
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($output));
 	}
 
-	function insert_placeholder() {
-		if ($placeholder = $this->input->post("placeholder")) {
-			$values ['tour_id'] = $this->input->post("tour_id");
-			$values ['stay'] = $this->input->post("stay");
-			$values ['person_id'] = $this->input->post("person_id");
-			$values ['room_id'] = $this->input->post("room_id");
-			$values ['placeholder'] = $placeholder;
-			$this->roommate->insert($values);
-			echo $placeholder;
+	function insert_placeholder(): void {
+		$output = [];
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($output));
+		$json = file_get_contents('php://input');
+		$input =  json_decode($json, TRUE);
+		$output = $input;
+
+		if (!empty($input['placeholder'])) {
+			$this->roommate->insert($input);
+
 		}
+		if ($this->input->get('ajax')) {
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($output));
+		}
+
 	}
 
 	function insert_row() {
@@ -167,7 +183,7 @@ class Roommate extends MY_Controller {
 	 * generate a dropdown form menu of all those without rooms for the given
 	 * tour and stay
 	 */
-	function get_roomless_menu($tour_id, $stay, $room_number) {
+	function get_roomless_menu($tour_id, $stay, $room_number): void {
 		$class = FALSE;
 		if ($this->input->get("class")) {
 			$class = $this->input->get("class");

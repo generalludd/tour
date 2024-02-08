@@ -11,7 +11,7 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 		"attributes" => "menu='room_type'",
 	]); ?>
 	<div class="roommates-box">
-		<table class="list roommates">
+		<table class="list roommates" data-room_id="<?php print $room->id;?>">
 			<tbody>
 			<?php if (get_value($room, "roommates", FALSE)): ?>
 				<?php foreach ($room->roommates as $roommate): ?>

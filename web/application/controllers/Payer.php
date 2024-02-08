@@ -17,7 +17,7 @@ class Payer extends MY_Controller {
 		$this->edit($payer_id, $tour_id, $ajax);
 	}
 
-	function create() {
+	function create(): void {
 		$this->load->model("variable_model", "variable");
 		$payer_id = $this->input->get("payer_id");
 		$data["payer_id"] = $payer_id;
@@ -54,10 +54,11 @@ class Payer extends MY_Controller {
 	 * This script can be run via url or called internally such as when it is
 	 * called in $this->insert() function
 	 *
-	 * @param false|string $payer_id
+	 * @param string|null $payer_id
 	 * @param string|null $tour_id
+	 * @param bool $ajax
 	 */
-	function edit(string $payer_id = NULL, string $tour_id = NULL, $ajax = FALSE) {
+	function edit(string $payer_id = NULL, string $tour_id = NULL, bool $ajax = FALSE): void {
 
 		$this->load->model("variable_model", "variable");
 		if (empty($payer_id)) {

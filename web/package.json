@@ -7,8 +7,7 @@
 		"format": "prettier --write \"source/scss/**/*.scss\"",
 		"compile-sass-prod": "./node_modules/.bin/gulp sassProd",
 		"compile-sass-dev": "./node_modules/.bin/gulp sassDev",
-		"watch:theme": "./node_modules/.bin/gulp sassWatch",
-		"build:theme-css": "rimraf css && npm run compile-sass-dev",
+		"watch": "./node_modules/.bin/gulp sassWatch",
 		"build": "npm run build:theme-css"
 	},
   "author": "",

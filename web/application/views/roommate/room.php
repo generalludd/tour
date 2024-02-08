@@ -7,7 +7,7 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 <div class="room-row" id="room_<?php print $room_number; ?>">
 	<h4>Room# <?php print $room_number; ?></h4>
 	<div class="roommates-box">
-		<table class="list roommates">
+		<table class="list roommates" data-room_id="<?php print $room_number;?>">
 			<tbody>
 			<?php if (!empty($roommates)): ?>
 				<?php foreach ($roommates as $roommate): ?>

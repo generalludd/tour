@@ -12,6 +12,8 @@
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/popup.css'). "?" . date("u")?>" />
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/messages.css'). "?" . date("u")?>" />
 	<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/buttons.css'). "?" . date("u")?>" />
+	<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/elements.css'). "?" . date("u")?>" />
+
 
 <?php if(!empty($styles)):?>
 <?php foreach($styles as $style):?>
