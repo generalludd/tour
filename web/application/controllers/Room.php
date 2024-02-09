@@ -10,7 +10,9 @@ class Room extends MY_Controller {
 		$this->load->model("variable_model", "variable");
 	}
 
-	function create($tour_id, $stay) {
+	function create(): void {
+		$tour_id = $this->input->get('tour_id');
+		$stay = $this->input->get('stay');
 		$data['room'] = $this->room->create($tour_id, $stay);
 		$data['tour_id'] = $tour_id;
 		$data['stay'] = $stay;
@@ -38,7 +40,7 @@ class Room extends MY_Controller {
 	}
 
 
-	function edit_value() {
+	function edit_value(): void {
 		$data['name'] = $this->input->get('field');
 		$value = $this->input->get('value');
 		$data['value'] = $value;
@@ -62,7 +64,7 @@ class Room extends MY_Controller {
 		echo $output;
 	}
 
-	function update_value() {
+	function update_value(): void {
 		$id = $this->input->post('id');
 		$value = $this->input->post('value');
 		if (is_array($value)) {
@@ -75,15 +77,21 @@ class Room extends MY_Controller {
 		echo $value;
 	}
 
-	function delete() {
-		$id = $this->input->post('id');
+	function delete(): void {
+		$json = file_get_contents('php://input');
+		$input =  json_decode($json, TRUE);
+		$id = $input['room_id'];
 		if ($this->room->delete($id)) {
-			$output = TRUE;
+			if($this->input->get('ajax')){
+				$output = ['room_id' => $id];
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($output));
+			}
+			else{
+				redirect('tourist/view_all/' . $input['tour_id']);
+			}
 		}
-		else {
-			$output = FALSE;
-		}
-		echo $output;
 	}
 
 	function _get_dropdown($category, $value, $field) {

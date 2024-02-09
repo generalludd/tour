@@ -105,12 +105,13 @@ class Roommate extends MY_Controller {
 	}
 
 	function insert_placeholder(): void {
+		$json = file_get_contents('php://input');
+		$input =  json_decode($json, TRUE);
+
 		$output = [];
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($output));
-		$json = file_get_contents('php://input');
-		$input =  json_decode($json, TRUE);
 		if (!empty($input['placeholder'])) {
 			$this->roommate->insert($input);
 		}

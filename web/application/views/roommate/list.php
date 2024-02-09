@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $buttons['add_room'] = [
 		'text' => 'Add Room',
 		'class' => 'button new add-room',
-		'href' => base_url('room/create/' . $tour_id . '/' . $stay),
+		'href' => base_url('room/create?tour_id=' . $tour_id . '&stay=' . $stay . '&ajax=1'),
 		'title' => 'Add a room for this tour and stay',
 ];
 $buttons['add_stay'] = [

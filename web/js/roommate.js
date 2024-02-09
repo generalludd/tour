@@ -137,6 +137,30 @@ function deleteRoommate(event){
 	}
 }
 
+function deleteRoom(event) {
+	const question = confirm('Are you sure you want to delete this room? This cannot be undone!');
+	if (question) {
+		const formData = {
+			room_id: event.target.dataset.room_id,
+			tour_id: event.target.dataset.tour_id,
+		};
+		const myUrl = base_url + 'room/delete?ajax=1';
+		fetch(myUrl, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',  // Set Content-Type header
+				},
+				body: JSON.stringify(formData),
+			},
+		)
+			.then(response => response.json())
+			.then(data => {
+				const roomRow = document.getElementById('roommate-block_' + data.room_id);
+				roomRow.remove();
+			});
+	}
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 
 	// Add a click event listener to the #content of the page.
@@ -152,6 +176,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		if(event.target.classList.contains('delete-roommate')){
 			 deleteRoommate(event);
+		}
+
+		if(event.target.classList.contains('delete-room')){
+			deleteRoom(event);
 		}
 	});
 
@@ -189,25 +217,7 @@ $(document).ready(function () {
 
 	});
 
-	$(document).on('click', '.delete-room', function () {
-		question = confirm('are you sure you want to delete this room? This cannot be undone!');
-		if (question) {
-			my_id = this.id.split('_')[1];
-			form_data = {
-				id: my_id,
-			};
 
-			$.ajax({
-				type: 'post',
-				data: form_data,
-				url: base_url + 'room/delete',
-				success: function (data) {
-					$('#room_' + my_id).remove();
-
-				},
-			});
-		}
-	});
 
 });//end document.ready
 

@@ -84,9 +84,12 @@ if(empty($stay)){
 			],
 			[
 				"text" => "Delete Room",
-				"type" => "span",
+				"type" => "button",
 				"class" => "button delete small no-float delete-room",
-				"id" => sprintf("delete-room_%s", $room->id),
+				'data' => [
+					'room_id' => $room->id,
+					'tour_id' => $room->tour_id,
+				],
 				"title" => "Delete room and all roommates",
 			],
 		]); ?>
