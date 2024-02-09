@@ -82,34 +82,22 @@ class Roommate extends MY_Controller {
 		$stay = $this->input->get("stay");
 	}
 
-	function create_room(): void {
-		$tour_id = $this->input->get("tour_id");
-		$stay = $this->input->get("stay");
-		if ($tour_id && $stay) {
-			$last_room = $this->roommate->get_last_room($tour_id, $stay);
-			$room_list = $this->roommate->get_room_numbers($tour_id, $stay);
-			$data['tour_id'] = $tour_id;
-			$data['stay'] = $stay;
-			$data ["room_number"] = get_first_missing_number($room_list, "room");
-			$data ["roommate_list"] = $this->get_roomless_menu($tour_id, $stay, $data['room_number']);
-			$data ["roommates"] = FALSE;
-			$this->load->view("roommate/room", $data);
-		}
-	}
+
 
 	/**
 	 * for getting the next placeholder for the tour and stay
-	 * This is for busdrivers and placeholder roommates.
+	 * This is for bus drivers and placeholder roommates.
 	 *
-	 * @param int $tour_id
-	 * @param int $stay
 	 */
-	function add_placeholder(int $tour_id, int $stay): void {
+	function add_placeholder(): void {
+		$tour_id = $this->input->get("tour_id");
+		$stay = $this->input->get("stay");
+		$room_id = $this->input->get("room_id");
 		$person_id = $this->roommate->get_next_placeholder($tour_id, $stay);
-		$output = ['input' => sprintf('<input type="text" data-tour_id="%s" data-stay="%s" data-person_id="%s" value="" class="insert-placeholder" placeholder="Enter a Placeholder"/>', $tour_id, $stay, $person_id)];
 		$output['person_id'] = $person_id;
 		$output['tour_id'] = $tour_id;
 		$output['stay'] = $stay;
+		$output['room_id'] = $room_id;
 		$output['placeholder'] = 'Enter a placeholder';
 		$output['url'] = site_url("/roommate/insert_placeholder");
 
@@ -123,35 +111,45 @@ class Roommate extends MY_Controller {
 			->set_output(json_encode($output));
 		$json = file_get_contents('php://input');
 		$input =  json_decode($json, TRUE);
-		$output = $input;
-
 		if (!empty($input['placeholder'])) {
 			$this->roommate->insert($input);
-
 		}
-		if ($this->input->get('ajax')) {
+		$room = $this->room->get($input['room_id']);
+		$room->roommates = $this->roommate->get_for_room($room->id);
+		$input ["room"] = $room;
+		if($this->input->get('ajax')){
+			$output['html'] = $this->load->view("room/edit", $input, TRUE);
+			$output['room_id'] = $input['room_id'];
 			$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode($output));
 		}
+		else{
+			$this->load->view("room/edit", $input);
+		}
 
 	}
 
-	function insert_row() {
-		$this->roommate->insert();
-		$tour_id = $this->input->post("tour_id");
-		$stay = $this->input->post("stay");
-		$room_id = $this->input->post("room_id");
-		$this->load->model("room_model", "room");
-		$room = $this->room->get($room_id);
+	function insert_row(): void {
+		$json = file_get_contents('php://input');
+		$input =  json_decode($json, TRUE);
+		$this->roommate->insert($input);
+		$room = $this->room->get($input['room_id']);
 		$room->roommates = $this->roommate->get_for_room($room->id);
-		$data ["room"] = $room;
-		$data['tour_id'] = $tour_id;
-		$data['stay'] = $stay;
-		$this->load->view("room/edit", $data);
+		$input ["room"] = $room;
+		if($this->input->get('ajax')){
+			$output['html'] = $this->load->view("room/edit", $input, TRUE);
+			$output['room_id'] = $input['room_id'];
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($output));
+		}
+		else{
+			$this->load->view("room/edit", $input);
+		}
 	}
 
-	function update_value() {
+	function update_value(): void {
 		$tour_id = $this->input->post("tour_id");
 		$stay = $this->input->post("stay");
 		$values = [
@@ -161,47 +159,54 @@ class Roommate extends MY_Controller {
 		print $this->input->post("value");
 	}
 
-	function delete() {
-		$deletion = [
-			"person_id" => $this->input->post("person_id"),
-			"room_id" => $this->input->post("room_id"),
-			"stay" => $this->input->post("stay"),
-			"tour_id" => $this->input->post("tour_id"),
-		];
-		$this->roommate->delete($deletion);
-		$tour_id = $this->input->post("tour_id");
-		$stay = $this->input->post("stay");
-		$room_id = $this->input->post("room_id");
-		$data['tour_id'] = $tour_id;
-		$data['stay'] = $stay;
-		$data ["room"] = $this->room->get($room_id);
-		$data ["room"]->roommates = $this->roommate->get_for_room($room_id);
-		$this->load->view("room/edit", $data);
+	function delete(): void {
+		$json = file_get_contents('php://input');
+		$data =  json_decode($json, TRUE);
+		$this->roommate->delete($data);
+		$data ["room"] = $this->room->get($data['room_id']);
+		$data ["room"]->roommates = $this->roommate->get_for_room($data['room_id']);
+		if($this->input->get('ajax')){
+			$output = ['html' => $this->load->view("room/edit", $data, TRUE)];
+			$output['room_id'] = $data['room_id'];
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($output));
+		}
+		else{
+			$data['target'] = 'room/edit';
+			$data['title'] = 'Edit a room';
+			$this->load->view('page/index', $data);
+		}
 	}
 
 	/**
 	 * generate a dropdown form menu of all those without rooms for the given
 	 * tour and stay
 	 */
-	function get_roomless_menu($tour_id, $stay, $room_number): void {
-		$class = FALSE;
-		if ($this->input->get("class")) {
-			$class = $this->input->get("class");
-		}
+	function get_roomless_menu(): void {
+			$tour_id = $this->input->get("tour_id");
+			$stay = $this->input->get("stay");
+			$room_id = $this->input->get("room_id");
+
 		$roomless = $this->roommate->get_roomless($tour_id, $stay);
 		$roomless_pairs = get_keyed_pairs($roomless, [
 			"id",
 			"person_name",
-		], TRUE);
-		$output = json_encode([
-			'roomless' => $roomless_pairs,
-			'room_number' => $room_number,
-			'tour_id' => $tour_id,
-			'stay' => $stay,
-			'class' => $class,
-			'url' => site_url("roommate/add_placeholder/$tour_id/$stay"),
 		]);
-		$this->output->set_content_type('application/json')->set_output($output);
+		$data['placeholder_row'] = ['roomless' => $roomless_pairs];
+		$data['tour_id'] = $tour_id;
+		$data ["room"] = $this->room->get($room_id);
+		$data ["room"]->roommates = $this->roommate->get_for_room($room_id);
+		if($this->input->get('ajax')){
+			$output['html'] = $this->load->view("room/edit", $data, TRUE);
+			$output['room_id'] = $room_id;
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($output));
+		}
+		else{
+			$this->load->view("room/edit", $data);
+		}
 	}
 
 }

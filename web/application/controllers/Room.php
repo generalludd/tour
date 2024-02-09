@@ -32,7 +32,7 @@ class Room extends MY_Controller {
 
 		}
 		else {
-			redirect('roommate/view_for_tour/' . $tour_id . '/' . $stay);
+			$this->load->view('page/index', $data);
 		}
 
 	}
@@ -50,21 +50,14 @@ class Room extends MY_Controller {
 		$data['type'] = $this->input->get('type');
 		$data['category'] = $this->input->get('category');
 
-		switch ($data['type']) {
-			case 'dropdown':
-				$output = $this->_get_dropdown($data['category'],
-					$data['value'], $data['name']);
-				break;
-			case 'multiselect':
-				$output = $this->_get_multiselect($data['category'],
-					$data['value'], $data['name']);
-				break;
-			case 'textarea':
-				$output = form_textarea($data, $data['value']);
-				break;
-			default:
-				$output = form_input($data);
-		}
+		$output = match ($data['type']) {
+			'dropdown' => $this->_get_dropdown($data['category'],
+				$data['value'], $data['name']),
+			'multiselect' => $this->_get_multiselect($data['category'],
+				$data['value'], $data['name']),
+			'textarea' => form_textarea($data, $data['value']),
+			default => form_input($data),
+		};
 
 		echo $output;
 	}
