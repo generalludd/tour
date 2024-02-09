@@ -8,7 +8,7 @@
 		"compile-sass-prod": "./node_modules/.bin/gulp sassProd",
 		"compile-sass-dev": "./node_modules/.bin/gulp sassDev",
 		"watch": "./node_modules/.bin/gulp sassWatch",
-		"build": "npm run build:theme-css"
+		"build": "npm run compile-sass-prod"
 	},
   "author": "",
   "license": "ISC",

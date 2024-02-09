@@ -1,4 +1,3 @@
-
 body {
 	font-size: 18px;
 	font-family: tahoma, sans-serif;
@@ -55,7 +54,6 @@ article {
 		box-shadow: 2px 2px 4px #aaa;
 	}
 
-
 	form {
 		margin-top: 2em;
 		display: flex;
@@ -72,20 +70,16 @@ article {
 
 			input {
 				font-size: 1.2em;
-				padding: .5rem;
+				padding: 0.5rem;
 			}
 		}
-
 	}
-
 }
-
 
 #new_popup {
 	display: none;
 	visibility: hidden;
 }
-
 
 div.list {
 	width: 60%;
@@ -103,7 +97,7 @@ div.list {
 /*form elements*/
 .label {
 	font-size: 1em;
-	font-weight: bold
+	font-weight: bold;
 }
 
 /* form dimensions mainly defined here */
@@ -112,21 +106,22 @@ div.list {
 	width: 70%;
 }
 
-.button, input[type="submit"], .person-search {
+.button,
+input[type="submit"],
+.person-search {
 	border-radius: 3px;
 	box-shadow: 1px 1px 2px #333;
 }
-
 
 tr.row-break td {
 	border-top: solid 1px black !important;
 }
 
-
-input:not[type="submit"], textarea {
+input:not[type="submit"],
+textarea {
 	border: 1px solid gray;
-	border-radius: .25rem;
-	padding: .25rem;
+	border-radius: 0.25rem;
+	padding: 0.25rem;
 }
 
 input[type="text"].person-search {
@@ -143,7 +138,6 @@ input[type="text"].person-search {
 input[type="number"] {
 	width: 5em;
 }
-
 
 input[type="tel"] {
 	width: 7em;
@@ -168,11 +162,8 @@ input[type="time"] {
 	cursor: pointer;
 }
 
-
 .help {
-
 }
-
 
 textarea {
 	font-size: 1em;
@@ -211,13 +202,12 @@ legend {
 #page-title {
 	font-size: 1.3em;
 	font-weight: bold;
-	padding-bottom: .7em;
+	padding-bottom: 0.7em;
 }
 
 #navigation {
 	padding: 1px;
 }
-
 
 #utility {
 	float: right;
@@ -282,14 +272,15 @@ h5 {
 	margin: 0;
 }
 
-h3, h4, h5 {
+h3,
+h4,
+h5 {
 	margin-top: 4px;
 	margin-bottom: 4px;
 }
 
-
 .field {
-	margin-bottom: .5em;
+	margin-bottom: 0.5em;
 }
 
 .columnbox {
@@ -309,7 +300,6 @@ h3, h4, h5 {
 	float: left;
 }
 
-
 img:hover {
 	cursor: pointer;
 }
@@ -323,7 +313,7 @@ label {
 }
 
 .footnote {
-	font-size: .8em;
+	font-size: 0.8em;
 	vertical-align: super;
 }
 
@@ -338,9 +328,8 @@ label {
 }
 
 .input-block.horizontal label:after {
-	content: ":"
+	content: ":";
 }
-
 
 #search-list {
 	position: absolute;
@@ -357,25 +346,18 @@ label {
 	overflow: scroll;
 }
 
-
-
-
-
 #popup {
-	font-size: .9em;
+	font-size: 0.9em;
 }
-
 
 table.files {
 	border-spacing: 5px;
 }
 
 table.files th {
-
 }
 
 table.files td {
-
 }
 
 table.files td.file-name {
@@ -390,11 +372,13 @@ td.field input {
 	width: 60px;
 }
 
-a.link, input.link {
+a.link,
+input.link {
 	text-decoration: underline;
 }
 
-a.link:hover, input.link:hover {
+a.link:hover,
+input.link:hover {
 	cursor: pointer;
 }
 
@@ -422,7 +406,6 @@ fieldset.advanced div.advanced {
 	font-size: 1.2em;
 }
 
-
 #feedback-editor {
 	width: 30em;
 }
@@ -432,8 +415,8 @@ fieldset.advanced div.advanced {
 	display: block;
 }
 
-.color-info, .order-info {
-
+.color-info,
+.order-info {
 }
 
 fieldset.block label {
@@ -451,7 +434,6 @@ fieldset.block label {
 		display: block;
 	}
 }
-
 
 .roommate .edit-field.field {
 	display: inline;
@@ -481,7 +463,6 @@ textarea.save-field {
 	}
 }
 
-
 .diptych {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -494,9 +475,7 @@ li.diptych {
 }
 
 li.diptych .delete {
-
 }
-
 
 #search_list td {
 	border: 1px solid #ddd;
@@ -526,7 +505,6 @@ fieldset.field-group {
 }
 
 .field-group .field-set {
-
 	padding: 0;
 }
 
@@ -554,12 +532,12 @@ body.person #content {
 	position: relative;
 }
 
-body.person fieldset.grouping, div.grouping {
+body.person fieldset.grouping,
+div.grouping {
 	display: flex;
 	flex-direction: column;
 	min-width: 35ex;
 }
-
 
 div.person-info {
 	padding: 5px 5px;
@@ -574,7 +552,6 @@ div.address-info {
 }
 
 div.housemate-info {
-
 }
 
 .grouping div.field-envelope {
@@ -582,7 +559,7 @@ div.housemate-info {
 }
 
 .field-envelope.horizontal label:after {
-	content: ':';
+	content: ":";
 }
 
 #footer {
@@ -601,12 +578,13 @@ textarea.editor {
 	height: 15em;
 }
 
-input.note-field, textarea.address-field {
+input.note-field,
+textarea.address-field {
 	width: 25em;
 }
 
 .input-block {
-	padding: .35em 0;
+	padding: 0.35em 0;
 }
 
 .input-block.inline {
@@ -631,9 +609,8 @@ label.above {
 .contact-row .contact-info {
 	display: block;
 	padding-top: 1em;
-	padding-bottom: .5em;
+	padding-bottom: 0.5em;
 }
-
 
 .address-street-field {
 	width: 14em;
@@ -665,8 +642,8 @@ label.above {
 .field-box {
 	border: 1px solid #ccc;
 	border-radius: 3px;
-	padding: 0 .5em;
-	margin: .5em;
+	padding: 0 0.5em;
+	margin: 0.5em;
 }
 
 ul.list {
@@ -682,14 +659,16 @@ ul.list li {
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-	padding: .5em;
+	padding: 0.5em;
 }
 
 .quick-look .field-envelope {
 	font-size: 1rem;
 }
 
-.quick-look h2, .quick-look h3, .quick-look h4 {
+.quick-look h2,
+.quick-look h3,
+.quick-look h4 {
 	font-size: 1rem;
 	padding: 0;
 	text-transform: none;
@@ -725,7 +704,8 @@ details {
 		padding: 1.25rem 2.5rem 1.25rem 1.5rem;
 
 		list-style-type: none;
-		background: lightgoldenrodyellow url(/images/arrow-down.svg) 95% 50% no-repeat;
+		background: lightgoldenrodyellow url(/images/arrow-down.svg) 95% 50%
+			no-repeat;
 	}
 
 	&[open] summary {
@@ -733,5 +713,3 @@ details {
 		background-color: lightblue;
 	}
 }
-
-

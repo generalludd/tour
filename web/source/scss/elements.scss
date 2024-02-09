@@ -4,7 +4,7 @@ table {
 	padding-top: 5px;
 
 	&.compressed {
-		font-size: .9em;
+		font-size: 0.9em;
 		padding: 0;
 		border-spacing: 0;
 	}
@@ -15,7 +15,6 @@ table {
 	}
 
 	tr {
-
 	}
 
 	td {
@@ -41,9 +40,8 @@ table {
 		border-top-width: 3px;
 		border-top-color: #000;
 	}
-
 }
 
-input{
-	padding: .25rem;
+input {
+	padding: 0.25rem;
 }
