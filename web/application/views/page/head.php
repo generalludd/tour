@@ -44,7 +44,6 @@ var root_url = '<?php print base_url();?>';
 <script type="text/javascript" src="<?php print base_url('js/phone.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/receipt.js');?>"></script>
 
-<script type="text/javascript" src="<?php print base_url('js/roommate.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/payment.js');?>"></script>
 
 <!-- admin scripts -->

@@ -1,5 +1,29 @@
+document.addEventListener('DOMContentLoaded', function () {
+	// Click listener
+	document.getElementById('page').addEventListener('click', function (event) {
+		if (event.target.id === 'close-modal') {
+			event.preventDefault();
+			// delete the target
+			const modalDialog = document.getElementById('modal');
+			modalDialog.remove();
+		}
+		if(event.target.classList.contains('dialog')){
+			event.preventDefault();
+			const form_data = {
+				ajax: 1,
+			};
+			fetch(event.target.href + '?ajax=1')
+				.then(response => response.text())
+				.then(data => {
+					showPopup(data);
+				});
 
-$(document).ready(function () {
+			showPopup(event.target.title, event.target.href);
+		}
+
+	});
+});
+	$(document).ready(function () {
 
 	$(document).on('click', '.field-envelope .edit-field', function () {
 		let me = $(this);
@@ -67,25 +91,25 @@ $(document).ready(function () {
 		history.back();
 	});
 
-	$('.dialog').click('click', function (e) {
-		e.preventDefault();
-		let redirect_url = $(location).attr('href');
-		console.log(redirect_url);
-		let url = $(this).attr('href');
-		let form_data = {
-			ajax: 1,
-		};
-
-		$.ajax({
-			type: 'get',
-			data: form_data,
-			url: url,
-			success: function (data) {
-				show_popup('Edit', data, 600);
-				$('#redirect_url').val(redirect_url);
-			},
-		});
-	});
+	// $('.dialog').click('click', function (e) {
+	// 	e.preventDefault();
+	// 	let redirect_url = $(location).attr('href');
+	// 	console.log(redirect_url);
+	// 	let url = $(this).attr('href');
+	// 	let form_data = {
+	// 		ajax: 1,
+	// 	};
+	//
+	// 	$.ajax({
+	// 		type: 'get',
+	// 		data: form_data,
+	// 		url: url,
+	// 		success: function (data) {
+	// 			show_popup('Edit', data, 600);
+	// 			$('#redirect_url').val(redirect_url);
+	// 		},
+	// 	});
+	// });
 
 });
 
@@ -107,6 +131,14 @@ $(window).scroll(function () {
 		}
 	}
 });
+function showPopup(data) {
+	const content = document.getElementById('page');
+	const popup = document.createElement('div');
+	popup.innerHTML = data;
+	popup.id = 'modal';
+	content.appendChild(popup);
+
+}
 
 function show_popup(my_title, data, popup_width, x, y) {
 	if (!popup_width) {

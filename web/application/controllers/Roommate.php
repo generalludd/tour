@@ -15,7 +15,7 @@ class Roommate extends MY_Controller {
 
 	function view() {}
 
-	function view_for_tour($tour_id, $stay) {
+	function view_for_tour($tour_id, $stay): void {
 		$this->load->model("variable_model", "variable");
 		$data ["room_count"] = $this->room->get_room_count($tour_id, $stay);
 		$data ["sizes"] = get_keyed_pairs($this->variable->get_pairs("room_type", [
@@ -44,7 +44,7 @@ class Roommate extends MY_Controller {
 			$data ["hotel"] = $hotel;
 			$data ["tour_id"] = $tour_id;
 			$data ["stay"] = $stay;
-
+			$data['scripts'] = [site_url('js/roommate.js'), site_url('js/hotel.js')];
 			$data ["target"] = "roommate/list";
 			$data ["title"] = sprintf("Roommate List for Tour: %s, Stay: %s", $hotel->tour_name, $stay);
 			$this->load->view("page/index", $data);
@@ -85,11 +85,6 @@ class Roommate extends MY_Controller {
 		else{
 			redirect("roommate/view_for_tour/$tour_id/$stay");
 		}
-	}
-
-	function view_for_stay() {
-		$tour_id = $this->input->get("tour_id");
-		$stay = $this->input->get("stay");
 	}
 
 

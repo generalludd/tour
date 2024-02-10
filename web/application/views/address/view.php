@@ -6,7 +6,7 @@ if (isset($person->address)): ?>
 	$edit_buttons[] = [
 		"text" => "Edit",
 		'href' => base_url('address/edit/' . $person->address_id . '/' . $person->id),
-		"class" => "button small edit edit-address",
+		"class" => "button small edit dialog",
 	];
 	$edit_buttons[] = [
 		'text' => 'Delete',
@@ -53,12 +53,8 @@ $this->load->view('elements/field-item', [
 <?php else: ?>
 	<?php	$address_buttons['add_address'] = [
 			'text' => 'Add Address',
-			'class' => 'button small new add-address',
-			'href' => base_url('address/create'),
-			'data' => [
-					'person_id' => $person->id,
-					'target' => 'address/view',
-			],
+			'class' => 'button small new dialog',
+			'href' => base_url('address/create?person_id=' . $person->id),
 	]?>
 	<?php $this->load->view('elements/button-bar', ['data' => get_button_bar_object($address_buttons)]); ?>
 <?php  $this->load->view('address/find_housemate', ['person_id'=>$person->id]); ?>

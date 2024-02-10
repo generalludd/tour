@@ -12,8 +12,7 @@ class Hotel extends MY_Controller
 		$this->load->model('contact_model', 'contact');
 	}
 
-	function view($hotel_id)
-	{
+	function view($hotel_id): void {
 		$this->load->model('room_model', 'room');
 		$hotel = $this->hotel->get($hotel_id);
 		$data['contacts'] = $this->contact->get_all($hotel_id);
@@ -36,8 +35,7 @@ class Hotel extends MY_Controller
 		$this->load->view('page/index', $data);
 	}
 
-	function view_for_tour($tour_id)
-	{
+	function view_for_tour($tour_id): void {
 		$this->load->model('tour_model', 'tour');
 		$tour = $this->tour->get($tour_id);
 		$data['hotels'] = $tour->hotels;
@@ -47,56 +45,58 @@ class Hotel extends MY_Controller
 		$this->load->view('page/index', $data);
 	}
 
-	function view_all()
-	{
+	function view_all(): void {
 		$this->load->model('tour_model', 'tour');
 		$tours = $this->tour->get_all(TRUE);
 		$data['tours'] = $tours;
 	}
 
-	function create($tour_id)
-	{
+	function create($tour_id): void {
 		$this->load->model('tour_model', 'tour');
-		$tour_list = $this->tour->get_all(FALSE, 'tour_name,id');
-		$tour = $this->tour->get($tour_id, 'id, tour_name');
+		$tour = $this->tour->get($tour_id);
+		// Get hotels from the tour for the dates used.
+		$stays = $this->hotel->get_all($tour_id);
+		$hotel = new stdClass();
+		$hotel->departure_date = $tour->end_date;
+		$hotel->tour_id = $tour_id;
+		if(!empty($stays)) {
+			// Get the last item of the stays
+			$stay = end($stays);
+			$hotel->stay = $stay->stay + 1;
+			$hotel->arrival_date = $stay->departure_date;
+		}else {
+			$hotel->stay = 1;
+			$hotel->arrival_date = $tour->start_date;
+		}
+		$data['hotel'] = $hotel;
 		$data['tour'] = $tour;
-
-		$data['tour_list'] = get_keyed_pairs($tour_list, [
-			'id',
-			'tour_name',
-		], TRUE);
-		$data['hotel'] = NULL;
 		$data['action'] = 'insert';
+		$data['target'] = 'hotel/edit';
+		$data['title'] = 'Add Hotel';
 		$data['stay'] = $this->input->get('stay');
 		if ($this->input->get('ajax')) {
-			$this->load->view('hotel/edit', $data);
+			$this->load->view('page/modal', $data);
+		}else {
+			$this->load->view('page/index', $data);
 		}
 	}
 
-	function insert()
-	{
+	function insert(): void {
 		$id = $this->hotel->insert();
 		redirect('hotel/view/' . $id);
 	}
 
-	function edit($hotel_id)
-	{
+	function edit($hotel_id): void {
 		$hotel = $this->hotel->get($hotel_id);
 		$this->load->model('tour_model', 'tour');
-		$tour_list = $this->tour->get_all(FALSE);
-		$tour = $this->tour->get($hotel->tour_id, 'id, tour_name');
+		$tour = $this->tour->get($hotel->tour_id);
 		$data['tour'] = $tour;
-
-		$data['tour_list'] = get_keyed_pairs($tour_list, [
-			'id',
-			'tour_name',
-		], TRUE);
 		$data['hotel'] = $hotel;
 		$data['action'] = 'update';
 		$data['target'] = 'hotel/edit';
 		$data['title'] = 'Edit ' . $hotel->hotel_name;
 		if ($this->input->get('ajax')) {
-			$this->load->view('hotel/edit', $data);
+			$this->load->view('page/modal', $data);
 		} else {
 			$this->load->view('page/index', $data);
 		}

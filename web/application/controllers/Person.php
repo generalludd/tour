@@ -197,7 +197,7 @@ class Person extends MY_Controller {
 		$data['target'] = 'person/edit';
 		$data['action'] = 'update';
 		if ($this->input->get('ajax') == 1) {
-			$this->load->view($data['target'], $data);
+			$this->load->view('page/modal', $data);
 		}
 		else {
 			$this->load->view('page/index', $data);

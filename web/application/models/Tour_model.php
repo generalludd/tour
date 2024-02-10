@@ -1,33 +1,33 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // tour_model.php Chris Dart Dec 13, 2013 7:57:28 PM chrisdart@cerebratorium.com
 class Tour_model extends MY_Model {
 
-	var $tour_name;
+	protected string $tour_name;
 
-	var $start_date;
+	protected string $start_date;
 
-	var $end_date;
+	protected string $end_date;
 
-	var $due_date;
+	protected string $due_date;
 
-	var $full_price;
+	protected $full_price;
 
-	var $banquet_price;
+	protected $banquet_price;
 
-	var $early_price;
+	protected $early_price;
 
-	var $regular_price;
+	protected $regular_price;
 
-	var $single_room;
+	protected $single_room;
 
-	var $triple_room;
+	protected $triple_room;
 
-	var $quad_room;
+	protected $quad_room;
 
-
-	function prepare_variables() {
+	function prepare_variables(): void {
 		$variables = [
 			"tour_name",
 			"start_date",
@@ -65,13 +65,13 @@ class Tour_model extends MY_Model {
 
 				if (in_array($my_variable, $money)) {
 					$this->{$my_variable} = $my_value;
-
 				}
 				if (in_array($my_variable, $dates)) {
 					$this->{$my_variable} = date('Y-m-d', strtotime($my_value));
 				}
-
-				$this->{$my_variable} = $my_value;
+				else {
+					$this->{$my_variable} = $my_value;
+				}
 			}
 		}
 	}

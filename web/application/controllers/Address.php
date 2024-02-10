@@ -15,7 +15,7 @@ class Address extends My_Controller {
 	 * @TODO got to create a messaging system if an error occurs
 	 * that works well regardless of the way a script completes
 	 */
-	function create() {
+	function create(): void {
 		if ($this->input->get("id")) {
 			$data["person_id"] = $this->input->get("id");
 			$data["address"] = FALSE;
@@ -23,7 +23,7 @@ class Address extends My_Controller {
 			$data["title"] = "Adding an Address";
 			$data["action"] = "insert";
 			if ($this->input->get("ajax") == 1) {
-				$this->load->view("address/edit", $data);
+				$this->load->view("page/modal", $data);
 			}
 			else {
 				$this->load->view("page/index", $data);
@@ -50,14 +50,14 @@ class Address extends My_Controller {
 	/**
 	 * requires address_id and person_id to function;
 	 */
-	function edit($address_id, $person_id) {
+	function edit($address_id, $person_id): void {
 		$data['person_id'] = $person_id;
 		$data['address'] = $this->address->get($address_id);
 		$data['action'] = 'update';
 		$data['target'] = 'address/edit';
 		$data['title'] = 'Editing an Address';
 		if ($this->input->get('ajax') == 1) {
-			$this->load->view($data['target'], $data);
+			$this->load->view('page/modal', $data);
 		}
 		else {
 

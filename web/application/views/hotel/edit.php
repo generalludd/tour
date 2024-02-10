@@ -1,17 +1,19 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+if(empty($action) || empty($tour)){
+	return FALSE;
+}
 
-// edit.php Chris Dart Dec 29, 2013 9:15:32 PM chrisdart@cerebratorium.com
 
 ?>
 
 <form id="hotel-editor" name="hotel-editor" action="<?php print site_url('hotel/' . $action); ?>" method="post">
+	<?php if($action === 'update'):?>
 	<input type="hidden" name="id" id="id" value="<?php print get_value($hotel, 'id'); ?>"/>
-
+<?php endif; ?>
 	<?php print create_input($hotel, 'hotel_name', 'Hotel Name', ['envelope' => 'div',]); ?>
-	<div>
-		<label for="tour_id">Tour:&nbsp;</label>
-		<?php print form_dropdown('tour_id', $tour_list, get_value($hotel, 'tour_id', $tour->id), 'id="tour_id"'); ?>
-	</div>
+	<h3>
+		<?php print $tour->tour_name;?>
+	</h3>
 	<?php print create_input($hotel, 'stay', 'Tour Stay Number', $options = [
 			'envelope' => 'div',
 			'type' => 'number',
