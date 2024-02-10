@@ -3,8 +3,6 @@
 // edit.php Chris Dart Mar 14, 2014 9:40:39 PM chrisdart@cerebratorium.com
 
 ?>
-<script
-	src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 
 <h4>Letter Template</h4>
 <p>
@@ -50,24 +48,9 @@
 	if ($action == "update") {
 		$buttons[] = [
 			"text" => "Delete",
-			"class" => "button delete delete-template",
-			'data' => [
-				"tour_id" => $tour->id,
-				"letter_id" => $letter->id,
-			],
+			"class" => "button delete dialog",
+			'href' => site_url("letter/delete?letter_id=' . $letter->id"),
 		];
 	}
 	print create_button_bar($buttons); ?>
 </form>
-<script>
-	ClassicEditor
-		.create(document.querySelector('#body'))
-		.catch(error => {
-			console.error(error);
-		});
-	ClassicEditor
-		.create(document.querySelector('#cancellation'))
-		.catch(error => {
-			console.error(error);
-		});
-</script>

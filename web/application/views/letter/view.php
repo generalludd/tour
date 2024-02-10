@@ -26,10 +26,7 @@
 ];
 $buttons[] = [
 	"text" => "Delete",
-	"class" => "button delete no-float delete-template",
-	'data' => [
-		"tour_id" => $tour->id,
-		"letter_id" => $letter->id,
-	],
+	"class" => "button delete no-float dialog",
+	'href' => site_url("letter/delete?letter_id=' . $letter->id"),
 ];
 print create_button_bar($buttons);

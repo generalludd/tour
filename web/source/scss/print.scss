@@ -3,6 +3,7 @@ body {
 	width: 8.25in;
 	font-size: 12pt;
 }
+
 a:not(.button),
 a:hover:not(.button),
 a:link:not(.button),
@@ -124,9 +125,11 @@ div.legend {
 	height: 0;
 	display: none;
 }
+
 .button {
 	display: none;
 }
+
 #header {
 	display: none;
 }
@@ -185,4 +188,9 @@ tr {
 			display: none;
 		}
 	}
+}
+
+.edit-field::before {
+	content: unset;
+	padding: unset;
 }

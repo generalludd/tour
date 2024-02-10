@@ -23,6 +23,22 @@ document.addEventListener('DOMContentLoaded', function () {
 					showPopup(data);
 				});
 		}
+		if(event.target.classList.contains('inline')){
+			event.preventDefault();
+			let href = event.target.href;
+			const url = new URL(href);
+			if (url.search.length > 0) {
+				href +=  '&ajax=1';
+			} else {
+				href += '?ajax=1';
+			}
+			fetch(href)
+				.then(response => response.json())
+				.then(data => {
+					const element = document.getElementById(data.id);
+					element.innerHTML = data.value;
+				});
+		}
 
 	});
 });

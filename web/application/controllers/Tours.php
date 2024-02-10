@@ -21,7 +21,6 @@ class Tours extends MY_Controller {
 		$tour = $this->tour->get($id);
 		$this->load->model('letter_model', 'letter');
 		$data['letters'] = $this->letter->get_for_tour($id);
-		$data['tour_id'] = $id;
 		$data['tour'] = $tour;
 		$data['title'] = 'Letters for ' . $tour->tour_name;
 		$data['target'] = 'letter/list';
