@@ -14,8 +14,8 @@
 			<td>
 				<?php print create_button([
 					'text' => 'Join Tour',
-					'class' => 'button small select-tour add',
-					'href' => base_url('tours/show_current/' . $person->id),
+					'class' => 'button small dialog add',
+					'href' => base_url('tours/join_tour/' . $person->id),
 				]); ?>
 			</td>
 		</tr>

@@ -1,10 +1,14 @@
 <?php
 
-if (empty($action) && !empty($identifiers)) {
+if (empty($action) || empty($identifiers)) {
 	return NULL;
 }
 if (empty($message)) {
 	$message = 'Are you sure you want to delete this?';
+}
+
+if(empty($button_override)) {
+	$button_override = 'Delete';
 }
 
 ?>
@@ -21,5 +25,5 @@ if (empty($message)) {
 			<?php print $field; ?></label>
 		<?php endforeach; ?>
 	<?php endif; ?>
-	<input type="submit" class="delete button" value="Delete"/>
+	<input type="submit" class="delete button" value="<?php print $button_override;?>"/>
 </form>

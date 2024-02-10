@@ -151,11 +151,10 @@ class Tours extends MY_Controller {
 		}
 	}
 
-	function show_current($person_id) {
+	function join_tour($person_id): void {
 		$this->load->model("tourist_model", "tourist");
 		$data["id"] = $person_id;
 		$tours = $this->tourist->get_missing_tours($person_id);
-
 		$data['tours'] = $tours;
 		$data['target'] = 'tour/select';
 		$data['title'] = 'Select a Tour';
