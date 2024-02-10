@@ -220,7 +220,7 @@ class Person extends MY_Controller {
 		], TRUE);
 		$data['action'] = 'insert';
 		$data['target'] = 'person/edit';
-		$data['title'] = 'Add a new person to the person list';
+		$data['title'] = 'Add a new person';
 		if ($this->input->get('ajax')) {
 			$this->load->view('page/modal', $data);
 		}
@@ -313,7 +313,14 @@ class Person extends MY_Controller {
 			'person.email-DESC' => 'Email (Z-A)',
 			'person.shirt_size-DESC' => 'Shirt Size',
 		];
-		$this->load->view('person/filter', $data);
+		$data['title'] = 'Filter People';
+		$data['target'] = 'person/filter';
+		if($this->input->get('ajax')){
+			$this->load->view('page/modal', $data);
+		}
+		else {
+			$this->load->view('page/index', $data);
+		}
 	}
 
 	/**

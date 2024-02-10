@@ -36,7 +36,6 @@ var root_url = '<?php print base_url();?>';
 <script type="text/javascript" src="<?php print base_url("js/general.js");?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/search.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/payer.js');?>"></script>
-<script type="text/javascript" src="<?php print base_url('js/person.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/address.js');?>"></script>
 <script type="text/javascript" src="<?php print base_url('js/hotel.js');?>"></script>
 

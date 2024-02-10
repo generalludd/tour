@@ -53,7 +53,7 @@ $this->load->view("person/alphabet");
 $buttons [] = [
 	'text' => 'Add a New Person',
 	'href' => base_url('person/create'),
-	'class' => 'button new create-person',
+	'class' => 'button new dialog',
 ];
 
 $buttons[] = [
