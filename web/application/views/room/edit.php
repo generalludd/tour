@@ -56,7 +56,7 @@ if (empty($stay)) {
 			<?php if (!empty($placeholder_row)): ?>
 				<tr class="new-row">
 					<td>
-						<?php if (!empty($placeholder_row->roomless)): ?>
+						<?php if (count($placeholder_row->roomless)>1): ?>
 							<label>
 								<select class="roomless-tourists"
 												data-stay="<?php print $room->stay; ?>"

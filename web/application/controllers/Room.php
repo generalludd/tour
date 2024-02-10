@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // room.php Chris Dart May 23, 2014 10:11:59 PM chrisdart@cerebratorium.com
@@ -27,18 +28,14 @@ class Room extends MY_Controller {
 				'name',
 			]);
 		$data['action'] = 'update';
-		$data['target'] = 'room/edit';
 		$data['title'] = 'Add room';
 		if ($this->input->get('ajax')) {
 			$this->load->view('room/edit', $data);
-
 		}
 		else {
-			$this->load->view('page/index', $data);
+			redirect('roommate/view_for_tour/' . $tour_id . '/' . $stay);
 		}
-
 	}
-
 
 	function edit_value(): void {
 		$data['name'] = $this->input->get('field');
@@ -79,18 +76,16 @@ class Room extends MY_Controller {
 
 	function delete(): void {
 		$json = file_get_contents('php://input');
-		$input =  json_decode($json, TRUE);
+		$input = json_decode($json, TRUE);
 		$id = $input['room_id'];
-		if ($this->room->delete($id)) {
-			if($this->input->get('ajax')){
-				$output = ['room_id' => $id];
-				$this->output
-					->set_content_type('application/json')
-					->set_output(json_encode($output));
-			}
-			else{
-				redirect('tourist/view_all/' . $input['tour_id']);
-			}
+		$this->room->delete($id);
+		if ($this->input->get('ajax')) {
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($input));
+		}
+		else {
+			redirect('tourist/view_all/' . $input['tour_id']);
 		}
 	}
 

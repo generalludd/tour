@@ -111,7 +111,7 @@ class Roommate_Model extends MY_Model {
 
 	}
 
-	function insert($data = []) {
+	function insert($data = []): void {
 		if (empty($data)) {
 			$this->prepare_variables();
 			$this->db->insert('roommate', $this);

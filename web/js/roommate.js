@@ -11,7 +11,6 @@ function addRoommateRow(event) {
 		})
 		.then(data => {
 			const row = document.getElementById('roommate-block_' + data.room_id);
-			console.log(row);
 			row.innerHTML = data.html;
 		})
 		.catch(error => {
@@ -22,7 +21,6 @@ function addRoommateRow(event) {
 function addPlaceholderField(event) {
 	const button = event.target;
 	const myUrl = button.getAttribute('href');
-	console.log(myUrl);
 	fetch(myUrl, {
 			method: 'GET',
 		},
@@ -93,7 +91,6 @@ function insertRoommate(event) {
 		room_id: event.target.dataset.room_id,
 		person_id: event.target.value,
 	};
-	console.log(formData);
 	const myUrl = event.target.dataset.href + '?ajax=1';
 	fetch(myUrl, {
 			method: 'POST',
@@ -119,7 +116,6 @@ function deleteRoommate(event){
 			person_id: event.target.dataset.person_id,
 			stay: event.target.dataset.stay,
 		};
-		console.log(formData);
 		const myUrl = base_url + 'roommate/delete?ajax=1';
 		fetch(myUrl, {
 				method: 'POST',
@@ -155,36 +151,67 @@ function deleteRoom(event) {
 		)
 			.then(response => response.json())
 			.then(data => {
+				console.log(data.room_id);
 				const roomRow = document.getElementById('roommate-block_' + data.room_id);
 				roomRow.remove();
 			});
 	}
 }
 
+function duplicatePreviousStay(event) {
+	const formData = {
+		tour_id: event.target.dataset.tour_id,
+		stay: event.target.dataset.stay,
+		previous_stay: event.target.dataset.previous_stay,
+	}
+	const myUrl = base_url + 'roommate/duplicate?ajax=1';
+	fetch(myUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',  // Set Content-Type header
+			},
+			body: JSON.stringify(formData),
+		},
+	)
+		.then(response => response.json())
+		.then(data => {
+			window.location.href = base_url + 'roommate/view_for_tour/' + data.tour_id + '/' + data.stay;
+		});
+
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 
 	// Add a click event listener to the #content of the page.
 	document.getElementById('content').addEventListener('click', function (event) {
-		event.preventDefault();
 		if (event.target.classList.contains('add-roommate')) {
+			event.preventDefault();
 			addRoommateRow(event);
 		}
 
 		if (event.target.classList.contains('add-placeholder')) {
+			event.preventDefault();
 			addPlaceholderField(event);
 		}
 
 		if(event.target.classList.contains('delete-roommate')){
-			 deleteRoommate(event);
+			event.preventDefault();
+			deleteRoommate(event);
 		}
 
 		if(event.target.classList.contains('delete-room')){
+			event.preventDefault();
 			deleteRoom(event);
+		}
+
+		if(event.target.classList.contains('duplicate-previous-stay')){
+			event.preventDefault();
+			duplicatePreviousStay(event);
 		}
 	});
 
 	// add a focusout listener to the #content of the page
-	document.getElementById('content').addEventListener('focusout', function (event) {
+	document.getElementById('content').addEventListener('mouseout', function (event) {
 
 		if (event.target.classList.contains('insert-placeholder')) {
 			insertPlaceholderRoommate(event);
@@ -196,34 +223,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
-$(document).ready(function () {
-
-
-
-	$(document).on('click', '.duplicate-previous-stay', function () {
-		my_id = this.id.split('_');
-		form_data = {
-			tour_id: my_id[1],
-			stay: my_id[2],
-		};
-		$.ajax({
-			type: 'post',
-			url: base_url + 'roommate/duplicate',
-			data: form_data,
-			success: function (data) {
-				window.location.href = base_url + 'roommate/view_for_tour/' + my_id[1] + '/' + my_id[2];
-			},
-		});
-
-	});
-
-
-
-});//end document.ready
-
-function sort_ids(elements) {
-	elements.sort(function (a, b) {
-		return parseInt(a.id) > parseInt(b.id);
-	});
-
-}

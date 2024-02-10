@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $buttons['add_room'] = [
 		'text' => 'Add Room',
 		'class' => 'button new add-room',
-		'href' => base_url('room/create?tour_id=' . $tour_id . '&stay=' . $stay . '&ajax=1'),
+		'href' => base_url('room/create?tour_id=' . $tour_id . '&stay=' . $stay ),
 		'title' => 'Add a room for this tour and stay',
 ];
 $buttons['add_stay'] = [
@@ -28,8 +28,12 @@ if ($stay > 1) {
 		$buttons["duplicate_stay"] = [
 				"text" => "Duplcate Previous Stay",
 				"class" => "button new duplicate-previous-stay",
-				"id" => sprintf("duplicate-stay_%s_%s", $tour_id, $stay),
 				"title" => "Duplicate all the room assignments from the previous stay",
+			'data' => [
+				'tour_id' => $tour_id,
+				'stay' => $stay,
+				'previous_stay' => $previous_stay,
+				],
 
 		];
 	}

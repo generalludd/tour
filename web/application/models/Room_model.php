@@ -131,9 +131,8 @@ class Room_Model extends MY_Model {
 		return $result;
 	}
 
-	function delete($id) {
+	function delete($id): void {
 		$this->db->delete("room", ["id" => $id]);
-		echo $this->db->last_query();
 		$this->db->delete("roommate", ["room_id" => $id]);
 	}
 

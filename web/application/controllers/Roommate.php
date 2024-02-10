@@ -55,10 +55,12 @@ class Roommate extends MY_Controller {
 	 * duplicate duplicates all the rooms from the previous stay to the current
 	 * stay.
 	 */
-	function duplicate() {
-		$tour_id = $this->input->post("tour_id");
-		$stay = $this->input->post("stay");
-		$previous_stay = $stay - 1;
+	function duplicate(): void {
+		$json = file_get_contents('php://input');
+		$input =  json_decode($json, TRUE);
+		$tour_id = $input['tour_id'];
+		$stay = $input['stay'];
+		$previous_stay = $input['previous_stay'];
 		$rooms = $this->room->get_for_tour($tour_id, $previous_stay);
 		foreach ($rooms as $room) {
 			$new_room = $this->room->create($room->tour_id, $stay, $room->size);
@@ -74,7 +76,15 @@ class Roommate extends MY_Controller {
 				$this->roommate->insert($data);
 			}
 		}
-		redirect('roommate/view_for_tour/' . $tour_id . '/' . $stay);
+		if($this->input->get('ajax')){
+			$output = ['tour_id' => $tour_id, 'stay' => $stay];
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($output));
+		}
+		else{
+			redirect("roommate/view_for_tour/$tour_id/$stay");
+		}
 	}
 
 	function view_for_stay() {
