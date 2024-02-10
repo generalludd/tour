@@ -168,4 +168,9 @@ class Roommate_Model extends MY_Model {
 		$this->db->delete('roommate');
 	}
 
+	function delete_for_stay($tour_id, $stay): void {
+		$this->db->delete("room", ["tour_id" => $tour_id, "stay" => $stay]);
+		$this->db->delete("roommate", ["tour_id" => $tour_id, "stay" => $stay]);
+	}
+
 }

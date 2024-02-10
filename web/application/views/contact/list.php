@@ -29,7 +29,7 @@ foreach ($contacts as $contact): ?>
 		<?php $object = get_button_bar_object([
 				[
 						'text' => 'Edit Contact',
-						'href' => base_url('contact/edit', $contact->id),
+						'href' => base_url('contact/edit/' . $contact->id),
 						'class' => 'button edit dialog',
 
 				],

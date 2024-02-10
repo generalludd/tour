@@ -11,11 +11,7 @@ $buttons['add_room'] = [
 ];
 $buttons['add_stay'] = [
 		'text' => 'Add Stay (Hotel)',
-		'class' => 'button new add-hotel',
-		'data' => [
-				'tour_id' => $tour_id,
-				'stay' => $stay + 1,
-		],
+		'class' => 'button new dialog',
 		'href' => base_url('hotel/create/' . $tour_id),
 		'title' => 'Add another stay (day) to the tour by adding a hotel',
 ];

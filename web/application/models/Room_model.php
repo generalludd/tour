@@ -136,4 +136,6 @@ class Room_Model extends MY_Model {
 		$this->db->delete("roommate", ["room_id" => $id]);
 	}
 
+
+
 }

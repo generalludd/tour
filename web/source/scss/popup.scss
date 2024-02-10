@@ -95,10 +95,11 @@
 
 /* END POPUP HELP WINDOW AJAX CODE */
 #modal {
-	position: absolute;
-	z-index: 1;
-	top: 5vw;
-	left: 5vw;
+	position: fixed; /* Use fixed positioning */
+	z-index: 1050; /* Ensure it's above other content */
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%); /* Center the modal */
 	max-width: 65vw;
 	width: auto;
 	min-width: 30vw;
@@ -106,7 +107,7 @@
 	overflow: auto;
 	background-color: rgba(255, 255, 255, 0.94);
 	border: 1px solid black;
-	box-shadow: gray 3px 3px 3px;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 	border-radius: 1rem;
 
 	.modal-header {

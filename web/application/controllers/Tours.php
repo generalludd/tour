@@ -17,7 +17,7 @@ class Tours extends MY_Controller {
 		redirect('tourist/view_all/' . $id);
 	}
 
-	function letters($id){
+	function letters($id): void {
 		$tour = $this->tour->get($id);
 		$this->load->model('letter_model', 'letter');
 		$data['letters'] = $this->letter->get_for_tour($id);
@@ -27,7 +27,7 @@ class Tours extends MY_Controller {
 		$data['target'] = 'letter/list';
 		if($this->input->get('ajax')){
 			$data['ajax'] = '1';
-			$this->load->view($data['target'], $data);
+			$this->load->view('page/modal', $data);
 		}
 		else {
 			$this->load->view('page/index', $data);

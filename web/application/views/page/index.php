@@ -21,13 +21,14 @@ if(empty($target)){
 <html>
 <head>
 	<?php $this->load->view('page/head'); ?>
-</head>
 <body class="browser <?php print $body_class; ?>">
 <div id="page">
 	<?php if (!$print): ?>
 		<div id="header">
+			<div class="site-name">
+				<h1><?php print $this->config->item('site_name'); ?></h1>
 			<div id="super-header">
-				<h1 id="page-title"><?php print get_page_title($title) ?></h1>
+				<h2 id="page-title"><?php print get_page_title($title) ?></h2>
 				<div id="utility"><?php $this->load->view('page/utility'); ?></div>
 			</div>
 			<div id="navigation">

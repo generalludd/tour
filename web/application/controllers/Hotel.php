@@ -102,8 +102,7 @@ class Hotel extends MY_Controller
 		}
 	}
 
-	function update()
-	{
+	function update(): void {
 		$id = $this->input->post('id');
 		$this->hotel->update($id);
 		redirect('hotel/view/' . $id);
@@ -124,9 +123,38 @@ class Hotel extends MY_Controller
 		echo $this->input->post('value');
 	}
 
-	function delete()
-	{
-		$id = $this->input->post('id');
-		$this->hotel->delete($id);
+	function delete(): void {
+		if($id = $this->input->post('id')){
+			$hotel = $this->hotel->get($id);
+			$delete_rooms = $this->input->post('delete_rooms') === "1";
+			$this->hotel->delete($id, $delete_rooms);
+			$flash =  'Hotel ' . $hotel->hotel_name . ' successfully deleted.';
+			if($delete_rooms){
+				$flash .= ' All Rooms were also deleted.';
+			}else {
+				$flash .= ' Rooms were not deleted.';
+			}
+			$this->session->set_flashdata('notice',$flash);
+			redirect('hotel/view_for_tour/' . $hotel->tour_id);
+		}else {
+			$id = $this->input->get('id');
+			$hotel = $this->hotel->get($id);
+			$data['identifiers'] = [
+				'id' => $id,
+			];
+			$data['additional_fields'] = [
+				'Delete rooms' => form_checkbox('delete_rooms', TRUE),
+			];
+			$data['title'] = 'Delete a hotel';
+			$data['action'] = 'hotel/delete';
+			$data['target'] = 'dialogs/delete';
+			$data['message'] = 'Are you sure you want to delete ' . $hotel->hotel_name . '?';
+			if ($this->input->get('ajax')) {
+				$this->load->view('page/modal', $data);
+			}
+			else {
+				$this->load->view('page/index', $data);
+			}
+		}
 	}
 }
