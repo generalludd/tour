@@ -108,8 +108,7 @@ class Hotel extends MY_Controller
 		redirect('hotel/view/' . $id);
 	}
 
-	function update_value()
-	{
+	function update_value(): void {
 		$id = $this->input->post('id');
 		$value = trim($this->input->post('value'));
 		$field = $this->input->post('field');

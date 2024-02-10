@@ -60,7 +60,7 @@ else {
 
 $phone_button[] = [
 	"text" => "Add Phone",
-	"class" => "button small new add-phone",
+	"class" => "button small new dialog",
 	'href' => base_url('phone/create/' . $person->id),
 ];
 ?>
