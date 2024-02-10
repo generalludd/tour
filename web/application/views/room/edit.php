@@ -1,17 +1,19 @@
 <?php
+
 defined('BASEPATH') or exit ('No direct script access allowed');
-if(empty($room)){
+if (empty($room)) {
 	return FALSE;
 }
 
-if(empty($stay)){
+if (empty($stay)) {
 	$stay = $room->stay;
 }
 
 // edit.php Chris Dart May 26, 2014 6:32:43 PM chrisdart@cerebratorium.com
 
 ?>
-<div class="room-row" id="room_<?php print $room->id; ?>"  data-room_id="<?php print $room->id;?>">
+<div class="room-row" id="room_<?php print $room->id; ?>"
+		 data-room_id="<?php print $room->id; ?>">
 	<?php print edit_field("size", get_value($room, "size"), "Room Size", "room", $room->id, [
 		"envelope" => "span",
 		"class" => "dropdown",
@@ -39,12 +41,13 @@ if(empty($stay)){
 							<?php endif; ?>
 						</td>
 						<td>
-						<button
-							data-room_id="<?php print $room->id; ?>"
-							data-person_id="<?php print $roommate->person_id; ?>"
-							data-tour_id="<?php print $room->tour_id; ?>"
-							id="<?php print sprintf("delete-roommate_%s_%s", get_value($roommate, "room_id", $room->room_id), $roommate->person_id); ?>"
-							class="delete button delete-roommate no-float">Delete</button>
+							<button
+								data-room_id="<?php print $room->id; ?>"
+								data-person_id="<?php print $roommate->person_id; ?>"
+								data-tour_id="<?php print $room->tour_id; ?>"
+								id="<?php print sprintf("delete-roommate_%s_%s", get_value($roommate, "room_id", $room->room_id), $roommate->person_id); ?>"
+								class="delete button delete-roommate no-float">Delete
+							</button>
 						</td>
 					</tr>
 
@@ -52,21 +55,25 @@ if(empty($stay)){
 			<?php endif; ?>
 			<?php if (!empty($placeholder_row)): ?>
 				<tr class="new-row">
-					<td colspan="2">
-						<?php if(!empty($placeholder_row->roomless)):?>
-						<label>
-							<select class="roomless-tourists" data-stay="<?php print $room->stay; ?>"
-											data-tour_id="<?php print $room->tour_id; ?>"
-											data-room_id="<?php print $room->id; ?>"
-											data-href="<?php print site_url('roommate/insert_row'); ?>">
-								<?php foreach ($placeholders as $key => $placeholder): ?>
-									<option value="<?php print $key; ?>"><?php print $placeholder; ?></option>
-								<?php endforeach; ?>
-						</label>
-						<?php endif;?>
-
-						<a href="<?php print site_url('/roommate/add_placeholder?tour_id=' . $room->tour_id . '&stay=' . $stay . '&room_id=' . $room->id); ?>"
-							 class="add-placeholder link add">Add Placeholder</a></td>
+					<td>
+						<?php if (!empty($placeholder_row->roomless)): ?>
+							<label>
+								<select class="roomless-tourists"
+												data-stay="<?php print $room->stay; ?>"
+												data-tour_id="<?php print $room->tour_id; ?>"
+												data-room_id="<?php print $room->id; ?>"
+												data-href="<?php print site_url('roommate/insert_row'); ?>">
+									<?php foreach ($placeholder_row->roomless as $key => $placeholder): ?>
+										<option
+											value="<?php print $key; ?>"><?php print $placeholder; ?></option>
+									<?php endforeach; ?>
+							</label>
+						<?php endif; ?>
+					</td>
+					<td>
+						<a
+							href="<?php print site_url('/roommate/add_placeholder?tour_id=' . $room->tour_id . '&stay=' . $stay . '&room_id=' . $room->id); ?>"
+							class="add-placeholder link add">Add Placeholder</a></td>
 				</tr>
 			<?php endif; ?>
 			</tbody>
@@ -77,9 +84,9 @@ if(empty($stay)){
 				'data' => [
 					'tour_id' => $room->tour_id,
 					'stay' => $stay,
-					'room_id' =>$room->id,
-]	,
-				"href" => base_url('roommate/get_roomless_menu?tour_id=' .$room->tour_id . '&stay=' . $stay . '&room_id='. $room->id. '&ajax=1'),
+					'room_id' => $room->id,
+				],
+				"href" => base_url('roommate/get_roomless_menu?tour_id=' . $room->tour_id . '&stay=' . $stay . '&room_id=' . $room->id . '&ajax=1'),
 				"class" => "button new small add-roommate",
 			],
 			[

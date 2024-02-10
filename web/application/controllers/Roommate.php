@@ -194,7 +194,7 @@ class Roommate extends MY_Controller {
 			"id",
 			"person_name",
 		]);
-		$data['placeholder_row'] = ['roomless' => $roomless_pairs];
+		$data['placeholder_row'] = (object)['roomless' => $roomless_pairs];
 		$data['tour_id'] = $tour_id;
 		$data ["room"] = $this->room->get($room_id);
 		$data ["room"]->roommates = $this->roommate->get_for_room($room_id);
