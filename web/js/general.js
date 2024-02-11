@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Get the event target's href and parameters
 			const url = new URL(href);
 			if (url.search.length > 0) {
-				href +=  '&ajax=1';
+				href += '&ajax=1';
 			} else {
 				href += '?ajax=1';
 			}
@@ -23,12 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
 					showPopup(data);
 				});
 		}
-		if(event.target.classList.contains('inline')){
+		if (event.target.classList.contains('inline')) {
 			event.preventDefault();
 			let href = event.target.href;
 			const url = new URL(href);
 			if (url.search.length > 0) {
-				href +=  '&ajax=1';
+				href += '&ajax=1';
 			} else {
 				href += '?ajax=1';
 			}
@@ -123,7 +123,7 @@ $(window).scroll(function () {
 			top.css('background-color', '#000');
 		}
 	} else {
-		if (top.css('position') != 'static') {
+		if (top.css('position') !== 'static') {
 			top.css('position', 'static');
 			top.css('top', 'inherit');
 			top.css('background-color', 'inherit');
@@ -133,9 +133,13 @@ $(window).scroll(function () {
 
 function showPopup(data) {
 	const content = document.getElementById('page');
-	const popup = document.createElement('div');
+	let popup = content.querySelector('#modal');
+	if (!popup) {
+		popup = document.createElement('div');
+		popup.id = 'modal';
+	}
+
 	popup.innerHTML = data;
-	popup.id = 'modal';
 	content.appendChild(popup);
 
 }

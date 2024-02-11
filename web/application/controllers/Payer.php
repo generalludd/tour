@@ -13,7 +13,7 @@ class Payer extends MY_Controller {
 		$this->load->model('person_model', 'person');
 	}
 
-	function view($payer_id = FALSE, $tour_id = FALSE, $ajax = FALSE) {
+	function view($payer_id = FALSE, $tour_id = FALSE, $ajax = FALSE): void {
 		$this->edit($payer_id, $tour_id, $ajax);
 	}
 
@@ -97,7 +97,7 @@ class Payer extends MY_Controller {
 	 * there is no alternative if this is called without the ajax=1 post query
 	 * variable.
 	 */
-	function insert() {
+	function insert(): void {
 		$payer_id = $this->input->post("payer_id");
 		$tour_id = $this->input->post("tour_id");
 		$this->payer->insert($payer_id, $tour_id);
@@ -109,7 +109,7 @@ class Payer extends MY_Controller {
 		$this->edit($payer_id, $tour_id, $this->input->post('ajax'));
 	}
 
-	function update() {
+	function update(): void {
 		$payer_id = $this->input->post('payer_id');
 		$tour_id = $this->input->post('tour_id');
 		$this->payer->update($payer_id, $tour_id);
@@ -122,7 +122,7 @@ class Payer extends MY_Controller {
 		redirect('/tourist/view_all/' .$tour_id);
 	}
 
-	function update_value() {
+	function update_value(): void {
 		$id = $this->input->post("id");
 		$values = [
 			$this->input->post("field") => $value = trim($this->input->post("value")),
@@ -131,14 +131,14 @@ class Payer extends MY_Controller {
 		echo $this->input->post("value");
 	}
 
-	function select_tourists() {
+	function select_tourists(): void {
 		$data["action"] = "select_tourist";
 		$data["tour_id"] = $this->input->get("tour_id");
 		$data["payer_id"] = $this->input->get("payer_id");
 		$this->load->view("tourist/mini_selector", $data);
 	}
 
-	function select_payer($tour_id, $person_id) {
+	function select_payer($tour_id, $person_id): void {
 		$this->load->model("person_model", "person");
 		$this->load->model("tour_model", "tour");
 		$data["tour_name"] = $this->tour->get_value($tour_id, "tour_name");
@@ -158,7 +158,7 @@ class Payer extends MY_Controller {
 		}
 	}
 
-	function delete() {
+	function delete(): void {
 		if( $this->input->get('tour_id') &&  $this->input->get('payer_id')) {
 			$tour_id = $this->input->get('tour_id');
 			$payer_id = $this->input->get('payer_id');
@@ -168,12 +168,12 @@ class Payer extends MY_Controller {
 				'tour_id' => $tour_id,
 				'payer_id' => $payer_id,
 			];
-			$data['entity'] = 'payment by ' . $payer->first_name . ' ' . $payer->last_name . ' for ' . $tour->tour_name;
+			$data['title'] = 'Payment by ' . $payer->first_name . ' ' . $payer->last_name . ' for ' . $tour->tour_name;
 			$data['action'] ='payer/delete';
-			$data['message'] = 'This is only possible for someone who was accidentally added to a tour and has no rooms or payments associated with their tour.';
+			$data['message'] = 'This is only possible for someone who was accidentally added to a tour and has no rooms or payments associated with their tour. Use "Cancelled" if they already have paid money.';
 			$data['target'] = 'dialogs/delete';
 			if($this->input->get('ajax')){
-				$this->load->view($data['target'], $data);
+				$this->load->view('page/modal', $data);
 			}
 			else {
 				$this->load->view('page/index', $data);

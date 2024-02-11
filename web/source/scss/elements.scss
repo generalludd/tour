@@ -45,3 +45,8 @@ table {
 input {
 	padding: 0.25rem;
 }
+input[type="submit"][disabled] {
+	background-color: #ccc;
+	color: #666;
+	cursor: not-allowed;
+}

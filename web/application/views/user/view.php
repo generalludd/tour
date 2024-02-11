@@ -14,8 +14,8 @@
 			<?php $user_id = $this->session->userdata("user_id");?>
 			<?php if($user->id == $user_id || $user_id == 1): ?>
 			<?php $edit_buttons[] = array("selection"=>"auth",
-					"type"=>"span",
-					"class"=>array("button","password_edit","edit"),
+					"href"=> site_url("user/edit_password/$user->id"),
+					"class"=>array("button","dialog","edit"),
 					"text"=>"Change Password");
 			?>
 			<?php endif;?>

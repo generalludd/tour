@@ -19,8 +19,8 @@
 				 value="<?php print get_value($letter, "id"); ?>"/>
 	<input type="hidden" name="tour_id" value="<?php print $tour_id; ?>"/>
 	<p>
-		<label for="title">Title (i.e. "Welcome Aboard")</label>
-		<input type="text" name="title" id="title"
+		<label for="title">Title</label>
+		<input type="text" name="title" id="title" required="required" placeholder="Welcome aboard!"
 					 value="<?php print get_value($letter, "title"); ?>"/>
 	</p>
 	<p>
@@ -49,7 +49,7 @@
 		$buttons[] = [
 			"text" => "Delete",
 			"class" => "button delete dialog",
-			'href' => site_url("letter/delete?letter_id=' . $letter->id"),
+			'href' => site_url("letter/delete?letter_id=$letter->id"),
 		];
 	}
 	print create_button_bar($buttons); ?>

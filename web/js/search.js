@@ -1,11 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
 	// Clears the search box when it loses focus.
-	const personSearch = document.querySelector('input.person-search');
+	const personSearch = document.getElementById('search-list');
 	personSearch.addEventListener('blur', function (event) {
-		const target = personSearch.dataset.target;
-		const targetElement = document.getElementById(target);
-		targetElement.classList.add('hidden');
-		personSearch.value = '';
+		personSearch.classList.add('hidden');
 	});
 
 	// When the user types in the search box, the search results are displayed.
@@ -15,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			const my_name = element.value;
 			const field_id = element.id;
 			const my_url = element.dataset.url;
-			const my_target = element.dataset.target;
 			if (my_name.length > 0) {
 				let form_data = {
 					ajax: 1,
@@ -27,14 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
 				xhr.onreadystatechange = function () {
 					if (xhr.readyState === 4 && xhr.status === 200) {
 						const data = xhr.responseText;
-						const targetElement = document.getElementById(my_target);
+						const targetElement = document.getElementById('search-list');
+						targetElement.classList.remove('hidden');
 						targetElement.style.zIndex = '1000';
 						targetElement.innerHTML = data;
 						const fieldElement = document.getElementById(field_id);
 						const sourceRect = fieldElement.getBoundingClientRect();
 						targetElement.style.top = sourceRect.bottom.toString() + 'px';
 						targetElement.style.left = sourceRect.left.toString() + 'px';
-						targetElement.classList.remove('hidden');
 					}
 				};
 				xhr.send();
