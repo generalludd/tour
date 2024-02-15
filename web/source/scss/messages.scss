@@ -1,0 +1,45 @@
+:root {
+	--messages--status-color: lightgreen;
+	--messages--warning-color: lightpink;
+	--messages--error-color: lightyellow;
+	--messages--notice-color: lightblue;
+	--messages--alert-color: lightcoral;
+}
+
+.message {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 1rem;
+	transition: background-color 0.5s ease;
+	color: black;
+
+	&.warning {
+		background-color: var(--messages--error-color);
+	}
+	&.status {
+		background-color: var(--messages--status-color);
+	}
+
+	&.notice {
+		background-color: var(--messages--notice-color);
+	}
+
+	&.error {
+		background-color: var(--messages--error-color);
+	}
+	&.alert {
+		background-color: var(--messages--alert-color);
+	}
+
+	.close {
+		cursor: pointer;
+		width: 1rem;
+		height: 1rem;
+		background-color: transparent;
+		border: none;
+	}
+	&.hidden {
+		display: none;
+	}
+}

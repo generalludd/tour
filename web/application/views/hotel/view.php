@@ -7,15 +7,17 @@ if (empty($hotel)) {
 $buttons [] = [
 		'text' => 'Edit',
 		'href' => base_url('hotel/edit/' . $hotel->id),
-		'class' => 'button edit edit-hotel',
-		'data' => [
-				'hotel' => $hotel->id,
-		],
+		'class' => 'button edit dialog',
 ];
 $buttons [] = [
 		'text' => 'Roommates',
 		'href' => site_url('roommate/view_for_tour/' .  get_value($hotel, 'tour_id') . '/' .  get_value($hotel, 'stay')),
 ];
+$buttons[] = [
+	'text' => 'Delete',
+	'href' => base_url('hotel/delete?id=' . $hotel->id),
+	'class' => 'button delete dialog',
+]
 ?>
 <h3>Information for Hotel <?php print $hotel->hotel_name; ?></h3>
 <?php print create_button_bar($buttons); ?>
@@ -65,7 +67,7 @@ $buttons [] = [
 		<?php print create_button([
 				'text' => 'Add Contact',
 				'href' => base_url('contact/create/' . $hotel->id),
-				'class' => 'button new small add-contact',
+				'class' => 'button new small dialog',
 		]); ?>
 
 		<?php if (!empty($contacts)): ?>

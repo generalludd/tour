@@ -1,15 +1,17 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
+if(empty($tour)){
+	return FALSE;
+}
 // list.php Chris Dart Mar 15, 2014 12:27:43 PM chrisdart@cerebratorium.com
 $buttons['add_letter'] = [
 		'text' => 'Add Letter',
 		'class' => 'button add-letter new',
-		'href' => site_url('letter/create/' . $tour_id),
+		'href' => site_url('letter/create/' . $tour->id),
 ];
 ?>
 <h4>List of Letter Templates<?php print !empty($ajax)?' for ' . $tour->tour_name:'';?> </h4>
 
-<?php if ($letters): ?>
+<?php if (!empty($letters)): ?>
 
 <p id="letter-list-box">
 	<table id="letter-list">

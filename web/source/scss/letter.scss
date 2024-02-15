@@ -1,0 +1,140 @@
+@media print {
+	.non-printing {
+		display: none;
+	}
+}
+
+.letter-details {
+	padding: 1rem 0;
+}
+
+
+.letterhead {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	text-align: left;
+	font-family: Optima, sans-serif;
+	padding-bottom: 1.5rem;
+	font-size: 14px;
+}
+
+.letterhead--name {
+	font-size: 2.5em;
+	font-weight: bold;
+}
+
+.letterhead--tag-line {
+	font-size: 1em;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.letterhead img {
+	height: 25%;
+	width: 25%;
+}
+
+.letterhead--slogan {
+	text-transform: uppercase;
+	border-bottom: 1px solid #000;
+	padding: .5rem 0;
+	font-size: .9em;
+}
+
+.letterhead--address {
+	padding-top: .5rem;
+	font-size: .85em;
+}
+
+#letter.hide-letterhead {
+	.letterhead {
+		display: none;
+	}
+}
+
+
+.remittance-slip {
+	padding-top: 1rem;
+	margin-top: 1rem;
+	border-top: 1px dashed #000;
+	font-size: .9rem;
+}
+
+.remittance-slip--details {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: .5rem 0;
+	gap: 1rem;
+	border-bottom: 1px solid lightgray;
+}
+
+/* Don't show the line after the last .remittance-slip--details */
+.remittance-slip--details:last-child {
+	border-bottom: none;
+}
+
+.remittance-slip .return-policy {
+	justify-content: flex-start;
+	flex-direction: column;
+}
+
+.remittance-slip .return-policy p {
+	margin: 0;
+	padding: 0;
+}
+
+.remittance-slip .tourist-details {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	padding: .5rem 0;
+}
+
+.remittance-slip .payments {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-end;
+	gap: 3rem;
+}
+
+.remittance-slip .payments .amt-due, .remittance-slip .payments .amt-paid {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.list-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	gap: 1rem;
+}
+
+.remittance-slip ul {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: .5rem;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+}
+
+.remittance-slip ul li {
+	list-style: none;
+}
+
+.remittance-slip ul li::after {
+	content: "•";
+	padding-left: .25rem;
+}
+
+/** Dont show the after for the last list item */
+.remittance-slip ul li:last-child::after {
+	content: "";
+	padding: unset;
+}

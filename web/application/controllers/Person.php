@@ -21,7 +21,7 @@ class Person extends MY_Controller {
 	/**
 	 *
 	 */
-	function index() {
+	function index(): void {
 
 		$this->view_all();
 	}
@@ -197,7 +197,7 @@ class Person extends MY_Controller {
 		$data['target'] = 'person/edit';
 		$data['action'] = 'update';
 		if ($this->input->get('ajax') == 1) {
-			$this->load->view($data['target'], $data);
+			$this->load->view('page/modal', $data);
 		}
 		else {
 			$this->load->view('page/index', $data);
@@ -220,7 +220,7 @@ class Person extends MY_Controller {
 		], TRUE);
 		$data['action'] = 'insert';
 		$data['target'] = 'person/edit';
-		$data['title'] = 'Add a new person to the person list';
+		$data['title'] = 'Add a new person';
 		if ($this->input->get('ajax')) {
 			$this->load->view('page/modal', $data);
 		}
@@ -313,7 +313,14 @@ class Person extends MY_Controller {
 			'person.email-DESC' => 'Email (Z-A)',
 			'person.shirt_size-DESC' => 'Shirt Size',
 		];
-		$this->load->view('person/filter', $data);
+		$data['title'] = 'Filter People';
+		$data['target'] = 'person/filter';
+		if($this->input->get('ajax')){
+			$this->load->view('page/modal', $data);
+		}
+		else {
+			$this->load->view('page/index', $data);
+		}
 	}
 
 	/**
@@ -374,21 +381,20 @@ class Person extends MY_Controller {
 	 * See person_model->delete for more details.
 	 */
 	function delete(): void {
-		$id = $this->input->get('id');
-		$type = $this->input->get('type');
-		if (!empty($id)) {
+		if (!empty($id = $this->input->get('id'))) {
+			$type = $this->input->get('type');
 			$person = $this->person->get($id);
 			$data['entity'] = $person->first_name . ' ' . $person->last_name;
 			$data['identifiers'] = [
 				'person_id' => $person->id,
 			];
-			$data['type'] = $type;
+			$data['button_override'] = ucfirst($type);
 			$data['action'] = 'person/delete';
 			$data['message'] = 'You can only delete a person who has never been on a tour. Those who have been on a tour will be disabled.';
 			$data['target'] = 'dialogs/delete';
-			$data['title'] = $type .  ' ' . $data['entity'];
+			$data['title'] = ucfirst($type) .  ' ' . $data['entity'];
 			if ($this->input->get('ajax')) {
-				$this->load->view($data['target'], $data);
+				$this->load->view('page/modal', $data);
 			}
 			else {
 				$this->load->view('page/index', $data);
@@ -399,17 +405,19 @@ class Person extends MY_Controller {
 			$status = $this->person->delete($id);
 			if($status === 'deleted'){
 				$this->session->set_flashdata('notice', sprintf('%s, their phone numbers and other information have been completely from the database because they have never been on a tour.', $person->name));
+				redirect('person/view_all');
+
 			}else {
 				$this->session->set_flashdata('notice', $person->name . ' has been disabled because they have been on trips.');
+				redirect('person/view/' . $id);
 			}
-			redirect('person/view_all');
 		}
 	}
 
 	/**
 	 *
 	 */
-	function disable() {
+	function disable(): void {
 		$this->delete(TRUE);
 	}
 

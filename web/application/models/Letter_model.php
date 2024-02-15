@@ -1,63 +1,58 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
-// letter_model.php Chris Dart Mar 14, 2014 9:21:40 PM
-// chrisdart@cerebratorium.com
-class Letter_model extends CI_Model
-{
-    var $title;
-    var $body;
-    var $cancellation;
-    var $tour_id;
-    var $creation_date;
+class Letter_model extends CI_Model {
 
+	protected string $title;
 
+	protected string $body;
 
-    function prepare_variables ()
-    {
-        $variables = array(
-                "title",
-                "body",
-                "cancellation",
-                "tour_id",
-                "creation_date"
-        );
-        prepare_variables($this, $variables);
-    }
+	protected string $cancellation;
 
-    function get ($id)
-    {
-        $this->db->where("id", $id);
-        $this->db->from("letter");
-        $result = $this->db->get()->row();
-        return $result;
-    }
+	protected int $tour_id;
 
-    function get_for_tour ($tour_id)
-    {
-        $this->db->where("tour_id", $tour_id);
-        $this->db->from("letter");
-        $result = $this->db->get()->result();
-        return $result;
-    }
+	protected string $creation_date;
 
-    function insert ()
-    {
-        $this->prepare_variables();
-        $this->db->insert("letter", $this);
-        $id = $this->db->insert_id();
-        return $id;
-    }
+	function prepare_variables(): void {
+		$variables = [
+			"title",
+			"body",
+			"cancellation",
+			"tour_id",
+			"creation_date",
+		];
+		prepare_variables($this, $variables);
+	}
 
-    function update ($id)
-    {
-        $this->prepare_variables();
-        $this->db->where("id", $id);
-        $this->db->update("letter", $this);
-    }
+	function get($id) {
+		$this->db->where("id", $id);
+		$this->db->from("letter");
+		$result = $this->db->get()->row();
+		return $result;
+	}
 
-    function delete($id){
-        $this->db->where("id", $id);
-        $this->db->delete("letter");
-    }
+	function get_for_tour($tour_id) {
+		$this->db->where("tour_id", $tour_id);
+		$this->db->from("letter");
+		return $this->db->get()->result();
+	}
+
+	function insert() {
+		$this->prepare_variables();
+		$this->db->insert("letter", $this);
+		return $this->db->insert_id();
+	}
+
+	function update($id): void {
+		$this->prepare_variables();
+		$this->db->where("id", $id);
+		$this->db->update("letter", $this);
+	}
+
+	function delete($id): void {
+		$this->db->delete('letter', ["id" => $id]);
+		$this->db->delete('merge', ["letter_id" => $id]);
+	}
+
 }

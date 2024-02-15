@@ -1,0 +1,111 @@
+a,
+a:link,
+a:visited {
+	&:not(.button) {
+		color: forestgreen;
+		text-decoration: underline;
+	}
+	&:hover {
+		color: darkgreen;
+	}
+}
+
+.button,
+input[type="submit"] {
+	text-align: center;
+	padding: 0.2em 0.4em;
+	cursor: pointer;
+	font-weight: normal;
+	font-size: inherit;
+	white-space: nowrap;
+	border: none;
+}
+
+.button {
+	text-decoration: none;
+	background-color: forestgreen;
+	color: white;
+	&:hover,
+	&.active {
+		cursor: pointer;
+	}
+	&.active {
+		background-color: darkgreen;
+	}
+	&:hover {
+		background-color: lightgreen;
+		color: black;
+	}
+
+	// Modifier classes for .button
+	&.small {
+		font-size: 0.9em;
+		padding: 0.1em 0.5em;
+	}
+
+	&.edit {
+		border: none;
+		background-color: navy;
+
+		&:hover {
+			background-color: lightblue;
+		}
+	}
+
+	&.new {
+		background-color: yellow;
+		color: black;
+
+		&:hover,
+		&.active {
+			background-color: lightyellow;
+		}
+	}
+
+	&.delete {
+		background-color: red;
+		&:hover {
+			background-color: darkred;
+			color: white;
+		}
+	}
+
+	&.export {
+		background-color: orange;
+
+		&:hover,
+		&.active {
+			background-color: darkorange;
+		}
+	}
+}
+.button-bar {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: flex;
+	flex-flow: row wrap;
+	gap: 0.5rem;
+}
+
+.button-list {
+	list-style: none;
+	padding-left: 0;
+	display: flex;
+	flex-flow: row wrap;
+	gap: 1rem;
+
+	div.button-item {
+		display: flex;
+		flex-flow: column wrap;
+	}
+}
+
+fieldset > .button-box {
+	margin: 1rem 0;
+}
+
+#navigation .button-list .button-item .button {
+	padding: 1rem;
+}

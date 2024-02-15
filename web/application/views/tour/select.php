@@ -36,7 +36,7 @@
 					<td>
 						<?php print create_button([
 								'text' => 'Select as Tourist',
-								'class' => 'button select-as-tourist',
+								'class' => 'button dialog',
 								'href' => base_url('payer/select_payer/' . $tour->id . '/' . $id),
 						]); ?>
 					</td>

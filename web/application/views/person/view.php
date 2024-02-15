@@ -11,8 +11,8 @@ $buttons[] = [
 ];
 $buttons[] = [
 	"text" => "Join Tour",
-	"href" => base_url('tours/show_current/' . $person->id),
-	"class" => "button new mini select-tour",
+	"href" => base_url('tours/join_tour/' . $person->id),
+	"class" => "button new mini dialog",
 	"id" => sprintf("join-tour_%s", $person->id),
 ];
 
@@ -60,7 +60,7 @@ else {
 
 $phone_button[] = [
 	"text" => "Add Phone",
-	"class" => "button small new add-phone",
+	"class" => "button small new dialog",
 	'href' => base_url('phone/create/' . $person->id),
 ];
 ?>

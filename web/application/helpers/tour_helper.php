@@ -7,10 +7,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * update a list of shirt sizes by grouping
  *
  * @param array $shirt_count
- * @param string $shirt_size
- *
+ * @param string|null $shirt_size
  */
-function update_shirt_count (array &$shirt_count, string $shirt_size): void {
+function update_shirt_count (array &$shirt_count, string $shirt_size = NULL): void {
     if (empty($shirt_size)) {
         $shirt_size = "Unknown";
     }
