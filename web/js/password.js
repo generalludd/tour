@@ -1,100 +1,61 @@
-$('#popup_container').ready(function(){
-	
-	$('.password_edit').on('click',function(){
-		var my_id="";
-		if(this.id) {
-			 my_id=this.id.split('_')[1];
-		}else if($('#id')) {
-			 my_id=$('#id').val();
+document.addEventListener('DOMContentLoaded', function () {
+	// Use document or a closer static parent as the event listener attachment point
+	document.addEventListener('keyup', function (e) {
+		// Check if the event is triggered by your target elements
+		if (e.target.id === 'new_password' || e.target.id === 'check_password') {
+			// Corrected function call to pass values directly
+			match_passwords();
 		}
-		var myUrl = base_url + "user/edit_password";
-		var form_data = {
-				id: my_id,
-				ajax: 1
-		};
-		$.ajax({
-			type: "POST",
-			url: myUrl,
-			data: form_data,
-			success: function(data){
-			show_popup("Change Password", data, "auto");
-		}
-		});
-	}); // end password_edit
-	
-	
-	$('#new_password').on('keyup',function(){
-		match_passwords();
 	});
-	
-	$('#check_password').on('keyup',function(){
-		match_passwords();
-	});
-	
-	$('.change_password').on('click',function(){
-		var my_id = $("#id").val();
-		var my_current_password=$('#current_password').val();
-		var my_new_password=$('#new_password').val();
-		var my_check_password = $("#check_password").val();
-		var valid_password=$("#valid_password").val();
-		var form_data = {
-				id: my_id,
-				current_password: my_current_password,
-				new_password: my_new_password,
-				check_password: my_check_password,
-				ajax: 1
-		};
-		var myUrl = base_url + "user/change_password";
-		if(valid_password=="true" && my_current_password!="") {
-			$.ajax({
-				type: "POST",
-				url: myUrl,
-				data: form_data,
-				success: function(data){
-				$("#password_form").html("<div class='notice'>" + data + "</div>");
-				
-			}
-			});
-		}else {
-			var message="You have the following error(s):";
-			if(valid_password!="true") {;
-				message = message + "\rYour passwords do not match!";
-				$("#check_password").val("");
-				$("#new_password").val("").focus();
 
-				
+	// Assuming this listener is for a button click to validate the passwords before an action
+	document.addEventListener('click', function (e) {
+		if (e.target.id === 'change-password') {
+			e.preventDefault();
+			// Corrected function call to pass values directly
+			const match = match_passwords();
+			if(match) {
+				// submit the parent form
+				e.target.closest('form').submit();
 			}
-			if(my_current_password=="") {
-				message = message+ "\rYou have not entered your current password!";
-				
+		}
+		if(e.target.id === 'show_password'){
+			const newPass = document.getElementById('new_password');
+			const checkPass = document.getElementById('check_password');
+			if(newPass.type === 'password' && checkPass.type === 'password'){
+				newPass.type = 'text';
+				checkPass.type = 'text';
+			} else {
+				newPass.type = 'password';
+				checkPass.type = 'password';
 			}
-			
-			alert(message);
-		}// end if valid_password;
-		return false;
-			
+		}
 	});
-	
-	$('.log_out').on('click', function(){
-		document.location = "index.php?target=logout";
-	}// end function
-	);// end log_out
-	
 });
 
+// Adjusted function to accept values directly, not elements
 function match_passwords() {
-	var new_password=$('#new_password').val();
-	var check_password=$('#check_password').val();
-	if(check_password!="" && new_password!="") {
-		if(new_password==check_password) {
-			$('#valid_password').val("true");
-			$('#password_note').fadeIn().html("Passwords Match");
-			$('#change-password').fadeIn();
-		}else {
-			$('#valid_password').val("false");
-			$('#password_note').fadeIn().html("Passwords Do Not Match");
-			$('#change-password').fadeOut();
-
-		}
+	const newPass = document.getElementById('new_password').value;
+	const checkPass = document.getElementById('check_password').value;
+	let match = false;
+	if(newPass === '' && checkPass === ''){
+		match = true;
+	} else {
+		match = newPass === checkPass;
 	}
+	const message = document.getElementById('password_message');
+	const button = document.getElementById('change-password');
+	if (match && message) {
+		message.classList.add('hidden');
+		button.disabled = false;
+
+	} else if (!match && message) {
+		// Show or update the message if needed
+		message.classList.remove('hidden');
+		message.classList.add('alert');
+		message.textContent = 'Passwords do not match';
+		button.disabled = true;
+	}
+	return match;
+
 }

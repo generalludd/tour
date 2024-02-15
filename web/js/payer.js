@@ -261,34 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		});
 
-		$(document).on('click', '.insert-merge-note', function () {
-			$(this).fadeOut();
-			$.ajax({
-				type: 'get',
-				url: base_url + 'merge/create_note',
-				success: function (data) {
-					$('#merge-note').html(data);
-				},
-			});
-		});
-
-		$(document).on('click', '.edit-merge-note', function () {
-			$(this).fadeOut();
-			let my_id = $('#id').val();
-			let form_data = {
-				id: my_id,
-				field: 'note',
-				ajax: 1,
-			};
-			$.ajax({
-				type: 'get',
-				url: base_url + 'merge/get_note',
-				data: form_data,
-				success: function (data) {
-					$('#merge-note').html(data);
-				},
-			});
-		});
 
 	});//end document load
 

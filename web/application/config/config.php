@@ -43,7 +43,7 @@ else
 {
         $config['base_url'] = 'http://'.$domain;
 }
-
+$site_name = 'Ballpark Tours';
 /*
 |--------------------------------------------------------------------------
 | Index File

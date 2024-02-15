@@ -17,17 +17,16 @@ class Tours extends MY_Controller {
 		redirect('tourist/view_all/' . $id);
 	}
 
-	function letters($id){
+	function letters($id): void {
 		$tour = $this->tour->get($id);
 		$this->load->model('letter_model', 'letter');
 		$data['letters'] = $this->letter->get_for_tour($id);
-		$data['tour_id'] = $id;
 		$data['tour'] = $tour;
 		$data['title'] = 'Letters for ' . $tour->tour_name;
 		$data['target'] = 'letter/list';
 		if($this->input->get('ajax')){
 			$data['ajax'] = '1';
-			$this->load->view($data['target'], $data);
+			$this->load->view('page/modal', $data);
 		}
 		else {
 			$this->load->view('page/index', $data);
@@ -152,11 +151,10 @@ class Tours extends MY_Controller {
 		}
 	}
 
-	function show_current($person_id) {
+	function join_tour($person_id): void {
 		$this->load->model("tourist_model", "tourist");
 		$data["id"] = $person_id;
 		$tours = $this->tourist->get_missing_tours($person_id);
-
 		$data['tours'] = $tours;
 		$data['target'] = 'tour/select';
 		$data['title'] = 'Select a Tour';

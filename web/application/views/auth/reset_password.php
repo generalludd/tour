@@ -1,4 +1,7 @@
-<?php #reset_password 
+<?php #reset_password
+if(empty($reset_hash) || empty($id)){
+return NULL;
+}
 $output = "";
 if($errors):
 	if(is_array($errors)){
@@ -10,11 +13,10 @@ if($errors):
 	}
 endif;
 ?>
-<div class="login resetter">
+<div class="login">
 <div class="login-title">Password Reset</div>
-<form id="password-resetter" name="password-resetter" action="<?php print site_url("auth/complete_reset")?>" method="post" >
-
-<div id='password_note' class='notice error-text' style="display:none"><?php print $output;?></div>
+<form id="password-reset" name="password-reset" action="<?php print site_url("auth/complete_reset")?>" method="post" >
+<div id='password_note' class='notice message hidden' style="display:none"><?php print $output;?></div>
 <input type="hidden" name="reset_hash" id="reset_hash" value="<?php print $reset_hash;?>"/>
 <input type="hidden" name="id" id="id" value="<?php print $id;?>"/>
 <div class="reset-fields">
