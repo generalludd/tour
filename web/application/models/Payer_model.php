@@ -237,9 +237,9 @@ class Payer_model extends My_Model {
 	 * @param int $tour_id
 	 * @param mixed $price_levels
 	 *
-	 * @return array
+	 * @return \stdClass
 	 */
-	public function getRateValues(int $tour_id, mixed $price_levels): array {
+	public function getRateValues(int $tour_id, mixed $price_levels): stdClass {
 		if(!in_array($price_levels->room_size, ['single_room', 'triple_room', 'quad_room','double_room'])){
 			$price_levels->room_size = 'double_room';
 		}
