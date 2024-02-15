@@ -1,5 +1,5 @@
 body {
-	/*font-family: "Times New Roman";*/
+	font-family: "Times New Roman", serif;
 	width: 8.25in;
 	font-size: 12pt;
 }
@@ -20,13 +20,33 @@ a:visited:not(.button) {
 	padding: 0;
 }
 
+.letterhead {
+	padding-bottom: 3rem;
+}
+
+#letter.hide-letterhead {
+	margin-top: 1.75in;
+
+	.letterhead {
+		display: none;
+		padding: 0;
+	}
+}
+
 .non-printing {
 	display: none;
 }
 
 .printed-content {
-	padding-top: 1.75in;
+	position: relative;
+
 }
+
+.no-letterhead .printed-content {
+	padding-top: 1.25in;
+
+}
+
 
 .grouping.block.merge-date p {
 	margin: 0;
@@ -84,7 +104,7 @@ td:last-child {
 	border-radius: 3px;
 	text-align: center;
 	position: static;
-	padding: 0.15em 0.25em;
+	padding: .15em .25em;
 	border-style: solid;
 	border-width: 1px;
 	cursor: pointer;

@@ -10,17 +10,18 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/main.css') . "?" . date("u");?>" />
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/popup.css'). "?" . date("u")?>" />
+
 <link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/messages.css'). "?" . date("u")?>" />
 	<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/buttons.css'). "?" . date("u")?>" />
 	<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/elements.css'). "?" . date("u")?>" />
 
-
 <?php if(!empty($styles)):?>
-<?php foreach($styles as $style):?>
-	<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/' . $style . '.css'). "?" . date("u")?>" />
+	<?php foreach($styles as $style):?>
+		<link type="text/css" rel="stylesheet" media="all" href="<?php print base_url('css/' . $style . '.css'). "?" . date("u")?>" />
 
-<?php endforeach; ?>
+	<?php endforeach; ?>
 <?php endif;?>
+
 <link type="text/css" rel="stylesheet" media="print" href="<?php print base_url('css/print.css')?>" />
 <!-- jquery scripts -->
 <script type="text/javascript">
