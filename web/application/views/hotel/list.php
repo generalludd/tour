@@ -5,11 +5,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 $buttons[] = [
 		"text" => "Add a Hotel",
-		"type" => "span",
-		"class" => "button new add-hotel",
-		'data' => [
-				'tour_id' => $tour->id,
-		],
+		"class" => "button new dialog",
+		"href" => site_url("hotel/create/$tour->id"),
 ];
 $buttons[] = [
 		"text" => "Tour Details",

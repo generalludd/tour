@@ -9,7 +9,7 @@
 <label for="phone_type">Type: </label>
 <?php print form_dropdown("phone_type",array("Home"=>"Home","Mobile"=>"Mobile","Work"=>"Work"), get_value($phone,"phone_type"));?>
 
-<?php print create_input($phone,"phone","Phone", array("type"=>"tel"));?>
+<?php print create_input($phone,"phone","Phone", array("type"=>"tel", 'required'=>TRUE));?>
 <label for="is_primary">Is Primary Phone: </label>
 <?php print form_checkbox("is_primary",1, get_value($phone, "is_primary",FALSE) ? TRUE:FALSE);?>
 

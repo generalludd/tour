@@ -23,6 +23,6 @@
 	<?php print create_button([
 		'text' => 'Edit Contact',
 		'href' => base_url('contact/edit/' . $contact->id),
-		'class' => 'button edit float-right small dialog',
+		'class' => 'button edit small dialog',
 	]); ?>
 </div>

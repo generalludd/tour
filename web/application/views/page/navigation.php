@@ -15,7 +15,7 @@ $search_data = [
 	'placeholder' => 'Find People',
 	'data' => [
 		'url' => base_url('person/find_by_name'),
-		'target' => '#search-list'
+		'target' => 'search-list'
 	]
 ];
 $search_field = $this->load->view('person/search-field', $search_data, TRUE);
@@ -35,12 +35,7 @@ $buttons [] = array (
 		"href" => site_url ( 'tours' ),
 		"title" => "View the list of all tours" 
 );
-//$buttons[] = [
-//	'text' => 'Create Tour',
-//	'href' => base_url('tours/create'),
-//	'class' => ['button', 'new', 'dialog'],
-//	'id' => 'tour',
-//];
+
 
 $buttons [] = array (
 		"selection" => "person",
@@ -53,10 +48,6 @@ $buttons [] = array (
 		"title" => "View a List of All People" 
 );
 
-//$buttons [] = [
-//	'text' => 'Add a New Person',
-//	'href' => base_url('person/create'),
-//	'class' => 'button new create-person',
-//];
+$button_bar_object = get_button_bar_object($buttons, ['id'=>'navigation-buttons', 'classes'=>['navigation-buttons']]);
 
-print create_button_bar($buttons,['id'=>'navigation-buttons'] );
+$this->load->view('elements/button-bar', ['data'=>$button_bar_object]);

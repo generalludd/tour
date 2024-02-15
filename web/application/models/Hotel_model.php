@@ -118,8 +118,7 @@ class Hotel_Model extends CI_Model
         return $id;
     }
 
-    function update($id, $values = array())
-    {
+    function update($id, $values = array()): void {
         $this->db->where("id", $id);
         if (empty($values)) {
             $this->prepare_variables();
@@ -129,10 +128,14 @@ class Hotel_Model extends CI_Model
         }
     }
 
-    function delete($id)
-    {
+    function delete($id, bool $delete_rooms = FALSE): void {
         $this->load->model("contact_model", "contact");
         $this->contact->delete_for_hotel($id);
+				if($delete_rooms){
+					$hotel = $this->get($id);
+					$this->load->model("roommate_model", "roommate");
+					$this->roommate->delete_for_stay($hotel->tour_id, $hotel->stay);
+				}
         $this->db->where("id", $id);
         $this->db->delete("hotel");
     }

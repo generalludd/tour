@@ -13,11 +13,11 @@ class Payer extends MY_Controller {
 		$this->load->model('person_model', 'person');
 	}
 
-	function view($payer_id = FALSE, $tour_id = FALSE, $ajax = FALSE) {
+	function view($payer_id = FALSE, $tour_id = FALSE, $ajax = FALSE): void {
 		$this->edit($payer_id, $tour_id, $ajax);
 	}
 
-	function create() {
+	function create(): void {
 		$this->load->model("variable_model", "variable");
 		$payer_id = $this->input->get("payer_id");
 		$data["payer_id"] = $payer_id;
@@ -54,10 +54,11 @@ class Payer extends MY_Controller {
 	 * This script can be run via url or called internally such as when it is
 	 * called in $this->insert() function
 	 *
-	 * @param false|string $payer_id
+	 * @param string|null $payer_id
 	 * @param string|null $tour_id
+	 * @param bool $ajax
 	 */
-	function edit(string $payer_id = NULL, string $tour_id = NULL, $ajax = FALSE): void {
+	function edit(string $payer_id = NULL, string $tour_id = NULL, bool $ajax = FALSE): void {
 
 		$this->load->model("variable_model", "variable");
 		if (empty($payer_id)) {
@@ -137,7 +138,7 @@ class Payer extends MY_Controller {
 		$this->load->view("tourist/mini_selector", $data);
 	}
 
-	function select_payer($tour_id, $person_id) {
+	function select_payer($tour_id, $person_id): void {
 		$this->load->model("person_model", "person");
 		$this->load->model("tour_model", "tour");
 		$data["tour_name"] = $this->tour->get_value($tour_id, "tour_name");
@@ -167,12 +168,12 @@ class Payer extends MY_Controller {
 				'tour_id' => $tour_id,
 				'payer_id' => $payer_id,
 			];
-			$data['entity'] = 'payment by ' . $payer->first_name . ' ' . $payer->last_name . ' for ' . $tour->tour_name;
+			$data['title'] = 'Payment by ' . $payer->first_name . ' ' . $payer->last_name . ' for ' . $tour->tour_name;
 			$data['action'] ='payer/delete';
-			$data['message'] = 'This is only possible for someone who was accidentally added to a tour and has no rooms or payments associated with their tour.';
+			$data['message'] = 'This is only possible for someone who was accidentally added to a tour and has no rooms or payments associated with their tour. Use "Cancelled" if they already have paid money.';
 			$data['target'] = 'dialogs/delete';
 			if($this->input->get('ajax')){
-				$this->load->view($data['target'], $data);
+				$this->load->view('page/modal', $data);
 			}
 			else {
 				$this->load->view('page/index', $data);

@@ -6,12 +6,14 @@
 <title>Ballpark Tours Database</title>
 <link href="<?php print base_url("/css/main.css");?>" type="text/css" rel="stylesheet" media="all" />
 <link href="<?php print base_url("/css/color.css");?>" type="text/css" rel="stylesheet" media="all" />
+<link href="<?php print base_url("/css/buttons.css");?>" type="text/css" rel="stylesheet" media="all" />
+<link href="<?php print base_url("/css/messages.css");?>" type="text/css" rel="stylesheet" media="all" />
 
 <script type="text/javascript" src="<?php print base_url("js/jquery.min.js");?>"></script>
 <script type="text/javascript" src="<?php print base_url("js/password.js");?>"></script>
 </head>
 <body class="not-logged-in <?php print $this->uri->segment(1);?>">
-<div id="main">
+<div id="main" class="not-logged-in">
 <?php
 $this->load->view($target);
 ?>

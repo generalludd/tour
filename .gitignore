@@ -14,3 +14,5 @@
 /.ddev/commands/host/phpmyadmin
 /web/application/config/database.local.php
 /web/sites/default/settings.php
+/web/node_modules/
+/web/css/

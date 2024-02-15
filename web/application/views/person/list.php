@@ -1,7 +1,7 @@
 <?php
 
 defined('BASEPATH') or exit ('No direct script access allowed');
-//$this->load->view("person/alphabet");
+$this->load->view("person/alphabet");
 
 ?>
 <?php if (!empty($filters)) : ?>
@@ -53,7 +53,7 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 $buttons [] = [
 	'text' => 'Add a New Person',
 	'href' => base_url('person/create'),
-	'class' => 'button new create-person',
+	'class' => 'button new dialog',
 ];
 
 $buttons[] = [
@@ -103,8 +103,8 @@ $buttons [] = [
 
 				$button = [
 					'text' => 'Join Tour',
-					'class' => 'button new small select-tour',
-					'href' => base_url('tours/show_current/' . $person->id),
+					'class' => 'button new small dialog',
+					'href' => base_url('tours/join_tour/' . $person->id),
 				];
 				print create_button($button);
 				?>

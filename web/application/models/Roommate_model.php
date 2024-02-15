@@ -5,18 +5,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // chrisdart@cerebratorium.com
 class Roommate_Model extends MY_Model {
 
-	var $tour_id;
+	protected int $tour_id;
 
-	var $person_id;
+	protected int $person_id;
 
-	var $stay;
+	protected int $stay;
 
-	var $room_id;
+	protected int $room_id;
 
-	var $placeholder;
+	protected int $placeholder;
 
 
-	function prepare_variables() {
+	function prepare_variables(): void {
 		$variables = [
 			'tour_id',
 			'person_id',
@@ -51,7 +51,7 @@ class Roommate_Model extends MY_Model {
 		return $result;
 	}
 
-	function get_for_room($room_id) {
+	function get_for_room($room_id): array {
 		$this->db->from('roommate');
 		$this->db->where('room_id', $room_id);
 		$this->db->join('person', 'roommate.person_id=person.id', 'left');
@@ -111,7 +111,7 @@ class Roommate_Model extends MY_Model {
 
 	}
 
-	function insert($data = []) {
+	function insert($data = []): void {
 		if (empty($data)) {
 			$this->prepare_variables();
 			$this->db->insert('roommate', $this);
@@ -121,7 +121,7 @@ class Roommate_Model extends MY_Model {
 		}
 	}
 
-	function delete($deletion) {
+	function delete($deletion): void {
 		$this->db->delete('roommate', $deletion);
 	}
 
@@ -151,7 +151,7 @@ class Roommate_Model extends MY_Model {
 		return $output;
 	}
 
-	function delete_payer($payer_id, $tour_id) {
+	function delete_payer($payer_id, $tour_id): void {
 		$this->load->model('tourist_model', 'tourist');
 		$people = $this->tourist->get_for_payer($payer_id, $tour_id);
 		// Get tourists for a payer.
@@ -162,10 +162,15 @@ class Roommate_Model extends MY_Model {
 
 	}
 
-	function delete_tourist($person_id, $tour_id) {
+	function delete_tourist($person_id, $tour_id): void {
 		$this->db->where('person_id', $person_id);
 		$this->db->where('tour_id', $tour_id);
 		$this->db->delete('roommate');
+	}
+
+	function delete_for_stay($tour_id, $stay): void {
+		$this->db->delete("room", ["tour_id" => $tour_id, "stay" => $stay]);
+		$this->db->delete("roommate", ["tour_id" => $tour_id, "stay" => $stay]);
 	}
 
 }
