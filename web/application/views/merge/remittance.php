@@ -26,6 +26,10 @@ if (empty($letter) || empty($tour) || empty($payer)) {
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
+			<a title="Edit payment" class="no-print"
+				 href="/payer/edit?payer_id=<?php print $payer->payer_id; ?>&tour_id=<?php print $payer->tour_id; ?>">Edit
+				payment
+				for <?php print $payer->first_name . ' ' . $payer->last_name; ?> </a>
 		</div>
 		<div class="payments ">
 			<div class="amt-paid">
@@ -59,4 +63,8 @@ if (empty($letter) || empty($tour) || empty($payer)) {
 			<?php endforeach; ?>
 		</ul>
 	</div>
+</div>
+<div class="payer-details">
+
+
 </div>

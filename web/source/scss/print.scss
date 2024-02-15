@@ -1,7 +1,7 @@
 body {
 	font-family: "Times New Roman", serif;
-    width: 8.25in;
-    font-size: 12pt;
+	width: 8.25in;
+	font-size: 12pt;
 }
 
 a:not(.button),
@@ -20,11 +20,25 @@ a:visited:not(.button) {
 	padding: 0;
 }
 
+.letterhead {
+	padding-bottom: 3rem;
+}
+
+#letter.hide-letterhead {
+	margin-top: 1.75in;
+
+	.letterhead {
+		display: none;
+		padding: 0;
+	}
+}
+
 .non-printing {
 	display: none;
 }
+
 .printed-content {
-position: relative;
+	position: relative;
 
 }
 
@@ -34,7 +48,7 @@ position: relative;
 }
 
 
-.grouping.block.merge-date p{
+.grouping.block.merge-date p {
 	margin: 0;
 	padding: 0;
 }

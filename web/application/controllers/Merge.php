@@ -43,7 +43,7 @@ class Merge extends MY_Controller {
 		$data["title"] = "Preparing a Merge Letter";
 		$data["action"] = "insert";
 		$data['styles'] = ['letter'];
-		$data['scripts'] = ["https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"];
+		$data['scripts'] = ["https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js", site_url('js/editor.js'),site_url('js/letter.js')];
 		$this->load->view("page/index", $data);
 	}
 
