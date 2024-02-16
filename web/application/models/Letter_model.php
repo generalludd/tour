@@ -4,15 +4,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Letter_model extends CI_Model {
 
-	protected string $title;
+	public string $title;
 
-	protected string $body;
+	public string $body;
 
-	protected string $cancellation;
+	public string $cancellation;
 
-	protected int $tour_id;
+	public int $tour_id;
 
-	protected string $creation_date;
+	public string $creation_date;
 
 	function prepare_variables(): void {
 		$variables = [
