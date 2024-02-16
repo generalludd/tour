@@ -74,7 +74,6 @@ $tourist_count = count($payer->tourists);
 			$this->load->view('elements/select-field', $payment_select);
 			?>
 			<p>
-				<label for="room_size">Room Size</label>
 				<?php $room_size_select = [
 					'id' => 'room_size',
 					'attributes' => [
@@ -85,7 +84,7 @@ $tourist_count = count($payer->tourists);
 					'options' => $room_sizes,
 					'selected' => get_value($payer, 'room_size'),
 					'classes' => ['change_room_size'],
-					'label' => 'Payment Type',
+					'label' => 'Room Size',
 					'wrapper' => 'p',
 					'suffix' => '$<span
 					id="room_rate_display">' . $payer->room_rate . '</span>',
