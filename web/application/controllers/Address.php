@@ -16,8 +16,8 @@ class Address extends My_Controller {
 	 * that works well regardless of the way a script completes
 	 */
 	function create(): void {
-		if ($this->input->get("id")) {
-			$data["person_id"] = $this->input->get("id");
+		if ($this->input->get("person_id")) {
+			$data["person_id"] = $this->input->get("person_id");
 			$data["address"] = FALSE;
 			$data["target"] = "address/edit";
 			$data["title"] = "Adding an Address";
