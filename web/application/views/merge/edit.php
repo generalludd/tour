@@ -11,7 +11,7 @@ else {
 }
 
 ?>
-<label for="print" class="non-printing">Hide Letterhead</label>
+<label for="print" class="non-printing">Show Letterhead</label>
 <input type="checkbox" id="print" class="non-printing" value="1" checked/>
 <article id="letter">
 <div class="letterhead">
