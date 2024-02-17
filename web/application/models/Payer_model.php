@@ -201,9 +201,9 @@ class Payer_model extends My_Model {
 	}
 
 	function delete($payer_id, $tour_id): void {
-		$this->db->where("payer_id", $payer_id);
-		$this->db->where("tour_id", $tour_id);
-		$this->db->delete("payer");
+		$this->db->where("payer_id", $payer_id)
+			->where("tour_id", $tour_id)
+			->delete("payer");
 	}
 
 	/**
@@ -212,7 +212,7 @@ class Payer_model extends My_Model {
 	 *
 	 * @return mixed
 	 */
-	public function getPayments(int $tour_id, int $payer_id) {
+	public function getPayments(int $tour_id, int $payer_id): mixed {
 		return $this->db->from('payment')
 			->where('tour_id', $tour_id)
 			->where('payer_id', $payer_id)
@@ -271,6 +271,21 @@ class Payer_model extends My_Model {
 			$salutation .= implode(", ", $names);;
 		}
 		return $salutation;
+	}
+
+	function appendNote($payer_id, $tour_id, $note): void {
+		$existing_note = $this->get_value($payer_id, $tour_id, 'note');
+		$new_note = '';
+		if(!empty($existing_note)){
+			$new_note = $existing_note->note. '\\n\\r' . $note;
+		} else {
+			$new_note = $note;
+		}
+		$this->db
+			->where('tour_id', $tour_id)
+			->where('payer_id', $payer_id)
+			->update('payer', ['note' => $new_note]);
+
 	}
 
 }
