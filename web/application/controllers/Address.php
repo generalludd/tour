@@ -16,8 +16,8 @@ class Address extends My_Controller {
 	 * that works well regardless of the way a script completes
 	 */
 	function create(): void {
-		if ($this->input->get("id")) {
-			$data["person_id"] = $this->input->get("id");
+		if ($this->input->get("person_id")) {
+			$data["person_id"] = $this->input->get("person_id");
 			$data["address"] = FALSE;
 			$data["target"] = "address/edit";
 			$data["title"] = "Adding an Address";
@@ -34,7 +34,7 @@ class Address extends My_Controller {
 	/**
 	 * expects a person_id in the get.
 	 */
-	function insert() {
+	function insert(): void {
 		if ($this->input->post("person_id")) {
 			$person_id = $this->input->post("person_id");
 			$address_id = $this->address->insert();
@@ -70,7 +70,7 @@ class Address extends My_Controller {
 	 * redirects to the person
 	 * whose address is being edited.
 	 */
-	function update() {
+	function update(): void {
 		if ($this->input->post("id")) {
 			$id = $this->input->post("id");
 			$person_id = $this->input->post("person_id");
@@ -79,13 +79,14 @@ class Address extends My_Controller {
 		}
 	}
 
-	function find_housemate() {
+	function find_housemate(): void {
 		$data["person_id"] = $this->input->get("person_id");
-$data['target'] = "address/find_housemate";
+		$data['target'] = "address/find_housemate";
 		if ($this->input->get("ajax") == 1) {
 			$this->load->view($data['target'], $data);
-		}else{
-			$this->load->view('page/index',$data);
+		}
+		else {
+			$this->load->view('page/index', $data);
 		}
 	}
 
@@ -94,7 +95,7 @@ $data['target'] = "address/find_housemate";
 	 * used mostly by ajax scripts, this allows updating individual values.
 	 * not currently in use.
 	 */
-	function update_value() {
+	function update_value(): void {
 		if ($this->input->post("id")) {
 			$id = $this->input->post("id");
 			$values = [
@@ -105,13 +106,13 @@ $data['target'] = "address/find_housemate";
 		}
 	}
 
-	function update_salutations() {
+	function update_salutations(): void {
 		$this->load->model("person_model", "person");
 		$this->address->update_salutations();
 		redirect();
 	}
 
-	function export() {
+	function export(): void {
 		$options = $this->input->cookie("person_filters");
 		$options = unserialize($options);
 		$data["addresses"] = $this->address->get_for_labels($options);

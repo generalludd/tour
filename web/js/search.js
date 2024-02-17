@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const my_name = element.value;
 			const field_id = element.id;
 			const my_url = element.dataset.url;
+			console.log(my_url);
 			if (my_name.length > 0) {
 				let form_data = {
 					ajax: 1,
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				};
 				xhr.send();
 			} else {
-				const targetElement = document.getElementById(my_target);
+				const targetElement = document.getElementById('search-list');
 				targetElement.classList.add('hidden');
 			}
 		}

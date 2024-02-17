@@ -53,6 +53,7 @@ class Person extends MY_Controller {
 
 		$data['duplicates'] = $this->person->get_duplicates($id);
 		$data['target'] = 'person/view';
+		$data['scripts'] = [site_url('js/address.js')];
 		$data['ajax'] = FALSE;
 		$target = 'page/index';
 		if ($this->input->get('ajax')) {
@@ -274,15 +275,20 @@ class Person extends MY_Controller {
 	 *
 	 */
 	function update_value(): void {
-		$id = $this->input->post('id');
+		$json = file_get_contents('php://input');
+		$input = json_decode($json, TRUE);
+		$id = $input['id'];
 		$values = [
-			$this->input->post('field') => trim($this->input->post('value')),
+			$input['field'] => trim($input['value']),
 		];
 		$this->person->update($id, $values);
-		if (!empty($target = $this->input->post('target'))) {
+		if (!empty($target = $input['target'])) {
 			$person = $this->person->get($id);
-			if ($this->input->post('ajax')) {
-				echo $this->load->view($target, ['person' => $person], TRUE);
+			if ($this->input->get('ajax')) {
+				$output = ['result' => $this->load->view($target, ['person' => $person], TRUE)];
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($output));
 			}
 			else {
 				$this->load->view('page/index', [

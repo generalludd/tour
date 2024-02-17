@@ -175,7 +175,8 @@ class Person_model extends MY_Model {
 			$query->select('*');
 		}
 		if (array_key_exists('has_address', $options)) {
-			$query->where('address_id !=', NULL);
+			$query->join('address', 'person.address_id = address.id');
+			$query->where('address.id IS NOT NULL', NULL, FALSE);
 		}
 		$results = $query->get()->result();
 		$output = [];
