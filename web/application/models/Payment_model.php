@@ -57,7 +57,7 @@ class Payment_Model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function update($id, $values = []) {
+	function update($id, $values = []): void {
 		$this->db->where("id", $id);
 		if (empty($array)) {
 			$this->prepare_variables();
@@ -68,11 +68,24 @@ class Payment_Model extends CI_Model {
 		}
 	}
 
-	function delete($id) {
+	function delete($id): void {
 		$this->db->where("id", $id);
 		$this->db->delete("payment", [
 			"id" => $id,
 		]);
+	}
+
+	function insertPayments($payer_id, $payments): void {
+		foreach ($payments as $payment) {
+			$this->db->insert('payment', [
+				'payer_id' => $payer_id,
+				'tour_id' => $payment->tour_id,
+				'amount' => $payment->amount,
+				'receipt_date' => $payment->receipt_date,
+				'method' => $payment->method,
+			]);
+			$this->delete($payment->id);
+		}
 	}
 
 }
