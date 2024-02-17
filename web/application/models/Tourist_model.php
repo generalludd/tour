@@ -33,7 +33,12 @@ class Tourist_model extends MY_Model {
 	}
 
 	function get_record(int $tour_id, int $payer_id, int $person_id): ?object {
-		return $this->db->from("tourist")->where("tour_id", $tour_id)->where("payer_id", $payer_id)->where("person_id", $person_id)->get()->row();
+		return $this->db->from("tourist")
+			->where("tour_id", $tour_id)
+			->where("payer_id", $payer_id)
+			->where("person_id", $person_id)
+			->get()
+			->row();
 	}
 
 	/**
@@ -47,8 +52,8 @@ class Tourist_model extends MY_Model {
 	function get_missing_tours(int $person_id, bool $archived = FALSE): array {
 		$this->load->model('tour_model', 'tour');
 		$tours = $this->tour->get_all($archived);
-		foreach($tours as  $key => $tour) {
-			if(!empty( $this->get($person_id, [$key]))){
+		foreach ($tours as $key => $tour) {
+			if (!empty($this->get($person_id, [$key]))) {
 				unset($tours[$key]);
 			}
 		}
@@ -74,7 +79,8 @@ class Tourist_model extends MY_Model {
 	}
 
 	/**
-	 * Removes rows from the array of $people who are already tourists on $tour_id.
+	 * Removes rows from the array of $people who are already tourists on
+	 * $tour_id.
 	 *
 	 * @param int $tour_id
 	 * @param array $people
@@ -83,11 +89,14 @@ class Tourist_model extends MY_Model {
 	 *
 	 */
 	function remove_existing_tourists(int $tour_id, array &$people): void {
-		foreach($people as $id => $person) {
-			$this->db->from('tourist');
-			$this->db->select('tourist.tour_id');
-			$this->db->where('tourist.tour_id', $tour_id);
-			$this->db->where('tourist.person_id', $id);
+		foreach ($people as $id => $person) {
+			$this->db->from('tourist')
+				->select('tourist.tour_id')
+				->where('tourist.tour_id', $tour_id)
+				->where('tourist.person_id', $id)
+				->join('payer', 'payer.payer_id = tourist.payer_id AND payer.tour_id = tourist.tour_id')
+				->where('payer.is_cancelled', FALSE);
+
 			$count = $this->db->get()->num_rows();
 			if ($count > 0) {
 				// If they're already a tourist, remove them from the list;
@@ -117,7 +126,7 @@ class Tourist_model extends MY_Model {
 		$this->db->order_by("tour.end_date", "DESC");
 		$result = $this->db->get()->result();
 		$output = [];
-		foreach($result as $item){
+		foreach ($result as $item) {
 			$output[] = $item;
 		}
 		return $output;
@@ -128,9 +137,9 @@ class Tourist_model extends MY_Model {
 	}
 
 	function insert(array $data): void {
-			if (!empty($data['payer_id']) && !empty($data['tour_id']) && !empty($data['person_id'])) {
-				$this->db->replace('tourist', $data);
-			}
+		if (!empty($data['payer_id']) && !empty($data['tour_id']) && !empty($data['person_id'])) {
+			$this->db->replace('tourist', $data);
+		}
 	}
 
 	/**
@@ -155,9 +164,9 @@ class Tourist_model extends MY_Model {
 	}
 
 	function delete_payer($payer_id, $tour_id): void {
-		$this->db->where("payer_id", $payer_id);
-		$this->db->where("tour_id", $tour_id);
-		$this->db->delete("tourist");
+		$this->db->where("payer_id", $payer_id)
+			->where("tour_id", $tour_id)
+			->delete("tourist");
 	}
 
 

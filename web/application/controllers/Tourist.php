@@ -34,7 +34,7 @@ class Tourist extends MY_Controller {
 
 	function view() {}
 
-	function view_all($tour_id) {
+	function view_all($tour_id): void {
 		$export = FALSE;
 		if ($this->input->get('export')) {
 			$export = TRUE;
@@ -70,12 +70,12 @@ class Tourist extends MY_Controller {
 	 * This presents a fork where the user can select the type of tourist: payer
 	 * or tourist.
 	 */
-	function select_tourist_type() {
+	function select_tourist_type(): void {
 		$data ['id'] = $this->input->get('id');
 		$this->load->view('tourist/select_type', $data);
 	}
 
-	function view_for_tourist($person_id) {
+	function view_for_tourist($person_id): void {
 		$this->load->model('person_model', 'person');
 		$tourist = $this->person->get($person_id);
 		$tourist->person_id = $person_id;
@@ -86,7 +86,7 @@ class Tourist extends MY_Controller {
 		$this->load->view('page/index', $data);
 	}
 
-	function export() {
+	function export(): void {
 		$options = get_cookie('person_filter');
 		$options = unserialize($options);
 		$options ['include_address'] = TRUE;
@@ -97,8 +97,7 @@ class Tourist extends MY_Controller {
 		$this->load->view('person/export', $data);
 	}
 
-	function create() {
-		$data ['action'] = 'insert';
+	function create(): void {
 		$data ['tourist'] = NULL;
 		$this->load->model('variable_model', 'variable');
 		$data['first_name'] = $this->input->get('first_name');
@@ -114,10 +113,16 @@ class Tourist extends MY_Controller {
 		$this->load->view('tourist/edit', $data);
 	}
 
-	function insert() {
+	function insert(): void {
 		$payer_id = $this->input->post('payer_id');
 		$tour_id = $this->input->post('tour_id');
 		$person_id = $this->input->post('person_id');
+		// If the person is a cancelled payer, we need to get their payment details to add to the payer.
+		$payments = $this->payment->get_all($tour_id, $person_id);
+		// Get note from the payer.
+		$this->load->model('payer_model','payer');
+		$note = $this->payer->get_value($person_id, $tour_id, 'note');
+
 		if (empty($person_id)) {
 			$this->load->model('person_model', 'person');
 			$person_id = $this->person->insert();
@@ -126,7 +131,24 @@ class Tourist extends MY_Controller {
 		$data ['tour_id'] = $tour_id;
 		$data ['person_id'] = $person_id;
 		$target = '/payer/edit?payer_id=' . $payer_id . '&tour_id=' . $tour_id;
+		$message = [];
 		$this->tourist->insert($data);
+		if(!empty($payments)){
+			$this->load->model('person_model','person');
+			$person = $this->person->get($person_id);
+			$this->payment->insertPayments($payer_id, $payments);
+			$message[] = $person->name . '\'s payments have been merged into this payer\'s record.';
+			// delete the payer;
+			$this->payer->delete($person_id, $tour_id);
+			$message[] = '<br/>' . $person->name . '\'s payer record has been deleted';
+			$this->tourist->delete_payer($person_id, $tour_id);
+		}
+		if(!empty($note)){
+			$this->payer->appendNote($payer_id, $tour_id , $note->note);
+		}
+		if(!empty($message)){
+			$this->session->set_flashdata('notice', implode('<br/>', $message));
+		}
 		redirect($target);
 	}
 
