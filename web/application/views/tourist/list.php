@@ -82,12 +82,12 @@ $buttons['print'] = [
                     <br />
                     <?php if ($payer->merge_id) : ?>
                     <a href="<?php print base_url('letter/select/' . $payer->payer_id . '/' . $payer->tour_id); ?>"
-                        class="button edit select-letter" data-payer_id="<?php print $payer->payer_id; ?>"
+                        class="button edit dialog" data-payer_id="<?php print $payer->payer_id; ?>"
                         data-tour_id="<?php print $payer->tour_id; ?>">Edit
                         Letter</a>
                     <?php else : ?>
                     <a <a href="<?php print base_url('letter/select/' . $payer->payer_id . '/' . $payer->tour_id); ?>"
-                        class="button new select-letter" data-payer_id="<?php print $payer->payer_id; ?>"
+                        class="button new dialog" data-payer_id="<?php print $payer->payer_id; ?>"
                         data-tour_id="<?php print $payer->tour_id; ?>">Send
                         Letter</a>
                     <?php endif; ?>

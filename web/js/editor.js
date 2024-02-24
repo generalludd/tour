@@ -32,6 +32,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		});
 
+		document.getElementById('font-size').addEventListener('change', function (event) {
+			const value = event.target.value;
+			document.getElementById('page').style.fontSize = value + 'rem';
+		});
+
 
 		// Configuration of the observer:
 		const config = { childList: true, subtree: true };

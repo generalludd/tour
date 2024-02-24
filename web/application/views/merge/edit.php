@@ -11,8 +11,17 @@ else {
 }
 
 ?>
-<label for="print" class="non-printing">Show Letterhead</label>
+<div class="non-printing">
+<label for="print">Show Letterhead</label>
 <input type="checkbox" id="print" class="non-printing" value="1" checked/>
+<label for="font-size">Font Size</label>
+<select id="font-size"  name="font-size" class="non-printing">
+	<option value=".9">Small</option>
+	<option value="1" selected>Regular</option>
+	<option value="1.1">Bigger</option>
+	<option value="1.2">Biggest</option>
+</select>
+</div>
 <article id="letter">
 <div class="letterhead">
 	<div class="letterhead--text">
