@@ -1,6 +1,7 @@
 body {
 	font-family: "Times New Roman", serif;
 	width: 8.25in;
+	font-size: 14px;
 }
 
 a:not(.button),
@@ -20,7 +21,7 @@ a:visited:not(.button) {
 }
 
 .letterhead {
-	padding-bottom: 3rem;
+	//padding-bottom: 3rem;
 }
 
 #letter.hide-letterhead {
@@ -48,8 +49,7 @@ a:visited:not(.button) {
 
 
 .grouping.block.merge-date p {
-	margin: 0;
-	padding: .5rem 0;
+
 }
 
 .title {

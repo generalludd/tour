@@ -11,7 +11,7 @@ else {
 }
 
 ?>
-<div class="non-printing">
+<div class="non-printing control-panel">
 <label for="print">Show Letterhead</label>
 <input type="checkbox" id="print" class="non-printing" value="1" checked/>
 <label for="font-size">Font Size</label>
@@ -66,7 +66,7 @@ else {
 
 </section>
 
-<div class="printed-content">
+<div id="printed-content">
 	<div
 		class="grouping block merge-date"
 		id="merge">
