@@ -35,8 +35,8 @@ class Person_model extends MY_Model {
 	}
 
 	function get($id, $fields = FALSE): ?object {
-		$this->db->where('person.id', $id);
-		$this->db->from('person');
+		$this->db->where('person.id', $id)
+		->from('person');
 		if ($fields) {
 			$this->db->select($fields);
 		}
@@ -172,7 +172,7 @@ class Person_model extends MY_Model {
 			$query->select('status');
 		}
 		else {
-			$query->select('*');
+			$query->select('person.*');
 		}
 		if (array_key_exists('has_address', $options)) {
 			$query->join('address', 'person.address_id = address.id');
