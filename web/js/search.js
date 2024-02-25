@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const debounceDelay = 250;
 	// Clears the search box when it loses focus.
 	const personSearch = document.getElementById('search-list');
-	personSearch.addEventListener('blur', function (event) {
+	personSearch.addEventListener('blur', function () {
 		personSearch.classList.add('hidden');
 	});
 

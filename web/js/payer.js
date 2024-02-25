@@ -4,16 +4,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 	// Event delegation for .edit-payer click
 	document.addEventListener('click', function (event) {
-			if (event.target.classList.contains('cancel-payer-edit')) {
-				const tour_id = event.target.getAttribute('data-tour_id');
 
-				const payerEditorBlock = document.getElementById('payer-editor-block');
-				const ok = '<a class=\'button delete\' href=\'' + base_url + 'tourist/view_all/' + tour_id + '\' >Yes</a>';
-				const text = '<p>Do you want to cancel? This will discard ONLY changes<br/> you made to the "Ticket Details" column on this page.</p>';
-				const button_box = '<div class=\'button-box mini\'><ul class=\'button-list\'><li>' + ok + '</li></ul></div>';
-				const message = text + button_box;
-				show_popup('Discard Changes to Ticket Details?', message, 'auto');
-			}
 			if (event.target.classList.contains('delete-tourist')) {
 				let question = confirm('Are you sure you want to remove this person from this list? This cannot be undone');
 				if (question) {
