@@ -135,9 +135,9 @@ $tourist_count = count($payer->tourists);
 				<?php if ($action == 'update'): ?>
 					<?php $buttons[] = [
 							'text' => 'Cancel',
-							'class' => 'button cancel cancel-payer-edit',
+							'class' => 'button cancel',
 							'title' => 'Cancel the changes to the above payment data.',
-							'data' => ['tour_id' => $payer->tour_id],
+							'data' => ['section' => 'area above', 'target' =>  base_url('tourist/view_all/' . $payer->tour_id)],
 					]; ?>
 
 					<?php if($payer->amt_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0) ) {

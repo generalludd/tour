@@ -114,15 +114,21 @@ class Tourist extends MY_Controller {
 	}
 
 	function insert(): void {
-		$payer_id = $this->input->post('payer_id');
-		$tour_id = $this->input->post('tour_id');
-		$person_id = $this->input->post('person_id');
-		// If the person is a cancelled payer, we need to get their payment details to add to the payer.
+		if($this->input->get('ajax') === '1') {
+			$json = file_get_contents('php://input');
+			$input =
+				json_decode($json, TRUE);
+			$payer_id = $input['payer_id'];
+			$tour_id = $input['tour_id'];
+			$person_id = $input['tourist_id'];
+		} else {
+			$payer_id = $this->input->post('payer_id');
+			$tour_id = $this->input->post('tour_id');
+			$person_id = $this->input->post('tourist_id');
+		}
 		$payments = $this->payment->get_all($tour_id, $person_id);
-		// Get note from the payer.
 		$this->load->model('payer_model','payer');
-		$note = $this->payer->get_value($person_id, $tour_id, 'note');
-
+		$note = $this->payer->get_value($person_id,$tour_id, 'note');
 		if (empty($person_id)) {
 			$this->load->model('person_model', 'person');
 			$person_id = $this->person->insert();
@@ -149,7 +155,15 @@ class Tourist extends MY_Controller {
 		if(!empty($message)){
 			$this->session->set_flashdata('notice', implode('<br/>', $message));
 		}
-		redirect($target);
+		if($this->input->get('ajax')=== '1'){
+			$output = ['target' => base_url($target)];
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($output));
+		}
+		else {
+			redirect($target);
+		}
 	}
 
 	/**

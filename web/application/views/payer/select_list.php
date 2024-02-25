@@ -21,7 +21,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<td>
 				<?php print create_button([
 					'text' => 'Select',
-					'class' => 'button mini dialog',
+					'class' => 'button mini insert-tourist',
 					'href' => base_url('tourist/insert'),
 					'data' =>
 						[

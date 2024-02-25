@@ -4,16 +4,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 	// Event delegation for .edit-payer click
 	document.addEventListener('click', function (event) {
-			if (event.target.classList.contains('cancel-payer-edit')) {
-				const tour_id = event.target.getAttribute('data-tour_id');
 
-				const payerEditorBlock = document.getElementById('payer-editor-block');
-				const ok = '<a class=\'button delete\' href=\'' + base_url + 'tourist/view_all/' + tour_id + '\' >Yes</a>';
-				const text = '<p>Do you want to cancel? This will discard ONLY changes<br/> you made to the "Ticket Details" column on this page.</p>';
-				const button_box = '<div class=\'button-box mini\'><ul class=\'button-list\'><li>' + ok + '</li></ul></div>';
-				const message = text + button_box;
-				show_popup('Discard Changes to Ticket Details?', message, 'auto');
-			}
 			if (event.target.classList.contains('delete-tourist')) {
 				let question = confirm('Are you sure you want to remove this person from this list? This cannot be undone');
 				if (question) {
@@ -49,6 +40,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			if (event.target.classList.contains('save-payer-edits')) {
 				document.forms[0].submit();
+			}
+
+			if(event.target.classList.contains('insert-tourist')){
+				event.preventDefault();
+
+				let form_data = {
+					tour_id: event.target.dataset.tour_id,
+					payer_id: event.target.dataset.payer_id,
+					tourist_id: event.target.dataset.tourist_id,
+				};
+
+				fetch(event.target.href + '?ajax=1', {
+						method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'  // Set Content-Type header
+					},
+						body: JSON.stringify(form_data),
+					}
+				)
+					.then(response => response.json())
+					.then(data => {
+						window.location.href = data.target;
+					});
 			}
 		}
 	)
