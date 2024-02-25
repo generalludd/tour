@@ -52,13 +52,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			if(event.target.classList.contains('insert-tourist')){
+				event.preventDefault();
 
 				let form_data = {
 					tour_id: event.target.dataset.tour_id,
 					payer_id: event.target.dataset.payer_id,
 					tourist_id: event.target.dataset.tourist_id,
 				};
-				fetch(base_url + 'tourist/insert?ajax=1', {
+
+				fetch(event.target.href + '?ajax=1', {
 						method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'  // Set Content-Type header
@@ -68,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				)
 					.then(response => response.json())
 					.then(data => {
-						window.location.href = data.href;
+						window.location.href = data.target;
 					});
 			}
 		}

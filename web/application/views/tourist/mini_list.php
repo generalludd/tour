@@ -9,7 +9,7 @@
 		<tr>
 			<td><?php print $person->first_name . ' ' .  $person->last_name; ?></td>
 			<td><form action="/tourist/insert" method="post">
-					<input type="hidden" name="person_id" value="<?php print $person->id;?>"/>
+					<input type="hidden" name="tourist_id" value="<?php print $person->id;?>"/>
 					<input type="hidden" name="payer_id" value="<?php print $payer_id;?>"/>
 					<input type="hidden" name="tour_id" value="<?php print $tour_id; ?>"/>
 					<input type="submit" class="button mini" value="Select"/>
