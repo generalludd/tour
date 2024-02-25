@@ -114,15 +114,14 @@ class Tourist extends MY_Controller {
 	}
 
 	function insert(): void {
-		$payer_id = $this->input->post('payer_id');
-		$tour_id = $this->input->post('tour_id');
-		$person_id = $this->input->post('person_id');
-		// If the person is a cancelled payer, we need to get their payment details to add to the payer.
+		$json = file_get_contents('php://input');
+		$input = json_decode($json, TRUE);
+		$payer_id = $input['payer_id'];
+		$tour_id = $input['tour_id'];
+		$person_id = $input['person_id'];
 		$payments = $this->payment->get_all($tour_id, $person_id);
-		// Get note from the payer.
 		$this->load->model('payer_model','payer');
-		$note = $this->payer->get_value($person_id, $tour_id, 'note');
-
+		$note = $this->payer->get_value($person_id,$tour_id, 'note');
 		if (empty($person_id)) {
 			$this->load->model('person_model', 'person');
 			$person_id = $this->person->insert();

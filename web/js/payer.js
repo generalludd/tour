@@ -50,6 +50,27 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (event.target.classList.contains('save-payer-edits')) {
 				document.forms[0].submit();
 			}
+
+			if(event.target.classList.contains('insert-tourist')){
+
+				let form_data = {
+					tour_id: event.target.dataset.tour_id,
+					payer_id: event.target.dataset.payer_id,
+					tourist_id: event.target.dataset.tourist_id,
+				};
+				fetch(base_url + 'tourist/insert?ajax=1', {
+						method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'  // Set Content-Type header
+					},
+						body: JSON.stringify(form_data),
+					}
+				)
+					.then(response => response.json())
+					.then(data => {
+						window.location.href = data.href;
+					});
+			}
 		}
 	)
 	;
