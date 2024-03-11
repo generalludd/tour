@@ -58,7 +58,13 @@ class Tours extends MY_Controller {
 	function edit($id) {
 		$data["tour"] = $this->tour->get($id);
 		$data["action"] = "update";
-		$this->load->view("tour/edit", $data);
+		$data['target'] = 'tour/edit';
+		$data['title'] = 'Edit ' . $data['tour']->tour_name;
+		if($this->input->get('ajax')){
+			$this->load->view('page/modal', $data);
+		}else {
+			$this->load->view('page/index', $data);
+		}
 	}
 
 	function insert() {
@@ -103,7 +109,7 @@ class Tours extends MY_Controller {
 			$data['target'] = 'dialogs/delete';
 			$data['title'] = 'Delete ' . $tour->tour_name;
 			if($this->input->get('ajax')){
-				$this->load->view($data['target'], $data);
+				$this->load->view('page/modal', $data);
 			}
 			else {
 				$this->load->view('page/index', $data);
