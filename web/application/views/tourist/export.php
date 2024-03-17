@@ -10,7 +10,7 @@ $total_tourists = 0;
 $date_stamp = date("Y-m-d_H-i-s");
 $file_name = sprintf("tourists_%s.csv",$date_stamp);
 $output = array(
-    "Payer,Tourists, Payment Type, Price, Discount, Room Size, Room Rate, Amount Paid, Amount Due, Address, City, State, Zip, Email"
+    "Payer,Tourists, Payment Type, Price, Discount,Surcharge, Room Size, Room Rate, Amount Paid, Amount Due, Address, City, State, Zip, Email"
 );
 if(empty($payers)){
 	return FALSE;
@@ -45,6 +45,7 @@ foreach ($payers as $payer) {
             $line["payment_type"] = format_field_name($payer->payment_type);
             $line["price"] = $payer->price;
             $line["discount"] = $payer->discount;
+						$line['surcharge'] = $payer->surcharge;
             $line["room_size"] = format_field_name($payer->room_size);
             $line["room_rate"] = $payer->room_rate;
             $line["amt_paid"] = $payer->amt_paid;

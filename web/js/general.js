@@ -40,16 +40,46 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 		}
 
-		if(event.target.classList.contains('cancel')){
+
+
+		if (event.target.classList.contains('cancel')) {
 			event.preventDefault();
 			const section = event.target.dataset.section;
 			const question = confirm('Are you sure you want to cancel? Any changes made to ' + section + ' will be lost.');
-			if(question){
+			if (question) {
 				// redirect to the event.target.dataset.target
 				window.location.href = event.target.dataset.target;
 			}
 		}
 
+	});
+	// Change listener to "change"
+	document.getElementById('page').addEventListener('change', function (event) {
+		if (event.target.classList.contains('update-value')) {
+			event.preventDefault();
+			const field = event.target.name;
+			console.log(field);
+			console.log(event.target.type);
+			let value = event.target.value;
+			if(event.target.type === 'checkbox'){
+				 value = event.target.checked?1:0;
+			}
+			const url = event.target.dataset.url + '?ajax=1';
+			// Build a async post to the server
+			const form_data = new FormData();
+			form_data.append('field', field);
+			form_data.append('value', value);
+			// Send the form data to the server
+			fetch(url, {
+				method: 'POST',
+				body: form_data,
+			})
+				.then(response => response.text())
+				.then(data => {
+					console.log(data);
+				});
+
+		}
 	});
 });
 $(document).ready(function () {
@@ -121,7 +151,6 @@ $(document).ready(function () {
 	});
 
 });
-
 
 function showPopup(data) {
 	const content = document.getElementById('page');

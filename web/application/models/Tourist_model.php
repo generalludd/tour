@@ -66,7 +66,7 @@ class Tourist_model extends MY_Model {
 		$this->db->select("person.first_name, person.last_name, person.shirt_size,person.email");
 		$this->db->select(
 			"tour.tour_name, tour.full_price, tour.banquet_price, tour.early_price, tour.regular_price, tour.single_room, tour.triple_room, tour.quad_room");
-		$this->db->select("payer.payer_id,payer.payment_type, payer.room_size, payer.discount, payer.amt_paid, payer.is_comp, payer.is_cancelled, payer.notes");
+		$this->db->select("payer.payer_id,payer.payment_type, payer.room_size, payer.discount, payer.surcharge, payer.amt_paid, payer.is_comp, payer.is_cancelled, payer.notes");
 		$this->db->from("tourist");
 		$this->db->join("person", "person.id = tourist.person_id");
 		$this->db->join("tour", "tour.id = tourist.tour_id");

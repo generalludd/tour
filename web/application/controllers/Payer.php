@@ -114,22 +114,17 @@ class Payer extends MY_Controller {
 		$payer_id = $this->input->post('payer_id');
 		$tour_id = $this->input->post('tour_id');
 		$this->payer->update($payer_id, $tour_id);
-		if ($this->input->post('is_cancelled') == 1) {
-			$this->load->model('roommate_model', 'roommate');
-			//get everyone on the payer's ticket and delete them from the roommate list for the tour.
-			$this->roommate->delete_payer($payer_id, $tour_id);
-			$this->session->set_flashdata('alert', 'This reservation has been cancelled. All roommate entries have been deleted from all hotel stays');
-		}
+		$this->deleteRoommates($payer_id, $tour_id);
 		redirect('/tourist/view_all/' .$tour_id);
 	}
 
-	function update_value(): void {
-		$id = $this->input->post("id");
-		$values = [
-			$this->input->post("field") => $value = trim($this->input->post("value")),
-		];
-		$this->payer->update($id, $values);
-		echo $this->input->post("value");
+	function update_value(int $payer_id, int $tour_id): void {
+		$value = $this->input->post("value");
+		$field = $this->input->post("field");
+		if($field === 'is_cancelled'){
+			$this->deleteRoommates($payer_id, $tour_id);
+		}
+		$this->payer->updateValue($payer_id, $tour_id, $field, $value);
 	}
 
 	function select_tourists(): void {
@@ -192,6 +187,19 @@ class Payer extends MY_Controller {
 
 	}
 
-
+	/**
+	 * @param $payer_id
+	 * @param $tour_id
+	 *
+	 * @return void
+	 */
+	public function deleteRoommates($payer_id, $tour_id): void {
+		if ($this->input->post('is_cancelled') == 1) {
+			$this->load->model('roommate_model', 'roommate');
+			//get everyone on the payer's ticket and delete them from the roommate list for the tour.
+			$this->roommate->delete_payer($payer_id, $tour_id);
+			$this->session->set_flashdata('alert', 'This reservation has been cancelled. All roommate entries have been deleted from all hotel stays');
+		}
+	}
 
 }

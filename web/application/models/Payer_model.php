@@ -25,6 +25,7 @@ class Payer_model extends My_Model {
 			"payment_type",
 			"room_size",
 			"discount",
+			"surcharge",
 			"amt_paid",
 			"is_comp",
 			"is_cancelled",
@@ -32,12 +33,7 @@ class Payer_model extends My_Model {
 		];
 		for ($i = 0; $i < count($variables); $i++) {
 			$my_variable = $variables[$i];
-			if ($my_value = $this->input->post($my_variable)) {
-				if ($my_variable == "discount" || $my_variable == "amt_paid") {
-					$this->{$my_variable} = floatval($my_value);
-				}
-				$this->{$my_variable} = $this->input->post($my_variable);
-			}
+			$this->{$my_variable} = $this->input->post($my_variable);
 		}
 	}
 
@@ -69,7 +65,6 @@ class Payer_model extends My_Model {
 	}
 
 	function get_amount_due(int $payer_id, int $tour_id): int {
-
 		// Get the sum of the payments:
 		$payments = $this->getPayments($tour_id, $payer_id);
 		$ticket_cost = $this->get_ticket_cost($payer_id, $tour_id);
@@ -77,9 +72,9 @@ class Payer_model extends My_Model {
 		return $ticket_cost - $payments;
 	}
 
-	function get_ticket_cost(int $payer_id, int $tour_id): float{
+	function get_ticket_cost(int $payer_id, int $tour_id): float {
 		$price_levels = $this->getPriceLevels($tour_id, $payer_id);
-		if($price_levels->is_comp == 1 || $price_levels->is_cancelled == 1) {
+		if ($price_levels->is_comp == 1 || $price_levels->is_cancelled == 1) {
 			return 0;
 		}
 		$rate_values = $this->getRateValues($tour_id, $price_levels);
@@ -87,7 +82,7 @@ class Payer_model extends My_Model {
 		$ticket_count = $this->get_tourist_count($payer_id, $tour_id);
 
 		$price = $rate_values->{$price_levels->payment_type} + $rate_values->{$price_levels->room_size};
-		return $price* $ticket_count;
+		return $price * $ticket_count;
 	}
 
 	function get_tourist_count($payer_id, $tour_id) {
@@ -115,6 +110,7 @@ class Payer_model extends My_Model {
 		$this->db->join("letter", "letter.tour_id = payer.tour_id", "LEFT");
 		$this->db->join("merge", "merge.payer_id = payer.payer_id AND letter.id = merge.letter_id", "LEFT");
 		$this->db->select("merge.id as merge_id");
+		$this->db->order_by('payer.is_cancelled', 'ASC');
 		$this->db->order_by("person.last_name", "ASC");
 		$this->db->order_by("person.first_name", "ASC");
 		$result = $this->db->get()->result();
@@ -197,6 +193,12 @@ class Payer_model extends My_Model {
 		$this->db->update("payer", $this);
 	}
 
+	function updateValue($payer_id, $tour_id, $field, $value){
+		$this->db->where("tour_id", $tour_id);
+		$this->db->where("payer_id", $payer_id);
+		$this->db->update("payer", [$field => $value]);
+
+	}
 	function insert($payer_id, $tour_id): void {
 		$insert_array = [
 			"payer_id" => $payer_id,
@@ -245,10 +247,15 @@ class Payer_model extends My_Model {
 	 * @return \stdClass
 	 */
 	public function getRateValues(int $tour_id, mixed $price_levels): stdClass {
-		if(!in_array($price_levels->room_size, ['single_room', 'triple_room', 'quad_room','double_room'])){
+		if (!in_array($price_levels->room_size, [
+			'single_room',
+			'triple_room',
+			'quad_room',
+			'double_room',
+		])) {
 			$price_levels->room_size = 'double_room';
 		}
-		if(empty($price_levels->payment_type)){
+		if (empty($price_levels->payment_type)) {
 			$price_levels->payment_type = 'full_price';
 		}
 		return $this->db->from('tour')
@@ -261,16 +268,17 @@ class Payer_model extends My_Model {
 	 * Generates a salutation based on the tourists in the payer's party.
 	 *
 	 * @param object $payer
+	 *
 	 * @return string
 	 */
 	function getSalutation(object $payer): string {
 		$salutation = "Dear Bleacher Bum";
 
 		// create a salutation based on each tourist first_name and last_name
-		if(!empty($payer->tourists)){
+		if (!empty($payer->tourists)) {
 			$salutation = NULL;
 			$names = [];
-			foreach($payer->tourists as $tourist){
+			foreach ($payer->tourists as $tourist) {
 				$names[] = $tourist->first_name;
 			}
 			$salutation .= implode(", ", $names);;
@@ -281,16 +289,16 @@ class Payer_model extends My_Model {
 	function appendNote($payer_id, $tour_id, $note): void {
 		$existing_note = $this->get_value($payer_id, $tour_id, 'note');
 		$new_note = '';
-		if(!empty($existing_note)){
-			$new_note = $existing_note->note. '\\n\\r' . $note;
-		} else {
+		if (!empty($existing_note)) {
+			$new_note = $existing_note->note . '\\n\\r' . $note;
+		}
+		else {
 			$new_note = $note;
 		}
 		$this->db
 			->where('tour_id', $tour_id)
 			->where('payer_id', $payer_id)
 			->update('payer', ['note' => $new_note]);
-
 	}
 
 }
