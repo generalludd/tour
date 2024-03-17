@@ -40,6 +40,10 @@ if (empty($letter) || empty($tour) || empty($payer)) {
 				<div class="label">Amount Due:
 				</div><?php print format_money($payer->amt_due); ?>
 			</div>
+			<div class="due-date">
+				<div class="label">Due Date:
+				</div><?php print format_date($tour->due_date); ?>
+			</div>
 		</div>
 	</div>
 	<?php if (!empty($payer->roommates)): ?>
