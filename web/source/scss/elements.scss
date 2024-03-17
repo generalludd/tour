@@ -51,3 +51,6 @@ input[type="submit"][disabled] {
 	color: #666;
 	cursor: not-allowed;
 }
+tr.cancelled {
+	background-color: mistyrose;
+}
