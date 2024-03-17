@@ -63,7 +63,7 @@ $buttons['print'] = [
 			<?php foreach ($payers as $payer) : ?>
 				<?php $total_payers++; ?>
 				<tr
-					class="row row-break<?php print $payer->is_cancelled == 1 ? " cancelled" : ""; ?>" ">
+					class="row row-break<?php print $payer->is_cancelled == 1 ? " cancelled" : ""; ?>">
 					<td id="payer-<?php print $payer->payer_id?>">
 						<?php foreach ($payer->tourists as $tourist) : ?>
 							<?php if ($payer->is_cancelled == 0) : ?>
