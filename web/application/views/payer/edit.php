@@ -53,12 +53,18 @@ $tourist_count = count($payer->tourists);
 			<p>
 				<label for="is_comp">Complementary Ticket: </label>
 				<?php $is_comp = get_value($payer, 'is_comp') == 1; ?>
-				<?php print form_checkbox('is_comp', '1', $is_comp); ?>
+				<?php print form_checkbox('is_comp', '1', $is_comp, [
+					'class' => 'update-value',
+					'data-url' => base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id),
+				]); ?>
 			</p>
 			<p>
 				<label for="is_cancelled">Cancelled: </label>
 				<?php $is_canceled = get_value($payer, 'is_cancelled') == 1; ?>
-				<?php print form_checkbox('is_cancelled', '1', $is_canceled); ?>
+				<?php print form_checkbox('is_cancelled', '1', $is_canceled, [
+					'class' => 'update-value',
+					'data-url' => base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id),
+				]); ?>
 			</p>
 			<?php $payment_select = [
 				'id' => 'payment_type',
@@ -66,10 +72,11 @@ $tourist_count = count($payer->tourists);
 					'required' => TRUE,
 					'data-tour-id' => $payer->tour_id,
 					'data-target' => 'tour_price_display',
+					'data-url' => base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id),
 				],
 				'options' => $payment_types,
 				'selected' => get_value($payer, 'payment_type'),
-				'classes' => ['change_payment_type', 'change-value'],
+				'classes' => ['change_payment_type', 'change-value', 'update-value'],
 				'label' => 'Payment Type',
 				'wrapper' => 'p',
 				'suffix' => '$<span
@@ -84,10 +91,12 @@ $tourist_count = count($payer->tourists);
 						'required' => TRUE,
 						'data-tour-id' => $payer->tour_id,
 						'data-target' => 'room_rate_display',
+						'data-url' => base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id),
+
 					],
 					'options' => $room_sizes,
 					'selected' => get_value($payer, 'room_size'),
-					'classes' => ['change_room_size'],
+					'classes' => ['change_room_size', 'update-value'],
 					'label' => 'Room Size',
 					'wrapper' => 'p',
 					'suffix' => '$<span
@@ -105,7 +114,7 @@ $tourist_count = count($payer->tourists);
 					type="number"
 					name="amt_paid"
 					id="amt_paid"
-					class="edit-payer-amounts money"
+					class="money"
 					value="<?php print $payer->amt_paid; ?>"
 					readonly/>
 			</p>
@@ -114,19 +123,21 @@ $tourist_count = count($payer->tourists);
 				&nbsp;$<input
 					type="number"
 					min="0"
-					class="edit-payer-amounts money"
+					class="money update-value"
 					name="discount"
 					id="discount"
+					data-url="<?php print base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id) ?>"
 					value='<?php print get_value($payer, 'discount'); ?>'/>
 			</p>
 			<p>
 				<label for="surcharge">Surcharge: + </label>
 				&nbsp;$<input
 					type="number"
-					class="money"
+					class="money update-value"
 					min="0"
 					name="surcharge"
 					id="surcharge"
+					data-url="<?php print base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id) ?>"
 					value='<?php print get_value($payer, 'surcharge'); ?>'/>
 			</p>
 			<p>
@@ -144,37 +155,30 @@ $tourist_count = count($payer->tourists);
 				<textarea
 					id="note"
 					name="note"
+					data-url="<?php print base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id) ?>"
+					class="update-value"
 					style='width: 90%'><?php print get_value($payer, 'note'); ?></textarea>
 			</p>
 
 			<p>
+				<?php $buttons = []; ?>
 				<?php $buttons[] = [
-					'text' => sprintf('<input type="submit" class="button edit" name="save" value="%s"/>', ucfirst($action)),
-					'type' => 'pass-through',
+					'text' => 'Save',
+					'title' => 'Save and return to tourist list',
+					'class' => 'button save-payer-edits',
+					'href' => base_url('tourist/view_all/' . $payer->tour_id . '#payer-' . $payer->payer_id),
 				]; ?>
-				<?php if ($action == 'update'): ?>
+				<?php if ($action == 'update' && $payer->amt_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0)): ?>
 					<?php $buttons[] = [
-						'text' => 'Cancel',
-						'class' => 'button cancel',
-						'title' => 'Cancel the changes to the above payment data.',
+						'text' => 'Delete Payer',
+						'title' => 'Completely delete this payer, payment, rooming, and tourist info for this payer',
+						'class' => 'button delete dialog',
+						'href' => base_url('payer/delete?tour_id=' . $payer->tour_id . '&payer_id=' . $payer->payer_id),
 						'data' => [
-							'section' => 'area above',
-							'target' => base_url('tourist/view_all/' . $payer->tour_id),
+							'tour_id' => $payer->tour_id,
+							'payer_id' => $payer->payer_id,
 						],
 					]; ?>
-
-					<?php if ($payer->amt_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0)) {
-						$buttons[] = [
-							'text' => 'Delete Payer',
-							'title' => 'Completely delete this payer, payment, rooming, and tourist info for this payer',
-							'class' => 'button delete dialog',
-							'href' => base_url('payer/delete?tour_id=' . $payer->tour_id . '&payer_id=' . $payer->payer_id),
-							'data' => [
-								'tour_id' => $payer->tour_id,
-								'payer_id' => $payer->payer_id,
-							],
-						];
-					} ?>
 
 				<?php endif; ?>
 				<?php print create_button_bar($buttons); ?>
@@ -225,4 +229,7 @@ $tourist_count = count($payer->tourists);
 			<div id="add-new-tourist"></div>
 		</div>
 	</fieldset>
+</div>
+<div class="summary">
+
 </div>

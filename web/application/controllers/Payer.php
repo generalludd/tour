@@ -123,13 +123,10 @@ class Payer extends MY_Controller {
 		redirect('/tourist/view_all/' .$tour_id);
 	}
 
-	function update_value(): void {
-		$id = $this->input->post("id");
-		$values = [
-			$this->input->post("field") => $value = trim($this->input->post("value")),
-		];
-		$this->payer->update($id, $values);
-		echo $this->input->post("value");
+	function update_value(int $payer_id, int $tour_id): void {
+		$value = $this->input->post("value");
+		$field = $this->input->post("field");
+		$this->payer->updateValue($payer_id, $tour_id, $field, $value);
 	}
 
 	function select_tourists(): void {

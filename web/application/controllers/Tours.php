@@ -9,11 +9,11 @@ class Tours extends MY_Controller {
 		$this->load->model("tour_model", "tour");
 	}
 
-	function index() {
+	function index(): void {
 		$this->view_all();
 	}
 /** @deprecated  */
-	function view($id) {
+	function view($id): void {
 		redirect('tourist/view_all/' . $id);
 	}
 
@@ -34,7 +34,7 @@ class Tours extends MY_Controller {
 
 	}
 
-	function view_all() {
+	function view_all(): void {
 		$archived = $this->input->get('archived');
 		$data['archived'] = $archived?0:1;
 		$data["tours"] = $this->tour->get_all($archived);
@@ -49,13 +49,13 @@ class Tours extends MY_Controller {
 		$this->load->view("page/index", $data);
 	}
 
-	function create() {
+	function create(): void {
 		$data["action"] = "insert";
 		$data["tour"] = (object)['id' => NULL, 'tourists'=> []];
 		$this->load->view("tour/edit", $data);
 	}
 
-	function edit($id) {
+	function edit($id): void {
 		$data["tour"] = $this->tour->get($id);
 		$data["action"] = "update";
 		$data['target'] = 'tour/edit';

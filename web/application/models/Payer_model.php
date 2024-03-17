@@ -193,6 +193,12 @@ class Payer_model extends My_Model {
 		$this->db->update("payer", $this);
 	}
 
+	function updateValue($payer_id, $tour_id, $field, $value){
+		$this->db->where("tour_id", $tour_id);
+		$this->db->where("payer_id", $payer_id);
+		$this->db->update("payer", [$field => $value]);
+
+	}
 	function insert($payer_id, $tour_id): void {
 		$insert_array = [
 			"payer_id" => $payer_id,
