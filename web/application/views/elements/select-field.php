@@ -38,7 +38,7 @@ if (empty($wrapper)) {
 <select <?php print $attributes_string; ?>
 		class="<?php print implode(' ', $classes); ?>">
 	<?php foreach ($options as $key => $value): ?>
-	  <option value="<?php print $key; ?>" <?php print $selected == $key ?? 'selected';?>><?php print $value;?></option>
+	  <option value="<?php print $key; ?>" <?php if($selected === $key):?>selected<?php endif;?>><?php print $value;?></option>
 	<?php endforeach; ?>
 </select>
 <?php if(!empty($suffix)):?>

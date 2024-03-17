@@ -72,7 +72,12 @@ class Payer_model extends My_Model {
 
 		// Get the sum of the payments:
 		$payments = $this->getPayments($tour_id, $payer_id);
-		// get the payer price;
+		$ticket_cost = $this->get_ticket_cost($payer_id, $tour_id);
+
+		return $ticket_cost - $payments;
+	}
+
+	function get_ticket_cost(int $payer_id, int $tour_id): float{
 		$price_levels = $this->getPriceLevels($tour_id, $payer_id);
 		if($price_levels->is_comp == 1 || $price_levels->is_cancelled == 1) {
 			return 0;
@@ -82,7 +87,7 @@ class Payer_model extends My_Model {
 		$ticket_count = $this->get_tourist_count($payer_id, $tour_id);
 
 		$price = $rate_values->{$price_levels->payment_type} + $rate_values->{$price_levels->room_size};
-		return ($price * $ticket_count) - $payments;
+		return $price* $ticket_count;
 	}
 
 	function get_tourist_count($payer_id, $tour_id) {

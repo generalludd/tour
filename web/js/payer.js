@@ -33,9 +33,12 @@ document.addEventListener('DOMContentLoaded', function () {
 							targetElement.innerHTML = data['data'];
 							const updatedTourists = targetElement.querySelectorAll('li');
 							document.getElementById('tourist_count').value = updatedTourists.length;
-							calculate_cost(1);
 						});
 				}
+			}
+			if(event.target.classList.contains('update-cost-display')) {
+				event.preventDefault();
+				calculate_cost(1);
 			}
 
 			if (event.target.classList.contains('save-payer-edits')) {
@@ -68,12 +71,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	)
 	;
 	document.addEventListener('change', function (event) {
-		if (event.target.classList.contains('change_payment_type') || event.target.classList.contains('change_payment_amount')) {
+		if (event.target.classList.contains('change_payment_type') || event.target.classList.contains('change_room_size')) {
 			const targetElement = event.target.getAttribute('data-target');
+			console.log('targetElement', targetElement);
 			const tour_id = event.target.getAttribute('data-tour-id');
 			const field = event.target.value;
-			document.getElementById(targetElement).innerHTML = fetchTourValue(tour_id, field);
-
+			fetchTourValue(tour_id, field, targetElement);
 		}
 		if(event.target.getAttribute('name') === 'is_cancelled'){
 			if(typeof event.target === 'object' && event.target.checked === true){
@@ -85,8 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-function fetchTourValue(tour_id, field) {
-	let output = '';
+function fetchTourValue(tour_id, field, targetElement) {
 	const form_data = {
 		tour_id: tour_id,
 		field: field,
@@ -96,10 +98,8 @@ function fetchTourValue(tour_id, field) {
 	fetch(base_url + 'tours/get_value?' + query)
 		.then(response => response.json())
 		.then(data => {
-			output = data;
-
+			document.getElementById(targetElement).innerHTML = data;
 		});
-	return output;
 }
 
 $(document).ready(function () {
@@ -299,14 +299,14 @@ function calculate_cost(include_amt) {
 	if (discount.length === 0) {
 		discount = 0;
 	}
-	let room_rate = document.getElementById('room_rate').value;
+	let room_rate = document.getElementById('room_rate_display').innerHTML;
 	if (room_rate.length === 0) {
 		room_rate = 0;
 	}
 
 	let tour_price = document.getElementById('tour_price_display').innerHTML;
 	const total_cost = document.getElementById('total_cost');
-	total_cost.innerHTML = ((parseInt(tourist_count) * (parseInt(tour_price)) + parseInt(room_rate) - parseInt(discount))).toString();
+	total_cost.innerHTML = ((parseInt(tourist_count) * (parseFloat(tour_price)) + parseFloat(room_rate) - parseFloat(discount))).toString();
 	if (include_amt) {
 		const amt_due = document.getElementById('amt_due');
 		amt_due.innerHTML = (
