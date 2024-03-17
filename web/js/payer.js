@@ -23,10 +23,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					fetch(base_url + 'tourist/delete', {
 							method: 'POST',
 							headers: {
-								'Content-Type': 'application/json'  // Set Content-Type header
+								'Content-Type': 'application/json',  // Set Content-Type header
 							},
 							body: JSON.stringify(form_data),
-						}
+						},
 					)
 						.then(response => response.json())
 						.then(data => {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						});
 				}
 			}
-			if(event.target.classList.contains('update-cost-display')) {
+			if (event.target.classList.contains('update-cost-display')) {
 				event.preventDefault();
 				calculate_cost(1);
 			}
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				document.forms[0].submit();
 			}
 
-			if(event.target.classList.contains('insert-tourist')){
+			if (event.target.classList.contains('insert-tourist')) {
 				event.preventDefault();
 
 				let form_data = {
@@ -56,18 +56,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 				fetch(event.target.href + '?ajax=1', {
 						method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'  // Set Content-Type header
-					},
+						headers: {
+							'Content-Type': 'application/json',  // Set Content-Type header
+						},
 						body: JSON.stringify(form_data),
-					}
+					},
 				)
 					.then(response => response.json())
 					.then(data => {
 						window.location.href = data.target;
 					});
 			}
-		}
+		},
 	)
 	;
 	document.addEventListener('change', function (event) {
@@ -78,13 +78,32 @@ document.addEventListener('DOMContentLoaded', function () {
 			const field = event.target.value;
 			fetchTourValue(tour_id, field, targetElement);
 		}
-		if(event.target.getAttribute('name') === 'is_cancelled'){
-			if(typeof event.target === 'object' && event.target.checked === true){
-				// get a pop-up fieldset for finding a payer.
+		if (event.target.name === 'is_cancelled') {
+			if (typeof event.target === 'object') {
+				if (event.target.checked === true) {
+					const question = confirm('This will delete all the roommate information for this ticket. This CANNOT be undone! Continue?');
+					if (!question) {
+						return;
+					}
+				}
+				const url = event.target.dataset.url + '?ajax=1';
+
+				const form_data = new FormData();
+				form_data.append('field', event.target.name);
+				form_data.append('value', event.target.checked ? 1 : 0);
+				// Send the form data to the server
+				fetch(url, {
+					method: 'POST',
+					body: form_data,
+				})
+					.then(response => response.text())
+					.then(data => {
+						console.log(data);
+					});
+
 			}
 		}
 	});
-
 
 });
 
@@ -131,7 +150,6 @@ $(document).ready(function () {
 			},
 		});
 	});
-
 
 	$('.select-tourist-type').on('click', function () {
 		my_id = this.id.split('_')[1];
@@ -281,7 +299,6 @@ $(document).ready(function () {
 		});
 
 	});
-
 
 });//end document load
 

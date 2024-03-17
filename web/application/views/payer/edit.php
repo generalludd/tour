@@ -62,7 +62,6 @@ $tourist_count = count($payer->tourists);
 				<label for="is_cancelled">Cancelled: </label>
 				<?php $is_canceled = get_value($payer, 'is_cancelled') == 1; ?>
 				<?php print form_checkbox('is_cancelled', '1', $is_canceled, [
-					'class' => 'update-value',
 					'data-url' => base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id),
 				]); ?>
 			</p>
@@ -165,7 +164,7 @@ $tourist_count = count($payer->tourists);
 				<?php $buttons[] = [
 					'text' => 'Save',
 					'title' => 'Save and return to tourist list',
-					'class' => 'button save-payer-edits',
+					'class' => 'button save-payer-edits edit',
 					'href' => base_url('tourist/view_all/' . $payer->tour_id . '#payer-' . $payer->payer_id),
 				]; ?>
 				<?php if ($action == 'update' && $payer->amt_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0)): ?>
