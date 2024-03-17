@@ -157,7 +157,7 @@ $buttons['print'] = [
 			<td style="text-align: right;">
 				Total Paid
 			</td>
-			<td colspan='2'>
+			<td colspan='3'>
 				<?php print format_money($total_paid); ?>
 			</td>
 			<td style="text-align: right;">
