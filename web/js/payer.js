@@ -299,6 +299,10 @@ function calculate_cost(include_amt) {
 	if (discount.length === 0) {
 		discount = 0;
 	}
+	let surcharge = document.getElementById('surcharge').value;
+	if (surcharge.length === 0) {
+		surcharge = 0;
+	}
 	let room_rate = document.getElementById('room_rate_display').innerHTML;
 	if (room_rate.length === 0) {
 		room_rate = 0;
@@ -310,7 +314,7 @@ function calculate_cost(include_amt) {
 	if (include_amt) {
 		const amt_due = document.getElementById('amt_due');
 		amt_due.innerHTML = (
-			(parseInt(tourist_count) * (parseInt(tour_price))) - amt_paid - parseInt(discount) + parseInt(room_rate)
+			(parseInt(tourist_count) * (parseInt(tour_price))) - amt_paid - parseInt(discount) + parseInt(room_rate) + parseInt(surcharge)
 		).toString();
 	}
 }

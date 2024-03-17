@@ -110,13 +110,24 @@ $tourist_count = count($payer->tourists);
 					readonly/>
 			</p>
 			<p>
-				<label for="discount">Total Price Discount:</label>
+				<label for="discount">Discount: - </label>
 				&nbsp;$<input
 					type="number"
+					min="0"
 					class="edit-payer-amounts money"
 					name="discount"
 					id="discount"
 					value='<?php print get_value($payer, 'discount'); ?>'/>
+			</p>
+			<p>
+				<label for="surcharge">Surcharge: + </label>
+				&nbsp;$<input
+					type="number"
+					class="money"
+					min="0"
+					name="surcharge"
+					id="surcharge"
+					value='<?php print get_value($payer, 'surcharge'); ?>'/>
 			</p>
 			<p>
 				<label for="amt_due">Amount Due:</label> $<span

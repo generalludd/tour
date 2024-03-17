@@ -52,6 +52,7 @@ $buttons['print'] = [
 			</th>
 			<th>Paid</th>
 			<th>Discount</th>
+			<th>Surcharge</th>
 			<th class="no-wrap">Room Size<br/>Rate
 			</th>
 			<th>Due</th>
@@ -123,6 +124,8 @@ $buttons['print'] = [
 					<td><?php print format_money($payer->amt_paid); ?>
 					</td>
 					<td><?php print format_money($payer->discount); ?></td>
+					<td><?php print format_money($payer->surcharge); ?></td>
+
 					<td><?php print sprintf("%s<br/>%s", format_field_name($payer->room_size), format_money($payer->room_rate)); ?>
 					</td>
 					<td><?php echo $payer->is_cancelled == 1 ? 0 : format_money($payer->amt_due); ?>

@@ -15,7 +15,8 @@
 			<th>Payment Type</th>
 			<th>Price</th>
 			<th>Paid</th>
-			<th>Adjustment</th>
+			<th>Discount</th>
+			<th>Surcharge</th>
 			<th>Room Size (Rate)</th>
 			<th>Due</th>
 			<th></th>
@@ -57,8 +58,10 @@
 			<td>
 			<?php print format_money($payer->price);?></td>
 			<td><?php print format_money($payer->amt_paid);?></td>
-			<td><?php print format_money($payer->discount);?></td>
-			<td><?php print sprintf("%s (%s)", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
+			<td><?php print !empty($payer->discount)??'-' ?><?php print format_money($payer->discount);?></td>
+	<td><?php print format_money($payer->surcharge);?></td>
+
+	<td><?php print sprintf("%s (%s)", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
 			<td><?php echo $payer->is_cancelled==1?0:format_money($payer->amt_due);?></td>
 			<td><span
 				class="button edit edit-payer"

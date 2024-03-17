@@ -48,8 +48,42 @@ class Update extends My_Controller {
 				'id' => 8,
 				'query' => 'DELETE FROM `hotel` WHERE `tour_id` = 48;',
 				'description' => 'Delete hotels for tour 48',
+			],
+			[
+				'id' => 9,
+				'query' => 'ALTER TABLE `payer` ADD `surcharge` INT NULL DEFAULT 0 AFTER `discount`;',
+				'description' => 'Add surcharge field to payer table',
+			],
+			[
+				'id' => 10,
+				'query' => "UPDATE `payer` SET `discount` = '' , surcharge= 100 WHERE `payer`.`payer_id` = 36 AND `payer`.`tour_id` = 38;",
+				'description' => "Set discount to 0 and surcharge to 100 for payer 36 on tour 38",
+			],
+			[
+				'id' => 11,
+				'query' => "UPDATE `payer` SET `discount` = '', `surcharge` = '60' WHERE `payer`.`payer_id` = 478 AND `payer`.`tour_id` = 29;",
+				'description' => "Set discount to 0 and surcharge to 100 for payer 478 on tour 29",
+			],
+			[
+				'id' => 12,
+				'query' => "UPDATE `payer` SET `discount` = '', `surcharge` = '75' WHERE `payer`.`payer_id` = 624 AND `payer`.`tour_id` = 33;",
+				'description' => "Set discount to 0 and surcharge to 100 for payer 624 on tour 33",
+			],
+			[
+				'id' => 13,
+				'query' => "UPDATE `payer` SET `discount` = '', `surcharge` = '120' WHERE `payer`.`payer_id` = 715 AND `payer`.`tour_id` = 38;",
+				'description' => "Set discount to 0 and surcharge to 100 for payer 715 on tour 38",
+			],
+			[
+				'id' => 14,
+				'query' => "UPDATE payer set discount = NULL WHERE discount is not null and discount = '' ORDER BY `discount` DESC;",
+				'description' => "Set discount to NULL for payers with empty discount",
+			],
+			[
+				'id' => 15,
+				'query' => "ALTER TABLE `payer` CHANGE `discount` `discount` INT NULL DEFAULT 0;",
+				'description' => "Change discount field to INT NULL DEFAULT NULL",
 			]
-
 		];
 		$this->update->run_updates($updates);
 		redirect('person');
