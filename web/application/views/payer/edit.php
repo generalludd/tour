@@ -124,7 +124,6 @@ $tourist_count = count($payer->tourists);
 			</p>
 			<p><button class="update-cost-display button edit small">Re-calculate Values</button></p>
 			<p>
-			<p>
 				<label for="note">Note</label><br/>
 				<textarea
 						id="note"
