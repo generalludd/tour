@@ -87,20 +87,23 @@ $buttons['print'] = [
 								class="button edit dialog"
 								data-payer_id="<?php print $payer->payer_id; ?>"
 								data-tour_id="<?php print $payer->tour_id; ?>">Edit
-								Letter</a>
+								Letter ✎</a>
 						<?php else : ?>
-							<a <a
+							<a
 								href="<?php print base_url('letter/select/' . $payer->payer_id . '/' . $payer->tour_id); ?>"
 								class="button new dialog"
 								data-payer_id="<?php print $payer->payer_id; ?>"
-								data-tour_id="<?php print $payer->tour_id; ?>">Send
+								data-tour_id="<?php print $payer->tour_id; ?>">➕Send
 								Letter</a>
 						<?php endif; ?>
 					<td>
 						<a
 							href="<?php print site_url("payer/edit?payer_id=$payer->payer_id&tour_id=$payer->tour_id"); ?>"
 							class="button edit">Edit
-							Payment</a>
+							Payment ✎</a><p>
+				<?php if (get_value($payer, "note", FALSE)) : ?>
+					<?php print get_value($payer, "note"); ?>
+				<?php endif; ?></p>
 					</td>
 					<td>
 						<?php $this->load->view('person/contact_card', ['person' => $payer->person]); ?>
@@ -125,12 +128,7 @@ $buttons['print'] = [
 					<td><?php echo $payer->is_cancelled == 1 ? 0 : format_money($payer->amt_due); ?>
 					</td>
 				</tr>
-				<?php if (get_value($payer, "note", FALSE)) : ?>
-					<tr>
-						<td></td>
-						<td colspan="10"><?php print get_value($payer, "note"); ?></td>
-					</tr>
-				<?php endif; ?>
+
 				<?php
 				if ($payer->is_cancelled != 1) {
 					$total_due += $payer->amt_due;
