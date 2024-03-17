@@ -79,6 +79,7 @@ class Payer extends MY_Controller {
 		$data['payment_types'] = $this->tour->get_payment_types($tour_id);
 		$payer = $this->payer->get_for_tour($payer_id, $tour_id);
 		$payer_object = $this->payer->get_payer_object($payer);
+		$payer_object->ticket_cost = $this->payer->get_ticket_cost($payer_id, $tour_id);
 
 		$data["payer"] = $payer_object;
 

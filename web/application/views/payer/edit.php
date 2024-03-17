@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+if(empty($payer) || empty($action)){
+	return;
+}
 // payer.php Chris Dart Dec 14, 2013 6:32:48 PM chrisdart@cerebratorium.com
 $tourist_count = count($payer->tourists);
 ?>
@@ -65,7 +68,7 @@ $tourist_count = count($payer->tourists);
 					],
 					'options' => $payment_types,
 					'selected' => get_value($payer, 'payment_type'),
-					'classes' => ['change_payment_type'],
+					'classes' => ['change_payment_type', 'change-value'],
 					'label' => 'Payment Type',
 					'wrapper' => 'p',
 					'suffix' => '$<span
@@ -94,7 +97,7 @@ $tourist_count = count($payer->tourists);
 			<p>
 				<label for="total_cost">Total Cost: </label> &nbsp;$<span
 						class="field"
-						id="total_cost"><?php print get_payment_due($payer); ?></span>
+						id="total_cost"><?php print $payer->ticket_cost; ?></span>
 			</p>
 			<p>
 				<label for="amt_paid">Amount Paid</label> $<input
@@ -119,6 +122,8 @@ $tourist_count = count($payer->tourists);
 						class="field"
 						id="amt_due"><?php print get_payment_due($payer); ?></span>
 			</p>
+			<p><button class="update-cost-display button edit small">Re-calculate Values</button></p>
+			<p>
 			<p>
 				<label for="note">Note</label><br/>
 				<textarea
@@ -126,7 +131,7 @@ $tourist_count = count($payer->tourists);
 						name="note"
 						style='width: 90%'><?php print get_value($payer, 'note'); ?></textarea>
 			</p>
-			<p>
+
 
 				<?php $buttons[] = [
 						'text' => sprintf('<input type="submit" class="button edit" name="save" value="%s"/>', ucfirst($action)),
