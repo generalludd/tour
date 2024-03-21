@@ -195,7 +195,7 @@ function format_money(float $int = NULL, string $format = "standard"): string {
 		$int = round($int, 0);
 	}
 	$fmt =  NumberFormatter::create('en_US', \NumberFormatter::CURRENCY);
-	return !empty($int)? $fmt->formatCurrency($int, 'USD'): '';
+	return $fmt->formatCurrency($int, 'USD');
 }
 
 /**
@@ -323,12 +323,8 @@ function get_room_rate($payer): int {
 }
 
 function get_amount_due($payer, int $tourist_count = NULL){
-	if($tourist_count){
-		return ($payer->price + $payer->rate) * $tourist_count - ($payer->amt_paid + $payer->discount - $payer->surcharge);
-	} else {
-		return $payer->price - $payer->amt_paid + $payer->discount + $payer->room_rate - $payer->surcharge;
-	}
-
+	$tourist_count = count($payer->tourists);
+		return ($payer->price + $payer->room_rate) * $tourist_count - ($payer->amount + $payer->discount - $payer->surcharge);
 }
 
 function format_person(object $person): string {
@@ -407,7 +403,7 @@ function grammatical_implode($glue, $list, $conjunction = "and"): array|string {
 	return $output;
 }
 
-function get_payment_due($payer){
+function get_payment_due($payer): float|int {
 		$tourist_count = count($payer->tourists);
 		return $payer->price * $tourist_count + ($payer->room_rate - $payer->amt_paid - $payer->discount + $payer->surcharge);
 }
