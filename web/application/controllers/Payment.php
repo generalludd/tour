@@ -60,4 +60,10 @@ class Payment extends MY_Controller {
 		$this->view_list($payment->tour_id, $payment->payer_id, $type);
 	}
 
+	function update_payments(): void {
+		$this->load->model('payer_model','payer');
+		$this->payer->update_payments();
+		redirect();
+	}
+
 }

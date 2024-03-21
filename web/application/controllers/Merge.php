@@ -23,7 +23,7 @@ class Merge extends MY_Controller {
 		$payer = $this->payer->get_for_tour($payer_id, $letter->tour_id);
 		$payer->tourists = $this->tourist->get_for_payer($payer_id, $letter->tour_id);
 		$payer->price = get_tour_price($payer);
-		$payer->rate = get_room_rate($payer);
+		$payer->room_rate = get_room_rate($payer);
 
 		$tourist_count = $this->payer->get_tourist_count($payer->payer_id, $letter->tour_id);
 
