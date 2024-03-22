@@ -185,25 +185,6 @@ $(document).ready(function () {
 		});
 	});
 
-	$('body').on('click', '.select-as-tourist', function (e) {
-		e.preventDefault();
-		let my_tour = $(this).data('tour_id');
-		let my_person = $(this).data('person_id');
-		let my_url = $(this).attr('href');
-		let form_data = {
-			tour_id: my_tour,
-			person_id: my_person,
-			ajax: '1',
-		};
-		$.ajax({
-			type: 'get',
-			url: my_url,
-			data: form_data,
-			success: function (data) {
-				show_popup('Who is Paying?', data, 'auto');
-			},
-		});
-	});
 
 	$(document).on('click', '.select-as-payer', function (e) {
 		e.preventDefault();
@@ -253,52 +234,8 @@ $(document).ready(function () {
 		});
 	});
 
-	$(document).on('click', '.insert-new-tourist', function () {
-		let my_tour = $(this).data('tour_id');
-		let my_payer = $(this).data('payer_id');
-		let form_data = {
-			tour_id: my_tour,
-			payer_id: my_payer,
-			first_name: $('#first_name').val(),
-			last_name: $('#last_name').val(),
-			shirt_size: $('#shirt_size').val(),
-			ajax: '1',
-		};
-		$.ajax({
-			type: 'post',
-			data: form_data,
-			url: base_url + 'tourist/insert_new',
-			success: function (data) {
-				$('.create-new-tourist').fadeOut();
-				$('#add-new-tourist').children().remove();
-				$('#payer-tourist-list').html(data);
-				tourist_count = $('#payer-tourist-list tr').length;
-				$('#tourist_count').val(tourist_count);
-				calculate_cost(1);
-				$('.create-new-tourist').fadeIn();
-				$('#tourist-mini-selector').fadeIn();
-				$('#tourist-dropdown').val('');
-			},
 
-		});
 
-	});
-
-	$(document).on('click', '.select-letter', function (e) {
-		e.preventDefault();
-		let form_data = {
-			ajax: 1,
-		};
-		$.ajax({
-			type: 'get',
-			url: $(this).attr('href'),
-			data: form_data,
-			success: function (data) {
-				show_popup('Select Letter', data, 'auto');
-			},
-		});
-
-	});
 
 });//end document load
 

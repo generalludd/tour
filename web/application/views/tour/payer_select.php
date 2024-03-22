@@ -28,9 +28,11 @@
 					<td>
 						<?php print $tour->tour_name; ?>
 					</td>
-					<td><?php print date('m/d/Y', strtotime($tour->start_date)); ?></td>
 					<td>
-						<?php print date('m/d/Y', strtotime($tour->end_date)); ?></td>
+						<?php print date('m/d/Y', strtotime($tour->start_date)); ?>
+					</td>
+					<td>
+						<?php print date('m/d/Y', strtotime($tour->end_date)); ?>
 					</td>
 					<td>
 						<?php print create_button([

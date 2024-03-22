@@ -1,13 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // select.php Chris Dart Dec 20, 2013 7:04:26 PM chrisdart@cerebratorium.com
-
+if(empty($tours) || empty($id)){
+	return;
+}
 ?>
-<input type="hidden" name="person_id" id="person_id"
-	   value="<?php print $id; ?>"/>
 <div id="tourist-selector">
-	<?php if (count($tours) >= 1): ?>
-		<div style="width:60ex">
+	<?php if ( count($tours) >= 1): ?>
+		<div>
 			Choose "payer" if the person is paying for the tour.<br/>Choose
 			"tourist"
 			if someone else is paying<br/>The payer must already have been added
