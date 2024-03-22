@@ -190,12 +190,10 @@ function get_value($object, $item, $default = NULL): mixed {
  *
  * @return string
  */
-function format_money(float $int = NULL, string $format = "standard"): string {
-	if ($format == 'int') {
-		$int = round($int, 0);
-	}
+function format_money( $int = NULL, string $format = "standard"): string {
+
 	$fmt =  NumberFormatter::create('en_US', \NumberFormatter::CURRENCY);
-	return $fmt->formatCurrency($int, 'USD');
+	return $fmt->formatCurrency(floatval($int), 'USD');
 }
 
 /**
