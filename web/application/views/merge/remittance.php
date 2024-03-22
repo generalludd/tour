@@ -34,11 +34,11 @@ if (empty($letter) || empty($tour) || empty($payer)) {
 		<div class="payments ">
 			<div class="amt-paid">
 				<div class="label">Amount Paid:
-				</div><?php print format_money($payer->amount); ?>
+				</div><?php print format_money($payer->amount_paid); ?>
 			</div>
 			<div class="amt-due">
 				<div class="label">Amount Due:
-				</div><?php print format_money($payer->amt_due); ?>
+				</div><?php print format_money($payer->amount_due); ?>
 			</div>
 			<div class="due-date">
 				<div class="label">Due Date:

@@ -62,7 +62,7 @@
 	<td><?php print format_money($payer->surcharge);?></td>
 
 	<td><?php print sprintf("%s (%s)", format_field_name($payer->room_size),format_money($payer->room_rate));?></td>
-			<td><?php echo $payer->is_cancelled==1?0:format_money($payer->amt_due);?></td>
+			<td><?php echo $payer->is_cancelled==1?0:format_money($payer->amount_due);?></td>
 			<td><span
 				class="button edit edit-payer"
 				data-payer_id="<?php print $payer->payer_id;?>"

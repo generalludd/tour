@@ -27,7 +27,7 @@ class Merge extends MY_Controller {
 
 		$tourist_count = $this->payer->get_tourist_count($payer->payer_id, $letter->tour_id);
 
-		$payer->amt_due = get_amount_due($payer, $tourist_count);
+		$payer->amount_due = get_amount_due($payer);
 
 		$payer->tourist_count = $tourist_count;
 		$data["tour"] = $tour;
