@@ -121,21 +121,21 @@ $buttons['print'] = [
 						<td><?php print sprintf("%s<br/>%s", format_field_name($payer->payment_type), format_money($payer->price)); ?>
 						</td>
 					<?php endif; ?>
-					<td><?php print format_money($payer->amt_paid); ?>
+					<td><?php print format_money($payer->amount_paid); ?>
 					</td>
 					<td><?php print format_money($payer->discount); ?></td>
 					<td><?php print format_money($payer->surcharge); ?></td>
 
 					<td><?php print sprintf("%s<br/>%s", format_field_name($payer->room_size), format_money($payer->room_rate)); ?>
 					</td>
-					<td><?php echo $payer->is_cancelled == 1 ? 0 : format_money($payer->amt_due); ?>
+					<td><?php echo $payer->is_cancelled == 1 ? 0 : format_money($payer->amount_due); ?>
 					</td>
 				</tr>
 
 				<?php
 				if ($payer->is_cancelled != 1) {
-					$total_due += $payer->amt_due;
-					$total_paid += $payer->amt_paid;
+					$total_due += $payer->amount_due;
+					$total_paid += $payer->amount_paid;
 				}
 				?>
 

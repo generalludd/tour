@@ -167,7 +167,7 @@ $tourist_count = count($payer->tourists);
 					'class' => 'button save-payer-edits edit',
 					'href' => base_url('tourist/view_all/' . $payer->tour_id . '#payer-' . $payer->payer_id),
 				]; ?>
-				<?php if ($action == 'update' && $payer->amt_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0)): ?>
+				<?php if ($action == 'update' && $payer->amount_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0)): ?>
 					<?php $buttons[] = [
 						'text' => 'Delete Payer',
 						'title' => 'Completely delete this payer, payment, rooming, and tourist info for this payer',

@@ -322,9 +322,9 @@ function get_room_rate($payer): int {
 	return $room_rate;
 }
 
-function get_amount_due($payer, int $tourist_count = NULL){
+function get_amount_due($payer): float|int {
 	$tourist_count = count($payer->tourists);
-		return ($payer->price + $payer->room_rate) * $tourist_count - ($payer->amount + $payer->discount - $payer->surcharge);
+		return ($payer->price + $payer->room_rate) * $tourist_count - ($payer->amount_paid + $payer->discount - $payer->surcharge);
 }
 
 function format_person(object $person): string {
@@ -405,7 +405,7 @@ function grammatical_implode($glue, $list, $conjunction = "and"): array|string {
 
 function get_payment_due($payer): float|int {
 		$tourist_count = count($payer->tourists);
-		return $payer->price * $tourist_count + ($payer->room_rate - $payer->amt_paid - $payer->discount + $payer->surcharge);
+		return $payer->price * $tourist_count + ($payer->room_rate - $payer->amount_paid - $payer->discount + $payer->surcharge);
 }
 
 /**

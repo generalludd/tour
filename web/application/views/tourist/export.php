@@ -49,7 +49,7 @@ foreach ($payers as $payer) {
             $line["room_size"] = format_field_name($payer->room_size);
             $line["room_rate"] = $payer->room_rate;
             $line["amt_paid"] = $payer->amt_paid;
-            $line["amt_due"] = $payer->amt_due;
+            $line["amt_due"] = $payer->amount_due;
         }
         $line["address"] = $payer->address;
         $line["city"] = $payer->city;

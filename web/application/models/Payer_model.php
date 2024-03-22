@@ -62,8 +62,8 @@ class Payer_model extends My_Model {
 		$this->db->select('payer.*');
 		$this->db->select_sum('payment.amount');
 		$payer =  $this->db->get()->row();
-		if(empty($payer->amount)){
-			$payer->amount = 0;
+		if(empty($payer->amount_paid)){
+			$payer->amount_paid = 0;
 		}
 		return $payer;
 	}
@@ -127,9 +127,9 @@ class Payer_model extends My_Model {
 		$payer->person = $this->person->get($payer->payer_id);
 		$payer->tourists = $this->tourist->get_for_payer($payer->payer_id, $payer->tour_id);
 		$payer->payments = $this->payment->get_all($payer->tour_id, $payer->payer_id);
-		$payer->amount = 0;
+		$payer->amount_paid = 0;
 		foreach ($payer->payments as $payment) {
-			$payer->amount += $payment->amount;
+			$payer->amount_paid += $payment->amount;
 		}
 		$payer->price = match ($payer->payment_type) {
 			'full_price' => $payer->full_price,
@@ -153,7 +153,7 @@ class Payer_model extends My_Model {
 			$payer->price = 0;
 			$payer->room_rate = 0;
 		}
-		$payer->amt_due = get_payment_due($payer);
+		$payer->amount_due = get_payment_due($payer);
 		return $payer;
 	}
 
