@@ -20,16 +20,11 @@ class Merge extends MY_Controller {
 		$letter = $this->letter->get($letter_id);
 		$tour = $this->tour->get($letter->tour_id);
 
-		$payer = $this->payer->get_for_tour($payer_id, $letter->tour_id);
+		$payer = $this->payer->getForTour($payer_id, $letter->tour_id);
 		$payer->tourists = $this->tourist->get_for_payer($payer_id, $letter->tour_id);
 		$payer->price = get_tour_price($payer);
 		$payer->room_rate = get_room_rate($payer);
-
-		$tourist_count = $this->payer->get_tourist_count($payer->payer_id, $letter->tour_id);
-
-		$payer->amount_due = get_amount_due($payer);
-
-		$payer->tourist_count = $tourist_count;
+		$payer->tourist_count = count($payer->tourists);
 		$data["tour"] = $tour;
 		// Generate a salutation based on the payer->tourists first_name and last_name values.
 		$payer->salutation = $this->payer->getSalutation($payer);

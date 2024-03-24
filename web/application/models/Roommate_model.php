@@ -72,7 +72,7 @@ class Roommate_Model extends MY_Model {
 
 	function get_roomless($tour_id, $stay) {
 		$this->db->select(
-			"person.id, concat(person.first_name,' ', person.last_name) as person_name",
+			"person.id, concat(person.first_name,' ', person.last_name, '--', payer.room_size) as person_name",
 			FALSE)
 			->from('tourist')
 			->join('hotel', 'tourist.tour_id= hotel.tour_id', 'left')

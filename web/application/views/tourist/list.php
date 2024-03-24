@@ -59,8 +59,8 @@ $buttons['print'] = [
 		</tr>
 		</thead>
 		<tbody>
-		<?php if (!empty($payers)): ?>
-			<?php foreach ($payers as $payer) : ?>
+		<?php if (!empty($tour->tourists)): ?>
+			<?php foreach ($tour->tourists as $payer) : ?>
 				<?php $total_payers++; ?>
 				<tr
 					class="row row-break<?php print $payer->is_cancelled == 1 ? " cancelled" : ""; ?>">
@@ -82,20 +82,25 @@ $buttons['print'] = [
 							<br/>
 						<?php endforeach; ?>
 						<br/>
-						<?php if ($payer->merge_id) : ?>
+						<?php if ($payer->merge) : ?>
+						<?php foreach($payer->merge as $merge):?>
+							<?php if(!empty($merge)):?>
 							<a
-								href="<?php print base_url('letter/select/' . $payer->payer_id . '/' . $payer->tour_id); ?>"
-								class="button edit dialog"
+								href="<?php print base_url('merge/create/?payer_id=' . $merge->payer_id . '&letter_id=' . $merge->letter_id); ?>"
+								class="button edit"
 								data-payer_id="<?php print $payer->payer_id; ?>"
-								data-tour_id="<?php print $payer->tour_id; ?>">Edit
-								Letter ✎</a>
-						<?php else : ?>
-							<a
-								href="<?php print base_url('letter/select/' . $payer->payer_id . '/' . $payer->tour_id); ?>"
-								class="button new dialog"
-								data-payer_id="<?php print $payer->payer_id; ?>"
-								data-tour_id="<?php print $payer->tour_id; ?>">➕Send
-								Letter</a>
+								data-tour_id="<?php print $payer->tour_id; ?>">✎ Edit
+								Letter </a>
+							<?php else : ?>
+								<a
+									href="<?php print base_url('letter/select/' . $payer->payer_id . '/' . $payer->tour_id); ?>"
+									class="button new dialog"
+									data-payer_id="<?php print $payer->payer_id; ?>"
+									data-tour_id="<?php print $payer->tour_id; ?>">➕Send
+									Letter</a>
+							<?php endif;?>
+					<?php endforeach; ?>
+
 						<?php endif; ?>
 					<td>
 						<a

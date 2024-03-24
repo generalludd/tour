@@ -4,9 +4,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 if(empty($title)){
 	return NULL;
 }
+$row_class = "odd";
+
 
 // list.php Chris Dart Dec 14, 2013 3:18:33 PM chrisdart@cerebratorium.com
-if (empty($for_tourist)) {
 	$buttons[] = [
 		'text' => 'Create Tour',
 		'href' => base_url('tours/create'),
@@ -25,7 +26,7 @@ if (empty($for_tourist)) {
 		$buttons['show_tours']['text'] = 'Show Past Tours';
 	}
 	print create_button_bar($buttons);
-}
+
 ?>
 <?php if (!empty($tours)) : ?>
 	<table class="list">
@@ -35,20 +36,12 @@ if (empty($for_tourist)) {
 			<th>Start</th>
 			<th>End</th>
 			<th>Payment Due</th>
-			<?php if (!empty($for_tourist)) : ?>
-				<th>Amt Due</th>
-				<th colspan="2">Actions</th>
-			<?php else: ?>
 				<th colspan="3">Actions</th>
-			<?php endif; ?>
 		</tr>
 		</thead>
 		<tbody>
 		<?php
-		$row_class = "odd";
-
-		foreach ($tours as $tour) {
-			?>
+		foreach ($tours as $tour):?>
 		<tr class="<?php print $row_class; ?>">
 			<td>
 
@@ -71,17 +64,7 @@ if (empty($for_tourist)) {
 					<?php print format_date($tour->due_date); ?>
 				<?php endif; ?>
 			</td>
-			<?php if (!empty($for_tourist)) : ?>
-				<td>
-					<?php print format_money($tour->amt_due); ?>
-				</td>
-				<td>
-					<a
-						href="<?php print site_url("payer/edit/?payer_id=$tour->payer_id&tour_id=$tour->tour_id"); ?>"
-						class="button edit">View Ticket</a>
-				</td>
 
-			<?php else : ?>
 				<td><a class="button show-hotels small"
 							 href="<?php print site_url("/hotel/view_for_tour/$tour->id"); ?>">Hotels</a>
 				</td>
@@ -93,19 +76,14 @@ if (empty($for_tourist)) {
 						Templates</a></td>
 				</tr>
 			<?php
-			endif;
 			if ($row_class == "odd") {
 				$row_class = "even";
 			}
 			else {
 				$row_class = "odd";
 			}
-		}
-
+endforeach;
 		?>
 		</tbody>
 	</table>
-<?php elseif (!empty($for_tourist)) : ?>
-	<p>There are no tours on record for this person. Click on "Join Tour" to add
-		this person to a current tour.</p>
-<?php endif;
+<?php endif; ?>

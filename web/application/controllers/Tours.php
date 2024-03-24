@@ -201,7 +201,7 @@ class Tours extends MY_Controller {
 			$payer->tourists = $tourists;
 			$payer->price = get_tour_price($payer);
 			$payer->room_rate = get_room_rate($payer);
-			$payer->amount_due = get_amount_due($payer);
+			$payer->amt_due = get_amount_due($payer);
 
 			$tourist_count = $this->payer->get_tourist_count($payer->payer_id, $payer->tour_id);
 			$payer->tourist_count = $tourist_count;

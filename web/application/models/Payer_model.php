@@ -48,89 +48,28 @@ class Payer_model extends My_Model {
 		return $result;
 	}
 
-	function get_for_tour($payer_id, $tour_id) {
+	function getForTour($payer_id, $tour_id): ?object {
 		$this->db->from('payer');
-		$this->db->join('tour', 'payer.tour_id=tour.id');
-		$this->db->join('payment',
-			'payer.tour_id=payment.tour_id AND payer.payer_id = payment.payer_id', 'LEFT');
-		$this->db->join('person', 'payer.payer_id=person.id');
 		$this->db->where('payer.payer_id', $payer_id);
 		$this->db->where('payer.tour_id', $tour_id);
-		$this->db->select(
-			'tour.tour_name,tour.full_price, tour.banquet_price, tour.early_price, tour.regular_price,tour.single_room, tour.triple_room, tour.quad_room');
-		$this->db->select('person.first_name, person.last_name');
 		$this->db->select('payer.*');
-		$this->db->select_sum('payment.amount');
+		$this->db->join('tour', 'tour.id = payer.tour_id');
+		$this->db->select('tour.tour_name, tour.due_date, tour.start_date, tour.end_date, tour.full_price, tour.banquet_price, tour.early_price, tour.regular_price, tour.single_room, tour.triple_room, tour.quad_room');
 		$payer =  $this->db->get()->row();
-		if(empty($payer->amount_paid)){
-			$payer->amount_paid = 0;
-		}
-		return $payer;
-	}
-
-	function get_amount_due(int $payer_id, int $tour_id): int {
-		// Get the sum of the payments:
-		$payments = $this->getPayments($tour_id, $payer_id);
-		$ticket_cost = $this->get_ticket_cost($payer_id, $tour_id);
-
-		return $ticket_cost - $payments;
-	}
-
-	function get_ticket_cost(int $payer_id, int $tour_id): float {
-		$price_levels = $this->getPriceLevels($tour_id, $payer_id);
-		if ($price_levels->is_comp == 1 || $price_levels->is_cancelled == 1) {
-			return 0;
-		}
-		$rate_values = $this->getRateValues($tour_id, $price_levels);
-
-		$ticket_count = $this->get_tourist_count($payer_id, $tour_id);
-
-		$price = $rate_values->{$price_levels->payment_type} + $rate_values->{$price_levels->room_size};
-		return $price * $ticket_count;
-	}
-
-	function get_tourist_count($payer_id, $tour_id) {
-		$this->db->where("tourist.payer_id", $payer_id);
-		$this->db->where("tourist.tour_id", $tour_id);
-		$this->db->from("tourist");
-		return $this->db->count_all_results();
-	}
-
-	function get_payers($tour_id, $options = []) {
-		$this->db->where("payer.tour_id", $tour_id);
-		$this->db->where("`tour`.`id` = `payer`.`tour_id`", NULL, FALSE);
-		$this->db->join("person", "person.id = payer.payer_id");
-		$this->db->from("payer,tour");
-		$this->db->select(
-			"tour.id, tour.tour_name,tour.full_price, tour.banquet_price, tour.early_price, tour.regular_price, tour.single_room, tour.triple_room, tour.quad_room");
-		$this->db->select(
-			"payer.*, person.first_name, person.last_name, person.email");
-		if (array_key_exists("include_address", $options) &&
-			$options["include_address"]) {
-			$this->db->join("address", "person.address_id = address.id");
-			$this->db->select(
-				"address, address.city, address.state, address.zip, address.informal_salutation, address.formal_salutation");
-		}
-		$this->db->join("letter", "letter.tour_id = payer.tour_id", "LEFT");
-		$this->db->join("merge", "merge.payer_id = payer.payer_id AND letter.id = merge.letter_id", "LEFT");
-		$this->db->select("merge.id as merge_id");
-		$this->db->order_by('payer.is_cancelled', 'ASC');
-		$this->db->order_by("person.last_name", "ASC");
-		$this->db->order_by("person.first_name", "ASC");
-		$result = $this->db->get()->result();
-		return $result;
-	}
-
-	function get_payer_object($payer) {
 		$this->load->model('person_model', 'person');
-		$this->load->model('payment_mode', 'payment');
-		$payer->person = $this->person->get($payer->payer_id);
-		$payer->tourists = $this->tourist->get_for_payer($payer->payer_id, $payer->tour_id);
-		$payer->payments = $this->payment->get_all($payer->tour_id, $payer->payer_id);
-		$payer->amount_paid = 0;
-		foreach ($payer->payments as $payment) {
-			$payer->amount_paid += $payment->amount;
+		$payer->person = $this->person->get($payer_id);
+		if(empty($payer->person)){
+			return null;
 		}
+		$payer->ticket_cost = $this->getTicketCost($payer_id, $tour_id)??0;
+		$payer->amount_paid = $this->getPayments($tour_id, $payer_id);
+		$payer->discount = floatval($payer->discount??0);
+		$payer->surcharge = floatval($payer->surcharge??0);
+		$payer->amount_due = floatval($payer->ticket_cost - $payer->amount_paid + $payer->surcharge - $payer->discount);
+		$this->load->model('payment_model','payment');
+		$payer->payments = $this->payment->get_all($payer->tour_id, $payer->payer_id);
+		$this->load->model('tourist_model','tourist');
+		$payer->tourists = $this->tourist->get_for_payer($payer->payer_id, $payer->tour_id);
 		$payer->price = match ($payer->payment_type) {
 			'full_price' => $payer->full_price,
 			'banquet_price' => $payer->banquet_price,
@@ -149,12 +88,67 @@ class Payer_model extends My_Model {
 				default => 0,
 			};
 		}
-		if ($payer->is_comp == 1 || $payer->is_cancelled) {
+		if ($payer->is_comp == 1 || $payer->is_cancelled == 1) {
 			$payer->price = 0;
 			$payer->room_rate = 0;
 		}
-		$payer->amount_due = get_payment_due($payer);
+		$this->load->model('letter_model', 'letter');
+		$letters = $this->letter->get_for_tour($payer->tour_id);
+		if(!empty($letters)) {
+
+			$this->load->model('merge_model', 'merge');
+			foreach($letters as $letter) {
+				$payer->merge[] = $this->merge->get_for_payer($payer->payer_id, $letter->id);
+			}
+		}
 		return $payer;
+	}
+
+	function getAmountDue(int $payer_id, int $tour_id): int {
+		// Get the sum of the payments:
+		$payments = $this->getPayments($tour_id, $payer_id);
+		$ticket_cost = $this->getTicketCost($payer_id, $tour_id);
+
+		return $ticket_cost - $payments;
+	}
+
+	function getTicketCost(int $payer_id, int $tour_id): float {
+		$price_levels = $this->getPriceLevels($tour_id, $payer_id);
+		if ($price_levels->is_comp == 1 || $price_levels->is_cancelled == 1) {
+			return 0;
+		}
+		$rate_values = $this->getRateValues($tour_id, $price_levels);
+
+		$ticket_count = $this->getTouristCount($payer_id, $tour_id);
+
+		$price = $rate_values->{$price_levels->payment_type} + $rate_values->{$price_levels->room_size};
+		return $price * $ticket_count;
+	}
+
+	function getTouristCount($payer_id, $tour_id) {
+		$this->db->where("tourist.payer_id", $payer_id);
+		$this->db->where("tourist.tour_id", $tour_id);
+		$this->db->from("tourist");
+		return $this->db->count_all_results();
+	}
+
+	function getPayers($tour_id, $options = []): array {
+		$this->db->where("payer.tour_id", $tour_id);
+		$this->db->select(
+			'payer_id');
+		$this->db->join('person','person.id = payer.payer_id');
+		$this->db->order_by('payer.is_cancelled', 'ASC');
+		$this->db->order_by('person.last_name', 'ASC');
+		$this->db->order_by('person.first_name', 'ASC');
+		$payers = $this->db->get("payer")->result();
+		$output = [];
+		foreach($payers as $payer){
+			$entity = $this->getForTour($payer->payer_id, $tour_id);
+			if(!empty($entity)){
+				$output[] = $entity;
+			}
+		}
+		return $output;
 	}
 
 	/**
@@ -179,11 +173,10 @@ class Payer_model extends My_Model {
 		$this->db->update("payer", $this);
 	}
 
-	function updateValue($payer_id, $tour_id, $field, $value){
+	function updateValue($payer_id, $tour_id, $field, $value): void {
 		$this->db->where("tour_id", $tour_id);
 		$this->db->where("payer_id", $payer_id);
 		$this->db->update("payer", [$field => $value]);
-
 	}
 	function insert($payer_id, $tour_id): void {
 		$insert_array = [
@@ -206,10 +199,11 @@ class Payer_model extends My_Model {
 	 * @return mixed
 	 */
 	public function getPayments(int $tour_id, int $payer_id): mixed {
-		return $this->db->from('payment')
+		$output =  $this->db->from('payment')
 			->where('tour_id', $tour_id)
 			->where('payer_id', $payer_id)
 			->select_sum('amount')->get()->row()->amount;
+		return floatval($output);
 	}
 
 	/**

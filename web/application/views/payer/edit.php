@@ -16,7 +16,7 @@ $tourist_count = count($payer->tourists);
 		class="field-box">
 
 		<legend>Ticket Summary</legend>
-		<p><label>Payer: </label><?php print person_link($payer, 'payer_id'); ?>
+		<p><label>Payer: </label><?php print person_link($payer->person); ?>
 		</p>
 		<?php if ($action == "update"): ?>
 			<p>
@@ -142,7 +142,7 @@ $tourist_count = count($payer->tourists);
 			<p>
 				<label for="amt_due">Amount Due:</label> $<span
 					class="field"
-					id="amt_due"><?php print get_payment_due($payer); ?></span>
+					id="amt_due"><?php print $payer->amount_due; ?></span>
 			</p>
 			<p>
 				<button class="update-cost-display button edit small">Re-calculate
@@ -167,7 +167,7 @@ $tourist_count = count($payer->tourists);
 					'class' => 'button save-payer-edits edit',
 					'href' => base_url('tourist/view_all/' . $payer->tour_id . '#payer-' . $payer->payer_id),
 				]; ?>
-				<?php if ($action == 'update' && $payer->amount_due === 0 && (empty($payer->amt_paid) || $payer->amt_paid == 0)): ?>
+				<?php if ($action == 'update' && $payer->amount_due === 0 && (empty($payer->amount_paid) || $payer->amount_paid == 0)): ?>
 					<?php $buttons[] = [
 						'text' => 'Delete Payer',
 						'title' => 'Completely delete this payer, payment, rooming, and tourist info for this payer',

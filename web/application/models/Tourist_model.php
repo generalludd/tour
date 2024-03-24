@@ -126,8 +126,11 @@ class Tourist_model extends MY_Model {
 		$this->db->order_by("tour.end_date", "DESC");
 		$result = $this->db->get()->result();
 		$output = [];
+		$this->load->model("payer_model", "payer");
 		foreach ($result as $item) {
-			$output[] = $item;
+			$payer = $this->payer->getForTour($item->payer_id, $item->tour_id);
+			$payer->tour_name = $item->tour_name;
+			$output[] = $payer;
 		}
 		return $output;
 	}

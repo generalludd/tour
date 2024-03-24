@@ -85,7 +85,7 @@ class Tour_model extends MY_Model {
 		$tour = $this->db->get()->row();
 		$this->load->model('payer_model', 'payer');
 
-		$tour->tourists = $this->payer->get_payers($id);
+		$tour->tourists = $this->payer->getPayers($id);
 		$this->load->model('hotel_model', 'hotel');
 		$tour->hotels = $this->hotel->get_all($id);
 		return $tour;
