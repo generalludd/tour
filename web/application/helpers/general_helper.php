@@ -191,7 +191,6 @@ function get_value($object, $item, $default = NULL): mixed {
  * @return string
  */
 function format_money( $int = NULL, string $format = "standard"): string {
-
 	$fmt =  NumberFormatter::create('en_US', \NumberFormatter::CURRENCY);
 	return $fmt->formatCurrency(floatval($int), 'USD');
 }
@@ -401,9 +400,9 @@ function grammatical_implode($glue, $list, $conjunction = "and"): array|string {
 	return $output;
 }
 
-function get_payment_due($payer): float|int {
+function get_payment_due($payer): int {
 		$tourist_count = count($payer->tourists);
-		return $payer->price * $tourist_count + ($payer->room_rate - $payer->amount_paid - $payer->discount + $payer->surcharge);
+		return intval($payer->price) * $tourist_count + (intval($payer->room_rate) - intval($payer->amount_paid)- intval($payer->discount) + intval($payer->surcharge));
 }
 
 /**
