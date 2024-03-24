@@ -38,7 +38,7 @@ class Payer extends MY_Controller {
 			"value",
 			"name",
 		]);
-		$payer = $this->payer->get_for_tour($payer_id, $tour_id);
+		$payer = $this->payer->getForTour($payer_id, $tour_id);
 		$payer->payments = $this->payment->get_all($tour_id, $payer->payer_id);
 		$data["payer"] = $payer;
 		$data["tourists"] = $this->tourist->get_for_payer($payer_id, $tour_id);
@@ -77,11 +77,8 @@ class Payer extends MY_Controller {
 		]);
 		$this->load->model('tour_model','tour');
 		$data['payment_types'] = $this->tour->get_payment_types($tour_id);
-		$payer = $this->payer->get_for_tour($payer_id, $tour_id);
-		$payer_object = $this->payer->get_payer_object($payer);
-		$payer_object->ticket_cost = $this->payer->get_ticket_cost($payer_id, $tour_id);
-
-		$data["payer"] = $payer_object;
+		$payer = $this->payer->getForTour($payer_id, $tour_id);
+		$data["payer"] = $payer;
 
 		$data["target"] = "payer/edit";
 		$data["title"] = "Editing Payer";

@@ -43,14 +43,7 @@ class Person extends MY_Controller {
 		$tourist->person_id = $id;
 		$data ['tourist'] = $tourist;
 		$tours= $this->tourist->get_by_tourist($id);
-		if(!empty($tours)) {
-			$this->load->model('payer_model', 'payer');
-			foreach ($tours as $tour) {
-				$tour->amt_due = $this->payer->get_amount_due($tour->payer_id, $tour->tour_id);
-			}
-		}
 		$data['tours'] = $tours;
-
 		$data['duplicates'] = $this->person->get_duplicates($id);
 		$data['target'] = 'person/view';
 		$data['scripts'] = [site_url('js/address.js')];

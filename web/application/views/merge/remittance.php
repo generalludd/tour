@@ -29,7 +29,7 @@ if (empty($letter) || empty($tour) || empty($payer)) {
 			<a title="Edit payment" class="no-print"
 				 href="/payer/edit?payer_id=<?php print $payer->payer_id; ?>&tour_id=<?php print $payer->tour_id; ?>">Edit
 				payment
-				for <?php print $payer->first_name . ' ' . $payer->last_name; ?> </a>
+				for <?php print $payer->person->first_name . ' ' . $payer->person->last_name; ?> </a>
 		</div>
 		<div class="payments ">
 			<div class="amt-paid">

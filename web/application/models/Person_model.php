@@ -41,7 +41,11 @@ class Person_model extends MY_Model {
 			$this->db->select($fields);
 		}
 
+
 		$person = $this->db->get()->row();
+		if(empty($person)){
+			return null;
+		}
 		$this->load->model('phone_model', 'phone');
 		$person->phones = $this->phone->get_for_person($id);
 		if (!empty($person->address_id)) {

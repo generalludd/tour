@@ -35,30 +35,14 @@ class Tourist extends MY_Controller {
 	function view() {}
 
 	function view_all($tour_id): void {
-		$export = FALSE;
-		if ($this->input->get('export')) {
-			$export = TRUE;
-		}
-
-		$options = [];
-		if ($export) {
-			$options ['include_address'] = TRUE;
-			$this->load->helper('download');
-		}
-		$this->load->model('payment_model', 'payments');
 		$this->load->model('tour_model', 'tour');
 		$this->load->model('payer_model', 'payer');
-		$this->load->model('phone_model', 'phone');
 		$tour = $this->tour->get($tour_id);
-		$payers = $this->payer->get_payers($tour_id, $options);
-		foreach ($payers as $payer) {
-			$this->payers[] = $this->payer->get_payer_object($payer);
-		}
 		$data ['tour'] = $tour;
-		$data ['payers'] = $payers;
 		$data ['title'] = 'Tourist List: ' . $tour->tour_name;
 		$data ['target'] = 'tourist/list';
-		if ($export) {
+		if ($this->input->get('export')) {
+			$this->load->helper('download');
 			$this->load->view('tourist/export', $data);
 		}
 		else {
