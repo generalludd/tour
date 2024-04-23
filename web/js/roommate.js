@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	// add a focusout listener to the #content of the page
-	document.getElementById('content').addEventListener('mouseout', function (event) {
+	document.getElementById('content').addEventListener('change', function (event) {
 
 		if (event.target.classList.contains('insert-placeholder')) {
 			insertPlaceholderRoommate(event);
