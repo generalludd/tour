@@ -12,8 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.8.1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to Digital Ocean
-        run: ssh chrisdart@db.ballparktours.net 'cd /var/www/db.ballparktours.net && git pull'
+      - name: Deploy to server
+        run: |
+          ssh -o StrictHostKeyChecking=no chrisdart@db.ballparktours.net 'cd /var/www/db.ballparktours.net && git pull origin main'
