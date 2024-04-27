@@ -13,12 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ssh_ed25519
-          chmod 600 ~/.ssh/ssh_ed25519
-          echo "StrictHostKeyChecking=no" >> ~/.ssh/config
-
       - name: Deploy to Digital Ocean
         run: ssh chrisdart@db.ballparktours.net 'cd /var/www/db.ballparktours.net && git pull'
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
