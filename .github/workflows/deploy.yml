@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to Digital Ocean
         run: ssh chrisdart@db.ballparktours.net 'cd /var/www/db.ballparktours.net && git pull'
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
