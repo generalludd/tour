@@ -16,8 +16,8 @@ jobs:
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ssh-ed25519
-          chmod 600 ~/.ssh/ssh-ed25519
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ssh_ed25519
+          chmod 600 ~/.ssh/ssh_ed25519
           echo "StrictHostKeyChecking=no" >> ~/.ssh/config
 
       - name: Deploy to Digital Ocean
