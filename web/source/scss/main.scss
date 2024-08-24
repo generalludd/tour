@@ -603,6 +603,12 @@ textarea.address-field {
 	min-width: 34em;
 }
 
+.hotel-info {
+	.hotel-name, .date-field {
+		font-size: 1.5rem;
+	}
+}
+
 label.above {
 	display: block;
 }
