@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 			if (event.target.classList.contains('update-cost-display')) {
 				event.preventDefault();
-				calculate_cost(1);
+				// reload the window
+				window.location.reload();
 			}
 
 			if (event.target.classList.contains('save-payer-edits')) {
@@ -306,8 +307,7 @@ function calculate_cost(include_amt) {
 	let tourist_count = document.getElementById('tourist_count').value;
 	let amt_paid = 0;
 	if (include_amt) {
-		amt_paid = document.getElementById('amt_paid').value;
-
+		amt_paid = document.getElementById('amount_paid').dataset.value;
 	}
 	if (amt_paid.length === 0) {
 		amt_paid = 0;
@@ -320,7 +320,7 @@ function calculate_cost(include_amt) {
 	if (surcharge.length === 0) {
 		surcharge = 0;
 	}
-	let room_rate = document.getElementById('room_rate_display').innerHTML;
+	let room_rate = document.getElementById('room_size').dataset.value;
 	if (room_rate.length === 0) {
 		room_rate = 0;
 	}
