@@ -86,6 +86,23 @@ class Tour_model extends MY_Model {
 		$this->load->model('payer_model', 'payer');
 
 		$tour->tourists = $this->payer->getPayers($id);
+		// Loop through the tourists to get totals for amt_paid, discount, surcharge, and amount_due
+		$tour->total_paid = 0;
+		$tour->total_discount = 0;
+		$tour->total_surcharge = 0;
+		$tour->total_due = 0;
+		$tour->total_payers = 0;
+		$tour->total_tourists = 0;
+		$tour->total_cancels = 0;
+		foreach ($tour->tourists as $payer) {
+			$tour->total_paid +=floatval($payer->amount_paid??0);
+			$tour->total_discount += floatval($payer->discount??0);
+			$tour->total_surcharge += floatval($payer->surcharge??0);
+			$tour->total_due += floatval($payer->amount_due??0);
+			$tour->total_payers+= $payer->is_cancelled == 0? 1:0;
+			$tour->total_tourists += $payer->is_cancelled != 1? count($payer->tourists):0;
+			$tour->total_cancels += $payer->is_cancelled == 1? count($payer->tourists):0;
+		}
 		$this->load->model('hotel_model', 'hotel');
 		$tour->hotels = $this->hotel->get_all($id);
 		return $tour;
