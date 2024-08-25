@@ -1,5 +1,5 @@
 body {
-	font-family: "Times New Roman", serif;
+	font-family: Georgia, serif;
 	width: 8.25in;
 	font-size: 14px;
 }
@@ -205,6 +205,9 @@ tr {
 
 		.field-envelope {
 			display: none;
+		}
+		table tbody tr td {
+			border: none;
 		}
 	}
 }

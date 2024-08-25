@@ -40,11 +40,12 @@ function burn_cookie($name): void {
 	]);
 }
 
-function format_date(string $date, string $format = 'standard' ): ?string {
+function format_date(string $date, string $format = 'standard', $custom =  NULL ): ?string {
 	if($format){
 		$format = match ($format) {
 			"mysql" => 'y-m-d',
 			'no_year' => 'm/d',
+			'custom' => $custom,
 			default => 'm/d/Y',
 		};
 	}
