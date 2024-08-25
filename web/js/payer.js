@@ -146,7 +146,7 @@ $(document).ready(function () {
 			type: 'post',
 			url: url,
 			data: form_data,
-			success: function (data) {
+			success: function () {
 				window.location.href = base_url + 'tourist/view_all/' + tour_id;
 			},
 		});
@@ -220,7 +220,7 @@ $(document).ready(function () {
 			type: 'post',
 			url: my_url,
 			data: form_data,
-			success: function (data) {
+			success: function () {
 				document.location.href = base_url + 'payer/edit/?payer_id=' + my_person + '&tour_id=' + my_tour;
 			},
 		});
@@ -270,13 +270,15 @@ $(document).ready(function () {
 			data: form_data,
 			url: base_url + 'tourist/insert_new',
 			success: function (data) {
-				$('.create-new-tourist').fadeOut();
+				const newTourist = $('.create-new-tourist');
+				// Fade out the new t
+				newTourist.fadeOut();
 				$('#add-new-tourist').children().remove();
 				$('#payer-tourist-list').html(data);
-				tourist_count = $('#payer-tourist-list tr').length;
+				const tourist_count = $('#payer-tourist-list tr').length;
 				$('#tourist_count').val(tourist_count);
 				calculate_cost(1);
-				$('.create-new-tourist').fadeIn();
+				newTourist.fadeIn();
 				$('#tourist-mini-selector').fadeIn();
 				$('#tourist-dropdown').val('');
 			},

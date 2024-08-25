@@ -115,10 +115,7 @@ $(document).ready(function(){
 });
 
 function set_payment_total(){
-	const total = $("#total-paid").val();
-	$("#amount_paid").innerHTML = total;
-	document.getElementById('amount_paid').dataset.value = total;
-	calculate_cost(1);
+	window.location.reload();
 }
 
 
@@ -130,7 +127,7 @@ function insert_amount(me){
 	let my_href = $(me).attr('href');
 	let my_target = '#' + my_type + 's';
 	let amt = $("#amount").val();
-	if(my_type == 'reimbursement'){
+	if(my_type === 'reimbursement'){
 		if(amt > 0){
 			amt = amt * -1;
 		}
@@ -148,8 +145,6 @@ function insert_amount(me){
 		data: form_data,
 		url: my_href,
 		success: function(data){
-			console.log(data);
-			$(my_target).html(data);
 			set_payment_total();
 		}
 	});
