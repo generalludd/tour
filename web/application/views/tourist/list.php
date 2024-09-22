@@ -4,11 +4,7 @@ if (empty($tour)) {
 }
 
 $this->load->helper("tour_helper");
-$total_due = 0;
-$total_paid = 0;
-$total_payers = 0;
-$total_cancels = 0;
-$total_tourists = 0;
+$index = 0;
 $shirt_count = [];
 $buttons[] = [
 	'text' => 'Edit Tour Details',
@@ -41,7 +37,7 @@ $buttons['print'] = [
 	<?php print create_button_bar($buttons); ?>
 </div>
 
-<div class="block">
+<div class="block sticky-table tourist-list">
 	<table class="list">
 		<thead>
 		<tr>
@@ -61,13 +57,12 @@ $buttons['print'] = [
 		<tbody>
 		<?php if (!empty($tour->tourists)): ?>
 			<?php foreach ($tour->tourists as $payer) : ?>
-				<?php $total_payers++; ?>
-				<tr
+			<?php $index++; ?>
+				<tr title="Row <?php print $index; ?>"
 					class="row row-break<?php print $payer->is_cancelled == 1 ? " cancelled" : ""; ?>">
-					<td id="payer-<?php print $payer->payer_id?>">
+					<td id="payer-<?php print $payer->payer_id?>" >
 						<?php foreach ($payer->tourists as $tourist) : ?>
 							<?php if ($payer->is_cancelled == 0) : ?>
-								<?php $total_tourists++; ?>
 								<?php update_shirt_count($shirt_count, $tourist->shirt_size); ?>
 							<?php endif; ?>
 
@@ -120,8 +115,6 @@ $buttons['print'] = [
 						<td>Complementary</td>
 					<?php elseif ($payer->is_cancelled == 1) : ?>
 						<td class='cancelled'>Cancelled</td>
-						<?php $total_cancels++; ?>
-
 					<?php else : ?>
 						<td><?php print sprintf("%s<br/>%s", format_field_name($payer->payment_type), format_money($payer->price)); ?>
 						</td>
@@ -133,16 +126,9 @@ $buttons['print'] = [
 
 					<td><?php print sprintf("%s<br/>%s", format_field_name($payer->room_size), format_money($payer->room_rate)); ?>
 					</td>
-					<td><?php echo $payer->is_cancelled == 1 ? 0 : format_money($payer->amount_due); ?>
+					<td><?php print format_money($payer->amount_due); ?>
 					</td>
 				</tr>
-
-				<?php
-				if ($payer->is_cancelled != 1) {
-					$total_due += $payer->amount_due;
-					$total_paid += $payer->amount_paid;
-				}
-				?>
 
 			<?php endforeach; ?>
 		<?php endif; ?>
@@ -150,28 +136,30 @@ $buttons['print'] = [
 		</tbody>
 		<tfoot>
 		<tr>
-			<td>
-				Tourists: <?php print $total_tourists; ?>
+			<td>Tourists: <?php print $tour->total_tourists; ?></td>
+			<td>				Payers: <?php print $tour->total_payers;?>
 			</td>
 			<td>
-				Payers: <?php print $total_payers - $total_cancels; ?>
+			Cancels: <?php print $tour->total_cancels; ?>
+			</td>
+			<td class="label">Total Paid:</td>
+			<td>
+				<?php print format_money($tour->total_paid);?>
 			</td>
 			<td>
-				Cancels: <?php print $total_cancels; ?>
-			</td>
-			<td style="text-align: right;">
-				Total Paid
-			</td>
-			<td colspan='3'>
-				<?php print format_money($total_paid); ?>
-			</td>
-			<td style="text-align: right;">
-				Total Due
+				<?php print format_money($tour->total_discount);?>
 			</td>
 			<td>
-				<?php print format_money($total_due); ?>
+				<?php print format_money($tour->total_surcharge);?>
+			</td>
+			<td class="total-due label">
+				<?php if($tour->total_due):?>Total Due<?php endif;?>
+			</td>
+			<td class="total-due">
+				<?php print format_money($tour->total_due);?>
 			</td>
 		</tr>
+
 		</tfoot>
 	</table>
 	<?php if ($shirt_count) : ?>

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-if (empty($payer) || empty($action)) {
+if (empty($payer) || empty($action) || empty($payment_types) || empty($room_sizes)) {
 	return;
 }
 // payer.php Chris Dart Dec 14, 2013 6:32:48 PM chrisdart@cerebratorium.com
@@ -91,6 +91,7 @@ $tourist_count = count($payer->tourists);
 						'data-tour-id' => $payer->tour_id,
 						'data-target' => 'room_rate_display',
 						'data-url' => base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id),
+						'data-value' => get_value($payer, 'room_rate'),
 
 					],
 					'options' => $room_sizes,
@@ -98,8 +99,7 @@ $tourist_count = count($payer->tourists);
 					'classes' => ['change_room_size', 'update-value'],
 					'label' => 'Room Size',
 					'wrapper' => 'p',
-					'suffix' => '$<span
-					id="room_rate_display">' . $payer->room_rate . '</span>',
+					'suffix' => '$<span id="room_rate_display">' .  $payer->room_rate . '</span>',
 				] ?>
 				<?php $this->load->view('elements/select-field', $room_size_select); ?>
 			</p>
@@ -109,13 +109,7 @@ $tourist_count = count($payer->tourists);
 					id="total_cost"><?php print $payer->ticket_cost; ?></span>
 			</p>
 			<p>
-				<label for="amt_paid">Amount Paid</label> $<input
-					type="number"
-					name="amt_paid"
-					id="amt_paid"
-					class="money"
-					value="<?php print $payer->amt_paid; ?>"
-					readonly/>
+				<label for="amt_paid">Amount Paid</label> <span id="amount_paid" data-value="<?php print $payer->amount_paid;?>"><?php print format_money($payer->amount_paid);?></span>
 			</p>
 			<p>
 				<label for="discount">Discount: - </label>

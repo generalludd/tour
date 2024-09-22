@@ -603,6 +603,12 @@ textarea.address-field {
 	min-width: 34em;
 }
 
+.hotel-info {
+	.hotel-name, .date-field {
+		font-size: 1.5rem;
+	}
+}
+
 label.above {
 	display: block;
 }
@@ -720,5 +726,29 @@ details {
 	&[open] summary {
 		background-image: url(/images/arrow-up.svg);
 		background-color: lightblue;
+	}
+}
+
+.sticky-table {
+	position: relative;
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	thead {
+		background-color: #f1f1f1;
+		position: sticky;
+		top: 0;
+		z-index: 1;
+	}
+
+	td.label {
+		text-align: right;
+	}
+
+	td.total-due {
+		color: red;
 	}
 }

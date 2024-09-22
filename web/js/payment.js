@@ -71,12 +71,12 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click",".delete-payment",function(){
-		ask = confirm("Are you sure you want to delete this payment? This cannot be undone!");
+		const ask = confirm("Are you sure you want to delete this payment? This cannot be undone!");
 		if(ask){
 				
-				my_id = this.id.split("_")[1];
+				const my_id = this.id.split("_")[1];
 
-				form_data = {
+				const form_data = {
 						id: my_id
 				};
 				$.ajax({
@@ -103,6 +103,7 @@ $(document).ready(function(){
 						url: base_url + "payment/delete/reimbursement",
 						data: form_data,
 						success: function(data){
+							console.log(data);
 							$("#payment-row_" + my_id).remove();
 							$("#reimbursements").html(data);
 							set_payment_total();
@@ -114,9 +115,7 @@ $(document).ready(function(){
 });
 
 function set_payment_total(){
-	total = $("#total-paid").val();
-	$("#amt_paid").val(total);
-	calculate_cost(1);
+	window.location.reload();
 }
 
 
@@ -128,7 +127,7 @@ function insert_amount(me){
 	let my_href = $(me).attr('href');
 	let my_target = '#' + my_type + 's';
 	let amt = $("#amount").val();
-	if(my_type == 'reimbursement'){
+	if(my_type === 'reimbursement'){
 		if(amt > 0){
 			amt = amt * -1;
 		}
@@ -146,7 +145,6 @@ function insert_amount(me){
 		data: form_data,
 		url: my_href,
 		success: function(data){
-			$(my_target).html(data);
 			set_payment_total();
 		}
 	});
