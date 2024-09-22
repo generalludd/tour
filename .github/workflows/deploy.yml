@@ -20,4 +20,9 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no chrisdart@db.ballparktours.net 'cd /var/www/db.ballparktours.net && git pull origin main'
+          ssh -o StrictHostKeyChecking=no chrisdart@db.ballparktours.net '
+            cd /var/www/db.ballparktours.net/web &&
+            git pull origin main &&
+            npm ci &&
+            npm run build
+          '
