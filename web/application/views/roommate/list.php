@@ -63,7 +63,7 @@ if ($stay < $last_stay) {
 				Date:&nbsp;</label>
 			<?php print format_date($hotel->arrival_date, 'custom', 'm/d/Y'); ?>
 			<?php if (!empty($hotel->arrival_time)): ?>
-				<?php print date('g:i a', strtotime($hotel->arrival_time)); ?> &nbsp;
+				<?php print date(', g:i a', strtotime($hotel->arrival_time)); ?> &nbsp;
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
@@ -74,7 +74,7 @@ if ($stay < $last_stay) {
 				Date:&nbsp;</label>
 			<?php print format_date($hotel->departure_date, 'custom','m/d/Y'); ?>
 			<?php if (!empty($hotel->departure_time)): ?>
-				<?php print date('g:i a', strtotime($hotel->departure_time)); ?>&nbsp;
+				<?php print date(', g:i a', strtotime($hotel->departure_time)); ?>&nbsp;
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
