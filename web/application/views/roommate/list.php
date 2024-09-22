@@ -61,10 +61,10 @@ if ($stay < $last_stay) {
 		<div class="date-field field-set">
 			<label>Arrival
 				Date:&nbsp;</label>
+			<?php print format_date($hotel->arrival_date, 'custom', 'l, F jS'); ?>
 			<?php if (!empty($hotel->arrival_time)): ?>
 				<?php print date('g:i a', strtotime($hotel->arrival_time)); ?> &nbsp;
 			<?php endif; ?>
-			<?php print format_date($hotel->arrival_date, 'custom', 'l, F jS'); ?>
 		</div>
 	<?php endif; ?>
 	<?php if (!empty($hotel->departure_date)): ?>
@@ -72,10 +72,10 @@ if ($stay < $last_stay) {
 		<div class="date-field field-set">
 			<label>Departure
 				Date:&nbsp;</label>
+			<?php print format_date($hotel->departure_date, 'custom','l, F jS'); ?>
 			<?php if (!empty($hotel->departure_time)): ?>
 				<?php print date('g:i a', strtotime($hotel->departure_time)); ?>&nbsp;
 			<?php endif; ?>
-			<?php print format_date($hotel->departure_date, 'custom','l, F jS'); ?>
 		</div>
 	<?php endif; ?>
 	<?php if (get_value($hotel, "contact", FALSE)): ?>
