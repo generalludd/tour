@@ -17,3 +17,4 @@
 /web/node_modules/
 /web/css/
 /web/vendor/
+/web/application/config/email.local.php
