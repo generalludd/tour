@@ -27,6 +27,8 @@ class Tour_model extends MY_Model {
 
 	public $quad_room;
 
+	public $id;
+
 	function prepare_variables(): void {
 		$variables = [
 			"tour_name",
