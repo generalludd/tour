@@ -40,6 +40,7 @@ class Tourist extends MY_Controller {
 		$tour = $this->tour->get($tour_id);
 		$data ['tour'] = $tour;
 		$data ['title'] = 'Tourist List: ' . $tour->tour_name;
+		$data ['styles'] = ['table'];
 
 		$data ['target'] = 'tourist/list';
 		if ($this->input->get('export')) {

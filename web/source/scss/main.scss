@@ -1,8 +1,6 @@
 body {
 	font-size: 18px;
 	font-family: tahoma, sans-serif;
-	margin: 10px;
-	padding: 0 15px 10px 10px;
 }
 
 article {
@@ -12,7 +10,7 @@ article {
 #page {
 	margin-left: auto;
 	margin-right: auto;
-	min-width: 480px;
+	min-width: 375px;
 }
 
 .highlight {
@@ -468,9 +466,15 @@ textarea.save-field {
 
 .diptych {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: auto auto;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
 	gap: 1rem;
+
+	// Tablet and up: two columns
+	@media (min-width: 768px) {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto auto;
+	}
 }
 
 li.diptych {
@@ -750,5 +754,61 @@ details {
 
 	td.total-due {
 		color: red;
+	}
+}
+
+// Mobile responsive adjustments for forms and fieldsets
+@media screen and (max-width: 768px) {
+	// Remove fixed widths on mobile
+	body.person fieldset.grouping,
+	div.grouping {
+		min-width: auto;
+		width: 100%;
+	}
+
+	div.phone-info {
+		width: 100%;
+	}
+
+	.search_fieldset {
+		width: 100%;
+	}
+
+	// Make fieldsets full width on mobile
+	fieldset {
+		max-width: 100%;
+	}
+
+	// Ensure buttons wrap appropriately
+	.button-bar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+
+		.button {
+			flex: 1 1 auto;
+			min-width: 120px;
+		}
+	}
+
+	// Stack input blocks vertically on mobile
+	.input-block.inline {
+		float: none;
+		display: block;
+		padding-right: 0;
+	}
+
+	// Make form inputs full width on mobile
+	input[type="text"],
+	input[type="email"],
+	input[type="tel"],
+	textarea {
+		max-width: 100%;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.field-set input[type="text"] {
+		width: 100%;
 	}
 }

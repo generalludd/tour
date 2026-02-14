@@ -84,21 +84,21 @@ $buttons [] = [
 	<?php foreach ($people as $person): ?>
 		<?php $disabled = $person->status == 0 ? 'highlight' : ''; ?>
 		<tr class="<?php print $disabled; ?>">
-			<td><a href="<?php print site_url('person/view/' . $person->id); ?>"
+			<td data-label="Name"><a href="<?php print site_url('person/view/' . $person->id); ?>"
 						 title="View <?php print $person->first_name; ?>'s details.">
 					<?php echo $person->first_name . ' ' . $person->last_name; ?></a>
 			</td>
-			<td><?php echo $person->email; ?></td>
-			<td><?php echo $person->shirt_size; ?></td>
-			<td><?php echo $person->is_veteran ? '✅' : '🚫'; ?></td>
-			<td><?php echo $person->status ? '✅' : '🚫'; ?></td>
+			<td data-label="Email"><?php echo $person->email; ?></td>
+			<td data-label="Shirt Size"><?php echo $person->shirt_size; ?></td>
+			<td data-label="Is Vet?"><?php echo $person->is_veteran ? '✅' : '🚫'; ?></td>
+			<td data-label="Is Active?"><?php echo $person->status ? '✅' : '🚫'; ?></td>
 
-			<td>
+			<td data-label="View">
 				<a href="<?php print site_url('person/view/' . $person->id); ?>"
 					 title="View <?php print $person->first_name; ?>'s details."
 					 class="button small">View</a>
 			</td>
-			<td>
+			<td data-label="Join Tour">
 				<?php
 
 				$button = [

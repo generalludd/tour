@@ -48,7 +48,8 @@ class Person extends MY_Controller {
 		$data['target'] = 'person/view';
 		$data['scripts'] = [site_url('js/address.js')];
 		$data['ajax'] = FALSE;
-		$target = 'page/index';
+    $data['styles'] = ['table'];
+    $target = 'page/index';
 		if ($this->input->get('ajax')) {
 			$data['ajax'] = TRUE;
 			$target = $data['target'];
@@ -96,6 +97,7 @@ class Person extends MY_Controller {
 		bake_cookie('person_filters', $filters);
 		$data['filters'] = $filters;
 		$data['title'] = 'Address Book';
+		$data['styles'] = ['table'];
 		$data['target'] = 'person/list';
 
 		$this->load->view('page/index', $data);

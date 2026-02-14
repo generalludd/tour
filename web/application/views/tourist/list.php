@@ -60,7 +60,7 @@ $buttons['print'] = [
 			<?php $index++; ?>
 				<tr title="Row <?php print $index; ?>"
 					class="row row-break<?php print $payer->is_cancelled == 1 ? " cancelled" : ""; ?>">
-					<td id="payer-<?php print $payer->payer_id?>" >
+					<td id="payer-<?php print $payer->payer_id?>" data-label="Payer & Tourists">
 						<?php foreach ($payer->tourists as $tourist) : ?>
 							<?php if ($payer->is_cancelled == 0) : ?>
 								<?php update_shirt_count($shirt_count, $tourist->shirt_size); ?>
@@ -97,7 +97,7 @@ $buttons['print'] = [
 					<?php endforeach; ?>
 
 						<?php endif; ?>
-					<td>
+					<td data-label="Actions">
 						<a
 							href="<?php print site_url("payer/edit?payer_id=$payer->payer_id&tour_id=$payer->tour_id"); ?>"
 							class="button edit">Edit
@@ -106,27 +106,27 @@ $buttons['print'] = [
 					<?php print get_value($payer, "note"); ?>
 				<?php endif; ?></p>
 					</td>
-					<td>
+					<td data-label="Contact Info">
 						<?php $this->load->view('person/contact_card', ['person' => $payer->person]); ?>
 					</td>
 					<?php
 					if ($payer->is_comp == 1) :
 						?>
-						<td>Complementary</td>
+						<td data-label="Payment Type & Price">Complementary</td>
 					<?php elseif ($payer->is_cancelled == 1) : ?>
-						<td class='cancelled'>Cancelled</td>
+						<td data-label="Payment Type & Price" class='cancelled'>Cancelled</td>
 					<?php else : ?>
-						<td><?php print sprintf("%s<br/>%s", format_field_name($payer->payment_type), format_money($payer->price)); ?>
+						<td data-label="Payment Type & Price"><?php print sprintf("%s<br/>%s", format_field_name($payer->payment_type), format_money($payer->price)); ?>
 						</td>
 					<?php endif; ?>
-					<td><?php print format_money($payer->amount_paid); ?>
+					<td data-label="Paid"><?php print format_money($payer->amount_paid); ?>
 					</td>
-					<td><?php print format_money($payer->discount); ?></td>
-					<td><?php print format_money($payer->surcharge); ?></td>
+					<td data-label="Discount"><?php print format_money($payer->discount); ?></td>
+					<td data-label="Surcharge"><?php print format_money($payer->surcharge); ?></td>
 
-					<td><?php print sprintf("%s<br/>%s", format_field_name($payer->room_size), format_money($payer->room_rate)); ?>
+					<td data-label="Room Size & Rate"><?php print sprintf("%s<br/>%s", format_field_name($payer->room_size), format_money($payer->room_rate)); ?>
 					</td>
-					<td><?php print format_money($payer->amount_due); ?>
+					<td data-label="Due"><?php print format_money($payer->amount_due); ?>
 					</td>
 				</tr>
 

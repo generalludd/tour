@@ -1,0 +1,142 @@
+// Mobile-responsive styles for data tables
+// Keeps tables semantic and accessible while making them mobile-friendly
+// Works with any table.list element on the page
+
+// Desktop styles (default)
+table.list {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+// Mobile styles - stacked table layout
+@media screen and (max-width: 768px) {
+	// Hide column headers on mobile (but keep in DOM for accessibility)
+	table.list thead {
+		position: absolute;
+		left: -9999px;
+		top: -9999px;
+	}
+
+	// Stack table rows as cards
+	table.list tbody tr {
+		display: block;
+		margin-bottom: 2rem;
+		border: 2px solid #333;
+		border-radius: 8px;
+		padding: 1rem;
+		background-color: #fff;
+	}
+
+	// Preserve row state styling on mobile
+	table.list tbody tr.cancelled {
+		border-color: #d88;
+		background-color: mistyrose;
+	}
+
+	table.list tbody tr.highlight {
+		background-color: lightyellow;
+	}
+
+	// Stack table cells vertically within each row
+	table.list tbody tr td {
+		display: block;
+		text-align: right;
+		padding: 0.75rem 0.5rem;
+		border: none;
+		border-bottom: 1px solid #ddd;
+		position: relative;
+
+		&:last-child {
+			border-bottom: none;
+		}
+
+		// Show label before content using data-label attribute
+		&[data-label]:before {
+			content: attr(data-label);
+			float: left;
+			font-weight: bold;
+			text-align: left;
+		}
+
+		// Special styling for cells with IDs (like payer cells in tourist list)
+		&[id^="payer-"] {
+			text-align: left;
+			font-size: 1.1em;
+			border-bottom: 2px solid #333;
+			padding-bottom: 1rem;
+			margin-bottom: 0.5rem;
+
+			&:before {
+				display: block;
+				margin-bottom: 0.5rem;
+				font-size: 0.9em;
+				color: #666;
+			}
+		}
+	}
+
+	// Footer styling for mobile
+	table.list tfoot {
+		display: block;
+		margin-top: 1rem;
+		background-color: #f5f5f5;
+		border: 2px solid #333;
+		border-radius: 8px;
+		padding: 1rem;
+	}
+
+	table.list tfoot tr {
+		display: block;
+		border: none;
+	}
+
+	table.list tfoot td {
+		display: block;
+		text-align: right;
+		padding: 0.5rem;
+		border: none;
+		border-bottom: 1px dotted #999;
+
+		&:last-child {
+			border-bottom: none;
+		}
+
+		&.label {
+			font-weight: bold;
+			text-align: left;
+			margin-top: 0.5rem;
+		}
+
+		&.total-due {
+			font-size: 1.2em;
+			color: red;
+			font-weight: bold;
+		}
+	}
+
+	// Buttons should be easier to tap on mobile
+	table.list a.button {
+		display: inline-block;
+		margin: 0.25rem 0;
+		padding: 0.5rem 1rem;
+		min-width: 120px;
+	}
+
+
+	// Adjust main container padding
+	#main {
+		padding: 0 0.5rem 1rem 0.5rem;
+	}
+
+	// Make button bars stack vertically on mobile
+	.block .button-bar {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		.button {
+			width: 100%;
+			text-align: center;
+		}
+	}
+}
