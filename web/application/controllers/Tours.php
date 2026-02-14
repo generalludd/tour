@@ -24,7 +24,9 @@ class Tours extends MY_Controller {
 		$data['tour'] = $tour;
 		$data['title'] = 'Letters for ' . $tour->tour_name;
 		$data['target'] = 'letter/list';
-		if($this->input->get('ajax')){
+    $data['styles'] = ['table'];
+
+    if($this->input->get('ajax')){
 			$data['ajax'] = '1';
 			$this->load->view('page/modal', $data);
 		}
@@ -38,7 +40,9 @@ class Tours extends MY_Controller {
 		$archived = $this->input->get('archived');
 		$data['archived'] = $archived?0:1;
 		$data["tours"] = $this->tour->get_all($archived);
-		$data["for_tourist"] = FALSE;
+    $data['styles'] = ['table'];
+
+    $data["for_tourist"] = FALSE;
 		if($archived){
 			$data['title'] = 'Previous Tours';
 		}
