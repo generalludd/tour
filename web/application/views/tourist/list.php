@@ -77,7 +77,7 @@ $buttons['print'] = [
 							<br/>
 						<?php endforeach; ?>
 						<br/>
-						<?php if ($payer->merge) : ?>
+						<?php if (!empty($payer->merge)) : ?>
 						<?php foreach($payer->merge as $merge):?>
 							<?php if(!empty($merge)):?>
 							<a

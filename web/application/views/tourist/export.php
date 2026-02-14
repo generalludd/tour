@@ -53,11 +53,22 @@ foreach ($tour->tourists as $payer) {
 		$line["amt_paid"] = $payer->amount_paid;
 		$line["amt_due"] = $payer->amount_due;
 	}
-	$line["address"] = $payer->address;
-	$line["city"] = $payer->city;
-	$line["state"] = $payer->state;
-	$line["zip"] = $payer->zip;
-	$line [] = $payer->email;
+  $address = $payer->person->address;
+  if(!empty($address)) {
+    $line["address"] = $address->address;
+    $line["city"] = $address->city;
+    $line["state"] = $address->state;
+    $line["zip"] = $address->zip;
+    $line ['email'] = $address->email;
+  }
+  else {
+    $line["address"] = "";
+    $line["city"] = "";
+    $line["state"] = "";
+    $line["zip"] = "";
+    $line ['email'] = "";
+  }
+
 	$output[] = sprintf("\"%s\"", implode("\",\"", $line));
 	$line = NULL;
 }
