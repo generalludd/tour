@@ -12,6 +12,8 @@ class Payer_model extends My_Model {
 
 	var $discount;
 
+	var $surcharge;
+
 	var $amt_paid;
 
 	var $is_comp = 0;

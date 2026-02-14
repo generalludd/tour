@@ -14,6 +14,10 @@ class Variable_Model extends CI_Model
 
     var $type;
 
+    var $rec_modified;
+
+    var $rec_modifier;
+
 
     function prepare_variables ()
     {

@@ -68,8 +68,7 @@ class CI_Benchmark {
 	 * @param	string	$name	Marker name
 	 * @return	void
 	 */
-	public function mark($name)
-	{
+	public function mark($name): void {
 		$this->marker[$name] = microtime(TRUE);
 	}
 
@@ -93,8 +92,7 @@ class CI_Benchmark {
 	 *			an '{elapsed_string}' if $point1 is empty
 	 *			or an empty string if $point1 is not found.
 	 */
-	public function elapsed_time($point1 = '', $point2 = '', $decimals = 4)
-	{
+	public function elapsed_time($point1 = '', $point2 = '', $decimals = 4): string {
 		if ($point1 === '')
 		{
 			return '{elapsed_time}';
@@ -126,8 +124,7 @@ class CI_Benchmark {
 	 *
 	 * @return	string	'{memory_usage}'
 	 */
-	public function memory_usage()
-	{
+	public function memory_usage(): string {
 		return '{memory_usage}';
 	}
 

@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Merge_model extends CI_Model
 {
     var $payer_id;
+    var $tour_id;
     var $letter_id;
     var $sent_date;
     var $note;

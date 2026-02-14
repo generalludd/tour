@@ -59,6 +59,13 @@ class CI_Router {
 	public $config;
 
 	/**
+	 * CI_URI class object
+	 *
+	 * @var	object
+	 */
+	public $uri;
+
+	/**
 	 * List of routes
 	 *
 	 * @var	array
@@ -111,6 +118,7 @@ class CI_Router {
 	 * @var	bool
 	 */
 	public $enable_query_strings = FALSE;
+
 
 	// --------------------------------------------------------------------
 
