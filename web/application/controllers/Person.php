@@ -63,7 +63,6 @@ class Person extends MY_Controller {
 	function view_all(): void {
 		burn_cookie('person_filter');
 		$filters = [];
-		$initial = FALSE;
 		if ($this->input->get('initial')) {
 			$initial = $this->input->get('initial');
 			$filters['initial'] = $initial;
@@ -92,8 +91,12 @@ class Person extends MY_Controller {
 		// get the list of letters for each of the first initials of last names
 		// in the people table
 		$data['initials'] = $this->person->get_initials();
-		$data['people'] = $this->person->get_all($filters);
-		$data['address_count'] = count($this->address->get_for_labels($filters));
+		$people = $this->person->get_all($filters);
+    $data['people'] = $people;
+    $data['address_count'] = 0;
+    if(!empty($people)){
+      $data['address_count'] = count($this->address->get_for_labels($filters));
+    }
 		bake_cookie('person_filters', $filters);
 		$data['filters'] = $filters;
 		$data['title'] = 'Address Book';

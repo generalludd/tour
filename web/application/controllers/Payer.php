@@ -139,7 +139,7 @@ class Payer extends MY_Controller {
 		$tourist = $this->person->get($person_id, "first_name,last_name");
 		$data["tourist_name"] = sprintf("%s %s", $tourist->first_name, $tourist->last_name);
 		$data["tourist_id"] = $person_id;
-		$data["payers"] = $this->payer->get_payers($tour_id);
+		$data["payers"] = $this->payer->getPayers($tour_id);
 		$data['target'] = 'payer/select_list';
 		$data['title'] = 'Select a Payer';
 		if ($this->input->get('ajax')) {
