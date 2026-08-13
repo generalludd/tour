@@ -50,6 +50,24 @@ class Payer_model extends My_Model {
 		return $result;
 	}
 
+	/**
+	 * Get the raw payer rows for a person across every tour they paid for.
+	 *
+	 * Unlike getForTour()/getPayers() this does no joining or price
+	 * calculation; it is for bulk operations that need the rows themselves.
+	 *
+	 * @param int $payer_id
+	 *
+	 * @return array
+	 */
+	function get_for_person(int $payer_id): array {
+		return $this->db->from('payer')
+			->where('payer_id', $payer_id)
+			->order_by('tour_id')
+			->get()
+			->result();
+	}
+
 	function getForTour($payer_id, $tour_id): ?object {
 		$this->db->from('payer');
 		$this->db->where('payer.payer_id', $payer_id);

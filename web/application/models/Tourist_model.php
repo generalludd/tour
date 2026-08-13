@@ -116,6 +116,19 @@ class Tourist_model extends MY_Model {
 		return $result;
 	}
 
+	/**
+	 * Get the tours a person is attached to, as payer objects.
+	 *
+	 * NOTE: despite living on Tourist_model this does NOT return `tourist`
+	 * rows. Each element is a Payer_model::getForTour() object, so it has
+	 * payer_id and tour_id but no person_id. It also inner-joins `payer`, so a
+	 * traveller with no matching payer row will not appear. Use
+	 * Tourist_model::get() when you need the raw registration rows.
+	 *
+	 * @param int $person_id
+	 *
+	 * @return array of payer objects
+	 */
 	function get_by_tourist($person_id): array {
 		$this->db->where("person_id", $person_id);
 		$this->db->where("payer.tour_id = tour.id", NULL, FALSE);

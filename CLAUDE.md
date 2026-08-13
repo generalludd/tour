@@ -130,7 +130,6 @@ Because payer/tourist use composite keys, "delete a person" is usually a soft di
 
 - The tour detail page is `tourist/view_all/{tour_id}`. `Tours::view()` is marked `@deprecated` and just redirects there.
 - `APP_VERSION` lives in `config/constants.php` — bump on release.
-- `composer.json` requires PHP >= 8.3 while `.ddev/config.yaml` pins `php_version: "8.2"`; be aware of the mismatch when using 8.3-only syntax.
 - Views are `views/<entity>/<action>.php`; small reusable fragments live in `views/elements/` and `views/dialogs/`.
 - Tabs for indentation in PHP; user feedback goes through `$this->session->set_flashdata('notice'|'alert'|'warning', …)`, rendered by `views/page/messages.php`.
 - Commit messages typically reference the GitHub issue: `Issue #170 fix bug to allow bus driver to be searched.`
@@ -138,3 +137,4 @@ Because payer/tourist use composite keys, "delete a person" is usually a soft di
 - Javascript should only use data attributes for modal and other tasks. The old use of added url query parameters is no longer correct.
 - Any javascript that uses parsed urls or query parameters should be switched to use data attributes. If the view does not contain the needed data attributes thy should be added. 
 - Whenever possible all javascript should be reusable as much as possible. 
+- As much as possible make the site PHP 8.3 compatible. This includes changing the code-igniter core files. 
