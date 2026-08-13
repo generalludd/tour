@@ -14,7 +14,7 @@
 		"vendor-dir": "web/vendor"
 	},
 	"require": {
-		"php": ">=8.2",
+		"php": ">=8.3",
 		"ext-intl": "*"
 	},
 	"suggest": {
