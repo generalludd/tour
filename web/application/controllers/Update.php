@@ -83,8 +83,13 @@ class Update extends My_Controller {
 				'id' => 15,
 				'query' => "ALTER TABLE `payer` CHANGE `discount` `discount` INT NULL DEFAULT 0;",
 				'description' => "Change discount field to INT NULL DEFAULT NULL",
-			]
-		];
+			],
+			[
+			'id' => 16,
+					'query' => "ALTER TABLE `tour` ADD `cancellation_fee` INT NULL DEFAULT 0 AFTER `quad_room`;",
+					'description' => "Add cancellation_fee field to tour table",
+				],
+			];
 		$this->update->run_updates($updates);
 		redirect('person');
 	}

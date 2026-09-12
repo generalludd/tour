@@ -49,7 +49,7 @@ $buttons['print'] = [
 			<th>Paid</th>
 			<th>Discount</th>
 			<th>Surcharge</th>
-			<th class="no-wrap">Room Size<br/>Rate
+			<th class="no-wrap">Room Size<br/>(Rate)
 			</th>
 			<th>Due</th>
 		</tr>
@@ -124,7 +124,7 @@ $buttons['print'] = [
 					<td data-label="Discount"><?php print format_money($payer->discount); ?></td>
 					<td data-label="Surcharge"><?php print format_money($payer->surcharge); ?></td>
 
-					<td data-label="Room Size & Rate"><?php print sprintf("%s<br/>%s", format_field_name($payer->room_size), format_money($payer->room_rate)); ?>
+					<td data-label="Room Size & Rate"><?php print sprintf("%s<br/>(%s)", format_field_name($payer->room_size), format_money($payer->room_rate)); ?>
 					</td>
 					<td data-label="Due"><?php print format_money($payer->amount_due); ?>
 					</td>

@@ -132,6 +132,9 @@ $tourist_count = count($payer->tourists);
 					id="surcharge"
 					data-url="<?php print base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id) ?>"
 					value='<?php print get_value($payer, 'surcharge'); ?>'/>
+				<br/>
+				<small>Note: Surcharge is used to cover additional costs such as
+					late fees, cancellation fees, or other special requests. The tour cancellation fee for this trip is <?php print format_money($tour->cancellation_fee); ?>.</small>
 			</p>
 			<p>
 				<label for="amt_due">Amount Due:</label> $<span

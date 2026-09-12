@@ -100,11 +100,24 @@ if (empty($action) || empty($tour)) {
 					],
 					'early_price' => [
 						'id' => 'early_price',
-						'label' => 'Early Bird Price $',
+						'label' => 'Early Bird Price',
 						'wrapper_classes' => ['vertical'],
 						'prefix' => '$',
 						'attributes' => [
 							'value' => get_value($tour, 'early_price'),
+							'type' => 'number',
+							'class' => 'currency',
+							'size' => 7,
+						],
+
+					],
+					'cancellation_fee' => [
+						'id' => 'cancellation_fee',
+						'label' => 'Cancellation Fee',
+						'wrapper_classes' => ['vertical'],
+						'prefix' => '$',
+						'attributes' => [
+							'value' => get_value($tour, 'cancellation_fee'),
 							'type' => 'number',
 							'class' => 'currency',
 							'size' => 7,

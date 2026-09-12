@@ -28,6 +28,7 @@ class Tour_model extends MY_Model {
 	public $quad_room;
 
 	public $id;
+	public $cancellation_fee;
 
 	function prepare_variables(): void {
 		$variables = [
@@ -57,6 +58,7 @@ class Tour_model extends MY_Model {
 			"single_room",
 			"triple_room",
 			"quad_room",
+			"cancellation_fee",
 		];
 
 		for ($i = 0; $i < count($variables); $i++) {
