@@ -19,3 +19,4 @@
 /web/vendor/
 /web/application/config/email.local.php
 /db-backups/
+.vscode/*

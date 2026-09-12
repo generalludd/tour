@@ -19,7 +19,6 @@ class Merge extends MY_Controller {
 		$letter_id = $this->input->get("letter_id");
 		$letter = $this->letter->get($letter_id);
 		$tour = $this->tour->get($letter->tour_id);
-
 		$payer = $this->payer->getForTour($payer_id, $letter->tour_id);
 		$payer->tourists = $this->tourist->get_for_payer($payer_id, $letter->tour_id);
 		$payer->price = get_tour_price($payer);
