@@ -112,7 +112,7 @@ class Payer extends MY_Controller {
 		$payer_id = $this->input->post('payer_id');
 		$tour_id = $this->input->post('tour_id');
 		$this->payer->update($payer_id, $tour_id);
-		$this->deleteRoommates($payer_id, $tour_id);
+		$this->deleteRoommates($payer_id, $tour_id, $this->input->post('is_cancelled') == 1);
 		redirect('/tourist/view_all/' .$tour_id);
 	}
 
@@ -120,7 +120,7 @@ class Payer extends MY_Controller {
 		$value = $this->input->post("value");
 		$field = $this->input->post("field");
 		if($field === 'is_cancelled'){
-			$this->deleteRoommates($payer_id, $tour_id);
+			$this->deleteRoommates($payer_id, $tour_id, $value == 1);
 		}
 		$this->payer->updateValue($payer_id, $tour_id, $field, $value);
 	}
@@ -186,18 +186,27 @@ class Payer extends MY_Controller {
 	}
 
 	/**
+	 * Remove every roommate entry for a payer's ticket across all hotel stays.
+	 *
+	 * The caller passes the cancellation state explicitly: this is reached both
+	 * from the full form post (named fields) and from update_value() (which
+	 * posts only field/value), so reading is_cancelled from the post here would
+	 * silently do nothing on the inline path.
+	 *
 	 * @param $payer_id
 	 * @param $tour_id
+	 * @param bool $is_cancelled
 	 *
 	 * @return void
 	 */
-	public function deleteRoommates($payer_id, $tour_id): void {
-		if ($this->input->post('is_cancelled') == 1) {
-			$this->load->model('roommate_model', 'roommate');
-			//get everyone on the payer's ticket and delete them from the roommate list for the tour.
-			$this->roommate->delete_payer($payer_id, $tour_id);
-			$this->session->set_flashdata('alert', 'This reservation has been cancelled. All roommate entries have been deleted from all hotel stays');
+	public function deleteRoommates($payer_id, $tour_id, bool $is_cancelled): void {
+		if (!$is_cancelled) {
+			return;
 		}
+		$this->load->model('roommate_model', 'roommate');
+		//get everyone on the payer's ticket and delete them from the roommate list for the tour.
+		$this->roommate->delete_payer($payer_id, $tour_id);
+		$this->session->set_flashdata('alert', 'This reservation has been cancelled. All roommate entries have been deleted from all hotel stays');
 	}
 
 }

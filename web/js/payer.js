@@ -80,33 +80,67 @@ document.addEventListener('DOMContentLoaded', function () {
 			fetchTourValue(tour_id, field, targetElement);
 		}
 		if (event.target.name === 'is_cancelled') {
-			if (typeof event.target === 'object') {
-				if (event.target.checked === true) {
-					const question = confirm('This will delete all the roommate information for this ticket. This CANNOT be undone! Continue?');
-					if (!question) {
-						return;
+			const checkbox = event.target;
+			const url = checkbox.dataset.url;
+			const fee = parseInt(checkbox.dataset.cancellationFee, 10) || 0;
+			const feeDisplay = checkbox.dataset.cancellationFeeDisplay;
+			const surcharge = document.getElementById(checkbox.dataset.surchargeTarget);
+			const isCancelling = checkbox.checked;
+
+			if (isCancelling && !confirm('This will delete all the roommate information for this ticket. This CANNOT be undone! Continue?')) {
+				// Nothing was saved, so put the checkbox back the way it was.
+				checkbox.checked = false;
+				return;
+			}
+
+			// Decide about the surcharge before saving anything, so the editor
+			// answers every question up front and sees a single reload.
+			let newSurcharge = null;
+			const currentSurcharge = parseInt(surcharge.value, 10) || 0;
+			if (fee > 0) {
+				if (isCancelling && currentSurcharge !== fee) {
+					if (confirm('Apply the ' + feeDisplay + ' tour cancellation fee to the Surcharge field?')) {
+						newSurcharge = fee;
 					}
 				}
-				const url = event.target.dataset.url + '?ajax=1';
-
-				const form_data = new FormData();
-				form_data.append('field', event.target.name);
-				form_data.append('value', event.target.checked ? 1 : 0);
-				// Send the form data to the server
-				fetch(url, {
-					method: 'POST',
-					body: form_data,
-				})
-					.then(response => response.text())
-					.then(data => {
-						console.log(data);
-					});
-
+				else if (!isCancelling && currentSurcharge === fee) {
+					if (confirm('Remove the ' + feeDisplay + ' cancellation fee from the Surcharge field?')) {
+						newSurcharge = 0;
+					}
+				}
 			}
+
+			// Sequenced, not parallel: both writes hit the same payer row, and
+			// the is_cancelled save also clears the roommate entries.
+			postValue(url, 'is_cancelled', isCancelling ? 1 : 0)
+				.then(() => {
+					if (newSurcharge === null) {
+						return null;
+					}
+					surcharge.value = newSurcharge;
+					return postValue(url, 'surcharge', newSurcharge);
+				})
+				// Reload so the server recalculates the totals (cancelling zeroes
+				// the ticket price) and any flash message gets rendered.
+				.then(() => window.location.reload());
 		}
 	});
 
 });
+
+/**
+ * POST a single field/value pair to an update_value endpoint.
+ * Mirrors the shape used by the generic .update-value handler in general.js.
+ */
+function postValue(url, field, value) {
+	const form_data = new FormData();
+	form_data.append('field', field);
+	form_data.append('value', value);
+	return fetch(url + '?ajax=1', {
+		method: 'POST',
+		body: form_data,
+	}).then(response => response.text());
+}
 
 function fetchTourValue(tour_id, field, targetElement) {
 	const form_data = {

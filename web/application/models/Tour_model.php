@@ -43,6 +43,7 @@ class Tour_model extends MY_Model {
 			"single_room",
 			"triple_room",
 			"quad_room",
+			"cancellation_fee",
 		];
 
 		$dates = [

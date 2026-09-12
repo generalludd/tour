@@ -62,7 +62,11 @@ $tourist_count = count($payer->tourists);
 				<label for="is_cancelled">Cancelled: </label>
 				<?php $is_canceled = get_value($payer, 'is_cancelled') == 1; ?>
 				<?php print form_checkbox('is_cancelled', '1', $is_canceled, [
+					'id' => 'is_cancelled',
 					'data-url' => base_url('payer/update_value/' . $payer->payer_id . '/' . $payer->tour_id),
+					'data-cancellation-fee' => (int) get_value($tour, 'cancellation_fee'),
+					'data-cancellation-fee-display' => format_money(get_value($tour, 'cancellation_fee')),
+					'data-surcharge-target' => 'surcharge',
 				]); ?>
 			</p>
 			<?php $payment_select = [
@@ -134,7 +138,7 @@ $tourist_count = count($payer->tourists);
 					value='<?php print get_value($payer, 'surcharge'); ?>'/>
 				<br/>
 				<small>Note: Surcharge is used to cover additional costs such as
-					late fees, cancellation fees, or other special requests. The tour cancellation fee for this trip is <?php print format_money($tour->cancellation_fee); ?>.</small>
+					late fees, cancellation fees, or other special requests. The tour cancellation fee for this trip is <?php print format_money(get_value($tour, 'cancellation_fee')); ?>.</small>
 			</p>
 			<p>
 				<label for="amt_due">Amount Due:</label> $<span
